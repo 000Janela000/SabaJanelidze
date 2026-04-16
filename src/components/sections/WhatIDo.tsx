@@ -24,27 +24,23 @@ export function WhatIDo() {
     const ctx = gsap.context(() => {
       cards.forEach((card) => {
         const border = card.querySelector('[data-anim="border"]')
-        const icon = card.querySelector('[data-anim="icon"]')
-        const title = card.querySelector('[data-anim="title"]')
-        const number = card.querySelector('[data-anim="number"]')
-        const desc = card.querySelector('[data-anim="desc"]')
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play pause resume pause',
-          },
-        })
-
-        if (border) tl.from(border, { scaleY: 0, transformOrigin: 'top', duration: 0.6, ease: 'power3.inOut' }, 0)
-        if (icon) tl.from(icon, { x: -20, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.1)
-        if (title) tl.from(title, { x: 20, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.15)
-        if (number) {
-          gsap.set(number, { opacity: 0 })
-          tl.from(number, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.2)
+        // Only animate the border draw with delay (subtle, professional)
+        // Content is already visible — no jarring pop-in
+        if (border) {
+          gsap.from(border, {
+            scaleY: 0,
+            transformOrigin: 'top',
+            delay: 0.12,
+            duration: 0.6,
+            ease: 'power3.inOut',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              toggleActions: 'play pause resume pause',
+            },
+          })
         }
-        if (desc) tl.from(desc, { y: 15, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.25)
       })
     }, section)
 

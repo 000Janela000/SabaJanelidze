@@ -24,36 +24,7 @@ export function SelectedWork() {
     const ctx = gsap.context(() => {
       items.forEach((item) => {
         const image = item.querySelector('[data-reveal="image"]')
-        const info = item.querySelector('[data-reveal="info"]')
-        const number = item.querySelector('[data-reveal="number"]')
-        const techPills = item.querySelectorAll('[data-reveal="tech"] span')
-
-        // Number: horizontal parallax on scroll
-        if (number) {
-          gsap.set(number, { opacity: 0 })
-          gsap.from(number, {
-            opacity: 0,
-            x: -30,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-          })
-          // Continuous parallax drift
-          gsap.to(number, {
-            x: 40,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1,
-            },
-          })
-        }
+        const divider = item.querySelector('[data-reveal="divider"]')
 
         // Image: cinematic clip-path wipe (set initial state immediately to avoid flash)
         if (image) {
@@ -70,42 +41,7 @@ export function SelectedWork() {
           })
         }
 
-        // Info: slide up (only plays once on first scroll into view)
-        if (info) {
-          gsap.from(info, {
-            opacity: 0,
-            y: 40,
-            immediateRender: false,
-            duration: 0.8,
-            delay: 0.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 75%',
-              toggleActions: 'play pause resume pause',
-            },
-          })
-        }
-
-        // Tech pills: staggered pop-in
-        if (techPills.length > 0) {
-          gsap.from(techPills, {
-            scale: 0,
-            opacity: 0,
-            immediateRender: false,
-            duration: 0.4,
-            stagger: 0.08,
-            ease: 'back.out(3)',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 65%',
-              toggleActions: 'play none none none',
-            },
-          })
-        }
-
         // Divider line draw-across
-        const divider = item.querySelector('[data-reveal="divider"]')
         if (divider) {
           gsap.from(divider, {
             scaleX: 0,

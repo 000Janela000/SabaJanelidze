@@ -1,5 +1,4 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from '@/lib/gsap'
+import { useRef } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/i18n'
 import { useBlurReveal } from '@/hooks/useBlurReveal'
@@ -8,41 +7,12 @@ import { ArrowRight } from 'lucide-react'
 
 export function Contact() {
   const { t } = useLanguage()
-  const sectionRef = useRef<HTMLElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
 
   useBlurReveal(headingRef)
 
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const ctx = gsap.context(() => {
-      // Form fade-up animation (only plays once on scroll into view)
-      const formEl = formRef.current
-      if (formEl) {
-        gsap.from(formEl, {
-          opacity: 0,
-          y: 40,
-          immediateRender: false,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: formEl,
-            start: 'top 85%',
-            toggleActions: 'play pause resume pause',
-          },
-        })
-      }
-    }, section)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
     <section
-      ref={sectionRef}
       id="contact"
       className="py-24"
     >
@@ -59,7 +29,7 @@ export function Contact() {
         </p>
 
         {/* Form */}
-        <div ref={formRef} className="mt-16">
+        <div className="mt-16">
           <ContactForm />
         </div>
 

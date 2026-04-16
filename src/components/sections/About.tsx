@@ -16,35 +16,10 @@ export function About() {
 
   useEffect(() => {
     const section = sectionRef.current
-    const photo = photoRef.current
     const bio = bioRef.current
-    if (!section || !photo || !bio) return
+    if (!section || !bio) return
 
     const ctx = gsap.context(() => {
-      gsap.to(photo, {
-        yPercent: -15,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      })
-
-      gsap.from(photo, {
-        opacity: 0,
-        scale: 0.9,
-        immediateRender: false,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: photo,
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        },
-      })
-
       // Scroll-scrubbed text reveal — words glow from dim to bright
       const bioSplit = SplitText.create(bio, { type: 'words' })
       // SplitText adds aria-label to preserve text, but aria-label is prohibited on <p>

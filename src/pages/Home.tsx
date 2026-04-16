@@ -38,6 +38,8 @@ export default function Home({ onPreloaderDone }: HomeProps) {
     const el = contentRef.current
     if (!el) return
     gsap.from(el, { opacity: 0, y: 40, duration: 0.7, ease: 'power3.out', delay: 0.1 })
+    // Ensure final state is fully opaque (fixes blur showing through from hero)
+    gsap.to(el, { opacity: 1, duration: 0.01, delay: 0.8 })
   }, [])
 
   return (
