@@ -82,7 +82,7 @@ export function TechMarquee() {
         {ITEMS.map((tech, i) => (
           <span
             key={`${tech}-${i}`}
-            className="whitespace-nowrap text-xl font-medium text-text-muted/60 transition-colors hover:text-text sm:text-2xl"
+            className="whitespace-nowrap text-xl font-medium text-text-muted transition-colors hover:text-text sm:text-2xl"
           >
             {tech}
           </span>

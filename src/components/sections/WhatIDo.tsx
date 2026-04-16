@@ -40,7 +40,10 @@ export function WhatIDo() {
         if (border) tl.from(border, { scaleY: 0, transformOrigin: 'top', duration: 0.6, ease: 'power3.inOut' }, 0)
         if (icon) tl.from(icon, { x: -20, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.1)
         if (title) tl.from(title, { x: 20, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.15)
-        if (number) tl.from(number, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.2)
+        if (number) {
+          gsap.set(number, { opacity: 0 })
+          tl.from(number, { opacity: 0, duration: 0.6, ease: 'power2.out' }, 0.2)
+        }
         if (desc) tl.from(desc, { y: 15, opacity: 0, duration: 0.5, ease: 'power3.out' }, 0.25)
       })
     }, section)
@@ -87,7 +90,7 @@ export function WhatIDo() {
                           <h3 data-anim="title" className="text-2xl font-semibold text-text sm:text-3xl">
                             {t(service.title)}
                           </h3>
-                          <span data-anim="number" className="hidden text-5xl font-bold leading-none text-text-dim/[0.08] sm:block">
+                          <span data-anim="number" aria-hidden="true" className="hidden text-5xl font-bold leading-none text-text-dim/[0.08] sm:block">
                             {String(index + 1).padStart(2, '0')}
                           </span>
                         </div>

@@ -80,7 +80,7 @@ export function Preloader({ onComplete }: PreloaderProps) {
     >
       <span
         ref={counterRef}
-        className="font-mono text-7xl font-light tabular-nums text-text-dim sm:text-8xl"
+        className="font-mono text-7xl font-normal tabular-nums text-text-dim sm:text-8xl"
       >
         0
       </span>

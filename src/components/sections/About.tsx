@@ -47,7 +47,9 @@ export function About() {
 
       // Scroll-scrubbed text reveal — words glow from dim to bright
       const bioSplit = SplitText.create(bio, { type: 'words' })
-      gsap.set(bioSplit.words, { opacity: 0.1, color: 'var(--color-text-dim)', filter: 'blur(2px)' })
+      // SplitText adds aria-label to preserve text, but aria-label is prohibited on <p>
+      bio.removeAttribute('aria-label')
+      gsap.set(bioSplit.words, { opacity: 1, color: 'var(--color-text-muted)' })
       gsap.to(bioSplit.words, {
         opacity: 1,
         color: 'var(--color-text)',
@@ -88,7 +90,8 @@ export function About() {
                 <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent/30 via-accent/10 to-transparent opacity-0 blur-sm transition-opacity duration-500 group-hover/photo:opacity-100" />
                 <div className="relative h-52 w-52 overflow-hidden rounded-2xl border-2 border-accent/25 transition-all duration-500 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(79,125,245,0.15)] md:h-64 md:w-64">
                   <img
-                    src="/portrait.png"
+                    src="/portrait.webp"
+                    loading="lazy"
                     alt="Saba Janelidze"
                     className="h-full w-full object-cover object-top"
                   />

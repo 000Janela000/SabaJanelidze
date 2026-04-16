@@ -91,7 +91,7 @@ export const projects = [
     },
     tech: ['React', 'Node.js', 'Admin Panel'],
     url: 'https://playtime.ge',
-    image: '/projects/playtime.png',
+    image: '/projects/playtime.webp',
     color: '#e54d2e',
   },
   {
@@ -108,7 +108,7 @@ export const projects = [
     },
     tech: ['React', 'Vite', 'API Integration'],
     url: 'https://dev-news-blond.vercel.app',
-    image: '/projects/devnews.png',
+    image: '/projects/devnews.webp',
     color: '#3b82f6',
   },
   {
@@ -125,7 +125,7 @@ export const projects = [
     },
     tech: ['React', 'Vite', 'Tailwind CSS'],
     url: 'https://unihub-edu.vercel.app',
-    image: '/projects/unihub.png',
+    image: '/projects/unihub.webp',
     color: '#10b981',
   },
 ] as const

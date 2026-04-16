@@ -29,6 +29,8 @@ export function Hero({ onReady }: HeroProps) {
 
     const nameSplit = SplitText.create(name, { type: 'chars', mask: 'chars' })
     const taglineSplit = SplitText.create(tagline, { type: 'words', mask: 'words' })
+    // SplitText adds aria-label to preserve text, but aria-label is prohibited on <p>
+    tagline.removeAttribute('aria-label')
 
     gsap.set(nameSplit.chars, { yPercent: 100 })
     gsap.set(title, { opacity: 0, y: 20 })

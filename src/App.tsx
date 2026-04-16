@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { LanguageProvider } from '@/context/LanguageContext'
@@ -7,7 +7,7 @@ import { NoiseOverlay } from '@/components/NoiseOverlay'
 import { CustomCursor } from '@/components/CustomCursor'
 import { Nav } from '@/components/Nav'
 import Home from '@/pages/Home'
-import ProjectDetail from '@/pages/ProjectDetail'
+const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'))
 
 function AnimatedRoutes({ onPreloaderDone }: { onPreloaderDone: () => void }) {
   const location = useLocation()
@@ -16,7 +16,7 @@ function AnimatedRoutes({ onPreloaderDone }: { onPreloaderDone: () => void }) {
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home onPreloaderDone={onPreloaderDone} />} />
-        <Route path="/work/:slug" element={<ProjectDetail />} />
+        <Route path="/work/:slug" element={<Suspense fallback={null}><ProjectDetail /></Suspense>} />
       </Routes>
     </AnimatePresence>
   )

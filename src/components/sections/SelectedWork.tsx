@@ -28,10 +28,10 @@ export function SelectedWork() {
 
         // Number: horizontal parallax on scroll
         if (number) {
+          gsap.set(number, { opacity: 0 })
           gsap.from(number, {
             opacity: 0,
             x: -30,
-            immediateRender: false,
             duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
@@ -167,7 +167,8 @@ export function SelectedWork() {
                             <img
                               src={project.image}
                               alt={project.title}
-                              className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                              loading="lazy"
+                            className="aspect-[16/10] w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                             />
                           </div>
                         </TiltCard>
@@ -183,6 +184,7 @@ export function SelectedWork() {
                     {/* Project number */}
                     <span
                       data-reveal="number"
+                      aria-hidden="true"
                       className="text-7xl font-bold leading-none text-text-dim/[0.12] md:text-8xl"
                     >
                       {String(index + 1).padStart(2, '0')}
@@ -208,7 +210,7 @@ export function SelectedWork() {
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-full border border-border bg-bg-elevated px-3 py-1 text-[11px] font-medium tracking-wide text-text-dim"
+                          className="rounded-full border border-border bg-bg-elevated px-3 py-1 text-[11px] font-medium tracking-wide text-text-muted"
                         >
                           {tech}
                         </span>

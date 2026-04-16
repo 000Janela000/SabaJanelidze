@@ -29,7 +29,7 @@ function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l
       onClick={toggle}
       className="group relative flex h-9 w-9 items-center justify-center rounded-full border border-accent/30 bg-accent/5 transition-all duration-300 hover:border-accent/60 hover:bg-accent/10 hover:shadow-[0_0_15px_rgba(79,125,245,0.15)]"
       data-cursor="pointer"
-      aria-label={`Switch to ${locale === 'ka' ? 'English' : 'Georgian'}`}
+      aria-label={locale === 'ka' ? 'KA — Switch to English' : 'EN — Switch to Georgian'}
     >
       <div
         ref={rippleRef}
