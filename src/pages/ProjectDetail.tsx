@@ -82,8 +82,9 @@ export default function ProjectDetail() {
 
           {/* Title */}
           <h1
+            key={slug}
             ref={titleRef}
-            className="mt-3 text-4xl font-bold text-text sm:text-5xl md:text-6xl lg:text-7xl"
+            className="mt-3 pb-2 text-4xl font-bold text-text leading-[1.15] sm:text-5xl md:text-6xl lg:text-7xl"
           >
             {project.title}
           </h1>

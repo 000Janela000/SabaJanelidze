@@ -184,7 +184,13 @@ export function ContactForm() {
           name="projectType"
           value={formData.projectType}
           onChange={handleChange}
-          className="w-full rounded-lg border border-border bg-bg-elevated px-4 py-3 text-text transition-colors focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20"
+          style={{
+            backgroundImage:
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'><path d='M1 1.5L6 6.5L11 1.5' stroke='%23a1a1aa' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/></svg>\")",
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'right 1rem center',
+          }}
+          className="w-full appearance-none rounded-lg border border-border bg-bg-elevated py-3 pl-4 pr-10 text-text transition-colors focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20"
         >
           <option value="">— Select one —</option>
           <option value="mobile">{t(translations.contact.form.mobileApp)}</option>
