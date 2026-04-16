@@ -33,7 +33,7 @@ export function WhatIDo() {
           scrollTrigger: {
             trigger: card,
             start: 'top 85%',
-            toggleActions: 'play none none none',
+            toggleActions: 'play pause resume pause',
           },
         })
 

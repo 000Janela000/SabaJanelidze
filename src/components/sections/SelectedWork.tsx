@@ -70,7 +70,7 @@ export function SelectedWork() {
           })
         }
 
-        // Info: slide up
+        // Info: slide up (only plays once on first scroll into view)
         if (info) {
           gsap.from(info, {
             opacity: 0,
@@ -82,7 +82,7 @@ export function SelectedWork() {
             scrollTrigger: {
               trigger: item,
               start: 'top 75%',
-              toggleActions: 'play none none none',
+              toggleActions: 'play pause resume pause',
             },
           })
         }

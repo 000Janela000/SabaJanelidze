@@ -24,7 +24,7 @@ export function Footer() {
         scrollTrigger: {
           trigger: footer,
           start: 'top 95%',
-          toggleActions: 'play none none none',
+          toggleActions: 'play pause resume pause',
         },
       })
     }, footer)
