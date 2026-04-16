@@ -1,13 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { useParams, Navigate, Link } from 'react-router-dom'
-import { motion, type Transition } from 'framer-motion'
 import { gsap, SplitText } from '@/lib/gsap'
 import { projects, translations } from '@/lib/i18n'
 import { useLanguage } from '@/context/LanguageContext'
 import { useLenisScroll } from '@/context/LenisContext'
 import { ArrowUpRight, ArrowRight } from 'lucide-react'
-
-const transition: Transition = { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
@@ -16,6 +13,7 @@ export default function ProjectDetail() {
   const project = projects.find((p: typeof projects[number]) => p.slug === slug)
   const titleRef = useRef<HTMLHeadingElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const pageRef = useRef<HTMLDivElement>(null)
 
   const projectIndex = projects.findIndex((p: typeof projects[number]) => p.slug === slug)
   const nextProject = projects[(projectIndex + 1) % projects.length]
@@ -27,9 +25,18 @@ export default function ProjectDetail() {
 
     const title = titleRef.current
     const content = contentRef.current
-    if (!title || !content) return
+    const page = pageRef.current
+    if (!title || !content || !page) return
 
     const ctx = gsap.context(() => {
+      // Page entrance
+      gsap.from(page, {
+        opacity: 0,
+        y: 20,
+        duration: 0.6,
+        ease: 'power3.out',
+      })
+
       // Title character reveal
       const titleSplit = SplitText.create(title, { type: 'chars', mask: 'chars' })
       gsap.from(titleSplit.chars, {
@@ -56,12 +63,7 @@ export default function ProjectDetail() {
   if (!project) return <Navigate to="/" replace />
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={transition}
-    >
+    <div ref={pageRef}>
       {/* Hero area */}
       <section className="pt-28 pb-16">
         <div className="section-container">
@@ -165,6 +167,6 @@ export default function ProjectDetail() {
           </Link>
         </div>
       </section>
-    </motion.div>
+    </div>
   )
 }

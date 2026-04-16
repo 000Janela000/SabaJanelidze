@@ -37,33 +37,33 @@ export function Preloader({ onComplete }: PreloaderProps) {
     const counterObj = { val: 0 }
     tl.to(counterObj, {
       val: 100,
-      duration: 1.8,
+      duration: 1.2,
       ease: 'power2.inOut',
       onUpdate: () => {
         counter.textContent = Math.round(counterObj.val).toString()
       },
     })
-    tl.to(bar, { width: '100%', duration: 1.8, ease: 'power2.inOut' }, '<')
+    tl.to(bar, { width: '100%', duration: 1.2, ease: 'power2.inOut' }, '<')
 
     tl.to(
       name,
       {
-        duration: 1.2,
+        duration: 0.8,
         scrambleText: {
           text: 'Saba Janelidze',
           chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-          speed: 0.6,
-          revealDelay: 0.3,
+          speed: 0.8,
+          revealDelay: 0.2,
         },
       },
-      '-=0.8'
+      '-=0.5'
     )
 
-    tl.to({}, { duration: 0.3 })
+    tl.to({}, { duration: 0.15 })
 
     tl.to(container, {
       yPercent: -100,
-      duration: 0.8,
+      duration: 0.6,
       ease: 'power3.inOut',
     })
 
