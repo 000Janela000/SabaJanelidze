@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState, useCallback } from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
-import { useLanguage } from '@/context/LanguageContext'
-import { useLenisScroll } from '@/context/LenisContext'
+import { useLanguage } from '@/hooks/useLanguage'
+import { useLenisScroll } from '@/hooks/useLenisScroll'
 import { translations, type Locale } from '@/lib/i18n'
 
 function LanguageSwitcher({ locale, setLocale }: { locale: Locale; setLocale: (l: Locale) => void }) {

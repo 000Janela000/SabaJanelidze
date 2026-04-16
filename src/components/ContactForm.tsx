@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useLanguage } from '@/context/LanguageContext'
+import { useLanguage } from '@/hooks/useLanguage'
 import { translations } from '@/lib/i18n'
 import { Github, Mail, Linkedin } from 'lucide-react'
 

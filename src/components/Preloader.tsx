@@ -13,7 +13,10 @@ export function Preloader({ onComplete }: PreloaderProps) {
   const nameRef = useRef<HTMLSpanElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
   const onCompleteRef = useRef(onComplete)
-  onCompleteRef.current = onComplete
+
+  useEffect(() => {
+    onCompleteRef.current = onComplete
+  }, [onComplete])
 
   useEffect(() => {
     const container = containerRef.current

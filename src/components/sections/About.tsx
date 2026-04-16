@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap, SplitText } from '@/lib/gsap'
-import { useLanguage } from '@/context/LanguageContext'
+import { useLanguage } from '@/hooks/useLanguage'
 import { translations } from '@/lib/i18n'
 import { TechMarquee } from '@/components/TechMarquee'
 import { useBlurReveal } from '@/hooks/useBlurReveal'

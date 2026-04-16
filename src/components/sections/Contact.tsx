@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { useLanguage } from "@/hooks/useLanguage";
 import { translations } from "@/lib/i18n";
 import { useBlurReveal } from "@/hooks/useBlurReveal";
 import { ContactForm } from "@/components/ContactForm";

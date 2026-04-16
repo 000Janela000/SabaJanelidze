@@ -2,8 +2,8 @@ import { useEffect, useRef } from 'react'
 import { useParams, Navigate, Link } from 'react-router-dom'
 import { gsap, SplitText } from '@/lib/gsap'
 import { projects, translations } from '@/lib/i18n'
-import { useLanguage } from '@/context/LanguageContext'
-import { useLenisScroll } from '@/context/LenisContext'
+import { useLanguage } from '@/hooks/useLanguage'
+import { useLenisScroll } from '@/hooks/useLenisScroll'
 import { ArrowUpRight, ArrowRight } from 'lucide-react'
 
 export default function ProjectDetail() {
@@ -19,17 +19,16 @@ export default function ProjectDetail() {
   const nextProject = projects[(projectIndex + 1) % projects.length]
 
   useEffect(() => {
-    if (lenis) {
-      lenis.scrollTo(0, { immediate: true })
-    }
+    lenis?.scrollTo(0, { immediate: true })
+  }, [slug, lenis])
 
+  useEffect(() => {
     const title = titleRef.current
     const content = contentRef.current
     const page = pageRef.current
     if (!title || !content || !page) return
 
     const ctx = gsap.context(() => {
-      // Page entrance
       gsap.from(page, {
         opacity: 0,
         y: 20,
@@ -37,7 +36,6 @@ export default function ProjectDetail() {
         ease: 'power3.out',
       })
 
-      // Title character reveal
       const titleSplit = SplitText.create(title, { type: 'chars', mask: 'chars' })
       gsap.from(titleSplit.chars, {
         yPercent: 100,
@@ -47,7 +45,6 @@ export default function ProjectDetail() {
         delay: 0.3,
       })
 
-      // Content fade in
       gsap.from(content, {
         opacity: 0,
         y: 40,

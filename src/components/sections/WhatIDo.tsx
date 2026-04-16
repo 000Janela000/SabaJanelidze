@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
-import { useLanguage } from '@/context/LanguageContext'
+import { useLanguage } from '@/hooks/useLanguage'
 import { translations } from '@/lib/i18n'
 import { TiltCard } from '@/components/TiltCard'
 import { useBlurReveal } from '@/hooks/useBlurReveal'

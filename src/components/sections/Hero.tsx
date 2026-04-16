@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap, SplitText, ScrollTrigger } from '@/lib/gsap'
-import { useLanguage } from '@/context/LanguageContext'
+import { useLanguage } from '@/hooks/useLanguage'
 import { translations } from '@/lib/i18n'
 import { ShaderBackground } from '@/components/ShaderBackground'
 
@@ -15,9 +15,11 @@ export function Hero({ onReady }: HeroProps) {
   const taglineRef = useRef<HTMLParagraphElement>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
   const onReadyRef = useRef(onReady)
-  onReadyRef.current = onReady
-
   const contentRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    onReadyRef.current = onReady
+  }, [onReady])
 
   useEffect(() => {
     const name = nameRef.current

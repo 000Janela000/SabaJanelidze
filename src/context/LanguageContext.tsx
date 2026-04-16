@@ -1,13 +1,6 @@
-import { createContext, useContext, useState, useEffect, useMemo, useCallback, type ReactNode } from 'react'
+import { useState, useEffect, useMemo, useCallback, type ReactNode } from 'react'
 import { type Locale } from '@/lib/i18n'
-
-interface LanguageContextType {
-  locale: Locale
-  setLocale: (locale: Locale) => void
-  t: <T extends Record<Locale, string>>(obj: T) => string
-}
-
-const LanguageContext = createContext<LanguageContextType | null>(null)
+import { LanguageContext } from '@/lib/language-context'
 
 async function detectLocaleByIP(signal: AbortSignal): Promise<Locale> {
   try {
@@ -27,7 +20,6 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     return 'en'
   })
 
-  // Detect locale by IP asynchronously — don't block render
   useEffect(() => {
     const saved = localStorage.getItem('locale')
     if (saved) return
@@ -55,16 +47,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo(() => ({ locale, setLocale, t }), [locale, setLocale, t])
 
-  // Render immediately with default 'en' — update asynchronously if IP says 'ka'
   return (
     <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   )
-}
-
-export function useLanguage() {
-  const ctx = useContext(LanguageContext)
-  if (!ctx) throw new Error('useLanguage must be used within LanguageProvider')
-  return ctx
 }
