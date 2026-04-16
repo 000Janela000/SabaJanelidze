@@ -5,6 +5,8 @@ import { useLanguage } from '@/context/LanguageContext'
 import { translations, projects } from '@/lib/i18n'
 import { TiltCard } from '@/components/TiltCard'
 import { useBlurReveal } from '@/hooks/useBlurReveal'
+import { lighthouseScores } from '@/lib/lighthouse'
+import { LighthouseScore } from '@/components/LighthouseScore'
 import { ArrowUpRight } from 'lucide-react'
 
 export function SelectedWork() {
@@ -143,6 +145,8 @@ export function SelectedWork() {
         <div className="flex flex-col gap-16 md:gap-32">
           {projects.map((project, index) => {
             const isEven = index % 2 === 0
+            const projectSlug = project.slug as keyof typeof lighthouseScores.projects
+            const scores = lighthouseScores.projects[projectSlug]
             return (
               <div
                 key={project.slug}
@@ -216,6 +220,15 @@ export function SelectedWork() {
                         </span>
                       ))}
                     </div>
+
+                    {/* Lighthouse scores */}
+                    {scores && (
+                      <div className="mt-6 flex items-end gap-4">
+                        <LighthouseScore score={scores.performance} label="Perf" size="sm" />
+                        <LighthouseScore score={scores.accessibility} label="A11y" size="sm" />
+                        <LighthouseScore score={scores.seo} label="SEO" size="sm" />
+                      </div>
+                    )}
 
                     {/* View link */}
                     <Link
