@@ -54,7 +54,7 @@ export const translations = {
     },
   },
   contact: {
-    heading: { ka: 'აგებთ პროდუქტს ან პლატფორმას?', en: 'Building a product or platform?' },
+    heading: { ka: 'ვიმუშაოთ ერთად', en: 'Work with me' },
     subheadline: { ka: 'მხხელი დაწერეთ რაზე ხსნილი ხართ.', en: 'Tell me about it.' },
     form: {
       name: { ka: 'თქვენი სახელი', en: 'Your name' },
@@ -82,6 +82,9 @@ export const translations = {
     secondary: {
       title: { ka: 'მარტივი ბიზნეს ვებსაიტი?', en: 'Looking for a simple business website?' },
       text: { ka: 'შეამოწმეთ SiteCraft — სწრაფი, თანამედროვე ვებსაიტები ქართული ბიზნესისთვის', en: 'Check out SiteCraft — fast, modern websites for Georgian businesses' },
+    },
+    social: {
+      label: { ka: 'ან დაუკავშირდი', en: 'Or connect directly' },
     },
   },
   footer: {

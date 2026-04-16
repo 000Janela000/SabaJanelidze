@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useLanguage } from '@/context/LanguageContext'
 import { translations } from '@/lib/i18n'
-import { Github, Mail } from 'lucide-react'
+import { Github, Mail, Linkedin } from 'lucide-react'
 
 interface FormData {
   name: string
@@ -126,12 +126,12 @@ export function ContactForm() {
               GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/saba-janelidze"
+              href="https://www.linkedin.com/in/sabajanelidze"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-accent hover:gap-3 transition-all"
             >
-              <Mail size={18} />
+              <Linkedin size={18} />
               LinkedIn
             </a>
           </div>

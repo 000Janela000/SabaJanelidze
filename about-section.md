@@ -1,0 +1,352 @@
+- generic [ref=e2]:
+  - generic:
+    - img
+  - navigation [ref=e511]:
+    - generic [ref=e512]:
+      - link "SJ" [ref=e513]:
+        - /url: /
+        - generic [ref=e515]: SJ
+      - generic [ref=e516]:
+        - link "ნამუშევრები" [ref=e517]:
+          - /url: "#work"
+        - link "სერვისები" [ref=e518]:
+          - /url: "#services"
+        - link "ჩემს შესახებ" [ref=e519]:
+          - /url: "#about"
+        - link "კონტაქტი" [ref=e520]:
+          - /url: "#contact"
+        - button "KA — Switch to English" [ref=e521]:
+          - generic [ref=e522]: KA
+  - generic [ref=e8]:
+    - generic [ref=e11]:
+      - heading "საბა ჯანელიძე" [level=1] [ref=e12]:
+        - generic [ref=e14]: ს
+        - generic [ref=e16]: ა
+        - generic [ref=e18]: ბ
+        - generic [ref=e20]: ა
+        - generic [ref=e22]: ჯ
+        - generic [ref=e24]: ა
+        - generic [ref=e26]: ნ
+        - generic [ref=e28]: ე
+        - generic [ref=e30]: ლ
+        - generic [ref=e32]: ი
+        - generic [ref=e34]: ძ
+        - generic [ref=e36]: ე
+      - paragraph [ref=e37]: ვებ დეველოპერი
+      - paragraph [ref=e38]:
+        - generic [ref=e40]: ვქმნი
+        - generic [ref=e42]: ვებსაიტებს,
+        - generic [ref=e44]: რომლებიც
+        - generic [ref=e46]: შედეგს
+        - generic [ref=e48]: მოაქვს
+    - generic [ref=e50]: გადაახვიეთ
+  - generic [ref=e52]:
+    - generic [ref=e54]:
+      - heading "არჩეული ნამუშევრები" [level=2] [ref=e55]:
+        - generic [ref=e57]: ა
+        - generic [ref=e59]: რ
+        - generic [ref=e61]: ჩ
+        - generic [ref=e63]: ე
+        - generic [ref=e65]: უ
+        - generic [ref=e67]: ლ
+        - generic [ref=e69]: ი
+        - generic [ref=e71]: ნ
+        - generic [ref=e73]: ა
+        - generic [ref=e75]: მ
+        - generic [ref=e77]: უ
+        - generic [ref=e79]: შ
+        - generic [ref=e81]: ე
+        - generic [ref=e83]: ვ
+        - generic [ref=e85]: რ
+        - generic [ref=e87]: ე
+        - generic [ref=e89]: ბ
+        - generic [ref=e91]: ი
+      - generic [ref=e92]:
+        - generic [ref=e94]:
+          - link "Playtime.ge" [ref=e96]:
+            - /url: /work/playtime
+            - img "Playtime.ge" [ref=e101]
+          - generic [ref=e102]:
+            - generic [ref=e103]: "01"
+            - generic [ref=e104]: გასართობი პლატფორმა
+            - heading "Playtime.ge" [level=3] [ref=e105]
+            - paragraph [ref=e106]: სრული პლატფორმა ადმინ პანელით კონტენტის მართვისთვის
+            - generic [ref=e107]:
+              - generic [ref=e108]: React
+              - generic [ref=e109]: Node.js
+              - generic [ref=e110]: Admin Panel
+            - generic [ref=e111]:
+              - generic [ref=e112]:
+                - generic [ref=e113]:
+                  - img [ref=e114]
+                  - generic [ref=e118]: "98"
+                - generic [ref=e119]: Perf
+              - generic [ref=e120]:
+                - generic [ref=e121]:
+                  - img [ref=e122]
+                  - generic [ref=e126]: "100"
+                - generic [ref=e127]: A11y
+              - generic [ref=e128]:
+                - generic [ref=e129]:
+                  - img [ref=e130]
+                  - generic [ref=e134]: "100"
+                - generic [ref=e135]: SEO
+            - link "ნახვა" [ref=e136]:
+              - /url: /work/playtime
+              - text: ნახვა
+              - img [ref=e137]
+        - generic [ref=e142]:
+          - link "DevNews" [ref=e144]:
+            - /url: /work/devnews
+            - img "DevNews" [ref=e149]
+          - generic [ref=e150]:
+            - generic [ref=e151]: "02"
+            - generic [ref=e152]: ტექნოლოგიური მედია
+            - heading "DevNews" [level=3] [ref=e153]
+            - paragraph [ref=e154]: ტექნოლოგიური სიახლეების პლატფორმა დეველოპერებისთვის
+            - generic [ref=e155]:
+              - generic [ref=e156]: React
+              - generic [ref=e157]: Vite
+              - generic [ref=e158]: API Integration
+            - generic [ref=e159]:
+              - generic [ref=e160]:
+                - generic [ref=e161]:
+                  - img [ref=e162]
+                  - generic [ref=e166]: "95"
+                - generic [ref=e167]: Perf
+              - generic [ref=e168]:
+                - generic [ref=e169]:
+                  - img [ref=e170]
+                  - generic [ref=e174]: "100"
+                - generic [ref=e175]: A11y
+              - generic [ref=e176]:
+                - generic [ref=e177]:
+                  - img [ref=e178]
+                  - generic [ref=e182]: "100"
+                - generic [ref=e183]: SEO
+            - link "ნახვა" [ref=e184]:
+              - /url: /work/devnews
+              - text: ნახვა
+              - img [ref=e185]
+        - generic [ref=e190]:
+          - link "UniHub" [ref=e192]:
+            - /url: /work/unihub
+            - img "UniHub" [ref=e197]
+          - generic [ref=e198]:
+            - generic [ref=e199]: "03"
+            - generic [ref=e200]: საგანმანათლებლო პლატფორმა
+            - heading "UniHub" [level=3] [ref=e201]
+            - paragraph [ref=e202]: უნივერსიტეტის სტუდენტებისთვის შექმნილი საგანმანათლებლო პლატფორმა
+            - generic [ref=e203]:
+              - generic [ref=e204]: React
+              - generic [ref=e205]: Vite
+              - generic [ref=e206]: Tailwind CSS
+            - generic [ref=e207]:
+              - generic [ref=e208]:
+                - generic [ref=e209]:
+                  - img [ref=e210]
+                  - generic [ref=e214]: "0"
+                - generic [ref=e215]: Perf
+              - generic [ref=e216]:
+                - generic [ref=e217]:
+                  - img [ref=e218]
+                  - generic [ref=e222]: "0"
+                - generic [ref=e223]: A11y
+              - generic [ref=e224]:
+                - generic [ref=e225]:
+                  - img [ref=e226]
+                  - generic [ref=e230]: "0"
+                - generic [ref=e231]: SEO
+            - link "ნახვა" [ref=e232]:
+              - /url: /work/unihub
+              - text: ნახვა
+              - img [ref=e233]
+    - generic [ref=e237]:
+      - heading "რას ვაკეთებ" [level=2] [ref=e238]:
+        - generic [ref=e240]: რ
+        - generic [ref=e242]: ა
+        - generic [ref=e244]: ს
+        - generic [ref=e246]: ვ
+        - generic [ref=e248]: ა
+        - generic [ref=e250]: კ
+        - generic [ref=e252]: ე
+        - generic [ref=e254]: თ
+        - generic [ref=e256]: ე
+        - generic [ref=e258]: ბ
+      - generic [ref=e259]:
+        - generic [ref=e264]:
+          - img [ref=e266]
+          - generic [ref=e269]:
+            - generic [ref=e270]:
+              - heading "ვებ დეველოპმენტი" [level=3] [ref=e271]
+              - generic [ref=e272]: "01"
+            - paragraph [ref=e273]: თანამედროვე, სწრაფი და რესპონსიული ვებსაიტების შექმნა React-ისა და Next.js-ის გამოყენებით
+        - generic [ref=e278]:
+          - img [ref=e280]
+          - generic [ref=e286]:
+            - generic [ref=e287]:
+              - heading "UI/UX დიზაინი" [level=3] [ref=e288]
+              - generic [ref=e289]: "02"
+            - paragraph [ref=e290]: მომხმარებლის გამოცდილებაზე ორიენტირებული დიზაინი, რომელიც ლამაზიცაა და ფუნქციონალურიც
+        - generic [ref=e295]:
+          - img [ref=e297]
+          - generic [ref=e301]:
+            - generic [ref=e302]:
+              - heading "Full-Stack გადაწყვეტილებები" [level=3] [ref=e303]
+              - generic [ref=e304]: "03"
+            - paragraph [ref=e305]: ფრონტენდიდან ბექენდამდე — სრული ვებ აპლიკაციები ადმინ პანელით და ბაზით
+    - generic [ref=e307]:
+      - heading "ჩემს შესახებ" [level=2] [ref=e308]:
+        - generic [ref=e310]: ჩ
+        - generic [ref=e312]: ე
+        - generic [ref=e314]: მ
+        - generic [ref=e316]: ს
+        - generic [ref=e318]: შ
+        - generic [ref=e320]: ე
+        - generic [ref=e322]: ს
+        - generic [ref=e324]: ა
+        - generic [ref=e326]: ხ
+        - generic [ref=e328]: ე
+        - generic [ref=e330]: ბ
+      - generic [ref=e332]:
+        - img "Saba Janelidze" [ref=e337]
+        - generic [ref=e338]:
+          - paragraph [ref=e339]: ვებ დეველოპერი
+          - paragraph [ref=e340]: საბა ჯანელიძე
+          - paragraph [ref=e342]:
+            - generic [ref=e343]: ვარ
+            - generic [ref=e344]: ვებ
+            - generic [ref=e345]: დეველოპერი
+            - generic [ref=e346]: საქართველოდან.
+            - generic [ref=e347]: ვქმნი
+            - generic [ref=e348]: თანამედროვე
+            - generic [ref=e349]: ვებსაიტებს
+            - generic [ref=e350]: და
+            - generic [ref=e351]: ვებ
+            - generic [ref=e352]: აპლიკაციებს,
+            - generic [ref=e353]: რომლებიც
+            - generic [ref=e354]: არა
+            - generic [ref=e355]: მხოლოდ
+            - generic [ref=e356]: ლამაზად
+            - generic [ref=e357]: გამოიყურება,
+            - generic [ref=e358]: არამედ
+            - generic [ref=e359]: რეალურ
+            - generic [ref=e360]: შედეგს
+            - generic [ref=e361]: მოაქვს
+            - generic [ref=e362]: ბიზნესისთვის.
+      - generic [ref=e365]:
+        - generic [ref=e366]: React
+        - generic [ref=e367]: TypeScript
+        - generic [ref=e368]: Next.js
+        - generic [ref=e369]: Node.js
+        - generic [ref=e370]: Python
+        - generic [ref=e371]: Tailwind CSS
+        - generic [ref=e372]: PostgreSQL
+        - generic [ref=e373]: Three.js
+        - generic [ref=e374]: GSAP
+        - generic [ref=e375]: Vite
+        - generic [ref=e376]: Git
+        - generic [ref=e377]: Vercel
+        - generic [ref=e378]: React
+        - generic [ref=e379]: TypeScript
+        - generic [ref=e380]: Next.js
+        - generic [ref=e381]: Node.js
+        - generic [ref=e382]: Python
+        - generic [ref=e383]: Tailwind CSS
+        - generic [ref=e384]: PostgreSQL
+        - generic [ref=e385]: Three.js
+        - generic [ref=e386]: GSAP
+        - generic [ref=e387]: Vite
+        - generic [ref=e388]: Git
+        - generic [ref=e389]: Vercel
+    - generic [ref=e391]:
+      - heading "აგებთ პროდუქტს ან პლატფორმას?" [level=2] [ref=e392]:
+        - generic [ref=e394]: ა
+        - generic [ref=e396]: გ
+        - generic [ref=e398]: ე
+        - generic [ref=e400]: ბ
+        - generic [ref=e402]: თ
+        - generic [ref=e404]: პ
+        - generic [ref=e406]: რ
+        - generic [ref=e408]: ო
+        - generic [ref=e410]: დ
+        - generic [ref=e412]: უ
+        - generic [ref=e414]: ქ
+        - generic [ref=e416]: ტ
+        - generic [ref=e418]: ს
+        - generic [ref=e420]: ა
+        - generic [ref=e422]: ნ
+        - generic [ref=e424]: პ
+        - generic [ref=e426]: ლ
+        - generic [ref=e428]: ა
+        - generic [ref=e430]: ტ
+        - generic [ref=e432]: ფ
+        - generic [ref=e434]: ო
+        - generic [ref=e436]: რ
+        - generic [ref=e438]: მ
+        - generic [ref=e440]: ა
+        - generic [ref=e442]: ს
+        - generic [ref=e444]: "?"
+      - paragraph [ref=e445]: მხხელი დაწერეთ რაზე ხსნილი ხართ.
+      - generic [ref=e447]:
+        - generic [ref=e448]:
+          - generic [ref=e449]: თქვენი სახელი
+          - textbox "თქვენი სახელი" [ref=e450]:
+            - /placeholder: John Doe
+        - generic [ref=e451]:
+          - generic [ref=e452]: ელფოსტის მისამართი
+          - textbox "ელფოსტის მისამართი" [ref=e453]:
+            - /placeholder: john@example.com
+        - generic [ref=e454]:
+          - generic [ref=e455]: პროექტის ტიპი
+          - combobox "პროექტის ტიპი" [ref=e456]:
+            - option "— Select one —" [selected]
+            - option "მობილური აპლიკაცია"
+            - option "ვებ პლატფორმა"
+            - option "AI/ML პროდუქტი"
+            - option "დიზაინ სისტემა"
+            - option "სხვა"
+        - generic [ref=e457]:
+          - generic [ref=e458]: რას აგებთ?
+          - textbox "რას აგებთ?" [ref=e459]:
+            - /placeholder: პლატფორმა რომელიც... / აპლიკაცია რომელიც ეხმარება...
+          - paragraph [ref=e460]: 2-3 წინადადება საკმარისია
+        - button "პროექტი მიუზე" [ref=e461]
+      - generic [ref=e462]:
+        - paragraph [ref=e463]: მარტივი ბიზნეს ვებსაიტი?
+        - paragraph [ref=e464]: შეამოწმეთ SiteCraft — სწრაფი, თანამედროვე ვებსაიტები ქართული ბიზნესისთვის
+        - link "SiteCraft" [ref=e465]:
+          - /url: https://sitecraft-puce.vercel.app
+          - text: SiteCraft
+          - img [ref=e466]
+    - contentinfo [ref=e468]:
+      - generic [ref=e469]:
+        - generic [ref=e470]:
+          - generic [ref=e471]:
+            - generic [ref=e472]: Build Quality
+            - generic [ref=e473]: This portfolio · Lighthouse audit
+            - generic [ref=e474]: React · Three.js · GSAP
+          - generic [ref=e475]:
+            - generic [ref=e476]:
+              - generic [ref=e477]:
+                - img [ref=e478]
+                - generic [ref=e482]: "0"
+              - generic [ref=e483]: Perf
+            - generic [ref=e484]:
+              - generic [ref=e485]:
+                - img [ref=e486]
+                - generic [ref=e490]: "0"
+              - generic [ref=e491]: A11y
+            - generic [ref=e492]:
+              - generic [ref=e493]:
+                - img [ref=e494]
+                - generic [ref=e498]: "0"
+              - generic [ref=e499]: Best
+            - generic [ref=e500]:
+              - generic [ref=e501]:
+                - img [ref=e502]
+                - generic [ref=e506]: "0"
+              - generic [ref=e507]: SEO
+        - generic [ref=e508]:
+          - generic [ref=e509]: © 2026 საბა ჯანელიძე
+          - button "ზემოთ ↑" [ref=e510]

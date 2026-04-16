@@ -82,7 +82,7 @@ export function About() {
               <p className="mt-3 text-2xl font-bold text-text sm:text-3xl">
                 {t(translations.hero.name)}
               </p>
-              <div className="mt-4 h-px w-16 bg-gradient-to-r from-accent/50 to-transparent" />
+              <div className="mt-6 h-1 w-24 bg-gradient-to-r from-accent via-accent to-transparent" />
               <p
                 ref={bioRef}
                 className="mt-6 max-w-xl text-base leading-relaxed text-text-muted sm:text-lg"
