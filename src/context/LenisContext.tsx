@@ -1,24 +1,24 @@
-import { createContext, useContext, useEffect, useRef, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 const LenisContext = createContext<Lenis | null>(null)
 
 export function LenisProvider({ children }: { children: ReactNode }) {
-  const lenisRef = useRef<Lenis | null>(null)
+  const [lenis, setLenis] = useState<Lenis | null>(null)
 
   useEffect(() => {
-    const lenis = new Lenis({
+    const instance = new Lenis({
       lerp: 0.1,
       smoothWheel: true,
     })
 
-    lenisRef.current = lenis
+    setLenis(instance)
 
-    lenis.on('scroll', ScrollTrigger.update)
+    instance.on('scroll', ScrollTrigger.update)
 
     const tickHandler = (time: number) => {
-      lenis.raf(time * 1000)
+      instance.raf(time * 1000)
     }
     gsap.ticker.add(tickHandler)
     gsap.ticker.lagSmoothing(0)
@@ -28,13 +28,13 @@ export function LenisProvider({ children }: { children: ReactNode }) {
 
     return () => {
       gsap.ticker.remove(tickHandler)
-      lenis.destroy()
-      lenisRef.current = null
+      instance.destroy()
+      setLenis(null)
     }
   }, [])
 
   return (
-    <LenisContext.Provider value={lenisRef.current}>
+    <LenisContext.Provider value={lenis}>
       {children}
     </LenisContext.Provider>
   )
