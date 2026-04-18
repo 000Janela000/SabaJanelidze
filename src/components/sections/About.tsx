@@ -3,7 +3,7 @@ import { gsap, SplitText } from '@/lib/gsap'
 import { useLanguage } from '@/hooks/useLanguage'
 import { translations } from '@/lib/i18n'
 import { TechMarquee } from '@/components/TechMarquee'
-import { PortraitCard } from '@/components/PortraitCard'
+import { TiltCard } from '@/components/TiltCard'
 import { useBlurReveal } from '@/hooks/useBlurReveal'
 
 export function About() {
@@ -64,7 +64,7 @@ export function About() {
             <div ref={photoRef} className="flex justify-center md:justify-start">
               <div className="group/photo relative">
                 <div className="pointer-events-none absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent/30 via-accent/10 to-transparent opacity-0 blur-sm transition-opacity duration-500 group-hover/photo:opacity-100" />
-                <PortraitCard>
+                <TiltCard>
                   <div className="relative h-52 w-52 overflow-hidden rounded-2xl border-2 border-accent/25 transition-all duration-500 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(79,125,245,0.15)] md:h-64 md:w-64">
                     <img
                       src="/portrait.webp"
@@ -73,7 +73,7 @@ export function About() {
                       className="h-full w-full object-cover object-top"
                     />
                   </div>
-                </PortraitCard>
+                </TiltCard>
               </div>
             </div>
 

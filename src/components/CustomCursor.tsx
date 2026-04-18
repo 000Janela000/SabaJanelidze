@@ -853,11 +853,7 @@ export function CustomCursor() {
 
     // --- Interactive hover ---
     const handleInteractiveEnter = (e: Event) => {
-      const target = e.currentTarget as HTMLElement;
-      // Opt-out for large targets where the pull is disruptive (e.g. portrait).
-      if (target.dataset.cursorMagnet !== "false") {
-        magnetTarget = target;
-      }
+      magnetTarget = e.currentTarget as HTMLElement;
       gsap.to(planet, {
         scale: C.hover.interactive.planetScale,
         duration: 0.25,
