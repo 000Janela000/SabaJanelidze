@@ -8,20 +8,21 @@ interface PortraitCardProps {
 }
 
 export function PortraitCard({ children, strength = 10, className = '' }: PortraitCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null)
+  const flipRef = useRef<HTMLDivElement>(null)
+  const tiltRef = useRef<HTMLDivElement>(null)
   const flippingRef = useRef(false)
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (flippingRef.current) return
-      const card = cardRef.current
-      if (!card) return
+      const tilt = tiltRef.current
+      if (!tilt) return
 
-      const rect = card.getBoundingClientRect()
+      const rect = tilt.getBoundingClientRect()
       const x = (e.clientX - rect.left) / rect.width - 0.5
       const y = (e.clientY - rect.top) / rect.height - 0.5
 
-      gsap.to(card, {
+      gsap.to(tilt, {
         rotateY: x * strength,
         rotateX: -y * strength,
         duration: 0.4,
@@ -33,10 +34,10 @@ export function PortraitCard({ children, strength = 10, className = '' }: Portra
 
   const handleMouseLeave = useCallback(() => {
     if (flippingRef.current) return
-    const card = cardRef.current
-    if (!card) return
+    const tilt = tiltRef.current
+    if (!tilt) return
 
-    gsap.to(card, {
+    gsap.to(tilt, {
       rotateX: 0,
       rotateY: 0,
       duration: 0.6,
@@ -46,26 +47,35 @@ export function PortraitCard({ children, strength = 10, className = '' }: Portra
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (flippingRef.current) return
-    const card = cardRef.current
-    if (!card) return
+    const flip = flipRef.current
+    const tilt = tiltRef.current
+    if (!flip || !tilt) return
 
-    const rect = card.getBoundingClientRect()
+    const rect = e.currentTarget.getBoundingClientRect()
     const dx = (e.clientX - rect.left) / rect.width - 0.5
     const dy = (e.clientY - rect.top) / rect.height - 0.5
 
+    // Rotation axis is perpendicular to press direction within the card plane.
+    // Press at (dx, dy) → axis (-dy, dx, 0). Press point travels into screen first.
+    const magnitude = Math.hypot(dx, dy)
+    const ax = magnitude > 0.01 ? -dy / magnitude : 0
+    const ay = magnitude > 0.01 ? dx / magnitude : 1
+
     flippingRef.current = true
 
-    const horizontal = Math.abs(dx) >= Math.abs(dy)
-    const yDelta = horizontal ? (dx > 0 ? 360 : -360) : 0
-    const xDelta = !horizontal ? (dy > 0 ? -360 : 360) : 0
+    // Freeze tilt at 0 during flip so composition stays clean
+    gsap.set(tilt, { rotateX: 0, rotateY: 0 })
 
-    gsap.to(card, {
-      rotateY: `+=${yDelta}`,
-      rotateX: `+=${xDelta}`,
+    const state = { angle: 0 }
+    gsap.to(state, {
+      angle: 360,
       duration: 0.9,
       ease: 'power2.inOut',
+      onUpdate: () => {
+        flip.style.transform = `rotate3d(${ax}, ${ay}, 0, ${state.angle}deg)`
+      },
       onComplete: () => {
-        gsap.set(card, { rotateX: 0, rotateY: 0 })
+        flip.style.transform = ''
         flippingRef.current = false
       },
     })
@@ -73,15 +83,17 @@ export function PortraitCard({ children, strength = 10, className = '' }: Portra
 
   return (
     <div style={{ perspective: '800px' }} className={className}>
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-        style={{ transformStyle: 'preserve-3d' }}
-        data-cursor="pointer"
-      >
-        {children}
+      <div ref={flipRef} style={{ transformStyle: 'preserve-3d' }}>
+        <div
+          ref={tiltRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
+          style={{ transformStyle: 'preserve-3d' }}
+          data-cursor="pointer"
+        >
+          {children}
+        </div>
       </div>
     </div>
   )
