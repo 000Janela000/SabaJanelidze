@@ -968,24 +968,8 @@ export function CustomCursor() {
 
     // Scroll trail: detected in RAF loop by comparing window.scrollY each frame
 
-    // Chromium cursor refresh workaround: after tab/window focus change the
-    // OS cursor can render on top of our custom cursor until the next mouse
-    // event. Toggling the inline cursor style forces a style recalc + paint.
-    const refreshCursor = () => {
-      const html = document.documentElement;
-      html.style.cursor = "auto";
-      // Force synchronous reflow before clearing so the browser re-evaluates
-      void html.offsetHeight;
-      html.style.cursor = "";
-    };
-    const handleVisibility = () => {
-      if (!document.hidden) refreshCursor();
-    };
-
     window.addEventListener("mousemove", handleMouseMove);
     window.addEventListener("click", handleClick);
-    window.addEventListener("focus", refreshCursor);
-    document.addEventListener("visibilitychange", handleVisibility);
     document.addEventListener("mouseleave", handleDocLeave);
     document.addEventListener("mouseenter", handleDocEnter);
 
@@ -1026,8 +1010,6 @@ export function CustomCursor() {
       if (pulseTl) pulseTl.kill();
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("click", handleClick);
-      window.removeEventListener("focus", refreshCursor);
-      document.removeEventListener("visibilitychange", handleVisibility);
 
       window.removeEventListener("resize", resizeCanvas);
       document.removeEventListener("mouseleave", handleDocLeave);

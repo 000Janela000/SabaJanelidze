@@ -64,14 +64,15 @@ body {
   }
 }
 
-/* Hide default cursor everywhere while custom cursor is active.
-   Scoped to .has-custom-cursor so touch devices get native cursors back. */
-html.has-custom-cursor,
-html.has-custom-cursor body,
-html.has-custom-cursor *,
-html.has-custom-cursor *::before,
-html.has-custom-cursor *::after {
-  cursor: none !important;
+/* Hide default cursor everywhere — applied to html immediately to prevent flash */
+html {
+  cursor: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVQI12NgAAIABQABNjN9GQAAAABJRElEQkSuQmCC") 0 0, none !important;
+}
+
+html *,
+html *::before,
+html *::after {
+  cursor: inherit !important;
 }
 
 /* Noise grain overlay */
