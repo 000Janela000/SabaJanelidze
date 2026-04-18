@@ -91,6 +91,7 @@ export function PortraitCard({ children, strength = 10, className = '' }: Portra
           onClick={handleClick}
           style={{ transformStyle: 'preserve-3d' }}
           data-cursor="pointer"
+          data-cursor-magnet="false"
         >
           {children}
         </div>
