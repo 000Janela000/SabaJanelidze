@@ -7,20 +7,33 @@ interface PortraitCardProps {
   className?: string
 }
 
-type QuickSetter = (value: number) => void
-
 export function PortraitCard({ children, strength = 28, className = '' }: PortraitCardProps) {
   const flipRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const flippingRef = useRef(false)
-  const rotateXSetter = useRef<QuickSetter | null>(null)
-  const rotateYSetter = useRef<QuickSetter | null>(null)
+  const targetRef = useRef({ x: 0, y: 0 })
 
   useEffect(() => {
     const tilt = tiltRef.current
     if (!tilt) return
-    rotateXSetter.current = gsap.quickTo(tilt, 'rotationX', { duration: 0.25, ease: 'power3.out' })
-    rotateYSetter.current = gsap.quickTo(tilt, 'rotationY', { duration: 0.25, ease: 'power3.out' })
+
+    let currentX = 0
+    let currentY = 0
+    let rafId = 0
+
+    const FOLLOW = 0.15
+
+    const tick = () => {
+      currentX += (targetRef.current.x - currentX) * FOLLOW
+      currentY += (targetRef.current.y - currentY) * FOLLOW
+      if (!flippingRef.current) {
+        tilt.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`
+      }
+      rafId = requestAnimationFrame(tick)
+    }
+    rafId = requestAnimationFrame(tick)
+
+    return () => cancelAnimationFrame(rafId)
   }, [])
 
   const handleMouseMove = useCallback(
@@ -33,24 +46,15 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
       const x = (e.clientX - rect.left) / rect.width - 0.5
       const y = (e.clientY - rect.top) / rect.height - 0.5
 
-      rotateYSetter.current?.(x * strength)
-      rotateXSetter.current?.(-y * strength)
+      targetRef.current.x = -y * strength
+      targetRef.current.y = x * strength
     },
     [strength],
   )
 
   const handleMouseLeave = useCallback(() => {
-    if (flippingRef.current) return
-    const tilt = tiltRef.current
-    if (!tilt) return
-
-    gsap.to(tilt, {
-      rotateX: 0,
-      rotateY: 0,
-      duration: 0.6,
-      ease: 'elastic.out(1, 0.5)',
-      overwrite: true,
-    })
+    targetRef.current.x = 0
+    targetRef.current.y = 0
   }, [])
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -71,8 +75,10 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
 
     flippingRef.current = true
 
-    // Freeze tilt at 0 so the flip starts clean (overwrite kills any active quickTo tween)
-    gsap.to(tilt, { rotateX: 0, rotateY: 0, duration: 0, overwrite: true })
+    // Freeze tilt at 0 so the flip composes on top of a neutral base
+    targetRef.current.x = 0
+    targetRef.current.y = 0
+    tilt.style.transform = ''
 
     const state = { angle: 0 }
     gsap.to(state, {
