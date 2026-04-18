@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, type ReactNode } from 'react'
+import { useCallback, useRef, type ReactNode } from 'react'
 import { gsap } from '@/lib/gsap'
 
 interface PortraitCardProps {
@@ -11,30 +11,6 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
   const flipRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const flippingRef = useRef(false)
-  const targetRef = useRef({ x: 0, y: 0 })
-
-  useEffect(() => {
-    const tilt = tiltRef.current
-    if (!tilt) return
-
-    let currentX = 0
-    let currentY = 0
-    let rafId = 0
-
-    const FOLLOW = 0.15
-
-    const tick = () => {
-      currentX += (targetRef.current.x - currentX) * FOLLOW
-      currentY += (targetRef.current.y - currentY) * FOLLOW
-      if (!flippingRef.current) {
-        tilt.style.transform = `rotateX(${currentX}deg) rotateY(${currentY}deg)`
-      }
-      rafId = requestAnimationFrame(tick)
-    }
-    rafId = requestAnimationFrame(tick)
-
-    return () => cancelAnimationFrame(rafId)
-  }, [])
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -46,15 +22,16 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
       const x = (e.clientX - rect.left) / rect.width - 0.5
       const y = (e.clientY - rect.top) / rect.height - 0.5
 
-      targetRef.current.x = -y * strength
-      targetRef.current.y = x * strength
+      tilt.style.transform = `rotateX(${-y * strength}deg) rotateY(${x * strength}deg)`
     },
     [strength],
   )
 
   const handleMouseLeave = useCallback(() => {
-    targetRef.current.x = 0
-    targetRef.current.y = 0
+    if (flippingRef.current) return
+    const tilt = tiltRef.current
+    if (!tilt) return
+    tilt.style.transform = ''
   }, [])
 
   const handleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -74,10 +51,6 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
     const ay = magnitude > 0.01 ? dx / magnitude : 1
 
     flippingRef.current = true
-
-    // Freeze tilt at 0 so the flip composes on top of a neutral base
-    targetRef.current.x = 0
-    targetRef.current.y = 0
     tilt.style.transform = ''
 
     const state = { angle: 0 }
@@ -103,7 +76,11 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
-          style={{ transformStyle: 'preserve-3d' }}
+          style={{
+            transformStyle: 'preserve-3d',
+            transition: 'transform 250ms cubic-bezier(0.33, 1, 0.68, 1)',
+            willChange: 'transform',
+          }}
           data-cursor="pointer"
           data-cursor-magnet="false"
         >
