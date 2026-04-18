@@ -1,4 +1,4 @@
-import { useCallback, useRef, type ReactNode } from 'react'
+import { useCallback, useEffect, useRef, type ReactNode } from 'react'
 import { gsap } from '@/lib/gsap'
 
 interface PortraitCardProps {
@@ -7,10 +7,21 @@ interface PortraitCardProps {
   className?: string
 }
 
+type QuickSetter = (value: number) => void
+
 export function PortraitCard({ children, strength = 28, className = '' }: PortraitCardProps) {
   const flipRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const flippingRef = useRef(false)
+  const rotateXSetter = useRef<QuickSetter | null>(null)
+  const rotateYSetter = useRef<QuickSetter | null>(null)
+
+  useEffect(() => {
+    const tilt = tiltRef.current
+    if (!tilt) return
+    rotateXSetter.current = gsap.quickTo(tilt, 'rotateX', { duration: 0.25, ease: 'power3.out' })
+    rotateYSetter.current = gsap.quickTo(tilt, 'rotateY', { duration: 0.25, ease: 'power3.out' })
+  }, [])
 
   const handleMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
@@ -22,12 +33,8 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
       const x = (e.clientX - rect.left) / rect.width - 0.5
       const y = (e.clientY - rect.top) / rect.height - 0.5
 
-      gsap.to(tilt, {
-        rotateY: x * strength,
-        rotateX: -y * strength,
-        duration: 0.25,
-        ease: 'power2.out',
-      })
+      rotateYSetter.current?.(x * strength)
+      rotateXSetter.current?.(-y * strength)
     },
     [strength],
   )
@@ -42,6 +49,7 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
       rotateY: 0,
       duration: 0.6,
       ease: 'elastic.out(1, 0.5)',
+      overwrite: true,
     })
   }, [])
 
@@ -63,8 +71,8 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
 
     flippingRef.current = true
 
-    // Freeze tilt at 0 during flip so composition stays clean
-    gsap.set(tilt, { rotateX: 0, rotateY: 0 })
+    // Freeze tilt at 0 so the flip starts clean (overwrite kills any active quickTo tween)
+    gsap.to(tilt, { rotateX: 0, rotateY: 0, duration: 0, overwrite: true })
 
     const state = { angle: 0 }
     gsap.to(state, {
