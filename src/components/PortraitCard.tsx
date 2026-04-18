@@ -7,7 +7,7 @@ interface PortraitCardProps {
   className?: string
 }
 
-export function PortraitCard({ children, strength = 10, className = '' }: PortraitCardProps) {
+export function PortraitCard({ children, strength = 28, className = '' }: PortraitCardProps) {
   const flipRef = useRef<HTMLDivElement>(null)
   const tiltRef = useRef<HTMLDivElement>(null)
   const flippingRef = useRef(false)
@@ -25,7 +25,7 @@ export function PortraitCard({ children, strength = 10, className = '' }: Portra
       gsap.to(tilt, {
         rotateY: x * strength,
         rotateX: -y * strength,
-        duration: 0.4,
+        duration: 0.25,
         ease: 'power2.out',
       })
     },
