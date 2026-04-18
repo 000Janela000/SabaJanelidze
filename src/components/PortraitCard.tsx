@@ -19,8 +19,8 @@ export function PortraitCard({ children, strength = 28, className = '' }: Portra
   useEffect(() => {
     const tilt = tiltRef.current
     if (!tilt) return
-    rotateXSetter.current = gsap.quickTo(tilt, 'rotateX', { duration: 0.25, ease: 'power3.out' })
-    rotateYSetter.current = gsap.quickTo(tilt, 'rotateY', { duration: 0.25, ease: 'power3.out' })
+    rotateXSetter.current = gsap.quickTo(tilt, 'rotationX', { duration: 0.25, ease: 'power3.out' })
+    rotateYSetter.current = gsap.quickTo(tilt, 'rotationY', { duration: 0.25, ease: 'power3.out' })
   }, [])
 
   const handleMouseMove = useCallback(
