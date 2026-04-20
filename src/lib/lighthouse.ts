@@ -1,6 +1,6 @@
 /**
  * Lighthouse audit scores for portfolio and projects
- * Last updated: 2026-03-30
+ * Last updated: 2026-04-20
  */
 
 export const lighthouseScores = {
@@ -11,6 +11,13 @@ export const lighthouseScores = {
     seo: 92,
   },
   projects: {
+    chama: {
+      name: 'Chama',
+      performance: 93,
+      accessibility: 96,
+      bestPractices: 100,
+      seo: 100,
+    },
     playtime: {
       name: 'PlayTime',
       performance: 98,
