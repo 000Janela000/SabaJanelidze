@@ -7,8 +7,8 @@ const ZONE_COLORS: Record<string, string> = {
   services: "#06b6d4",
   about: "#e879f9",
   contact: "#fb923c",
+  chama: "#dc2626",
   playtime: "#e54d2e",
-  devnews: "#3b82f6",
   unihub: "#10b981",
 };
 

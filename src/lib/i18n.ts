@@ -9,10 +9,10 @@ export const translations = {
   },
   hero: {
     name: { ka: 'საბა ჯანელიძე', en: 'Saba Janelidze' },
-    title: { ka: 'ვებ დეველოპერი', en: 'Web Developer' },
+    title: { ka: 'Senior Full-Stack Engineer', en: 'Senior Full-Stack Engineer' },
     tagline: {
-      ka: 'ვქმნი ვებსაიტებს, რომლებიც შედეგს მოაქვს',
-      en: 'I build websites that deliver results',
+      ka: '3 წელი ვქმნი ფინტექს — კრიპტო კასტოდი, გაცვლითი APIs, გადახდის სისტემები',
+      en: '3 years shipping fintech — crypto custody, exchange APIs, payment systems',
     },
     scroll: { ka: 'გადაახვიეთ', en: 'Scroll' },
   },
@@ -24,24 +24,24 @@ export const translations = {
     heading: { ka: 'რას ვაკეთებ', en: 'What I Do' },
     items: [
       {
-        title: { ka: 'ვებ დეველოპმენტი', en: 'Web Development' },
+        title: { ka: 'ფინტექ სისტემები', en: 'Fintech Systems' },
         description: {
-          ka: 'თანამედროვე, სწრაფი და რესპონსიული ვებსაიტების შექმნა React-ისა და Next.js-ის გამოყენებით',
-          en: 'Modern, fast, and responsive websites built with React and Next.js',
+          ka: 'კრიპტო კასტოდი, ბანკის გადახდის სისტემები, უსაფრთხო ავტორიზაცია და კომპლაიანს-aware ინტეგრაციები.',
+          en: 'Crypto custody, bank payment rails, high-security auth and compliance-aware integrations.',
         },
       },
       {
-        title: { ka: 'UI/UX დიზაინი', en: 'UI/UX Design' },
+        title: { ka: 'იქსჩეინჯი & ტრეიდინგი', en: 'Exchange & Trading' },
         description: {
-          ka: 'მომხმარებლის გამოცდილებაზე ორიენტირებული დიზაინი, რომელიც ლამაზიცაა და ფუნქციონალურიც',
-          en: 'User-centered design that is both beautiful and functional',
+          ka: 'იქსჩეინჯის API ინტეგრაციები, ლიკვიდაციის ძრავები და მაღალი მოცულობის ტრეიდინგ სისტემები.',
+          en: 'Exchange API integrations, liquidation engines and high-volume trading flows.',
         },
       },
       {
-        title: { ka: 'Full-Stack გადაწყვეტილებები', en: 'Full-Stack Solutions' },
+        title: { ka: 'Full-Stack პროდუქტები', en: 'Full-Stack Products' },
         description: {
-          ka: 'ფრონტენდიდან ბექენდამდე — სრული ვებ აპლიკაციები ადმინ პანელით და ბაზით',
-          en: 'From frontend to backend — complete web applications with admin panels and databases',
+          ka: 'End-to-end — ვები, მობაილი და ადმინ პანელი. TypeScript, React, Next.js, NestJS, Expo.',
+          en: 'Ship end-to-end: web, mobile and admin. TypeScript, React, Next.js, NestJS, Expo.',
         },
       },
     ],
@@ -49,13 +49,17 @@ export const translations = {
   about: {
     heading: { ka: 'ჩემს შესახებ', en: 'About' },
     bio: {
-      ka: 'ვარ ვებ დეველოპერი საქართველოდან. ვქმნი თანამედროვე ვებსაიტებს და ვებ აპლიკაციებს, რომლებიც არა მხოლოდ ლამაზად გამოიყურება, არამედ რეალურ შედეგს მოაქვს ბიზნესისთვის.',
-      en: "I'm a web developer from Georgia. I build modern websites and web applications that don't just look beautiful — they deliver real results for businesses.",
+      ka: 'Full-stack ინჟინერი საქართველოდან. სამი წელია დეველოპერივარ fintech- განხრით — კრიპტო იქსჩეინჯის ინტეგრაციები, ბანკის გადახდის სისტემები და უსაფრთხო ავტორიზაცია. Stack: TypeScript, React, Next.js, NestJS, Expo. გვერდით ვქმნი საკუთარ პროდუქტებს — Playtime.ge (გასართობი, აქტიურ დეველოპმენტში) და UniHub (საგანმანათლებლო, ეშვება აგრარულ უნივერსიტეტთან).',
+      en: "Full-stack engineer based in Georgia. For three years I've shipped production fintech — crypto custody, exchange integrations, bank payment rails and high-security auth. Stack: TypeScript, React, Next.js, NestJS, Expo. On the side I build my own products — Playtime.ge (entertainment, in active development) and UniHub (education, launching with Agrarian University of Georgia).",
+    },
+    credentials: {
+      ka: '3 წელი ფინტექში Bitnet-ში · Backend Lead Chama-ში · Playtime.ge-სა და UniHub-ის ფაუნდერი',
+      en: '3 years production fintech at Bitnet · Backend Lead at Chama · Founder of Playtime.ge and UniHub',
     },
   },
   contact: {
     heading: { ka: 'ვიმუშაოთ ერთად', en: 'Work with me' },
-    subheadline: { ka: 'მხხელი დაწერეთ რაზე ხსნილი ხართ.', en: 'Tell me about it.' },
+    subheadline: { ka: 'მომწერე, რას ქმნი.', en: 'Tell me about it.' },
     form: {
       name: { ka: 'თქვენი სახელი', en: 'Your name' },
       namePlaceholder: { ka: 'John Doe', en: 'John Doe' },
@@ -65,12 +69,12 @@ export const translations = {
       descriptionPlaceholder: { ka: 'პლატფორმა რომელიც... / აპლიკაცია რომელიც ეხმარება...', en: 'A platform for... / An app that helps...' },
       descriptionHint: { ka: '2-3 წინადადება საკმარისია', en: '2-3 sentences is perfect' },
       projectType: { ka: 'პროექტის ტიპი', en: 'Project type' },
-      mobileApp: { ka: 'მობილური აპლიკაცია', en: 'Mobile App' },
+      fintechProduct: { ka: 'ფინტექ / კრიპტო პროდუქტი', en: 'Fintech / Crypto Product' },
       webPlatform: { ka: 'ვებ პლატფორმა', en: 'Web Platform' },
-      aiProduct: { ka: 'AI/ML პროდუქტი', en: 'AI/ML Product' },
-      designSystem: { ka: 'დიზაინ სისტემა', en: 'Design System' },
+      mobileApp: { ka: 'მობილური აპლიკაცია', en: 'Mobile App' },
+      fullStackProduct: { ka: 'Full-Stack პროდუქტი', en: 'Full-Stack Product' },
       other: { ka: 'სხვა', en: 'Other' },
-      submit: { ka: 'პროექტი მიუზე', en: 'Send My Enquiry' },
+      submit: { ka: 'პროექტის გაგზავნა', en: 'Send My Enquiry' },
       sending: { ka: 'იგზავნება...', en: 'Sending...' },
     },
     confirmation: {
@@ -102,16 +106,33 @@ export const translations = {
 
 export const projects = [
   {
-    slug: 'playtime',
-    title: 'Playtime.ge',
-    category: { ka: 'გასართობი პლატფორმა', en: 'Entertainment Platform' },
+    slug: 'chama',
+    title: 'Chama.ge',
+    category: { ka: 'რესტორნის პლატფორმა · Backend Lead', en: 'Restaurant Platform · Backend Lead' },
     shortDesc: {
-      ka: 'სრული პლატფორმა ადმინ პანელით კონტენტის მართვისთვის',
-      en: 'Full platform with admin panel for content management',
+      ka: 'Backend lead რესტორნის პლატფორმაზე ცოცხალი დინამიკური ფასებით. დავაარქიტექტურე — GraphQL, NestJS, Postgres, Redis.',
+      en: 'Backend lead on a restaurant platform with live dynamic pricing. I designed the architecture — GraphQL, NestJS, Postgres, Redis.',
     },
     description: {
-      ka: 'Playtime.ge არის გასართობი პლატფორმა, რომელიც შეიქმნა მომხმარებლის გამოცდილების გათვალისწინებით. პროექტი მოიცავს სრულ ადმინ პანელს, რომელიც საშუალებას აძლევს მფლობელს მართოს კონტენტი კოდის ცოდნის გარეშე.',
-      en: 'Playtime.ge is an entertainment platform built with user experience at its core. The project includes a full admin panel that lets the owner manage content without any coding knowledge.',
+      ka: 'Chama.ge საშუალებას აძლევს ვიზიტორებს დაჯავშნონ მაგიდები დინამიკური ფასებით, რომელსაც რესტორანი ადგენს. მე ვხელმძღვანელობ ბექენდს. დავაარქიტექტურე და ვშიპავ: GraphQL API, NestJS სერვისები, PostgreSQL და Redis real-time ფასებისა და ჯავშნის state-სთვის.',
+      en: 'Chama.ge lets diners book off-peak tables at dynamic prices set by each restaurant. I lead backend. Designed and ship the solution architecture: GraphQL API, NestJS services, PostgreSQL data layer and Redis for real-time pricing and reservation state.',
+    },
+    tech: ['TypeScript', 'NestJS', 'GraphQL', 'PostgreSQL', 'Redis'],
+    url: 'https://chama.ge',
+    image: '/projects/chama.webp',
+    color: '#dc2626',
+  },
+  {
+    slug: 'playtime',
+    title: 'Playtime.ge',
+    category: { ka: 'გასართობი სტარტაპი · Founder', en: 'Entertainment Startup · Founder' },
+    shortDesc: {
+      ka: 'გასართობი სტარტაპი, რომელსაც ვაშენებ end-to-end — პროდუქტი, ადმინ პანელი და ოპერაციები.',
+      en: "Entertainment startup I'm building end-to-end — product, admin panel and operations.",
+    },
+    description: {
+      ka: 'Playtime.ge-ს ვაშენებ solo founder-ად. Full-stack პროდუქტ ინჟინერია, ადმინ ინსტრუმენტები და ოპერაციული სისტემები. აქტიურ დეველოპმენტში, ვშიპავ ფიჩრებს იუზერის feedback ციკლებით.',
+      en: 'Building Playtime.ge as a solo founder. Full-stack product engineering, admin tooling and operational systems. Currently in active development, shipping features through user feedback cycles.',
     },
     tech: ['React', 'Node.js', 'Admin Panel'],
     url: 'https://playtime.ge',
@@ -119,33 +140,16 @@ export const projects = [
     color: '#e54d2e',
   },
   {
-    slug: 'devnews',
-    title: 'DevNews',
-    category: { ka: 'ტექნოლოგიური მედია', en: 'Tech Media' },
-    shortDesc: {
-      ka: 'ტექნოლოგიური სიახლეების პლატფორმა დეველოპერებისთვის',
-      en: 'Tech news platform for developers',
-    },
-    description: {
-      ka: 'DevNews არის სიახლეების პლატფორმა, რომელიც აგროვებს და აწვდის უახლეს ტექნოლოგიურ სიახლეებს დეველოპერებისთვის. სწრაფი, სუფთა და ფოკუსირებული წაკითხვის გამოცდილება.',
-      en: 'DevNews is a news platform that aggregates and delivers the latest tech news for developers. Fast, clean, and focused reading experience.',
-    },
-    tech: ['React', 'Vite', 'API Integration'],
-    url: 'https://dev-news-blond.vercel.app',
-    image: '/projects/devnews.webp',
-    color: '#3b82f6',
-  },
-  {
     slug: 'unihub',
     title: 'UniHub',
-    category: { ka: 'საგანმანათლებლო პლატფორმა', en: 'Education Platform' },
+    category: { ka: 'საგანმანათლებლო სტარტაპი · Founder', en: 'Education Startup · Founder' },
     shortDesc: {
-      ka: 'უნივერსიტეტის სტუდენტებისთვის შექმნილი საგანმანათლებლო პლატფორმა',
-      en: 'Education platform built for university students',
+      ka: 'EdTech პლატფორმა, რომელიც ეშვება აგრარული უნივერსიტეტის pilot-ით. გაფართოება სხვა უნივერსიტეტებზე.',
+      en: 'EdTech platform launching with Agrarian University of Georgia as the pilot. Expanding to more universities next.',
     },
     description: {
-      ka: 'UniHub აერთიანებს საგანმანათლებლო რესურსებს ერთ პლატფორმაზე. სტუდენტებისთვის შექმნილი ინტუიციური ინტერფეისი, რომელიც აადვილებს სასწავლო პროცესს.',
-      en: 'UniHub brings educational resources together in one platform. Built with an intuitive interface for students that simplifies the learning process.',
+      ka: 'საგანმანათლებლო პლატფორმა, რომელიც ეშვება საქართველოს აგრარულ უნივერსიტეტში pilot-ად. აგებულია ისე, რომ გაფართოვდეს სხვა უნივერსიტეტებზე. ვფლობ პროდუქტს, ინჟინერიას და პარტნიორობას.',
+      en: 'Education platform launching with Agrarian University of Georgia as the pilot deployment. Built to scale across more universities as the rollout proves out. I own product, engineering and partnerships.',
     },
     tech: ['React', 'Vite', 'Tailwind CSS'],
     url: 'https://unihub-edu.vercel.app',

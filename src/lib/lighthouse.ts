@@ -18,13 +18,6 @@ export const lighthouseScores = {
       bestPractices: 100,
       seo: 100,
     },
-    devnews: {
-      name: 'DevNews',
-      performance: 95,
-      accessibility: 100,
-      bestPractices: 96,
-      seo: 100,
-    },
     unihub: {
       name: 'UniHub',
       performance: 98,

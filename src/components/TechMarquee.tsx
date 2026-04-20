@@ -2,8 +2,9 @@ import { useEffect, useRef } from 'react'
 import { gsap } from '@/lib/gsap'
 
 const TECH_STACK = [
-  'React', 'TypeScript', 'Next.js', 'Node.js', 'Python',
-  'Tailwind CSS', 'PostgreSQL', 'Three.js', 'GSAP', 'Vite', 'Git', 'Vercel',
+  'TypeScript', 'React', 'Next.js', 'NestJS', 'Node.js', 'Expo',
+  'GraphQL', 'PostgreSQL', 'Redis', 'Tailwind CSS', 'Three.js', 'GSAP',
+  'Vite', 'Git', 'Vercel',
 ]
 
 // Double the list for seamless loop

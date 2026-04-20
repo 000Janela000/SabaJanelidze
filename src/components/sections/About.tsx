@@ -92,6 +92,9 @@ export function About() {
               >
                 {t(translations.about.bio)}
               </p>
+              <p className="mt-5 max-w-xl text-sm font-medium leading-relaxed text-text-dim sm:text-base">
+                {t(translations.about.credentials)}
+              </p>
             </div>
           </div>
         </div>

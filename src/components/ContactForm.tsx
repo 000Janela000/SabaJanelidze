@@ -193,10 +193,10 @@ export function ContactForm() {
           className="w-full appearance-none rounded-lg border border-border bg-bg-elevated py-3 pl-4 pr-10 text-text transition-colors focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/20"
         >
           <option value="">— Select one —</option>
-          <option value="mobile">{t(translations.contact.form.mobileApp)}</option>
+          <option value="fintech">{t(translations.contact.form.fintechProduct)}</option>
           <option value="web">{t(translations.contact.form.webPlatform)}</option>
-          <option value="ai">{t(translations.contact.form.aiProduct)}</option>
-          <option value="design">{t(translations.contact.form.designSystem)}</option>
+          <option value="mobile">{t(translations.contact.form.mobileApp)}</option>
+          <option value="fullstack">{t(translations.contact.form.fullStackProduct)}</option>
           <option value="other">{t(translations.contact.form.other)}</option>
         </select>
       </div>
