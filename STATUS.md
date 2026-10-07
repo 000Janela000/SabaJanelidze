@@ -16,9 +16,7 @@
 1. **The page title and description show the old pitch.**
    - `index.html` still says "Saba Janelidze — Web Developer" and "I build websites that deliver results…".
    - Google results and link previews show this. The site itself now says Senior Full-Stack Engineer, fintech.
-2. **Google Search Console:** check that `www.sabajanelidze.com` is added as a property. The check file already exists in `public/`. (This is part of the workspace pilot, Phase 4 in `../WORKSPACE-PLAN.md`.)
-3. **No inbox on the domain yet:** `hello@sabajanelidze.com` doesn't exist. This is also part of the pilot (Cloudflare Email Routing).
-4. **Cleanup to decide:**
+2. **Cleanup to decide:**
    - `about-section.md` in the root is an old page dump (351 lines) from a browser tool. It's committed to git, but nothing uses it.
    - The old `*.png` screenshots in the root are gitignored and stay local.
 
@@ -28,6 +26,12 @@
 
 ## Log
 
+- **2026-10-08 (workspace pilot):**
+  - `hello@sabajanelidze.com` and every other address on the domain forward to Saba's Gmail (Cloudflare Email Routing, catch-all on).
+  - Google Search Console: Domain property `sc-domain:sabajanelidze.com`, verified by DNS TXT. Owners: Saba + the workspace service account. Sitemap submitted.
+  - Cloudflare Web Analytics added (no cookies). Its script is allowed in the CSP in `vercel.json`.
+  - `robots.txt` + `sitemap.xml` added (home + 3 project pages).
+  - GitHub repo homepage link now points to www.sabajanelidze.com.
 - **2026-10-08:** The contact form now emails Saba through **Resend**.
   - It sends from `contact@sabajanelidze.com` to Saba's Gmail, with Reply-To set to the visitor.
   - `sabajanelidze.com` is verified in Resend (EU region). Resend's DKIM and return-path records plus a DMARC record (`p=none`) were added in Cloudflare.
