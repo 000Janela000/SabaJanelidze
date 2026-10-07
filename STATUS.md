@@ -32,6 +32,7 @@
 
 ## Log
 
+- **2026-10-08 (later):** Google reported the home page as "Duplicate without user-selected canonical". Fixed: every page now sets its canonical address (`src/App.tsx`, commit `64ba1e8`), and `saba-janelidze.vercel.app` redirects (308) to `www.sabajanelidze.com` (Vercel domain setting). Indexing requested again in Search Console.
 - **2026-10-08 (workspace pilot):**
   - `hello@sabajanelidze.com` and every other address on the domain forward to Saba's Gmail (Cloudflare Email Routing, catch-all on).
   - Google Search Console: Domain property `sc-domain:sabajanelidze.com`, verified by DNS TXT. Owners: Saba + the workspace service account. Sitemap submitted.
