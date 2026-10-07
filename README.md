@@ -2,7 +2,7 @@
 
 Premium personal portfolio website. Bilingual (Georgian/English) with IP-based auto-detection.
 
-**Live:** https://saba-janelidze.vercel.app
+**Live:** https://www.sabajanelidze.com
 
 ## Stack
 
