@@ -8,6 +8,7 @@ interface FormData {
   email: string
   description: string
   projectType: string
+  company: string // hidden spam trap: people never see it, bots fill it in
 }
 
 interface FormState {
@@ -22,6 +23,7 @@ export function ContactForm() {
     email: '',
     description: '',
     projectType: '',
+    company: '',
   })
   const [formState, setFormState] = useState<FormState>({ status: 'idle' })
 
@@ -69,14 +71,15 @@ export function ContactForm() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to send message')
+        const data = await response.json().catch(() => null)
+        throw new Error(data?.error || 'Failed to send message')
       }
 
       setFormState({
         status: 'success',
         message: 'Message sent successfully!',
       })
-      setFormData({ name: '', email: '', description: '', projectType: '' })
+      setFormData({ name: '', email: '', description: '', projectType: '', company: '' })
     } catch (error) {
       setFormState({
         status: 'error',
@@ -218,6 +221,20 @@ export function ContactForm() {
         <p className="text-xs text-text-dim/70">
           {t(translations.contact.form.descriptionHint)}
         </p>
+      </div>
+
+      {/* Spam trap: hidden from people and screen readers */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label htmlFor="company">Company</label>
+        <input
+          id="company"
+          type="text"
+          name="company"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.company}
+          onChange={handleChange}
+        />
       </div>
 
       {/* Error Message */}
