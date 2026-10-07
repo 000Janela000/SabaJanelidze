@@ -16,7 +16,13 @@
 1. **The page title and description show the old pitch.**
    - `index.html` still says "Saba Janelidze — Web Developer" and "I build websites that deliver results…".
    - Google results and link previews show this. The site itself now says Senior Full-Stack Engineer, fintech.
-2. **Cleanup to decide:**
+2. **The speed score the site shows is a desktop score.**
+   - `src/lib/lighthouse.ts` shows performance **92**, from a **desktop** test on 2026-03-30 (`lh-analysis.json`).
+   - Real **mobile** today (PageSpeed, 2026-10-08, middle of 3 runs): **performance 66**, SEO 100, accessibility 96, best practices 96. LCP (main content load) is 5.3 s.
+   - PageSpeed defaults to mobile, so a visitor who checks will see a lower number than the site claims.
+   - Saba decides: speed up mobile (e.g. lighter hero / three.js loading), or label the shown scores "desktop".
+   - Re-check with `node ../_shared/tools/google.mjs psi https://www.sabajanelidze.com/`.
+3. **Cleanup to decide:**
    - `about-section.md` in the root is an old page dump (351 lines) from a browser tool. It's committed to git, but nothing uses it.
    - The old `*.png` screenshots in the root are gitignored and stay local.
 
