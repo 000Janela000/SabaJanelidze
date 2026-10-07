@@ -1,6 +1,6 @@
 # Saba Janelidze Portfolio — Roadmap
 
-> Last updated: 2026-03-21
+> Last updated: 2026-10-07. Phase 1 and Phase 1.5 below are **built** (see "Completed"). The current open work is in `STATUS.md`.
 
 ## Planned
 
@@ -59,7 +59,9 @@ Optional. If Saba starts writing technical posts, add a minimal blog section. No
 
 ## Completed
 
-Nothing yet — project is being built.
+- **2026-03 to 2026-04:** Phase 1 (core build) and Phase 1.5 (global polish). The site went live at saba-janelidze.vercel.app.
+- **2026-04-20:** Repositioned as a senior fintech / full-stack engineer. The Chama.ge project was added and DevNews was dropped. Lighthouse scores for Chama were added.
+- **2026-10-07:** Own domain, www.sabajanelidze.com. The link-preview tags (og/twitter) were switched to it.
 
 ---
 

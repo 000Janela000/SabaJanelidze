@@ -1,6 +1,6 @@
 # Portfolio Fix Plan — Post-Audit
 
-> Created: 2026-03-21
+> **Historical (March 2026).** Most of these fixes are done in the code: the real email, GitHub link and screenshots, tilt cards, and blur-reveal headings. The current open work is in `STATUS.md`.
 > Based on: Multi-perspective visual audit (3 agents: root cause, vision-vs-reality, animation technique)
 
 ## Context

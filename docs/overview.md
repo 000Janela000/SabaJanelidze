@@ -1,27 +1,43 @@
 # Saba Janelidze Portfolio — Overview
 
-> Last updated: 2026-03-21
+> Last updated: 2026-10-07. Positioning changed on 2026-04-20. The sections from "Animation Strategy" down describe the site as it was built in March–April 2026, and they are still true.
 
 ## What It Is
 
-Premium personal portfolio website for Saba Janelidze, a web developer based in Georgia. Showcases projects, services, and skills through a cinematic, animation-rich experience that positions Saba as a high-end web developer.
+Saba Janelidze's personal portfolio site. Live at https://www.sabajanelidze.com.
+
+It presents Saba as a **Senior Full-Stack Engineer with 3 years in production fintech**: crypto custody, exchange APIs and bank payment systems. It uses a cinematic, animation-rich design.
+
+The text on the site is kept in `src/lib/i18n.ts`. That file is the source of truth. This doc only describes the site in summary.
 
 ## Positioning
+
+Since 2026-04-20, the site says:
+- **Title:** Senior Full-Stack Engineer.
+- **Tagline:** "3 years shipping fintech — crypto custody, exchange APIs, payment systems".
+- **Credentials:** 3 years production fintech at Bitnet · Backend Lead at Chama · Founder of Playtime.ge and UniHub.
+- **Services ("What I Do"):** Fintech Systems · Exchange & Trading · Full-Stack Products.
+
+Before that date, the site sold Saba as a "web developer who builds websites". DevNews was shown as a project then. It was dropped.
 
 Two brands, two audiences:
 
 | Brand | SiteCraft | Saba Janelidze Portfolio |
 |-------|-----------|--------------------------|
-| Position | Affordable, accessible | Premium, creative |
-| Audience | Small businesses without websites | Clients wanting something special, developers, employers |
+| Position | Affordable, accessible websites | Senior fintech / full-stack engineer |
+| Audience | Small businesses without websites | Companies and founders building fintech or full-stack products; employers |
 | Pricing | Visible (250-800 GEL) | Hidden ("contact for a quote") |
 | Tone | Friendly, simple | Bold, cinematic, impressive |
 
+The contact section still sends people who want a simple business website to SiteCraft.
+
 ## Audience Priority
 
-1. Potential clients — "Can this person make my business look amazing?"
-2. Developers — "How did he build this?"
-3. Employers — "This person is skilled."
+This is based on what the site says today. Saba hasn't confirmed this order.
+
+1. Companies and founders building fintech or full-stack products. The contact form asks "What are you building?".
+2. Employers: "This person is a senior engineer".
+3. Developers: "How was this built?"
 
 ## Language
 
@@ -49,10 +65,16 @@ Hybrid: single main scroll page + individual project detail pages.
 
 ### Project Detail Pages (separate routes)
 
-- /work/playtime — Entertainment platform with admin panel
-- /work/devnews — Tech news platform
-- /work/unihub — Education platform
-- /work/sitecraft — Client service landing page (added after SiteCraft is built)
+Live today (the list is in `projects` in `src/lib/i18n.ts`):
+- /work/chama — Chama.ge, a restaurant platform with dynamic pricing (Backend Lead)
+- /work/playtime — Playtime.ge, an entertainment startup (Founder)
+- /work/unihub — UniHub, an education platform, piloting with Agrarian University of Georgia (Founder)
+
+Ideas, not built:
+- /work/sitecraft — a client service landing page
+
+Dropped on 2026-04-20:
+- /work/devnews
 
 Each project page: full-screen hero image, project description, tech stack, challenge/solution story, live link, screenshots.
 

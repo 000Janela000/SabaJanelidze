@@ -1,6 +1,6 @@
 # Saba Janelidze Portfolio — Content (Bilingual)
 
-> Last updated: 2026-03-21
+> **Historical (March 2026).** This is the first version of the site text, from before the 2026-04-20 repositioning. The live text is in `src/lib/i18n.ts`. Don't use this file as the source.
 
 All text in both Georgian (ka) and English (en). IP-based auto-detection, manual toggle available.
 
