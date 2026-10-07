@@ -29,3 +29,5 @@ dist/
 
 # Private notes (marketing, strategy, personal). Synced between Saba's computers by Syncthing, never pushed. See AGENTS.md.
 private/
+# Local Claude Code settings (can hold tokens; never commit)
+.claude/settings.local.json
