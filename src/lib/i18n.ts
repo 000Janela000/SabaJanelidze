@@ -127,12 +127,12 @@ export const projects = [
     title: 'Playtime.ge',
     category: { ka: 'სპორტისა და გართობის ჯავშნა · Founder', en: 'Sports & Entertainment Booking · Founder' },
     shortDesc: {
-      ka: 'საჯავშნო მარკეტპლეისი — პადელი, ფეხბურთი, ბილიარდი, PlayStation და სხვა, მთელ საქართველოში. ვაშენებ თავიდან ბოლომდე — ვები, მობილური, ადმინი და ოპერაციები.',
-      en: 'Booking marketplace for padel, football, billiards, PlayStation and more across Georgia. I build it end-to-end — web, mobile, admin and operations.',
+      ka: 'თბილისში სპორტისა და გართობის ობიექტების ჯავშნის მარკეტპლეისი, რომელიც პადელით იწყება. ვაშენებ თავიდან ბოლომდე — ვები, მობილური, ადმინი და ოპერაციები.',
+      en: 'Booking marketplace for sports and entertainment venues in Tbilisi, starting with padel. I build it end-to-end — web, mobile, admin and operations.',
     },
     description: {
-      ka: 'PlayTime-ით ადამიანები პოულობენ და ჯავშნიან სპორტულ და გასართობ ობიექტებს მთელ საქართველოში — პადელი, ფეხბურთი, ბილიარდი, PlayStation და სხვა — რეალურ დროში ხელმისაწვდომობითა და ონლაინ გადახდით. ვაშენებ მარტო, როგორც ფაუნდერი: NestJS + GraphQL ბექენდი, Next.js ვებაპლიკაცია და ობიექტების პორტალი, Expo მობილური აპლიკაცია და მათ უკან მდგომი ადმინისა და ოპერაციების ინსტრუმენტები.',
-      en: "PlayTime lets people find and book sports and entertainment venues across Georgia — padel, football, billiards, PlayStation and more — with live availability and online payment. I'm building it as a solo founder: a NestJS + GraphQL backend, a Next.js web app and venue portal, an Expo mobile app, and the admin and operations tools behind them.",
+      ka: 'PlayTime ადამიანებს ეხმარება თბილისში სპორტისა და გართობის ობიექტების პოვნასა და დაჯავშნაში. დღეს მასზე 19 პადელის კლუბია განთავსებული, ხოლო ონლაინ ჯავშანი გადახდით საბოლოო ტესტირების ეტაპზეა. ვაშენებ მარტო, როგორც ფაუნდერი: NestJS + GraphQL ბექენდი, Next.js ვებაპლიკაცია და ობიექტების პორტალი, Expo მობილური აპლიკაცია და მათ უკან მდგომი ადმინისა და ოპერაციების ინსტრუმენტები.',
+      en: "PlayTime helps people find and book sports and entertainment venues in Tbilisi. Today it lists 19 padel clubs, and online booking with payment is in final testing. I'm building it as a solo founder: a NestJS + GraphQL backend, a Next.js web app and venue portal, an Expo mobile app, and the admin and operations tools behind them.",
     },
     tech: ['NestJS', 'GraphQL', 'Next.js', 'Expo', 'PostgreSQL'],
     url: 'https://playtime.ge',

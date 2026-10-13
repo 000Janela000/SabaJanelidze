@@ -34,7 +34,7 @@
 
 - **2026-10-13:** Added two projects and set the order Saba asked for: **Bitnet.ge first, Playtime.ge second, WasteAway third**, then Chama and UniHub.
   - New project pages: `/work/bitnet` and `/work/wasteaway`. Their images are screenshots of the live sites (`public/projects/bitnet.webp`, `wasteaway.webp`, 1440 x 900).
-  - PlayTime's text now matches what it really is: a sports and entertainment venue booking marketplace (it said "entertainment startup" before).
+  - PlayTime's text now matches what it really is today: a booking marketplace for sports and entertainment venues in Tbilisi, with 19 padel clubs listed and online booking with payment still in testing (`../playtime/STATUS.md`). It said "entertainment startup" before.
   - The About text and credentials now name WasteAway too. The sitemap lists the two new pages.
   - The Georgian text was written by a Fable 5.1 subagent and checked against an English back-translation. Saba is the final native check.
   - The new cards show no speed scores (only Chama, PlayTime and UniHub have them in `src/lib/lighthouse.ts`).
