@@ -1,6 +1,6 @@
 # Saba Janelidze Portfolio — Overview
 
-> Last updated: 2026-10-07. Positioning changed on 2026-04-20. The sections from "Animation Strategy" down describe the site as it was built in March–April 2026, and they are still true.
+> Last updated: 2026-10-13 (Bitnet and WasteAway added). Positioning changed on 2026-04-20. The sections from "Animation Strategy" down describe the site as it was built in March–April 2026, and they are still true.
 
 ## What It Is
 
@@ -15,7 +15,7 @@ The text on the site is kept in `src/lib/i18n.ts`. That file is the source of tr
 Since 2026-04-20, the site says:
 - **Title:** Senior Full-Stack Engineer.
 - **Tagline:** "3 years shipping fintech — crypto custody, exchange APIs, payment systems".
-- **Credentials:** 3 years production fintech at Bitnet · Backend Lead at Chama · Founder of Playtime.ge and UniHub.
+- **Credentials:** 3 years production fintech at Bitnet · Backend Lead at Chama · Founder of Playtime.ge, WasteAway and UniHub.
 - **Services ("What I Do"):** Fintech Systems · Exchange & Trading · Full-Stack Products.
 
 Before that date, the site sold Saba as a "web developer who builds websites". DevNews was shown as a project then. It was dropped.
@@ -65,9 +65,11 @@ Hybrid: single main scroll page + individual project detail pages.
 
 ### Project Detail Pages (separate routes)
 
-Live today (the list is in `projects` in `src/lib/i18n.ts`):
+Live today, in this order (the list is in `projects` in `src/lib/i18n.ts`; the order there is the order on the site):
+- /work/bitnet — Bitnet.ge, a crypto exchange licensed by the National Bank of Georgia (Saba's 3 years of production fintech). Added 2026-10-13.
+- /work/playtime — Playtime.ge, a sports and entertainment venue booking marketplace (Founder)
+- /work/wasteaway — WasteAway, door-to-door garbage pickup for Tbilisi apartment buildings (Founder). Added 2026-10-13.
 - /work/chama — Chama.ge, a restaurant platform with dynamic pricing (Backend Lead)
-- /work/playtime — Playtime.ge, an entertainment startup (Founder)
 - /work/unihub — UniHub, an education platform, piloting with Agrarian University of Georgia (Founder)
 
 Ideas, not built:

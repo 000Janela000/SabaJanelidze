@@ -49,12 +49,12 @@ export const translations = {
   about: {
     heading: { ka: 'ჩემს შესახებ', en: 'About' },
     bio: {
-      ka: 'Full-stack ინჟინერი საქართველოდან. სამი წელია დეველოპერივარ fintech- განხრით — კრიპტო იქსჩეინჯის ინტეგრაციები, ბანკის გადახდის სისტემები და უსაფრთხო ავტორიზაცია. Stack: TypeScript, React, Next.js, NestJS, Expo. გვერდით ვქმნი საკუთარ პროდუქტებს — Playtime.ge (გასართობი, აქტიურ დეველოპმენტში) და UniHub (საგანმანათლებლო, ეშვება აგრარულ უნივერსიტეტთან).',
-      en: "Full-stack engineer based in Georgia. For three years I've shipped production fintech — crypto custody, exchange integrations, bank payment rails and high-security auth. Stack: TypeScript, React, Next.js, NestJS, Expo. On the side I build my own products — Playtime.ge (entertainment, in active development) and UniHub (education, launching with Agrarian University of Georgia).",
+      ka: 'Full-stack ინჟინერი საქართველოდან. სამი წელია დეველოპერივარ fintech- განხრით — კრიპტო იქსჩეინჯის ინტეგრაციები, ბანკის გადახდის სისტემები და უსაფრთხო ავტორიზაცია. Stack: TypeScript, React, Next.js, NestJS, Expo. გვერდით ვქმნი საკუთარ პროდუქტებს — Playtime.ge (სპორტისა და გართობის ჯავშნა, აქტიურ დეველოპმენტში), WasteAway (ნაგვის გატანა კორპუსებისთვის) და UniHub (საგანმანათლებლო, ეშვება აგრარულ უნივერსიტეტთან).',
+      en: "Full-stack engineer based in Georgia. For three years I've shipped production fintech — crypto custody, exchange integrations, bank payment rails and high-security auth. Stack: TypeScript, React, Next.js, NestJS, Expo. On the side I build my own products — Playtime.ge (sports & entertainment booking, in active development), WasteAway (garbage pickup for apartment buildings) and UniHub (education, launching with Agrarian University of Georgia).",
     },
     credentials: {
-      ka: '3 წელი ფინტექში Bitnet-ში · Backend Lead Chama-ში · Playtime.ge-სა და UniHub-ის ფაუნდერი',
-      en: '3 years production fintech at Bitnet · Backend Lead at Chama · Founder of Playtime.ge and UniHub',
+      ka: '3 წელი production ფინტექში Bitnet-ში · Backend Lead Chama-ში · Playtime.ge-ს, WasteAway-სა და UniHub-ის ფაუნდერი',
+      en: '3 years production fintech at Bitnet · Backend Lead at Chama · Founder of Playtime.ge, WasteAway and UniHub',
     },
   },
   contact: {
@@ -106,6 +106,57 @@ export const translations = {
 
 export const projects = [
   {
+    slug: 'bitnet',
+    title: 'Bitnet.ge',
+    category: { ka: 'კრიპტო ბირჟა · Full-Stack Engineer', en: 'Crypto Exchange · Full-Stack Engineer' },
+    shortDesc: {
+      ka: 'საქართველოს ეროვნული ბანკის მიერ ლიცენზირებული კრიპტო ბირჟა 200,000+ რეგისტრირებული მომხმარებლით. სამი წელია ვაშენებ მის production სისტემებს.',
+      en: 'Crypto exchange licensed by the National Bank of Georgia, with 200,000+ registered users. Three years building its production systems.',
+    },
+    description: {
+      ka: 'Bitnet საქართველოს ეროვნული ბანკის მიერ ლიცენზირებული კრიპტო ბირჟაა, 200,000-ზე მეტი რეგისტრირებული მომხმარებლითა და 2.5 მილიონი ტრანზაქციით. სამი წელია ვაშენებ მის production სისტემებს: კრიპტო custody, ბირჟებთან ინტეგრაციები, საბანკო გადახდის არხები, მაღალი უსაფრთხოების ავტორიზაცია და ადმინ ინსტრუმენტები, რომლებსაც გუნდი ყოველდღე იყენებს.',
+      en: 'Bitnet is a crypto exchange licensed by the National Bank of Georgia, with more than 200,000 registered users and 2.5 million transactions. For three years I have built its production systems: crypto custody, exchange integrations, bank payment rails, high-security auth and the admin tools the team uses every day.',
+    },
+    tech: ['Go', 'NestJS', 'GraphQL', 'PostgreSQL', 'React'],
+    url: 'https://bitnet.ge',
+    image: '/projects/bitnet.webp',
+    color: '#2563eb',
+  },
+  {
+    slug: 'playtime',
+    title: 'Playtime.ge',
+    category: { ka: 'სპორტისა და გართობის ჯავშნა · Founder', en: 'Sports & Entertainment Booking · Founder' },
+    shortDesc: {
+      ka: 'საჯავშნო მარკეტპლეისი — პადელი, ფეხბურთი, ბილიარდი, PlayStation და სხვა, მთელ საქართველოში. ვაშენებ თავიდან ბოლომდე — ვები, მობილური, ადმინი და ოპერაციები.',
+      en: 'Booking marketplace for padel, football, billiards, PlayStation and more across Georgia. I build it end-to-end — web, mobile, admin and operations.',
+    },
+    description: {
+      ka: 'PlayTime-ით ადამიანები პოულობენ და ჯავშნიან სპორტულ და გასართობ ობიექტებს მთელ საქართველოში — პადელი, ფეხბურთი, ბილიარდი, PlayStation და სხვა — რეალურ დროში ხელმისაწვდომობითა და ონლაინ გადახდით. ვაშენებ მარტო, როგორც ფაუნდერი: NestJS + GraphQL ბექენდი, Next.js ვებაპლიკაცია და ობიექტების პორტალი, Expo მობილური აპლიკაცია და მათ უკან მდგომი ადმინისა და ოპერაციების ინსტრუმენტები.',
+      en: "PlayTime lets people find and book sports and entertainment venues across Georgia — padel, football, billiards, PlayStation and more — with live availability and online payment. I'm building it as a solo founder: a NestJS + GraphQL backend, a Next.js web app and venue portal, an Expo mobile app, and the admin and operations tools behind them.",
+    },
+    tech: ['NestJS', 'GraphQL', 'Next.js', 'Expo', 'PostgreSQL'],
+    url: 'https://playtime.ge',
+    image: '/projects/playtime.webp',
+    color: '#e54d2e',
+  },
+  {
+    slug: 'wasteaway',
+    title: 'WasteAway',
+    category: { ka: 'ნაგვის გატანის სტარტაპი · Founder', en: 'Waste Pickup Startup · Founder' },
+    shortDesc: {
+      ka: 'ნაგვის გატანა კარიდან კარამდე თბილისის კორპუსებისთვის. ვაშენებ ნულიდან — ბრენდი, ვებსაიტი და ოპერაციები.',
+      en: "Door-to-door garbage pickup for apartment buildings in Tbilisi. I'm building it from zero — brand, website and operations.",
+    },
+    description: {
+      ka: 'WasteAway ნაგავს გააქვს თბილისის კორპუსებიდან. მაცხოვრებლები საღამოს WasteAway-ს ტომარას სართულზე ჩამოკიდებენ, თანამშრომელი კი მას დილამდე წაიღებს. მე ვარ ფაუნდერი: შევქმენი ბრენდი, ორენოვანი ვებსაიტი რუკაზე დაფუძნებული რეგისტრაციის ფორმით და ოპერაციების გეგმა, და ახლა პირველ საპილოტე კორპუსს ვამზადებ.',
+      en: "WasteAway takes the garbage out of Tbilisi apartment buildings. Residents hang a WasteAway bag on their floor in the evening, and a collector takes it away by morning. I'm the founder: I built the brand, the bilingual website with a map-based sign-up form, and the operations plan, and I'm preparing the first pilot building.",
+    },
+    tech: ['Astro', 'TypeScript', 'Cloudflare Workers', 'Cloudflare D1', 'Leaflet'],
+    url: 'https://wasteaway.ge',
+    image: '/projects/wasteaway.webp',
+    color: '#03667d',
+  },
+  {
     slug: 'chama',
     title: 'Chama.ge',
     category: { ka: 'რესტორნის პლატფორმა · Backend Lead', en: 'Restaurant Platform · Backend Lead' },
@@ -121,23 +172,6 @@ export const projects = [
     url: 'https://chama.ge',
     image: '/projects/chama.webp',
     color: '#dc2626',
-  },
-  {
-    slug: 'playtime',
-    title: 'Playtime.ge',
-    category: { ka: 'გასართობი სტარტაპი · Founder', en: 'Entertainment Startup · Founder' },
-    shortDesc: {
-      ka: 'გასართობი სტარტაპი, რომელსაც ვაშენებ end-to-end — პროდუქტი, ადმინ პანელი და ოპერაციები.',
-      en: "Entertainment startup I'm building end-to-end — product, admin panel and operations.",
-    },
-    description: {
-      ka: 'Playtime.ge-ს ვაშენებ solo founder-ად. Full-stack პროდუქტ ინჟინერია, ადმინ ინსტრუმენტები და ოპერაციული სისტემები. აქტიურ დეველოპმენტში, ვშიპავ ფიჩრებს იუზერის feedback ციკლებით.',
-      en: 'Building Playtime.ge as a solo founder. Full-stack product engineering, admin tooling and operational systems. Currently in active development, shipping features through user feedback cycles.',
-    },
-    tech: ['React', 'Node.js', 'Admin Panel'],
-    url: 'https://playtime.ge',
-    image: '/projects/playtime.webp',
-    color: '#e54d2e',
   },
   {
     slug: 'unihub',

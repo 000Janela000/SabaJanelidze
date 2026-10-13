@@ -2,13 +2,13 @@
 
 > Read this at the start of every session. Update it at the end.
 > This file is in a **public** repo. Keep private things in `private/`.
-> Last updated: **2026-10-08**
+> Last updated: **2026-10-13**
 
 ## Where we are
 
 - **Live:** https://www.sabajanelidze.com. The own domain was added on 2026-10-07. Before that the site was at saba-janelidze.vercel.app, which still works.
-- **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge and UniHub.
-- **Projects shown:** Chama.ge, Playtime.ge, UniHub.
+- **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
+- **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
 - **Deploy:** a push to `main` publishes it automatically on Vercel.
 
 ## Open problems (most important first)
@@ -32,6 +32,13 @@
 
 ## Log
 
+- **2026-10-13:** Added two projects and set the order Saba asked for: **Bitnet.ge first, Playtime.ge second, WasteAway third**, then Chama and UniHub.
+  - New project pages: `/work/bitnet` and `/work/wasteaway`. Their images are screenshots of the live sites (`public/projects/bitnet.webp`, `wasteaway.webp`, 1440 x 900).
+  - PlayTime's text now matches what it really is: a sports and entertainment venue booking marketplace (it said "entertainment startup" before).
+  - The About text and credentials now name WasteAway too. The sitemap lists the two new pages.
+  - The Georgian text was written by a Fable 5.1 subagent and checked against an English back-translation. Saba is the final native check.
+  - The new cards show no speed scores (only Chama, PlayTime and UniHub have them in `src/lib/lighthouse.ts`).
+  - Same day, a separate Claude session (started in its own terminal) adds only WasteAway to the SiteCraft website (`../SiteCraft/Portfolio`).
 - **2026-10-08 (later):** Google reported the home page as "Duplicate without user-selected canonical". Fixed: every page now sets its canonical address (`src/App.tsx`, commit `64ba1e8`), and `saba-janelidze.vercel.app` redirects (308) to `www.sabajanelidze.com` (Vercel domain setting). Indexing requested again in Search Console.
 - **2026-10-08 (workspace pilot):**
   - `hello@sabajanelidze.com` and every other address on the domain forward to Saba's Gmail (Cloudflare Email Routing, catch-all on).
