@@ -10,7 +10,7 @@
 - **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
 - **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
 - **Deploy:** a push to `main` publishes it automatically on Vercel.
-- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions) and Phase 1b (the notebook home page) are done. **Phase 1c is done:** after two independent design reviews, Saba reset the home page to direction A's calm layout. Light and dark themes, no grid, no glow. Its text is a draft until Saba approves it. The live site on `main` is untouched.
+- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions), Phase 1b (the notebook home page) and Phase 1c (the calm reset) are done. **Phase 1e is done:** "Calm, with one live proof": Newsreader headings, the lab's payment-race figure in the hero, a rebuilt numbers row, and the 15 Phase 1d fixes. Its text is a draft until Saba approves it. The live site on `main` is untouched.
 
 ## Open problems (most important first)
 
@@ -29,13 +29,27 @@
 
 ## Next steps
 
-- Saba opens http://localhost:4321/ (run `npm run dev` on the `rebuild` branch), tries both themes (footer: "Theme: Light · Dark · Auto"), and approves or edits the draft texts (the lines marked "DRAFT" in `src/content/home.ts`).
+- Saba opens http://localhost:4321/ (run `npm run dev` on the `rebuild` branch), tries both themes (footer: "Theme: Light · Dark · Auto"), and approves or edits the draft texts:
+  - `src/content/home.ts`, every line marked "DRAFT": the button "Email me about your team", "Hiring? See my CV", the four numbers and their labels, the proof line under each offer, the fact under each method step and the loop sentence, the stage tags of the small work cards, "Ask me for the full case study", the open-source lines in About.
+  - `src/content/cv.ts`: the whole `/cv` role list.
+  - **The texts inside the hero figure** (they live in the lab's package; changes go to the lab session): the screen-reader title "Two withdrawals of 80 from a balance of 100, running at the same time"; the steps "load the customer", "read the balance, check 80 ≤ balance", "save the new balance", "pay out"; "paid 80" / "refused"; "Balance", "Paid out", "Short"; the caption "Order 11 of 54. Both passed the check. Balance 20, paid out 160." (and the other orders' captions, for example "B read 20 and was refused. Balance 20, paid out 80."); "Run another order", "Pause" / "Play", "Find the bug →"; the note "Each run is a recorded trace of the game's real code, checked by a test on every build."
+- **Before launch, the lab must be live:** the figure's "Find the bug →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
+- A better portrait from Saba (the current one has a white studio background; it shows as a bright square in the dark theme).
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
-- The lab site gets design tokens **version 2** (`src/styles/tokens.css`; what changed is at the top of `docs/design-tokens.md`): theme names `light` / `dark`, no grid or glow tokens.
-- Before launch: re-check the bitnet.ge counters (219,755 users, 2,537,505 transactions on 2026-10-14). The Bitnet card's screenshot (13 Oct) shows older counters.
+- The lab site gets design tokens **version 3** (`src/styles/tokens.css`; what changed is at the top of `docs/design-tokens.md`).
+- Before launch: re-check the bitnet.ge counters (219,764 users, 2,538,923 transactions on 2026-10-15).
 
 ## Log
 
+- **2026-10-15 (rebuild, Phase 1e "Calm, with one live proof"):** The calm home page got a voice and one working object. Saba chose the direction after a third round of reviews.
+  - **Type:** headings, the big numbers and the Bitnet card title in **Newsreader** (a serif), one self-hosted 25 KB file (weight 500, optical size 24 to 72, Latin), preloaded, with a metric-matched Georgia fallback. Body stays Inter. Sources, dates and money figures in a small monospace (0 KB). Georgian headings will use Noto Sans Georgian.
+  - **Colour:** the calm blue now has three jobs: link underlines, focus rings, movement in the hero figure. Red marks only the money loss in the figure. The dark theme's main button is the blue itself, with dark text and no border. Design tokens **version 3**.
+  - **Hero:** two columns from 1024 px (about 7 / 5). Left: the pitch as the headline, the proof sentence, "Email me about your team" and a quiet "Hiring? See my CV". Right: the lab session's shared **payment race figure** (`<race-figure>` 1.0.0, vendored in `src/vendor/race-figure/`): two withdrawals of 80 from a balance of 100, the four real steps, the balance and the payouts. It plays once (about 4 s) when half of it is on screen, has Pause / Play while it moves, then "Run another order" (one of 54 recorded runs of the game's real code) and "Find the bug →". Without JavaScript and with reduced motion it shows the end state. It adds 2.8 KB of JavaScript (gzip), loaded when the browser is idle. Phones: pitch, proof, actions, then the figure full width, then the numbers.
+  - **Numbers row, rebuilt:** Bitnet users and transactions (bitnet.ge), "237 of 278" architecture decisions written up by Saba, and "38 of 38" customer actions that the build checks for repeat safety under his rule. Sources in the small monospace and lined up; shorter labels on phones.
+  - **The 15 Phase 1d fixes:** new Bitnet screenshot (15 Oct, cropped above its counters, with a dated caption); "the new check blocks that failure path" instead of "so it cannot come back"; Bitnet is the only big work card, PlayTime, WasteAway, Chama and UniHub are small cards with their real stage; a sourced fact under each method step; a proof line under each offer; About with one proof line per open-source tool, the stack grouped and a larger square portrait; "Ask me for the full case study" (email); the button's purpose and a quiet "CV" link in the header; a real dated `/cv`; the dark button; a plain-text theme switch; shorter phone labels.
+  - **Small interactions:** "Copy" turns into "Copied" for 1.5 s; the Bitnet image lifts 2 px with an accent border on hover; link arrows move 2 px on hover. With reduced motion nothing moves.
+  - **Checks:** contrast audit against the real pixels (both themes, desktop and phone, 4 pages): 994 text lines, 250 hover states, 210 focus rings, 40 non-text parts, **0 failures**, axe-core 0 violations. Lighthouse mobile, median of 3, both themes: performance, accessibility, best practices and SEO **100**; LCP 1.65 s; layout shift 0; 4.6 KB of JavaScript and 72 KB of fonts. No sideways scroll at 320 to 1440 px.
+  - Nothing was pushed or deployed.
 - **2026-10-15 (rebuild, Phase 1c "Calm"):** The home page `/` was redesigned after two independent design reviews. Both ranked direction A first.
   - Kept: direction A's skeleton with the Phase 1b build quality and real content. Removed everywhere on the home page: the graph-paper / blueprint grid, the WebGL glow, the notebook labels ("rev.", "fig.", "table", "§"), the offset button shadow, and every unfinished part (build receipt, lab "coming soon" cards, the inert "Ask" box, the game teaser).
   - Hero: one small line "Saba Janelidze · Principal Engineer, Bitnet", the pitch as the h1, one proof sentence, **Email me** (a plain email link) and "For hiring managers →", then one row of four dated numbers. No figure on the right.

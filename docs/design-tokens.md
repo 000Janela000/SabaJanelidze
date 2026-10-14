@@ -1,10 +1,26 @@
 # Design tokens
 
-The shared look of sabajanelidze.com, in one file: **`src/styles/tokens.css`** (version 2, 2026-10-15).
+The shared look of sabajanelidze.com, in one file: **`src/styles/tokens.css`** (version 3, 2026-10-15).
 
 A "design token" is a named value, for example `--accent` for the accent colour. Every page uses the names, never the raw values. So a colour changes in one place, and both themes come from one design.
 
 The file is plain CSS (custom properties). It needs no build step and no Tailwind.
+
+## What changed in version 3 (2026-10-15, Phase 1e "Calm, with one live proof")
+
+The calm layout stays. Version 3 gives it a voice and gives the colours clear jobs. Every colour value is the same as in version 2, except the dark theme's main button.
+
+- **New: a heading face.** `--font-display` is **Newsreader** (a serif), weight 500 only (`--weight-display`), for text of 24 px and up: the h1, the h2s, the big numbers and the one big card title. It is one self-hosted file (`src/assets/fonts/newsreader-latin-500-opsz.woff2`, 25 KB). The weight is fixed at 500. The optical-size axis is kept from 24 to 72, so with `font-optical-sizing: auto` a 28 px heading and a 46 px headline each get their own cut. Latin characters only. A metric-matched fallback ("Newsreader Fallback": Georgia at 98 %) stops the text from jumping when the font arrives. Body text stays Inter 400 and 600.
+- **Georgian headings** use Noto Sans Georgian 600 (there is no Georgian serif). `global.css` sets `--font-display` and `--weight-display` on every element with `lang="ka"`, so nothing else has to change.
+- **New: monospace for sources, dates and money figures.** `--font-source` (the system monospace, 0 KB) at `--fs-source` (14 px), always with tabular numbers (all digits the same width). Use the class `ui-source`. Monospace is still not for labels or headings.
+- **The accent has three jobs, and only these:** link underlines (links are now `--fg` text with an accent underline, not blue text), the focus ring, and movement in the hero figure. It is not a text colour for body copy and not a panel fill.
+- **Red has one job:** `--danger` marks the money loss in the hero figure. Nothing else on the site is red.
+- **Dark main button:** the accent itself (`#93ade6`) with dark text (`#121722`, 8.0:1), no border. `--btn-border` is now `transparent` in both themes (kept so old copies do not break). The light button stays navy.
+- **Changed sizes:** `--fs-hero` is 32 to 46 px (was 32 to 52; the pitch now sits in the left of two columns), `--lh-tight` 1.1, `--lh-heading` 1.16, `--tracking-display` -0.015em, `--tracking-heading` -0.01em (a serif needs less negative letter-spacing than Inter).
+- **New tokens:** `--font-display`, `--weight-display`, `--font-source`, `--fs-source`, `--nudge` (2 px: how far a card image lifts or a link arrow moves on hover).
+- **For the lab:** copy the new `tokens.css` as it is. For the heading face, also copy `src/assets/fonts/newsreader-latin-500-opsz.woff2` with its licence (`Newsreader-OFL.txt`, SIL Open Font License), the `@font-face` line from `src/components/Fonts.astro`, and the "Newsreader Fallback" block from `src/styles/global.css`. The `<race-figure>` element already reads `--accent`, `--danger`, `--font-code` and the rest, so it follows version 3 without changes.
+
+Every colour pair is checked against the real pixels in `private/design/phase1e/contrast-audit.md` (not in git): 0 failures in both themes.
 
 ## What changed in version 2 (2026-10-15, Phase 1c "Calm")
 
@@ -47,20 +63,20 @@ How the choice works:
 | Page colours | `--bg`, `--surface`, `--surface-2` | Page background; cards; insets such as code and a hovered or pressed control. |
 | Text | `--fg`, `--muted`, `--faint` | Main text; secondary text (sources, dates, meta lines, 7:1 or more); decoration only (never text). |
 | Lines | `--line`, `--line-strong` | Quiet hairlines between blocks (decoration, never behind text); lines that carry meaning: control borders, diagram lines (3:1 or more). |
-| Accent | `--accent`, `--accent-hover`, `--accent-fg`, `--accent-soft` | The **one** accent: links (always underlined), the focus ring, diagram marks; a link under the pointer; text on a filled accent surface; soft highlight panels. |
-| Failure | `--danger`, `--danger-soft` | Only for failures in case-study diagrams. Not a second accent. Not used on the home page. |
-| Main button | `--btn-bg`, `--btn-bg-hover`, `--btn-fg`, `--btn-border` | The one button style ("Email me"): fill, fill under the pointer, text, edge. |
+| Accent | `--accent`, `--accent-hover`, `--accent-fg`, `--accent-soft` | The **one** accent, with three jobs: link underlines, the focus ring, movement in the hero figure. `--accent-hover`: a link under the pointer. `--accent-fg`: text on a filled accent surface (the dark button). `--accent-soft`: parked explainers only. |
+| Loss | `--danger`, `--danger-soft` | Only the money loss in the hero figure (later also failures in case-study diagrams). Never a second accent. |
+| Main button | `--btn-bg`, `--btn-bg-hover`, `--btn-fg`, `--btn-border` | The one button style ("Email me about your team"): fill, fill under the pointer, text. No visible border since v3 (`--btn-border: transparent`). Light: navy. Dark: the accent with dark text. |
 | Focus | `--focus` | The 2 px focus ring (7:1 or more on the page). |
 | Theme | `--theme-color` | The phone browser bar colour. |
-| Fonts | `--font-body`, `--font-ka`, `--font-code`, `--weight-regular`, `--weight-strong` | Inter; Noto Sans Georgian; the system monospace (commands and code only); the only two weights (400, 600). |
-| Type scale | `--fs-xs` … `--fs-2xl`, `--fs-hero`, `--lh-*`, `--tracking-*` | 13 px tags, 15 px sources and meta, 17 px body, up to 40 px headings and the 32 to 52 px pitch; line heights; letter-spacing (English only, never Georgian). |
+| Fonts | `--font-body`, `--font-display`, `--font-ka`, `--font-code`, `--font-source`, `--weight-regular`, `--weight-strong`, `--weight-display` | Inter (body); Newsreader (headings 24 px and up; Georgian: Noto Sans Georgian); the system monospace for code, and as `--font-source` for sources, dates and money figures; Inter's two weights (400, 600); Newsreader's one (500). |
+| Type scale | `--fs-xs` … `--fs-2xl`, `--fs-source`, `--fs-hero`, `--lh-*`, `--tracking-*` | 13 px tags and small labels, 14 px mono sources, 15 px meta, 17 px body, up to 40 px headings and the 32 to 46 px pitch; line heights; letter-spacing (English only, never Georgian). |
 | Spacing | `--space-1` … `--space-9`, `--section-space`, `--gutter`, `--content-max`, `--header-h` | A 4 px scale; the gap between sections; page margins; content width (1120 px); the header height. |
 | Radii | `--radius-tag`, `--radius`, `--radius-card`, `--radius-pill` | 4 px tags, 8 px buttons, 12 px cards, round pills. |
-| Motion | `--dur-instant` … `--dur-page`, `--ease-out`, `--ease-in-out` | 100 to 300 ms, nothing longer (see "Motion rules" in `AGENTS.md`). |
+| Motion | `--dur-instant` … `--dur-page`, `--ease-out`, `--ease-in-out`, `--nudge` | 100 to 300 ms, nothing longer (see "Motion rules" in `AGENTS.md`); the 2 px hover nudge of card images and link arrows (only when motion is allowed). |
 
 Two rules:
 
-- **One accent per theme.** Calm blue `#2b4aa6` in light, `#93ade6` in dark. Red (`--danger`) is only for failures.
+- **One accent per theme.** Calm blue `#2b4aa6` in light, `#93ade6` in dark, with three jobs (link underlines, focus rings, movement in the hero figure). Red (`--danger`) only marks the money loss in the hero figure.
 - **Names never clash with Tailwind.** Tailwind 4 owns `--text-*`, `--leading-*`, `--radius-sm` and similar names. That is why the type scale is `--fs-*` and the line heights are `--lh-*`.
 
 ## Using the tokens on another site (the lab at lab.sabajanelidze.com)
@@ -71,12 +87,13 @@ The lab is a separate repo. To look like the same family:
 2. **Load it before your own styles,** and use only the token names, never raw colours. For a canvas drawing, read the values with `getComputedStyle(document.documentElement).getPropertyValue("--accent")`.
 3. **Use the same theme switch:** the `data-theme` attribute on `<html>` with the values `light` and `dark` (the old `paper` and `blueprint` still work), the `localStorage` key `theme`, and the same head script (copy `themeBoot` from `src/layouts/Base.astro`). Put the switch in the footer as "Theme: Light · Dark · Auto" (copy `src/components/site/ThemeSwitch.astro`). Note: `localStorage` is per site, so a choice made on www does not carry over to lab yet. If that matters later, both sites can switch to a cookie on `.sabajanelidze.com`.
 4. **If your pages still use removed tokens** (`--grid-*`, `--hero-glow*`, `--btn-shadow`, `--margin-col`, `--fs-4xl`, `--dur-reveal`, `--step-hold`), replace them: no grid, no glow, no shadow. A `var()` with a missing token silently falls back to nothing.
-5. **Fonts:** self-host Inter 400 and 600 (the `@fontsource/inter` package) and add the "Inter Fallback" `@font-face` from `src/styles/global.css` (it stops text from jumping when the font loads).
+5. **Fonts:** self-host Inter 400 and 600 (the `@fontsource/inter` package) and add the "Inter Fallback" `@font-face` from `src/styles/global.css` (it stops text from jumping when the font loads). For headings, Newsreader 500 (see "What changed in version 3").
 6. **Follow the same motion rules** (`AGENTS.md`, "Motion rules"): only `transform` and `opacity` move, 100 to 300 ms, reduced motion is designed.
 
 ## Where the tokens are used here
 
-- `src/styles/ui.css`: the shared building blocks of the calm design (`ui-wrap`, `ui-section`, `ui-h2`, `ui-intro`, `ui-btn`, `ui-action`, `ui-link`, `ui-meta`, `ui-card`).
+- `src/styles/ui.css`: the shared building blocks of the calm design (`ui-wrap`, `ui-section`, `ui-display`, `ui-h2`, `ui-intro`, `ui-source`, `ui-btn`, `ui-action`, `ui-link`, `ui-arrow`, `ui-meta`, `ui-tag`, `ui-card`).
+- `src/components/home/HeroRace.astro`: the hero's `<race-figure>` (vendored from the lab in `src/vendor/race-figure/`); it reads the tokens through its `--rf-*` variables.
 - `src/components/site/`: header, footer, the theme switch (`ThemeSwitch.astro`), the section wrapper.
 - `src/components/home/`: the home page sections.
 - `src/styles/notebook.css` and `src/components/parked/`: the parked notebook explainers (fig. 1, fig. 2, the stepped pipeline, the lab teaser) for the future "How I work" page. They load `notebook.css` themselves; it has fallbacks for the removed tokens.

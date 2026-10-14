@@ -33,25 +33,28 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 | Path | What it is |
 |---|---|
 | `src/content/home.ts` | **The home page text (English), in one file.** The home page and the Phase 1 directions render this same text. Every number here is true and dated; the sources are named at the top of the file. Lines marked "DRAFT (Saba approves)" wait for Saba's OK. Fields marked "Not on the home page" feed only the Phase 1 design pages and the parked explainers. |
+| `src/content/cv.ts` | The `/cv` text: a dated role list (DRAFT, Saba approves). Sources named at the top. |
 | `src/content/ka-approved.ts` | Georgian strings that were **already approved** on the old site, copied word for word. Do not add new Georgian here (see "Rules"). |
 | `src/lib/site.ts` | Site address, name, email, active profiles (`sameAs`) and the JSON-LD (structured data for Google and AI tools) builder. |
 | `src/layouts/Base.astro` | The page shell: `<head>`, fonts, skip link, the Phase 1 preview strip. `themed` adds the light / dark theme script (runs before the first paint) and the per-theme browser colours. |
-| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 2 (Phase 1c, calm: no grid, no glow). Plain CSS, also copied by the lab site. Guide and change list: `docs/design-tokens.md`. |
-| `src/styles/ui.css` | The shared building blocks of the calm design: `ui-wrap`, `ui-section`, `ui-h2`, `ui-intro`, `ui-btn` (the one button style), `ui-action` (secondary text link with an arrow), `ui-link`, `ui-meta`, `ui-card`. |
+| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 3 (Phase 1e: Newsreader headings, monospace for sources, the accent's three jobs, red only for the money loss). Plain CSS, also copied by the lab site. Guide and change list: `docs/design-tokens.md`. |
+| `src/styles/ui.css` | The shared building blocks of the calm design: `ui-wrap`, `ui-section`, `ui-display` and `ui-h2` (Newsreader), `ui-intro`, `ui-source` (sources, dates, money: small mono), `ui-btn` (the one button style), `ui-action` (secondary text link), `ui-link`, `ui-arrow` (the arrow after a link; nudges 2 px on hover), `ui-meta`, `ui-tag` (a small neutral stage tag), `ui-card`. |
 | `src/styles/notebook.css` | **Parked.** The notebook building blocks (`nb-*`). Not loaded globally; only the parked explainers import it. |
 | `src/components/site/` | `Header.astro` (name + links only; phones show Work and Contact), `Footer.astro` (For hiring managers, theme switch, copyright), `ThemeSwitch.astro` ("Theme: Light · Dark · Auto"), `Section.astro` (one home-page section: heading, intro, content). |
-| `src/components/home/` | The home page sections, in page order: `Hero`, `Work`, `Offers`, `Method` (the one static method diagram), `About`, `Contact`. |
+| `src/components/home/` | The home page sections, in page order: `Hero` (with `HeroRace`, the payment-race figure on the right), `Work`, `Offers`, `Method` (the one static method diagram), `About`, `Contact`. |
+| `src/vendor/race-figure/` | **Vendored, never edit here:** the lab session's `<race-figure>` 1.0.0 (JS, CSS, the no-JavaScript HTML). `VENDOR.md` there: source commit, sizes, hashes, how to update. `HeroRace.astro` writes the HTML into the page, inlines the CSS and loads the JS on idle. Changes go to the lab session. |
+| `src/assets/fonts/` | The Newsreader heading font: one 25 KB file (weight 500, optical size 24 to 72, Latin) and its licence (SIL Open Font License). How it was made: the comment at the top of `src/components/Fonts.astro`. |
 | `src/components/parked/` | **Not on the home page since Phase 1c**, kept for the future "How I work" page and case studies: fig. 1 `GreenTestsFigure`, fig. 2 `RunsOnceFigure`, `HowIShip` (the stepped pipeline), `Lab` (game teaser + "Ask the work"), `OpenSource`, `ProofTable`, `NotebookSection`, and `BlueprintGlow` (the removed WebGL glow; needs its old tokens back before reuse). |
 | `src/lib/stepper.ts` | The engine of the step-through explainers (parked fig. 1, fig. 3; `Pipeline.astro`): one number `--x` drives the picture; Play / Pause / Back / Step. |
 | `src/lib/blueprint-gl.ts` | The parked glow's WebGL code. Nothing loads it today. |
 | `src/components/SeoHead.astro` | Title, description, canonical, hreflang (`en`, `ka`, `x-default`), Open Graph / Twitter tags, JSON-LD. Every page gets it through the layout. |
-| `src/components/Fonts.astro` | Self-hosted Inter and Noto Sans Georgian, weights 400 and 600 only, from the `@fontsource` packages. |
+| `src/components/Fonts.astro` | Self-hosted fonts: Inter 400 and 600 and Noto Sans Georgian 400 and 600 (the `@fontsource` packages), and Newsreader 500 for headings (`src/assets/fonts/`, preloaded on the calm pages). |
 | `src/components/Pipeline.astro` | The stepped "How I ship with AI agents" explainer (Play / Pause / Step, driven by `src/lib/stepper.ts`). Used by `/design/a`, `/design/b` and the parked `HowIShip`; not on the home page. |
 | `src/components/LedgerAccent.astro` | Signature moment 1: the "balanced ledger" accent (direction B, desktop only). |
 | `src/components/HeroShader.astro` | The old site's WebGL hero shader in plain WebGL (only `/design/b-rich`, for comparison). |
 | `src/components/CopyEmail.astro` | Signature moment 6: "Copy" next to the email address. |
 | `src/designs/a`, `b`, `c` | **Phase 1 only:** the home-page design directions, kept as `noindex` reference pages until launch. Saba first picked C ("Engineering notebook", Phase 1b); after two independent reviews he reset to **A's calm skeleton** (Phase 1c, 2026-10-15). The real home page lives in `src/components/home/`. |
-| `src/pages/` | One file = one page. `index.astro` = `/` (the real home page), `ka/index.astro` = `/ka` (placeholder; the KA link is hidden until Phase 3), `book.astro` = `/book`, an honest "Get in touch" page (email + LinkedIn) that reads and keeps `?from=` for the lab's links, `cv.astro` = `/cv`, "For hiring managers" (LinkedIn + CV on request), both `noindex`; `design/*.astro` = `/design/...` (temporary, `noindex`), `404.astro` = the real 404 page. |
+| `src/pages/` | One file = one page. `index.astro` = `/` (the real home page), `ka/index.astro` = `/ka` (placeholder; the KA link is hidden until Phase 3), `book.astro` = `/book`, an honest "Get in touch" page (email + LinkedIn) that reads and keeps `?from=` for the lab's links, `cv.astro` = `/cv`, a dated role list and "CV as a PDF on request" (text in `src/content/cv.ts`), both `noindex`; `design/*.astro` = `/design/...` (temporary, `noindex`), `404.astro` = the real 404 page. |
 | `src/styles/global.css` | Tailwind 4 (scanning `src/` only), then `tokens.css` and `ui.css`, plus the base rules. |
 | `public/` | Files served as they are: images (`projects/*.webp`, `portrait.webp`, `og-image.png`), favicon, `robots.txt`, `sitemap.xml` (still hand-written), and the Google Search Console check file. **Never put anything from `private/` here.** |
 | `legacy/api-contact.ts` | The old Vercel contact-form function, kept only to port it to a Cloudflare Worker later. Not used by the build. |
@@ -94,9 +97,11 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 - One calm design, two themes: **light** (the default: navy text on warm off-white, one calm blue) and **dark** (a calm, low-saturation slate). **No grid, no glow, no gradients, no offset shadows** (Saba, 2026-10-15). All colours come from `src/styles/tokens.css`; never write a raw colour in a component's CSS. (Only the tiny theme scripts name the two page colours, because they run before the CSS.)
 - Which one shows: `<html data-theme="light|dark">` (the visitor's choice, saved in `localStorage` key `theme`), else the system setting. It works without JavaScript. The old values `paper` / `blueprint` still work.
 - The switch is in the **footer**, clearly labelled "Theme: Light · Dark · Auto" (`ThemeSwitch.astro`). It switches instantly, with no animation. It is never in the header (the phone header must not overflow).
-- **One accent per theme.** `--danger` is only for failures in case-study diagrams, not a second accent.
+- **One accent per theme, with three jobs:** link underlines (links are `--fg` text with an accent underline), the focus ring, and movement in the hero figure. Nothing else is coloured.
+- **Red (`--danger`) has one job:** the money loss in the hero figure (later also failures in case-study diagrams). Never a second accent.
 - **Contrast is checked against the real pixels**, not only CSS colours: `private/design/phase1c/contrast-audit.md` (scripts in `private/design/phase1c/audit/`). Re-run it after any colour or layout change. Text never sits on a line, shape, tint or image; meaningful lines and control borders use `--line-strong` (3:1 or more); decorative hairlines use `--line`.
-- Monospace (`--font-code`) only for real commands and code. No notebook labels ("fig.", "table", "§", "rev.").
+- **Headings** (h1, h2, the big numbers, the one big card title) use Newsreader 500 (`--font-display`); body text stays Inter. Georgian headings use Noto Sans Georgian.
+- **Monospace** only for real commands and code, and (class `ui-source`) for sources, dates and money figures. Never for labels or headings. No notebook labels ("fig.", "table", "§", "rev.").
 
 ## Astro 7: things that break
 
