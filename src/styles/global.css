@@ -6,6 +6,8 @@
    Motion rules: see AGENTS.md, "Motion rules". */
 /* Scan only src/ for class names (not docs, notes or old page dumps), so no unused utilities ship. */
 @import "tailwindcss" source("..");
+/* The vendored lab element (src/vendor/) has its own CSS; don't make Tailwind utilities from its words. */
+@source not "../vendor";
 @import "./tokens.css";
 @import "./ui.css";
 
@@ -29,6 +31,24 @@
   descent-override: 22.48%;
   line-gap-override: 0%;
   size-adjust: 107.4%;
+}
+
+/* The same for the headings: Georgia, sized to Newsreader 500's average width at 36 to 52 px
+   (0.437 em against Georgia's 0.446 em) and its vertical metrics (ascent 0.735, descent 0.265). */
+@font-face {
+  font-family: "Newsreader Fallback";
+  src: local("Georgia");
+  size-adjust: 98%;
+  ascent-override: 75%;
+  descent-override: 27%;
+  line-gap-override: 0%;
+}
+
+/* Georgian has no serif here: Georgian headings use Noto Sans Georgian 600 (custom properties inherit,
+   so this works on any element with lang="ka", not only on Georgian pages). */
+:lang(ka) {
+  --font-display: var(--font-ka);
+  --weight-display: var(--weight-strong);
 }
 
 html {

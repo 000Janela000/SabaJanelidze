@@ -1,5 +1,7 @@
 ---
-// About, short: portrait, two paragraphs, the stack and the open-source tools in one line each.
+// About: the portrait, two paragraphs, the stack (grouped) and the open-source tools, one line each with its
+// proof number (Phase 1e, Phase 1d fix 8). The portrait is larger and square, straight on the page colour
+// (no card, no border); Saba will send a better photo later, the file stays the same until then.
 import Section from "../site/Section.astro";
 import { about } from "../../content/home";
 ---
@@ -8,32 +10,36 @@ import { about } from "../../content/home";
     <img class="ab-portrait" src="/portrait.webp" width="844" height="1088" alt={about.portraitAlt} loading="lazy" decoding="async" />
     <div class="ab-text">
       {about.bio.map((b) => <p class="ab-p">{b}</p>)}
-      <dl class="ab-facts">
+
+      <h3 class="ab-h3">{about.openSource.label}</h3>
+      <ul class="ab-os">
         {
-          about.facts.map((f) => (
+          about.openSource.items.map((o) => (
+            <li>
+              <a class="ui-link ab-os-name" href={o.href} rel="noopener">{o.name}</a>{`: ${o.text}. `}<span class="ab-os-proof">{o.proof}.</span>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="ab-note ui-source">{about.openSource.note}</p>
+
+      <h3 class="ab-h3">Stack</h3>
+      <dl class="ab-stack">
+        {
+          about.stack.map((g) => (
             <div>
-              <dt>{f.label}</dt>
-              <dd>{f.text}</dd>
+              <dt>{g.group}</dt>
+              <dd>{g.items.join(", ")}</dd>
             </div>
           ))
         }
-        <div>
-          <dt>{about.openSource.label}</dt>
-          <dd>
-            {about.openSource.items.map((o, i) => (
-              <span>
-                <a class="ui-link" href={o.href} rel="noopener">{o.name}</a>{" "}({o.text}){i < about.openSource.items.length - 1 ? ", " : ""}
-              </span>
-            ))}
-          </dd>
-        </div>
       </dl>
     </div>
   </div>
 </Section>
 
 <style>
-  /* Phones: a small portrait beside the first paragraph (the text flows around it). Desktop: two columns. */
+  /* Phones: a square portrait beside the first paragraph (the text flows around it). Desktop: two columns. */
   .ab::after {
     content: "";
     display: table;
@@ -41,19 +47,18 @@ import { about } from "../../content/home";
   }
   .ab-portrait {
     float: left;
-    width: 96px;
+    width: 128px;
     height: auto;
     margin: 0.35rem var(--space-4) var(--space-2) 0;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-card);
-    background: var(--surface-2);
+    object-position: 50% 30%;
+    border-radius: var(--radius);
   }
   @media (min-width: 900px) {
     .ab {
       display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
+      grid-template-columns: 280px minmax(0, 1fr);
       gap: var(--space-8);
       align-items: start;
     }
@@ -74,32 +79,57 @@ import { about } from "../../content/home";
   .ab-p + .ab-p {
     color: var(--muted);
   }
-  .ab-facts {
+  .ab-h3 {
     clear: both;
+    margin: var(--space-6) 0 var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-strong);
+    line-height: 1.4;
+  }
+  .ab-os {
     display: grid;
     gap: var(--space-3);
     max-width: 44em;
-    margin: var(--space-5) 0 0;
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--line);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--fs-sm);
+    line-height: 1.55;
+    color: var(--muted);
   }
-  .ab-facts > div {
+  .ab-os-name {
+    font-weight: var(--weight-strong);
+  }
+  .ab-os-proof {
+    color: var(--fg);
+  }
+  .ab-note {
+    margin: var(--space-3) 0 0;
+  }
+  .ab-stack {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 44em;
+    margin: 0;
+  }
+  .ab-stack > div {
     display: grid;
     gap: 0.1rem;
   }
   @media (min-width: 640px) {
-    .ab-facts > div {
-      grid-template-columns: 8.5rem minmax(0, 1fr);
+    .ab-stack > div {
+      grid-template-columns: 9.5rem minmax(0, 1fr);
       gap: var(--space-4);
     }
   }
-  .ab-facts dt {
+  .ab-stack dt {
     font-size: var(--fs-sm);
-    font-weight: var(--weight-strong);
     color: var(--fg);
     line-height: 1.6;
   }
-  .ab-facts dd {
+  .ab-stack dd {
     margin: 0;
     font-size: var(--fs-sm);
     line-height: 1.6;

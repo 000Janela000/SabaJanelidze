@@ -1,67 +1,71 @@
 ---
-// Selected work, right after the hero. Outcome first on every card.
-// Bitnet: a wide card (image left, text right on desktop). PlayTime and WasteAway: two cards side by side.
-// Chama and UniHub: short text-only cards (UniHub's only public page is a sign-in screen, which looks empty
-// as a thumbnail; Chama has no image either, so the two small cards match).
-// Images are screenshots of public pages only.
+// Selected work, right after the hero. Outcome first on every card. Phase 1e (Phase 1d fixes 1, 4, 9):
+// - Bitnet is the ONLY big card: a screenshot of the public bitnet.ge page (retaken 15 Oct 2026, cropped above its
+//   counter strip, with a dated caption in the small mono), the outcome, and two links: bitnet.ge and
+//   "Ask me for the full case study" (a mailto until /work/bitnet exists).
+// - PlayTime, WasteAway, Chama and UniHub are small text cards that show their real stage as a tag.
+// work.big / work.small keep their Phase 1 shape because the design pages (/design/a|b|c) read them.
+// Hover (pointer devices, motion allowed): the Bitnet image lifts 2 px and its border turns accent (150 ms).
 import Section from "../site/Section.astro";
-import { work } from "../../content/home";
+import { work, type WorkItem } from "../../content/home";
 
-const [lead, ...rest] = work.big;
+const all: WorkItem[] = [...work.big, ...work.small];
+const lead = all.find((w) => w.slug === "bitnet")!;
+const cards = all.filter((w) => w.slug !== "bitnet");
 const host = (url: string) => url.replace("https://", "");
 ---
 <Section id="work" heading={work.heading}>
-  <div class="wk">
-    {
-      [lead, ...rest].map((w, i) => (
-        <article class:list={["ui-card wk-card", { "wk-card--lead": i === 0 }]} id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
-          <div class="wk-media">
-            <img
-              src={w.image.src}
-              width={w.image.width}
-              height={w.image.height}
-              alt={w.image.alt}
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div class="wk-body">
-            <p class="ui-meta">
-              {w.role}
-              {w.years && <span class="tabular">{" · "}{w.years}</span>}
-            </p>
-            <h3 id={`work-${w.slug}-title`} class="wk-title">
-              {w.title}
-            </h3>
-            <p class="wk-outcome">{w.outcome}</p>
-            <p class="wk-text">{w.text}</p>
-            <p class="wk-links">
-              {w.url && (
-                <a class="ui-link" href={w.url} rel="noopener">
-                  {host(w.url)}
-                  <span aria-hidden="true">{" ↗"}</span>
-                </a>
-              )}
-              {w.note && <span class="ui-meta">{w.note}</span>}
-            </p>
-          </div>
-        </article>
-      ))
-    }
-  </div>
+  <article class="ui-card wk-lead" id={`work-${lead.slug}`} aria-labelledby={`work-${lead.slug}-title`}>
+    <figure class="wk-media">
+      <img
+        src={lead.image.src}
+        width={lead.image.width}
+        height={lead.image.height}
+        alt={lead.image.alt}
+        loading="lazy"
+        decoding="async"
+      />
+      {lead.image.caption && <figcaption class="wk-cap ui-source">{lead.image.caption}</figcaption>}
+    </figure>
+    <div class="wk-body">
+      <p class="ui-meta">
+        {lead.role}
+        {lead.years && <span class="ui-source wk-years">{" · "}{lead.years}</span>}
+      </p>
+      <h3 id={`work-${lead.slug}-title`} class="wk-title">
+        {lead.title}
+      </h3>
+      <p class="wk-outcome">{lead.outcome}</p>
+      <p class="wk-text">{lead.text}</p>
+      <p class="wk-links">
+        {lead.url && (
+          <a class="ui-link" href={lead.url} rel="noopener">{host(lead.url)}<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
+        )}
+        {lead.more && (
+          <a class="ui-link" href={lead.more.href}>{lead.more.label}<span class="ui-arrow" aria-hidden="true">→</span></a>
+        )}
+      </p>
+    </div>
+  </article>
 
   <div class="wk-small">
     {
-      work.small.map((w) => (
+      cards.map((w) => (
         <article class="wk-mini" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
           <p class="ui-meta">
             {w.role}
-            {w.years && <span>{" · "}{w.years}</span>}
+            {w.years && <span class="ui-source wk-years">{" · "}{w.years}</span>}
           </p>
           <h3 id={`work-${w.slug}-title`} class="wk-mini-title">
             {w.title}
           </h3>
+          {w.stage && <p class="wk-stage"><span class="ui-tag">{w.stage}</span></p>}
           <p class="wk-mini-text">{w.outcome}</p>
+          {w.url && (
+            <p class="wk-mini-link">
+              <a class="ui-link" href={w.url} rel="noopener">{host(w.url)}<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
+            </p>
+          )}
         </article>
       ))
     }
@@ -69,36 +73,24 @@ const host = (url: string) => url.replace("https://", "");
 </Section>
 
 <style>
-  .wk {
-    display: grid;
-    gap: var(--space-5);
-  }
-  @media (min-width: 900px) {
-    .wk {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: var(--space-6);
-    }
-  }
-  .wk-card {
+  .wk-lead {
     display: flex;
     flex-direction: column;
     overflow: hidden;
   }
   @media (min-width: 900px) {
-    .wk-card--lead {
-      grid-column: 1 / -1;
+    .wk-lead {
       display: grid;
       grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: center;
     }
   }
   .wk-media {
+    margin: 0;
     padding: var(--space-3) var(--space-3) 0;
   }
   @media (min-width: 900px) {
     .wk-media {
-      padding: var(--space-4) var(--space-4) 0;
-    }
-    .wk-card--lead .wk-media {
       padding: var(--space-4);
     }
   }
@@ -106,37 +98,49 @@ const host = (url: string) => url.replace("https://", "");
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-    object-position: top;
+    aspect-ratio: 1440 / 756;
     border: 1px solid var(--line);
     border-radius: calc(var(--radius-card) - 4px);
     background: var(--surface-2);
   }
-  @media (min-width: 900px) {
-    .wk-card--lead .wk-media img {
-      aspect-ratio: 16 / 10;
+  /* Hover: a 1 px accent border on the image; with motion allowed, also a 2 px lift. Only borders and transform. */
+  @media (hover: hover) {
+    .wk-lead:hover .wk-media img {
+      border-color: var(--accent);
     }
+  }
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .wk-media img {
+      transition:
+        transform var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) ease;
+    }
+    .wk-lead:hover .wk-media img {
+      transform: translateY(calc(-1 * var(--nudge)));
+    }
+  }
+  .wk-cap {
+    margin-top: var(--space-2);
+  }
+  .wk-years {
+    white-space: nowrap;
   }
   .wk-body {
     display: flex;
-    flex: 1;
     flex-direction: column;
     padding: var(--space-4) var(--space-5) var(--space-5);
   }
   @media (min-width: 900px) {
     .wk-body {
-      padding: var(--space-5) var(--space-6) var(--space-6);
-    }
-    .wk-card--lead .wk-body {
-      justify-content: center;
-      padding-left: var(--space-4);
+      padding: var(--space-5) var(--space-6) var(--space-5) var(--space-3);
     }
   }
   .wk-title {
     margin: var(--space-1) 0 var(--space-3);
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-optical-sizing: auto;
     font-size: var(--fs-xl);
-    font-weight: var(--weight-strong);
     line-height: var(--lh-heading);
     letter-spacing: var(--tracking-heading);
   }
@@ -156,36 +160,38 @@ const host = (url: string) => url.replace("https://", "");
     gap: var(--space-2) var(--space-5);
     margin: var(--space-4) 0 0;
   }
-  @media (min-width: 900px) {
-    .wk-card:not(.wk-card--lead) .wk-links {
-      margin-top: auto;
-      padding-top: var(--space-4);
-    }
-  }
 
   .wk-small {
     display: grid;
-    gap: var(--space-5);
+    gap: var(--space-6);
     margin-top: var(--space-7);
   }
   @media (min-width: 768px) {
     .wk-small {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: var(--space-6);
+      gap: var(--space-6) var(--space-7);
     }
   }
   .wk-mini {
+    display: flex;
+    flex-direction: column;
     padding-top: var(--space-4);
     border-top: 1px solid var(--line);
   }
   .wk-mini-title {
-    margin: var(--space-1) 0 var(--space-1);
+    margin: var(--space-1) 0 var(--space-2);
     font-size: var(--fs-lg);
     font-weight: var(--weight-strong);
     line-height: var(--lh-heading);
   }
+  .wk-stage {
+    margin: 0 0 var(--space-2);
+  }
   .wk-mini-text {
     margin: 0;
     color: var(--muted);
+  }
+  .wk-mini-link {
+    margin: var(--space-2) 0 0;
   }
 </style>

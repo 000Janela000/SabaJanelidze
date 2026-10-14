@@ -73,7 +73,7 @@ const strip = [
       jsonLd={jsonLd}
       ogType={ogType}
     />
-    <Fonts georgian={lang === "ka"} />
+    <Fonts georgian={lang === "ka"} display={themed && lang !== "ka"} />
     {
       themed ? (
         <>

@@ -1,5 +1,6 @@
 ---
-// What I do: the three offers, short. Three columns on desktop, a plain list with hairlines on phones.
+// What I do: the three offers. Three columns on desktop, a plain list with hairlines on phones.
+// Phase 1e (Phase 1d fix 7): each offer ends with one proof line that points at the evidence.
 import Section from "../site/Section.astro";
 import { offers } from "../../content/home";
 ---
@@ -10,6 +11,12 @@ import { offers } from "../../content/home";
         <li class="of-item">
           <h3 class="of-title">{o.title}</h3>
           <p class="of-text">{o.text}</p>
+          <p class="of-proof">
+            {o.proof}{" "}
+            <a class="ui-link of-link" href={o.link.href} rel={o.link.dir === "out" ? "noopener" : undefined}>
+              {o.link.label}<span class="ui-arrow" data-dir={o.link.dir} aria-hidden="true">{o.link.dir === "out" ? "↗" : "↓"}</span>
+            </a>
+          </p>
         </li>
       ))
     }
@@ -19,7 +26,7 @@ import { offers } from "../../content/home";
 <style>
   .of {
     display: grid;
-    gap: var(--space-5);
+    gap: var(--space-6);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -31,6 +38,8 @@ import { offers } from "../../content/home";
     }
   }
   .of-item {
+    display: flex;
+    flex-direction: column;
     padding-top: var(--space-4);
     border-top: 1px solid var(--line);
   }
@@ -44,5 +53,24 @@ import { offers } from "../../content/home";
   .of-text {
     margin: 0;
     color: var(--muted);
+  }
+  /* The proof line: smaller, in --fg, at the bottom of the column so the three line up on desktop. */
+  .of-proof {
+    margin: var(--space-4) 0 0;
+    padding-top: var(--space-3);
+    border-top: 1px dashed var(--line);
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+  }
+  @media (min-width: 900px) {
+    .of-proof {
+      margin-top: auto;
+    }
+    .of-text {
+      margin-bottom: var(--space-4);
+    }
+  }
+  .of-link {
+    white-space: nowrap;
   }
 </style>

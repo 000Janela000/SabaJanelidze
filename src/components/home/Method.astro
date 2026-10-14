@@ -1,8 +1,10 @@
 ---
 // "How I work with AI agents": the ONE static method diagram on the home page (no controls, no autoplay).
-// Five numbered steps joined by a line: a row on desktop, a column on phones. Below it, the loop that makes
-// the checks grow. All text is real HTML text. The lines carry meaning (the order), so they use --line-strong
-// (3:1 or more); they never pass behind text (the line sits beside the numbers, the text sits below or right).
+// Five numbered steps joined by a line: a row on desktop, a column on phones. Under each step one static,
+// sourced fact (Phase 1e, Phase 1d fix 6), its source in the small mono. Below it, the loop that makes
+// the checks grow (a bounded claim: "the new check blocks that failure path"). All text is real HTML text.
+// The lines carry meaning (the order), so they use --line-strong (3:1 or more); they never pass behind text
+// (the line sits beside the numbers, the text sits below or right).
 // The stepped explainer version lives in src/components/Pipeline.astro for the future "How I work" page.
 import Section from "../site/Section.astro";
 import { method } from "../../content/home";
@@ -17,6 +19,10 @@ import { method } from "../../content/home";
             <div class="md-body">
               <h3 class="md-title">{s.title}</h3>
               <p class="md-text">{s.text}</p>
+              <p class="md-fact">
+                <span class="md-fact-text">{s.fact}</span>
+                <span class="md-fact-src ui-source">{s.source}</span>
+              </p>
             </div>
           </li>
         ))
@@ -97,6 +103,20 @@ import { method } from "../../content/home";
   }
   .md-text {
     color: var(--muted);
+  }
+  /* The fact under each step: its own block (also on phones), a short dashed rule above, the source below. */
+  .md-fact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin: var(--space-2) 0 0;
+    padding-top: var(--space-2);
+    border-top: 1px dashed var(--line);
+    font-size: var(--fs-sm);
+    line-height: 1.45;
+  }
+  .md-fact-text {
+    font-weight: var(--weight-strong);
   }
   /* Desktop: one row; the line runs to the right, between the numbers. */
   @media (min-width: 900px) {

@@ -29,7 +29,7 @@ const mail = `mailto:${PERSON.email}?subject=${encodeURIComponent(subject)}`;
     </p>
     <p class="ph-actions">
       <a class="ui-btn" href={mail} data-mail>Email me</a>
-      <a class="ui-action" href={PERSON.profiles.linkedin} rel="noopener me">LinkedIn{" "}<span aria-hidden="true">↗</span></a>
+      <a class="ui-action" href={PERSON.profiles.linkedin} rel="noopener me">LinkedIn<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
     </p>
     <p class="ph-note">
       Or write to{" "}<a class="ui-link" href={`mailto:${PERSON.email}`}>{PERSON.email}</a>{" "}directly.
@@ -56,8 +56,10 @@ const mail = `mailto:${PERSON.email}?subject=${encodeURIComponent(subject)}`;
   }
   .ph-h1 {
     margin: 0;
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-optical-sizing: auto;
     font-size: var(--fs-2xl);
-    font-weight: var(--weight-strong);
     line-height: var(--lh-heading);
     letter-spacing: var(--tracking-heading);
   }

@@ -1,6 +1,6 @@
-/* Shared building blocks of the calm design (Phase 1c). Every value comes from tokens.css,
-   so the light and dark themes work without extra rules. Prefix "ui-" so nothing clashes with Tailwind,
-   the Phase 1 design directions or the parked notebook explainers ("nb-", notebook.css). */
+/* Shared building blocks of the calm design (Phase 1c, updated for tokens v3 in Phase 1e). Every value comes
+   from tokens.css, so the light and dark themes work without extra rules. Prefix "ui-" so nothing clashes with
+   Tailwind, the Phase 1 design directions or the parked notebook explainers ("nb-", notebook.css). */
 
 /* ---------- Layout ---------- */
 .ui-wrap {
@@ -14,11 +14,22 @@
 .ui-section {
   padding-top: var(--section-space);
 }
+
+/* ---------- Type ---------- */
+/* The heading face (Newsreader 500, optical size on). For text 24 px and up only. */
+.ui-display {
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-optical-sizing: auto;
+  font-kerning: normal;
+}
 .ui-h2 {
   margin: 0;
   max-width: 22em;
+  font-family: var(--font-display);
+  font-weight: var(--weight-display);
+  font-optical-sizing: auto;
   font-size: var(--fs-2xl);
-  font-weight: var(--weight-strong);
   line-height: var(--lh-heading);
   letter-spacing: var(--tracking-heading);
   text-wrap: balance;
@@ -38,8 +49,19 @@
   }
 }
 
+/* Sources, dates and money figures: small monospace with tabular numbers (tokens v3). */
+.ui-source {
+  font-family: var(--font-source);
+  font-size: var(--fs-source);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--weight-regular);
+  line-height: 1.45;
+  letter-spacing: 0;
+  color: var(--muted);
+}
+
 /* ---------- Buttons and links ----------
-   One button style (filled, no shadow) and one secondary style (a text link). */
+   One button style (filled, no border, no shadow) and one secondary style (a text link with an arrow). */
 .ui-btn {
   display: inline-flex;
   align-items: center;
@@ -66,7 +88,7 @@
   }
 }
 
-/* Secondary action: a text link with an arrow, e.g. "For hiring managers →". */
+/* Secondary action: a text link with an arrow, e.g. "Hiring? See my CV →". Text in --fg, underline in the accent. */
 .ui-action {
   display: inline-block;
   padding: 0.6rem 0; /* a 44 px tall target */
@@ -74,25 +96,50 @@
   color: var(--fg);
   font-weight: var(--weight-strong);
   text-decoration: underline;
-  text-decoration-color: var(--line-strong);
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 5px;
 }
 .ui-action:hover {
   color: var(--accent-hover);
   text-decoration-color: currentColor;
+  text-decoration-thickness: 2px;
 }
 
-/* A link inside text or a list of links: the accent, always underlined (never colour alone). */
+/* A link inside text or a list of links: text in --fg, the underline in the accent (its first job).
+   Always underlined: a link is never shown by colour alone. */
 .ui-link {
-  color: var(--accent);
+  color: var(--fg);
   text-decoration: underline;
+  text-decoration-color: var(--accent);
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
 }
 .ui-link:hover {
   color: var(--accent-hover);
+  text-decoration-color: currentColor;
   text-decoration-thickness: 2px;
+}
+
+/* The arrow after a link ("→", "↗", "↓"): it nudges 2 px on hover, only for visitors who allow motion. */
+.ui-arrow {
+  display: inline-block;
+  margin-left: 0.3em; /* a margin, not a space, so the underline stops at the last letter */
+  text-decoration: none;
+}
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  .ui-arrow {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  a:hover > .ui-arrow {
+    transform: translateX(var(--nudge));
+  }
+  a:hover > .ui-arrow[data-dir="out"] {
+    transform: translate(var(--nudge), calc(-1 * var(--nudge)));
+  }
+  a:hover > .ui-arrow[data-dir="down"] {
+    transform: translateY(var(--nudge));
+  }
 }
 
 /* ---------- Text helpers ---------- */
@@ -101,6 +148,19 @@
   font-size: var(--fs-sm);
   line-height: 1.45;
   color: var(--muted);
+}
+
+/* A small neutral tag, e.g. a project's stage ("In testing"). Not coloured. */
+.ui-tag {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-tag);
+  font-size: var(--fs-xs);
+  font-weight: var(--weight-strong);
+  line-height: 1.5;
+  color: var(--fg);
+  white-space: nowrap;
 }
 
 /* ---------- Cards ---------- */

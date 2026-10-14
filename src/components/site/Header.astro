@@ -1,6 +1,7 @@
 ---
 // The sticky site header: the name and the main links. Nothing else, so it can never overflow:
-// phones (under 640 px) show the name, "Work" and "Contact"; wider screens show all four links.
+// phones (under 640 px) show the name, "Work" and "Contact"; wider screens show all five links (the last is the
+// quiet "CV", Phase 1d fix 11).
 // The theme switch and the language link live in the footer (Phase 1c). Nav links change instantly (motion rule 5).
 import { hero, nav } from "../../content/home";
 
@@ -58,6 +59,7 @@ const link = (href: string) => (onHome || !href.startsWith("#") ? href : `/${hre
   .hd-nav a:hover {
     color: var(--fg);
     text-decoration: underline;
+    text-decoration-color: var(--accent);
     text-underline-offset: 5px;
   }
   .hd-wide {

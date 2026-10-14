@@ -1,28 +1,41 @@
 ---
-// The hero (first screen), complete without JavaScript (motion rule 1):
-// one small line (name · role), the pitch as the h1, one proof sentence, two actions, then one row of four numbers.
-// The right side on desktop stays empty on purpose: the pitch is the message, and a second element would
-// compete with it and push the numbers below the first screen at 1440 x 900.
+// The hero (first screen), complete without JavaScript (motion rule 1). Phase 1e:
+// - Desktop (1024 px and up): two columns, about 7 / 5. Left: the who-line, the pitch as the h1 (Newsreader),
+//   one proof sentence, "Email me about your team" and the quiet "Hiring? See my CV". Right: the payment-race
+//   figure (HeroRace: the lab's shared <race-figure>, at most 448 px wide).
+//   The four numbers run under both columns.
+// - Phones and tablets: pitch, proof, actions, then the figure full width, then the numbers 2 x 2.
+// The numbers use a subgrid, so value, label and source line up across a row whatever the label length;
+// phones get shorter labels (Phase 1d fix 15).
+import HeroRace from "./HeroRace.astro";
 import { hero, heroNumbers } from "../../content/home";
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <div class="ui-wrap">
-    <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
-    <h1 id="hero-title" class="hero-pitch">{hero.pitch}</h1>
-    {/* DRAFT for Saba's approval: the proof sentence. */}
-    <p class="hero-proof">{hero.proofLine}</p>
-    <div class="hero-actions">
-      <a class="ui-btn" href={hero.email.href}>{hero.email.label}</a>
-      <a class="ui-action" href={hero.hiring.href}>{hero.hiring.label}{" "}<span aria-hidden="true">→</span></a>
+  <div class="ui-wrap hero-grid">
+    <div class="hero-main">
+      <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
+      <h1 id="hero-title" class="hero-pitch">{hero.pitch}</h1>
+      {/* DRAFT for Saba's approval: the proof sentence. */}
+      <p class="hero-proof">{hero.proofLine}</p>
+      <div class="hero-actions">
+        <a class="ui-btn" href={hero.email.href}>{hero.email.label}</a>
+        <a class="ui-action hero-hire" href={hero.hiring.href}>{hero.hiring.label}<span class="ui-arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <div class="hero-figure">
+      <HeroRace />
     </div>
     {/* DRAFT for Saba's approval: the four numbers. */}
     <ul class="hero-nums" aria-label="In numbers">
       {
         heroNumbers.map((n) => (
           <li class="hero-num">
-            <span class="hero-num-value tabular">{n.value}</span>
-            <span class="hero-num-label">{n.label}</span>
-            <span class="hero-num-src">{n.source}</span>
+            <span class="hero-num-value">{n.value}</span>
+            <span class="hero-num-label">
+              <span class="hero-num-long">{n.label}</span>
+              <span class="hero-num-short">{n.short}</span>
+            </span>
+            <span class="hero-num-src ui-source">{n.source}</span>
           </li>
         ))
       }
@@ -32,8 +45,31 @@ import { hero, heroNumbers } from "../../content/home";
 
 <style>
   .hero {
-    padding-top: clamp(2.5rem, 6vw, 6rem);
+    padding-top: clamp(2.25rem, 5vw, 4.5rem);
   }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: var(--space-7);
+  }
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      column-gap: var(--space-7);
+      row-gap: var(--space-8);
+      /* Top-aligned: the figure never moves when the heading font swaps in or the pitch rewraps. */
+      align-items: start;
+    }
+    .hero-figure {
+      justify-self: end;
+      width: 100%;
+      max-width: 28rem; /* the figure's own limit, 448 px */
+    }
+    .hero-nums {
+      grid-column: 1 / -1;
+    }
+  }
+
   .hero-who {
     margin: 0 0 var(--space-4);
     font-size: var(--fs-sm);
@@ -44,16 +80,18 @@ import { hero, heroNumbers } from "../../content/home";
     font-weight: var(--weight-strong);
   }
   .hero-pitch {
-    max-width: 20em;
+    max-width: 19em;
     margin: 0;
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-optical-sizing: auto;
     font-size: var(--fs-hero);
-    font-weight: var(--weight-strong);
     line-height: var(--lh-tight);
     letter-spacing: var(--tracking-display);
     text-wrap: balance;
   }
   .hero-proof {
-    max-width: 38em;
+    max-width: 36em;
     margin: var(--space-5) 0 0;
     font-size: var(--fs-md);
     color: var(--muted);
@@ -66,49 +104,85 @@ import { hero, heroNumbers } from "../../content/home";
     gap: var(--space-3) var(--space-6);
     margin-top: var(--space-6);
   }
+  /* The quiet recruiter route: regular weight, same accent underline. */
+  .hero-hire {
+    font-weight: var(--weight-regular);
+  }
 
-  /* The numbers: 2 x 2 on phones, one row of four from 900 px. Body font, not mono. */
+  /* The numbers: 2 x 2 on phones, one row of four from 900 px. Value in Newsreader, source in the small mono.
+     Each item spans three rows of the list's grid (subgrid), so the sources line up across a row. */
   .hero-nums {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-5) var(--space-5);
-    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+    column-gap: var(--space-5);
+    row-gap: 0;
+    margin: 0;
     padding: var(--space-5) 0 0;
     list-style: none;
     border-top: 1px solid var(--line);
   }
+  .hero-num {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: var(--space-1);
+    align-content: start;
+    min-width: 0;
+  }
+  .hero-num:nth-child(n + 3) {
+    padding-top: var(--space-5);
+  }
   @media (min-width: 900px) {
     .hero-nums {
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: var(--space-6);
+      column-gap: var(--space-6);
       padding-top: var(--space-6);
     }
-  }
-  .hero-num {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
+    .hero-num:nth-child(n + 3) {
+      padding-top: 0;
+    }
   }
   .hero-num-value {
+    font-family: var(--font-display);
+    font-weight: var(--weight-display);
+    font-optical-sizing: auto;
     font-size: var(--fs-xl);
-    font-weight: var(--weight-strong);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    letter-spacing: var(--tracking-heading);
+    white-space: nowrap;
   }
   .hero-num-label {
-    margin-top: var(--space-1);
     font-size: var(--fs-sm);
     line-height: 1.4;
+  }
+  .hero-num-long {
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .hero-num-long {
+      display: inline;
+    }
+    .hero-num-short {
+      display: none;
+    }
   }
   @media (min-width: 900px) {
     .hero-num-label {
       font-size: var(--fs-base);
+      line-height: 1.45;
     }
   }
   .hero-num-src {
-    margin-top: var(--space-2);
-    font-size: var(--fs-sm);
-    line-height: 1.4;
-    color: var(--muted);
+    margin-top: var(--space-1);
+  }
+  /* Phones: the sources one size down, so each fits on one line in its half of the row. */
+  @media (max-width: 639px) {
+    .hero-nums {
+      column-gap: var(--space-4);
+    }
+    .hero-num-src {
+      font-size: var(--fs-xs);
+    }
   }
 </style>

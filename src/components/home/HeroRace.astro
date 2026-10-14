@@ -1,0 +1,61 @@
+---
+// HeroRace: the payment-race figure on the right of the hero (Phase 1e, "Calm, with one live proof").
+//
+// It hosts the lab session's shared element <race-figure> 1.0.0, vendored byte for byte in src/vendor/race-figure/
+// (see VENDOR.md there: source commit, sizes, how to update; never edit those files here).
+//   - HTML: the element's end state (the losing order 11 of 54) is written into the page on the server, so it shows
+//     without JavaScript and with reduced motion. Only the lab address gets "?from=portfolio-home".
+//   - CSS: imported, so Astro inlines it with the page's styles. It styles only through --rf-* variables, which
+//     default to our tokens (tokens v3): --accent = movement (withdrawal A's ring, dots and name) and links,
+//     --danger = the loss only ("paid 80" of a losing run, "Short 80"), --surface, --line, --line-strong, --fg,
+//     --muted, --focus, --radius-card; money figures use --rf-mono, set here to --font-source (the small mono).
+//   - JS: loaded on idle (README of the package), as its own file (the vendored bytes, hashed name in dist/_astro/).
+//     The element then plays once, about 4 s, when at least half of it
+//     is on screen, with Pause / Play while it moves, then "Run another order" (one of the 54 recorded runs) and
+//     "Find the bug →" (the lab). Reduced motion: nothing moves. Hidden tab: it pauses.
+//   - Never describe it as "running live" or "computed in the browser": each run is a recorded trace of the game's
+//     real code, checked by a test on every build of the lab.
+//
+// THE BOUNDARY: this site owns the slot (<div data-race-slot>): where it sits in the hero and how wide it may get
+// (at most 28 rem = 448 px on desktop, full width on phones). Everything inside <race-figure> belongs to the lab.
+// The texts inside the figure are DRAFTS for Saba's publish gate (listed in STATUS.md, "Next steps").
+import "../../vendor/race-figure/race-figure.css";
+import fallback from "../../vendor/race-figure/race-figure.html?raw";
+
+const LAB = "https://lab.sabajanelidze.com/day/payments";
+const TAGGED = `${LAB}?from=portfolio-home`;
+// The address appears twice in 1.0.0 (lab-url and the "Find the bug →" link). Fail the build if a new version
+// changes that, so the tag can never be dropped silently.
+const hits = fallback.split(`"${LAB}"`).length - 1;
+if (hits !== 2) throw new Error(`race-figure.html: expected the lab address twice, found ${hits}. Check the new version.`);
+const html = fallback.replaceAll(`"${LAB}"`, `"${TAGGED}"`).trim();
+---
+<div class="hrc" data-race-slot set:html={html} />
+
+<script>
+  // Load the element when the browser is idle (the HTML above already shows the end state).
+  // "?url": Vite ships the vendored file byte for byte as its own hashed file and gives us its address.
+  // A plain <script type="module"> keeps this loader tiny (a dynamic import() would pull in Vite's 1.6 KB preload helper).
+  import figure from "../../vendor/race-figure/race-figure.js?url";
+  const load = () => {
+    const s = document.createElement("script");
+    s.type = "module";
+    s.src = figure;
+    document.head.append(s);
+  };
+  if ("requestIdleCallback" in window) requestIdleCallback(load, { timeout: 2500 });
+  else setTimeout(load, 1);
+</script>
+
+<style>
+  /* Only --rf-* variables (the element's contract). Money figures in the small mono (tokens v3). */
+  .hrc :global(race-figure) {
+    --rf-mono: var(--font-source);
+  }
+  /* At 360 px the step "read the balance, check 80 ≤ balance" wraps to three lines; give each step row room for them. */
+  @media (max-width: 23rem) {
+    .hrc :global(race-figure) {
+      --rf-row: 3.3rem;
+    }
+  }
+</style>
