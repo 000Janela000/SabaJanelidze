@@ -64,6 +64,8 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 - `npm install`: run this first on each machine. `node_modules` doesn't sync between the PC and the Mac.
 - `npm run dev`: local dev server at http://localhost:4321.
+  - **Restart it after big changes** (new or renamed style files, layout rewrites). A long-running dev server can keep serving old styles. On 2026-10-15 it showed the redesigned home page without its section styles (no margins, small headings, an empty portrait) while the build was fine.
+  - **Before you say a page looks right, check the live page in a browser at desktop and phone width**, not only your own screenshots of a build.
 - `npm run check` (`astro check`, the TypeScript check) and `npm run build` (static HTML into `dist/`): run both before you say a code task is done. `npm run verify` runs both.
 - `npm run preview`: serves the built `dist/` without compression. Use it to click through, not to measure speed.
 - URLs never end with a slash: `/work/bitnet` is built as `dist/work/bitnet.html` (`trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`). Keep it that way; today's live URLs have no slash.
