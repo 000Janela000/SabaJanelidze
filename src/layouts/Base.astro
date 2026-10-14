@@ -1,0 +1,90 @@
+---
+// Page shell for every page: <head> (SEO, fonts), skip link, and an optional design-preview strip.
+import "../styles/global.css";
+import SeoHead from "../components/SeoHead.astro";
+import Fonts from "../components/Fonts.astro";
+import type { Lang } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  path: string;
+  alternates?: Lang[];
+  noindex?: boolean;
+  jsonLd?: object | object[];
+  ogType?: "website" | "profile";
+  /** Class on <body>: each design direction sets its color tokens on its own class. */
+  bodyClass?: string;
+  themeColor?: string;
+  colorScheme?: string;
+  /** On /design pages: which direction is shown (draws the thin preview strip on top). */
+  preview?: "a" | "b" | "b-rich" | "c" | "index" | "ka-b";
+}
+
+const {
+  title,
+  description,
+  lang,
+  path,
+  alternates,
+  noindex,
+  jsonLd,
+  ogType,
+  bodyClass,
+  themeColor = "#ffffff",
+  colorScheme = "light",
+  preview,
+} = Astro.props;
+
+// No approved Georgian exists for "Skip to content" yet, so it stays English (lang="en") on Georgian pages too.
+const skip = "Skip to content";
+const strip = [
+  { id: "index", label: "All directions", href: "/design" },
+  { id: "a", label: "A · Calm precision", href: "/design/a" },
+  { id: "b", label: "B · Dark, light and fast", href: "/design/b" },
+  { id: "b-rich", label: "B-rich · B + shader", href: "/design/b-rich" },
+  { id: "c", label: "C · Engineering notebook", href: "/design/c" },
+  { id: "ka-b", label: "B in Georgian", href: "/ka/design/b" },
+];
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <SeoHead
+      title={title}
+      description={description}
+      lang={lang}
+      path={path}
+      alternates={alternates}
+      noindex={noindex}
+      jsonLd={jsonLd}
+      ogType={ogType}
+    />
+    <Fonts georgian={lang === "ka"} />
+    <meta name="theme-color" content={themeColor} />
+    <meta name="color-scheme" content={colorScheme} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main" lang="en">{skip}</a>
+    {
+      preview && (
+        <nav class="preview-strip" aria-label="Design preview" lang="en">
+          <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5">
+            <span>Phase 1 design preview (not public)</span>
+            {strip.map((s) => (
+              <a href={s.href} aria-current={s.id === preview ? "page" : undefined}>
+                {s.label}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )
+    }
+    <slot />
+  </body>
+</html>

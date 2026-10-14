@@ -1,0 +1,24 @@
+---
+// Temporary Phase 1 route: direction B in Georgian, to check Georgian typography only.
+// Uses only Georgian that was approved on the old site; the rest stays English and is marked.
+import Base from "../../../layouts/Base.astro";
+import DesignB from "../../../designs/b/DesignB.astro";
+import { seo } from "../../../content/home";
+import { kaApproved } from "../../../content/ka-approved";
+import { profileJsonLd, SITE_ORIGIN } from "../../../lib/site";
+---
+<Base
+  title={`${kaApproved.name} — ${kaApproved.title} (design B, Georgian check)`}
+  description={seo.description}
+  lang="ka"
+  path="/design/b"
+  alternates={["en", "ka"]}
+  noindex
+  bodyClass="db"
+  themeColor="#0a0a0b"
+  colorScheme="dark"
+  preview="ka-b"
+  jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/ka/design/b`, lang: "ka", description: seo.description })}
+>
+  <DesignB lang="ka" />
+</Base>

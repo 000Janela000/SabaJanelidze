@@ -1,0 +1,74 @@
+---
+// Everything search engines and link previews read: title, description, canonical, hreflang,
+// Open Graph / Twitter tags and JSON-LD. One component, used by every page through the base layout.
+import { SITE_ORIGIN, OG_LOCALE, type Lang } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  /** The page's path WITHOUT the language prefix, e.g. "/" or "/work/bitnet". */
+  path: string;
+  /** Languages this page exists in. hreflang tags are written only when there is more than one. */
+  alternates?: Lang[];
+  noindex?: boolean;
+  /** Absolute or root-relative image for link previews (1200 x 630). */
+  ogImage?: string;
+  ogType?: "website" | "profile";
+  jsonLd?: object | object[];
+}
+
+const {
+  title,
+  description,
+  lang,
+  path,
+  alternates = [lang],
+  noindex = false,
+  ogImage = "/og-image.png",
+  ogType = "website",
+  jsonLd,
+} = Astro.props;
+
+/** URL of `path` in a language. English has no prefix; no URL ends with a slash except the root. */
+function urlFor(l: Lang, p: string): string {
+  const clean = p === "/" ? "" : p.replace(/\/+$/, "");
+  if (l === "en") return SITE_ORIGIN + (clean || "/");
+  return SITE_ORIGIN + "/ka" + clean;
+}
+
+const canonical = urlFor(lang, path);
+const hasAlternates = alternates.length > 1;
+const imageUrl = ogImage.startsWith("http") ? ogImage : SITE_ORIGIN + ogImage;
+const others = alternates.filter((l) => l !== lang);
+const ld = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : null;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex" />}
+<link rel="canonical" href={canonical} />
+{
+  hasAlternates && (
+    <>
+      {alternates.map((l) => (
+        <link rel="alternate" hreflang={l} href={urlFor(l, path)} />
+      ))}
+      <link rel="alternate" hreflang="x-default" href={urlFor("en", path)} />
+    </>
+  )
+}
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content="Saba Janelidze" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={OG_LOCALE[lang]} />
+{others.map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[l]} />)}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+{ld && <script type="application/ld+json" set:html={ld} />}

@@ -2,7 +2,7 @@
 
 > Read this at the start of every session. Update it at the end.
 > This file is in a **public** repo. Keep private things in `private/`.
-> Last updated: **2026-10-13**
+> Last updated: **2026-10-14**
 
 ## Where we are
 
@@ -10,6 +10,7 @@
 - **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
 - **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
 - **Deploy:** a push to `main` publishes it automatically on Vercel.
+- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 is done: the skeleton (i18n, SEO head, JSON-LD, real 404, self-hosted fonts) and four home-page design directions at `/design` (A, B, B-rich, C) plus a Georgian typography check at `/ka/design/b`. Saba picks a direction next. The live site on `main` is untouched.
 
 ## Open problems (most important first)
 
@@ -28,10 +29,17 @@
 
 ## Next steps
 
+- Saba opens http://localhost:4321/design (run `npm run dev` on the `rebuild` branch) and picks or mixes a design direction.
 - Saba decides the new title and description text (problem 1).
 
 ## Log
 
+- **2026-10-14 (rebuild, Phase 1):** On the new branch `rebuild`, the old Vite + React app was replaced by an Astro 7 project (static HTML, TypeScript strict, Tailwind 4).
+  - Skeleton: English at `/`, Georgian at `/ka`, URLs without a trailing slash, an SEO head with canonical, hreflang and ProfilePage JSON-LD, a real 404 page, self-hosted Inter and Noto Sans Georgian (weights 400 and 600).
+  - Four home-page directions for Saba to compare, all with the same English draft text: A "Calm precision", B "today's dark look, made light and fast", B-rich (B plus today's WebGL shader, desktop only), C "Engineering notebook". They are temporary, `noindex` pages.
+  - Each page ships 1 to 4 KB of JavaScript (gzip). The old site shipped about 370 KB.
+  - `AGENTS.md` now has the motion rules and the Astro 7 gotchas. The old contact-form function moved to `legacy/` for a later port.
+  - Nothing was pushed or deployed.
 - **2026-10-13:** Added two projects and set the order Saba asked for: **Bitnet.ge first, Playtime.ge second, WasteAway third**, then Chama and UniHub.
   - New project pages: `/work/bitnet` and `/work/wasteaway`. Their images are screenshots of the live sites (`public/projects/bitnet.webp`, `wasteaway.webp`, 1440 x 900).
   - PlayTime's text now matches what it really is today: a booking marketplace for sports and entertainment venues in Tbilisi, with 19 padel clubs listed and online booking with payment still in testing (`../playtime/STATUS.md`). It said "entertainment startup" before.

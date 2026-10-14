@@ -1,0 +1,140 @@
+/* Site-wide styles. Tailwind 4 plus a few base rules.
+   Colors are semantic tokens (--bg, --fg, ...). Each design direction sets its own values on its wrapper,
+   so the same Tailwind classes (bg-bg, text-muted, border-line ...) work in all three looks.
+   Motion rules: see AGENTS.md, "Motion rules". */
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-code);
+}
+
+:root {
+  --font-body: "Inter", "Inter Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-ka: "Noto Sans Georgian", "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-code: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
+
+  /* Motion timing tokens (motion report 7.2, rule 4). Reuse these in Remotion later. */
+  --dur-instant: 100ms;
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+  --dur-page: 300ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Neutral tokens for pages outside the design directions (index, 404). */
+  --bg: #ffffff;
+  --surface: #f5f6f7;
+  --fg: #121418;
+  --muted: #5b616e;
+  --line: #e4e6ea;
+  --accent: #2457d6;
+  --accent-fg: #ffffff;
+  color-scheme: light;
+}
+
+/* Metric-matched fallback, so the swap from Arial to Inter barely moves the text (less layout shift). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+  size-adjust: 107.4%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  overflow-wrap: break-word;
+}
+
+html:lang(ka) body {
+  font-family: var(--font-ka);
+}
+
+/* Georgian: never uppercase, never letter-spacing (_shared/playbooks/georgian.md).
+   English fallback text inside a Georgian page carries lang="en" and is not affected. */
+*:lang(ka) {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
+
+[id] {
+  scroll-margin-top: 5rem;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 50;
+  padding: 0.5rem 0.875rem;
+  border-radius: 6px;
+  background: var(--fg);
+  color: var(--bg);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Motion is added only when the visitor has not asked for less of it ("no-motion-first"). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Page changes cross-fade in browsers that support it; others just load the page. 0 KB of JavaScript. */
+  @view-transition {
+    navigation: auto;
+  }
+  ::view-transition-group(root) {
+    animation-duration: var(--dur-page);
+  }
+}
+
+/* The thin "design preview" strip on /design pages. Neutral on purpose, so it does not belong to any look. */
+.preview-strip {
+  font: 500 12px/1.4 var(--font-body);
+  background: #1b1d22;
+  color: #d9dbe0;
+}
+.preview-strip a {
+  display: inline-block;
+  padding: 4px 2px;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.preview-strip a[aria-current="page"] {
+  text-decoration: none;
+  background: #ffffff;
+  color: #1b1d22;
+  border-radius: 3px;
+  padding: 0 0.35rem;
+}

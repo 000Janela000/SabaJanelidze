@@ -1,0 +1,30 @@
+---
+// Self-hosted fonts: Inter (Latin) and, on Georgian pages, Noto Sans Georgian.
+// Only the two weights the site uses (400 and 600), only the needed letters (unicode-range),
+// woff2 only. The files come from the @fontsource packages and are copied into dist/_astro/ at build time.
+import inter400 from "@fontsource/inter/files/inter-latin-400-normal.woff2?url";
+import inter600 from "@fontsource/inter/files/inter-latin-600-normal.woff2?url";
+import ka400 from "@fontsource/noto-sans-georgian/files/noto-sans-georgian-georgian-400-normal.woff2?url";
+import ka600 from "@fontsource/noto-sans-georgian/files/noto-sans-georgian-georgian-600-normal.woff2?url";
+
+interface Props {
+  /** Also load Noto Sans Georgian (only Georgian pages need it). */
+  georgian?: boolean;
+}
+const { georgian = false } = Astro.props;
+
+const LATIN =
+  "U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD";
+const GEORGIAN = "U+0589,U+10A0-10FF,U+1C90-1CBA,U+1CBD-1CBF,U+205A,U+2D00-2D2F,U+2E31";
+
+const face = (family: string, weight: number, url: string, range: string) =>
+  `@font-face{font-family:"${family}";font-style:normal;font-weight:${weight};font-display:swap;src:url(${url}) format("woff2");unicode-range:${range}}`;
+
+let css = face("Inter", 400, inter400, LATIN) + face("Inter", 600, inter600, LATIN);
+if (georgian) css += face("Noto Sans Georgian", 400, ka400, GEORGIAN) + face("Noto Sans Georgian", 600, ka600, GEORGIAN);
+---
+<link rel="preload" href={inter400} as="font" type="font/woff2" crossorigin />
+<link rel="preload" href={inter600} as="font" type="font/woff2" crossorigin />
+{georgian && <link rel="preload" href={ka400} as="font" type="font/woff2" crossorigin />}
+{georgian && <link rel="preload" href={ka600} as="font" type="font/woff2" crossorigin />}
+<style is:inline set:html={css}></style>

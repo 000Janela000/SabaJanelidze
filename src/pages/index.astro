@@ -1,0 +1,26 @@
+---
+// The real home page lives here after Saba picks a design (Phase 3). Until then: a plain skeleton page
+// that already has the final SEO head (canonical, hreflang en/ka/x-default, ProfilePage JSON-LD).
+import Base from "../layouts/Base.astro";
+import { seo, hero } from "../content/home";
+import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
+---
+<Base
+  title={seo.title}
+  description={seo.description}
+  lang="en"
+  path="/"
+  alternates={["en", "ka"]}
+  ogType="profile"
+  jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/`, lang: "en", description: seo.description })}
+>
+  <main id="main" class="mx-auto max-w-3xl px-5 py-20 md:px-10 md:py-28">
+    <h1 class="text-4xl font-semibold tracking-tight md:text-5xl">{hero.name}</h1>
+    <p class="mt-3 text-lg text-muted">{hero.title}</p>
+    <p class="mt-8 text-xl leading-relaxed">{hero.pitch}</p>
+    <p class="mt-10 border-t border-line pt-6 text-sm text-muted">
+      The new site is being built. Phase 1:{" "}
+      <a class="text-fg underline underline-offset-4" href="/design">three design directions</a>.
+    </p>
+  </main>
+</Base>

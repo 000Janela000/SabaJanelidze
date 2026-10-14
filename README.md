@@ -1,37 +1,24 @@
 # Saba Janelidze — Portfolio
 
-Premium personal portfolio website. Bilingual (Georgian/English) with IP-based auto-detection.
+Personal portfolio of Saba Janelidze, Senior Full-Stack Engineer (fintech and AI).
 
-**Live:** https://www.sabajanelidze.com
+**Live:** https://www.sabajanelidze.com (built from the `main` branch).
 
-## Stack
+## This branch: `rebuild`
 
-React 19, Vite, TypeScript, Tailwind CSS v4, GSAP (ScrollTrigger, SplitText, ScrambleText), Lenis, React Three Fiber, Framer Motion
+The new site, being rebuilt from scratch. It replaces the old Vite + React app only at the switch-over.
 
-## Animation Techniques
-
-- Three.js GLSL shader hero background (cursor-reactive)
-- GSAP SplitText character/word reveals
-- GSAP ScrambleText preloader
-- Scroll-triggered clip-path reveals
-- 3D perspective tilt on hover
-- Text blur-to-sharp on scroll
-- Stacking cards with ScrollTrigger pin
-- Magnetic elastic buttons
-- Custom cursor (dot + ring with state changes)
-- Velocity-responsive infinite marquee
-- Parallax scroll effects
-- Lenis smooth scrolling
-- Framer Motion page transitions
-- Noise grain SVG overlay
+- **Stack:** Astro 7 (static HTML), TypeScript (strict), Tailwind CSS 4, self-hosted Inter and Noto Sans Georgian.
+- **Languages:** English at `/`, Georgian at `/ka/`, with hreflang tags. No automatic language redirect.
+- **JavaScript:** only small scripts where something moves or reacts; most pages ship none.
+- **Hosting (planned):** Cloudflare Workers, static assets.
 
 ## Development
 
 ```bash
 npm install
-npm run dev
+npm run dev      # http://localhost:4321
+npm run verify   # astro check + astro build
 ```
 
-## Deploy
-
-Connected to Vercel for auto-deploy on push to main.
+Rules for agents and contributors: `AGENTS.md`.

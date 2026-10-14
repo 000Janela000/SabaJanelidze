@@ -1,0 +1,38 @@
+---
+// Signature moment 6 (micro-feedback): a "Copy" button next to the email address that turns into "Copied".
+// Hidden without JavaScript (the mailto link still works).
+import { contact } from "../content/home";
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<button type="button" class:list={["copy-email", className]} data-copy={contact.email} hidden>
+  <span data-idle>{contact.copy.idle}</span>
+  <span data-done hidden>{contact.copy.done}{" "}<span aria-hidden="true">✓</span></span>
+</button>
+
+<script>
+  for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+    if (!navigator.clipboard) continue;
+    btn.hidden = false;
+    const idle = btn.querySelector<HTMLElement>("[data-idle]");
+    const done = btn.querySelector<HTMLElement>("[data-done]");
+    let timer = 0;
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy ?? "");
+      } catch {
+        return;
+      }
+      if (idle) idle.hidden = true;
+      if (done) done.hidden = false;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (idle) idle.hidden = false;
+        if (done) done.hidden = true;
+      }, 2000);
+    });
+  }
+</script>

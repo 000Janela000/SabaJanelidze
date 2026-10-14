@@ -31,3 +31,6 @@ dist/
 private/
 # Local Claude Code settings (can hold tokens; never commit)
 .claude/settings.local.json
+
+# Astro generated types and cache
+.astro/

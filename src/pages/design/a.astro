@@ -1,0 +1,21 @@
+---
+// Temporary Phase 1 route: direction A. Not for search engines (noindex). Deleted after Saba picks.
+import Base from "../../layouts/Base.astro";
+import DesignA from "../../designs/a/DesignA.astro";
+import { seo } from "../../content/home";
+import { profileJsonLd, SITE_ORIGIN } from "../../lib/site";
+---
+<Base
+  title={`${seo.title} (design A)`}
+  description={seo.description}
+  lang="en"
+  path="/design/a"
+  noindex
+  bodyClass="da"
+  themeColor="#fbfbfa"
+  colorScheme="light dark"
+  preview="a"
+  jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/design/a`, lang: "en", description: seo.description })}
+>
+  <DesignA />
+</Base>

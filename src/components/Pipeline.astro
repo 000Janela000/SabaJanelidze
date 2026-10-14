@@ -1,0 +1,437 @@
+---
+// Signature moment 2: "How I ship with AI agents", a stepped diagram (motion report 7.4).
+//
+// Progress-driven: what you see is a pure function of one number t from 0 to 1 (render(t) below).
+// The Play / Pause / Step buttons move t. Remotion can later move the same t frame by frame (video V1).
+//
+// Without JavaScript, and with reduced motion, the diagram shows its final state (every step lit).
+// The steps are a plain numbered list in the HTML, so bots and screen readers get all the text.
+import { pipeline } from "../content/home";
+
+interface Props {
+  variant: "a" | "b" | "c";
+}
+const { variant } = Astro.props;
+const steps = pipeline.steps;
+const n = steps.length;
+---
+<div class="pipe" data-pipeline data-variant={variant}>
+  <div class="pipe-bar" data-controls hidden>
+    <button type="button" class="pipe-btn pipe-btn--main" data-act="toggle" aria-pressed="false">
+      <span data-label>Play</span>
+    </button>
+    <button type="button" class="pipe-btn" data-act="prev">
+      <span aria-hidden="true">←</span>{" "}Back
+    </button>
+    <button type="button" class="pipe-btn" data-act="next">
+      Next{" "}<span aria-hidden="true">→</span>
+    </button>
+    <p class="pipe-status tabular" aria-live="polite" data-status></p>
+  </div>
+  <ol class="pipe-steps" style={`--n:${n}`}>
+    {
+      steps.map((s, i) => (
+        <li class="pipe-step" data-step={i}>
+          <span class="pipe-hl" aria-hidden="true" />
+          <div class="pipe-node" aria-hidden="true">
+            <span class="pipe-dot">
+              <span class="pipe-dot-fill" />
+            </span>
+            {i < n - 1 && (
+              <span class="pipe-seg">
+                <span class="pipe-seg-fill" />
+              </span>
+            )}
+          </div>
+          <div class="pipe-body">
+            <p class="pipe-num tabular">{String(i + 1).padStart(2, "0")}</p>
+            <h3 class="pipe-title">{s.title}</h3>
+            <p class="pipe-text">{s.text}</p>
+            <p class="pipe-fact">
+              <strong class="tabular">{s.fact}</strong>
+              <span>{s.factText}</span>
+            </p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .pipe {
+    --pipe-dot: 14px;
+    --pipe-gap: 1.5rem;
+    --pipe-track: var(--line);
+    --pipe-fill: var(--accent);
+    --pipe-ring: var(--ring, var(--muted));
+  }
+  .pipe-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .pipe-bar[hidden] {
+    display: none;
+  }
+  .pipe-btn {
+    font: inherit;
+    font-size: 0.875rem;
+    line-height: 1;
+    padding: 0.6rem 0.95rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--fg);
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) ease,
+      background-color var(--dur-fast) ease;
+  }
+  .pipe-btn:hover {
+    border-color: var(--fg);
+  }
+  .pipe-btn[hidden] {
+    display: none;
+  }
+  .pipe-btn--main {
+    min-width: 5.75rem;
+    background: var(--fg);
+    border-color: var(--fg);
+    color: var(--bg);
+  }
+  .pipe-status {
+    margin: 0 0 0 0.5rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .pipe-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  /* --on: 0..1 how far this step is reached; --seg: 0..1 how full the line to the next step is;
+     --cur: 0..1 how "current" the step is. Defaults = final state (also the no-JavaScript state). */
+  .pipe-step {
+    --on: 1;
+    --seg: 1;
+    --cur: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--pipe-dot) minmax(0, 1fr);
+    column-gap: 1rem;
+    padding-bottom: 1.75rem;
+  }
+  .pipe-step:last-child {
+    padding-bottom: 0;
+  }
+  .pipe-node {
+    position: relative;
+  }
+  .pipe-dot {
+    position: absolute;
+    left: 0;
+    top: 0.3rem;
+    width: var(--pipe-dot);
+    height: var(--pipe-dot);
+    border-radius: 50%;
+    border: 2px solid var(--pipe-ring);
+    background: var(--bg);
+    transform: scale(calc(1 + 0.25 * var(--cur)));
+  }
+  .pipe-dot-fill {
+    position: absolute;
+    inset: 2px;
+    border-radius: inherit;
+    background: var(--pipe-fill);
+    opacity: var(--on);
+    transform: scale(calc(0.3 + 0.7 * var(--on)));
+  }
+  .pipe-seg {
+    position: absolute;
+    left: calc(var(--pipe-dot) / 2 - 1px);
+    top: calc(0.3rem + var(--pipe-dot) + 4px);
+    bottom: calc(4px - 0.3rem);
+    width: 2px;
+    overflow: hidden;
+    background: var(--pipe-track);
+  }
+  .pipe-seg-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--pipe-fill);
+    transform-origin: top;
+    transform: scaleY(var(--seg));
+  }
+  /* The current step "lights up" with a soft panel behind it. The text itself never fades,
+     so every step stays readable (contrast) at every moment of the animation. */
+  .pipe-hl {
+    position: absolute;
+    top: -0.5rem;
+    bottom: 1rem;
+    left: calc(var(--pipe-dot) + 0.35rem);
+    right: -0.5rem;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--accent) 9%, transparent);
+    opacity: var(--cur);
+    pointer-events: none;
+  }
+  .pipe-body {
+    position: relative;
+  }
+  .pipe-num {
+    margin: 0 0 0.25rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .pipe-title {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--fg);
+  }
+  .pipe-text {
+    margin: 0 0 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .pipe-fact {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .pipe-fact strong {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--fg);
+  }
+  .pipe-step[aria-current] .pipe-fact strong {
+    color: var(--accent);
+  }
+
+  @media (min-width: 1024px) {
+    /* Six columns that share five rows (node, number, title, text, fact) through subgrid,
+       so every title, text and number starts on the same line across the six steps. */
+    .pipe-steps {
+      display: grid;
+      grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+      grid-template-rows: repeat(5, auto);
+      column-gap: var(--pipe-gap);
+    }
+    .pipe-step {
+      display: grid;
+      grid-row: span 5;
+      grid-template-rows: subgrid;
+      grid-template-columns: minmax(0, 1fr);
+      column-gap: 0;
+      padding-bottom: 0;
+    }
+    .pipe-body {
+      display: contents;
+    }
+    .pipe-hl {
+      top: calc(var(--pipe-dot) + 0.55rem);
+      bottom: -0.75rem;
+      left: -0.6rem;
+      right: -0.6rem;
+    }
+    .pipe-node {
+      height: var(--pipe-dot);
+      margin-bottom: 1.25rem;
+    }
+    .pipe-dot {
+      top: 0;
+    }
+    .pipe-seg {
+      top: calc(var(--pipe-dot) / 2 - 1px);
+      left: calc(var(--pipe-dot) + 6px);
+      bottom: auto;
+      width: calc(100% + var(--pipe-gap) - var(--pipe-dot) - 12px);
+      height: 2px;
+    }
+    .pipe-seg-fill {
+      transform-origin: left;
+      transform: scaleX(var(--seg));
+    }
+  }
+
+  /* Direction B: today's dark look, blue accent on the main button. */
+  .pipe[data-variant="b"] .pipe-btn--main {
+    background: var(--accent-strong, var(--accent));
+    border-color: var(--accent-strong, var(--accent));
+    color: var(--accent-fg);
+  }
+
+  /* Direction C: engineering drawing. Square nodes, dashed track, monospace labels. */
+  .pipe[data-variant="c"] .pipe-dot {
+    border-radius: 2px;
+  }
+  .pipe[data-variant="c"] .pipe-hl {
+    border-radius: 2px;
+  }
+  .pipe[data-variant="c"] .pipe-seg {
+    background: linear-gradient(180deg, var(--pipe-track) 55%, transparent 0) 0 0 / 2px 7px;
+  }
+  .pipe[data-variant="c"] .pipe-btn {
+    border-radius: 3px;
+    font-family: var(--font-code);
+    font-size: 0.8125rem;
+  }
+  .pipe[data-variant="c"] .pipe-num,
+  .pipe[data-variant="c"] .pipe-fact strong,
+  .pipe[data-variant="c"] .pipe-status {
+    font-family: var(--font-code);
+  }
+  .pipe[data-variant="c"] .pipe-fact strong {
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  @media (min-width: 1024px) {
+    .pipe[data-variant="c"] .pipe-seg {
+      background: linear-gradient(90deg, var(--pipe-track) 55%, transparent 0) 0 0 / 7px 2px;
+    }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const HOLD_MS = 1600; // how long one step stays lit while playing
+  const MOVE_MS = 300; // the move to the next step (motion rule: 100-300 ms)
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-pipeline]")) setup(root);
+
+  function setup(root: HTMLElement) {
+    const steps = Array.from(root.querySelectorAll<HTMLElement>(".pipe-step"));
+    const bar = root.querySelector<HTMLElement>("[data-controls]");
+    const toggle = root.querySelector<HTMLButtonElement>('[data-act="toggle"]');
+    const label = root.querySelector<HTMLElement>("[data-label]");
+    const status = root.querySelector<HTMLElement>("[data-status]");
+    if (!bar || !toggle || !label || !status || steps.length < 2) return;
+    const last = steps.length - 1;
+    const titles = steps.map((s) => s.querySelector(".pipe-title")?.textContent ?? "");
+    let t = 1;
+    let raf = 0;
+    let timer = 0;
+    let playing = false;
+    let touched = false;
+
+    const clamp = (v: number) => Math.min(1, Math.max(0, v));
+    const index = () => Math.round(t * last);
+
+    // The whole picture is a function of t.
+    function render(v: number) {
+      t = v;
+      const x = v * last;
+      steps.forEach((el, i) => {
+        el.style.setProperty("--on", clamp(x - i + 1).toFixed(3));
+        el.style.setProperty("--seg", clamp(x - i).toFixed(3));
+        el.style.setProperty("--cur", clamp(1 - Math.abs(x - i)).toFixed(3));
+        if (Math.round(x) === i) el.setAttribute("aria-current", "step");
+        else el.removeAttribute("aria-current");
+      });
+      const i = Math.round(x);
+      status!.textContent = `Step ${i + 1} of ${last + 1}: ${titles[i]}`;
+    }
+
+    function moveTo(target: number, ms = MOVE_MS): Promise<void> {
+      cancelAnimationFrame(raf);
+      if (reduce.matches || ms <= 0) {
+        render(target);
+        return Promise.resolve();
+      }
+      const from = t;
+      const start = performance.now();
+      return new Promise((done) => {
+        const tick = (now: number) => {
+          const p = Math.min(1, (now - start) / ms);
+          const eased = 1 - Math.pow(1 - p, 3); // ease-out
+          render(from + (target - from) * eased);
+          if (p < 1) raf = requestAnimationFrame(tick);
+          else done();
+        };
+        raf = requestAnimationFrame(tick);
+      });
+    }
+
+    function setPlaying(on: boolean) {
+      playing = on;
+      toggle!.setAttribute("aria-pressed", String(on));
+      label!.textContent = on ? "Pause" : index() === last ? "Replay" : "Play";
+    }
+
+    function stop() {
+      window.clearTimeout(timer);
+      setPlaying(false);
+    }
+
+    function scheduleNext() {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(async () => {
+        if (!playing) return;
+        const next = Math.min(last, index() + 1);
+        await moveTo(next / last);
+        if (next >= last) stop();
+        else scheduleNext();
+      }, HOLD_MS);
+    }
+
+    function play() {
+      if (index() === last) render(0);
+      setPlaying(true);
+      scheduleNext();
+    }
+
+    toggle.addEventListener("click", () => {
+      touched = true;
+      if (playing) stop();
+      else play();
+    });
+    root.querySelector('[data-act="prev"]')?.addEventListener("click", () => {
+      touched = true;
+      stop();
+      void moveTo(Math.max(0, index() - 1) / last, 250);
+    });
+    root.querySelector('[data-act="next"]')?.addEventListener("click", () => {
+      touched = true;
+      stop();
+      void moveTo(Math.min(last, index() + 1) / last, 250).then(() => setPlaying(false));
+    });
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && playing) stop();
+    });
+
+    bar.hidden = false;
+
+    // Reduced motion: final state, Step buttons only, nothing moves by itself.
+    if (reduce.matches) {
+      toggle.hidden = true;
+      render(1);
+      return;
+    }
+
+    // Otherwise: start at step 1 and play once when the diagram is half on screen.
+    render(0);
+    setPlaying(false);
+    const list = root.querySelector(".pipe-steps");
+    if (!list || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          if (!touched) play();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(list);
+  }
+</script>

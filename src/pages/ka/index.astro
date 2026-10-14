@@ -1,0 +1,27 @@
+---
+// Georgian home placeholder. Only Georgian that was already approved on the old site is used here;
+// the new Georgian text comes in Phase 3 through the Georgian chain (_shared/playbooks/georgian.md).
+import Base from "../../layouts/Base.astro";
+import { seo } from "../../content/home";
+import { kaApproved } from "../../content/ka-approved";
+import { profileJsonLd, SITE_ORIGIN } from "../../lib/site";
+---
+<Base
+  title={`${kaApproved.name} — ${kaApproved.title}`}
+  description={seo.description}
+  lang="ka"
+  path="/"
+  alternates={["en", "ka"]}
+  ogType="profile"
+  jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/ka`, lang: "ka", description: seo.description })}
+>
+  <main id="main" class="mx-auto max-w-3xl px-5 py-20 md:px-10 md:py-28">
+    <h1 class="text-4xl font-semibold md:text-5xl">{kaApproved.name}</h1>
+    <p class="mt-3 text-lg text-muted" lang="en">{kaApproved.title}</p>
+    <p class="mt-10 border-t border-line pt-6 text-sm text-muted" lang="en">
+      Placeholder: the Georgian version of the new site comes later. For now see the{" "}
+      <a class="text-fg underline underline-offset-4" href="/ka/design/b">Georgian typography check</a> or the{" "}
+      <a class="text-fg underline underline-offset-4" href="/">English page</a>.
+    </p>
+  </main>
+</Base>
