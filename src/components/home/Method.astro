@@ -1,0 +1,154 @@
+---
+// "How I work with AI agents": the ONE static method diagram on the home page (no controls, no autoplay).
+// Five numbered steps joined by a line: a row on desktop, a column on phones. Below it, the loop that makes
+// the checks grow. All text is real HTML text. The lines carry meaning (the order), so they use --line-strong
+// (3:1 or more); they never pass behind text (the line sits beside the numbers, the text sits below or right).
+// The stepped explainer version lives in src/components/Pipeline.astro for the future "How I work" page.
+import Section from "../site/Section.astro";
+import { method } from "../../content/home";
+---
+<Section id="how" heading={method.heading} intro={method.intro}>
+  <figure class="md">
+    <ol class="md-steps">
+      {
+        method.steps.map((s, i) => (
+          <li class="md-step">
+            <span class="md-mark tabular">{i + 1}</span>
+            <div class="md-body">
+              <h3 class="md-title">{s.title}</h3>
+              <p class="md-text">{s.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+    <figcaption class="md-loop">
+      <svg class="md-loop-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path d="M20 12a8 8 0 1 1-2.34-5.66" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        <path d="M20 4v5h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span>{method.loop}</span>
+    </figcaption>
+  </figure>
+</Section>
+
+<style>
+  .md {
+    margin: 0;
+  }
+  .md-steps {
+    --mark: 36px;
+    --gap: var(--space-5);
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .md-step {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--mark) minmax(0, 1fr);
+    column-gap: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+  .md-step:last-child {
+    padding-bottom: 0;
+  }
+  /* The line to the next step: down the left column on phones. */
+  .md-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--mark) / 2 - 0.75px);
+    top: calc(var(--mark) + 6px);
+    bottom: 6px;
+    width: 1.5px;
+    background: var(--line-strong);
+  }
+  .md-mark {
+    display: grid;
+    place-items: center;
+    width: var(--mark);
+    height: var(--mark);
+    border: 1.5px solid var(--line-strong);
+    border-radius: 50%;
+    background: var(--surface);
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-strong);
+    line-height: 1;
+  }
+  /* Phones: the title and its sentence run on as one short paragraph. */
+  .md-body {
+    padding-top: 0.3rem;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  .md-title,
+  .md-text {
+    display: inline;
+    margin: 0;
+    font-size: inherit;
+    line-height: inherit;
+  }
+  .md-title {
+    font-weight: var(--weight-strong);
+  }
+  .md-title::after {
+    content: ". ";
+  }
+  .md-text {
+    color: var(--muted);
+  }
+  /* Desktop: one row; the line runs to the right, between the numbers. */
+  @media (min-width: 900px) {
+    .md-steps {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      column-gap: var(--gap);
+    }
+    .md-step {
+      grid-template-columns: minmax(0, 1fr);
+      row-gap: var(--space-4);
+      padding-bottom: 0;
+    }
+    .md-step:not(:last-child)::after {
+      left: calc(var(--mark) + 8px);
+      right: calc(-1 * var(--gap) + 8px);
+      top: calc(var(--mark) / 2 - 0.75px);
+      bottom: auto;
+      width: auto;
+      height: 1.5px;
+    }
+    .md-body {
+      padding-top: 0;
+    }
+    .md-title,
+    .md-text {
+      display: block;
+    }
+    .md-title {
+      margin-bottom: var(--space-1);
+      font-size: var(--fs-base);
+      line-height: 1.35;
+    }
+    .md-title::after {
+      content: none;
+    }
+  }
+
+  .md-loop {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    max-width: 44em;
+    margin-top: var(--space-5);
+  }
+  @media (min-width: 900px) {
+    .md-loop {
+      margin-top: var(--space-6);
+    }
+  }
+  .md-loop-icon {
+    flex: none;
+    margin-top: 0.15rem;
+    color: var(--accent);
+  }
+</style>

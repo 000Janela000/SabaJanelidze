@@ -1,39 +1,20 @@
 ---
-// One home-page section with the notebook rhythm: a full-width ink rule, the section number in the
-// margin (sticky on desktop), a big heading, an intro line, then the content (the slot).
+// One home-page section of the calm design: a heading, an optional intro line, then the content (the slot).
+// No numbers, no labels, no rules: space separates the sections.
 interface Props {
   id: string;
-  /** "§1" */
-  num: string;
-  /** A short mono label under the number, e.g. "services". */
-  label: string;
   heading: string;
   intro?: string;
   class?: string;
 }
-const { id, num, label, heading, intro, class: className } = Astro.props;
+const { id, heading, intro, class: className } = Astro.props;
 ---
-<section class:list={["nb-sec", className]} id={id} aria-labelledby={`${id}-title`}>
-  <div class="nb-wrap">
-    <div class="nb-sec-in">
-      <div>
-        <p class="nb-secnum">{num}{" "}<span>{label}</span></p>
-      </div>
-      <div class="sec-main">
-        <h2 id={`${id}-title`} class="nb-h2">{heading}</h2>
-        {intro && <p class="nb-intro">{intro}</p>}
-        {!intro && <div class="sec-gap" />}
-        <slot />
-      </div>
+<section class:list={["ui-section", className]} id={id} aria-labelledby={`${id}-title`}>
+  <div class="ui-wrap">
+    <h2 id={`${id}-title`} class="ui-h2">{heading}</h2>
+    {intro && <p class="ui-intro">{intro}</p>}
+    <div class="ui-section-body">
+      <slot />
     </div>
   </div>
 </section>
-
-<style>
-  .sec-main {
-    min-width: 0;
-  }
-  .sec-gap {
-    height: var(--space-6);
-  }
-</style>

@@ -1,12 +1,13 @@
-/* Site-wide styles. Tailwind 4, the design tokens, the notebook building blocks and a few base rules.
+/* Site-wide styles. Tailwind 4, the design tokens, the shared building blocks (ui.css) and a few base rules.
    Colours, fonts, sizes and motion timings live in tokens.css (the shared contract, see docs/design-tokens.md).
    The Phase 1 design directions (/design/a|b|c) set their own colour values on their wrapper class,
    so the same Tailwind classes (bg-bg, text-muted, border-line ...) work in every look.
+   notebook.css is NOT loaded here any more: only the parked explainers (src/components/parked/) import it.
    Motion rules: see AGENTS.md, "Motion rules". */
 /* Scan only src/ for class names (not docs, notes or old page dumps), so no unused utilities ship. */
 @import "tailwindcss" source("..");
 @import "./tokens.css";
-@import "./notebook.css";
+@import "./ui.css";
 
 @theme inline {
   --color-bg: var(--bg);
@@ -39,6 +40,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
+  font-size: var(--fs-base);
   line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -67,7 +69,7 @@ html:lang(ka) body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -102,14 +104,6 @@ html:lang(ka) body {
   ::view-transition-group(root) {
     animation-duration: var(--dur-page);
   }
-}
-
-/* The theme switch (ThemeToggle.astro): the new theme is revealed in a growing circle from the button.
-   The script runs the clip-path animation; these rules switch off the default cross-fade while it runs. */
-html.theme-vt::view-transition-old(root),
-html.theme-vt::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
 }
 
 /* The thin "design preview" strip on /design pages. Neutral on purpose, so it does not belong to any look. */

@@ -1,17 +1,15 @@
 ---
-// The real home page: the "Engineering notebook" design (Phase 1 direction C, polished in Phase 1b),
-// in two themes from one design: Paper (light) and Blueprint (dark). Tokens: src/styles/tokens.css.
-// All text: src/content/home.ts (a DRAFT until Saba approves it).
+// The real home page: the calm design (Phase 1c, 2026-10-15). Direction A's skeleton with real content,
+// light and dark themes, no grid, no glow, no explainers that move. Tokens: src/styles/tokens.css.
+// Order: hero (pitch, proof, two actions, four numbers) → work → what I do → one static method diagram
+// → about → contact. All text: src/content/home.ts (a DRAFT until Saba approves it).
 import Base from "../layouts/Base.astro";
 import Header from "../components/site/Header.astro";
 import Footer from "../components/site/Footer.astro";
 import Hero from "../components/home/Hero.astro";
-import ProofTable from "../components/home/ProofTable.astro";
-import Offers from "../components/home/Offers.astro";
-import HowIShip from "../components/home/HowIShip.astro";
 import Work from "../components/home/Work.astro";
-import Lab from "../components/home/Lab.astro";
-import OpenSource from "../components/home/OpenSource.astro";
+import Offers from "../components/home/Offers.astro";
+import Method from "../components/home/Method.astro";
 import About from "../components/home/About.astro";
 import Contact from "../components/home/Contact.astro";
 import { seo } from "../content/home";
@@ -25,18 +23,14 @@ import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
   alternates={["en", "ka"]}
   ogType="profile"
   themed
-  bodyClass="grid-paper"
   jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/`, lang: "en", description: seo.description })}
 >
   <Header />
   <main id="main" tabindex="-1">
     <Hero />
-    <ProofTable />
-    <Offers />
-    <HowIShip />
     <Work />
-    <Lab />
-    <OpenSource />
+    <Offers />
+    <Method />
     <About />
     <Contact />
   </main>

@@ -32,25 +32,27 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 | Path | What it is |
 |---|---|
-| `src/content/home.ts` | **The home page text (English), in one file.** The home page and the Phase 1 directions render this same text. Every number here is true and dated; the sources are named at the top of the file. Lines marked "DRAFT (Saba approves)" describe Bitnet work and wait for Saba's OK. |
+| `src/content/home.ts` | **The home page text (English), in one file.** The home page and the Phase 1 directions render this same text. Every number here is true and dated; the sources are named at the top of the file. Lines marked "DRAFT (Saba approves)" wait for Saba's OK. Fields marked "Not on the home page" feed only the Phase 1 design pages and the parked explainers. |
 | `src/content/ka-approved.ts` | Georgian strings that were **already approved** on the old site, copied word for word. Do not add new Georgian here (see "Rules"). |
 | `src/lib/site.ts` | Site address, name, email, active profiles (`sameAs`) and the JSON-LD (structured data for Google and AI tools) builder. |
-| `src/layouts/Base.astro` | The page shell: `<head>`, fonts, skip link, the Phase 1 preview strip. `themed` adds the Paper / Blueprint theme script (runs before the first paint) and the per-theme browser colours. |
-| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Plain CSS, also copied by the lab site. Guide: `docs/design-tokens.md`. |
-| `src/styles/notebook.css` | The shared building blocks of the notebook design (`nb-btn`, `nb-link`, `nb-figure`, `nb-cap`, `nb-card`, `nb-tags`, section rhythm, explainer controls). |
-| `src/components/site/` | Header (with the theme switch), footer, `ThemeToggle.astro`, `Section.astro` (one home-page section: rule, § number, heading, intro). |
-| `src/components/home/` | The home page sections. `GreenTestsFigure.astro` = hero fig. 1 "What green tests miss"; `RunsOnceFigure.astro` = fig. 2 "Every customer action runs once"; `BlueprintGlow.astro` = the Blueprint hero glow. |
-| `src/lib/stepper.ts` | The engine of the step-through explainers (fig. 1, fig. 3): one number `--x` drives the picture; Play / Pause / Back / Step. |
-| `src/lib/blueprint-gl.ts` | The Blueprint glow's WebGL code, downloaded only on desktop in Blueprint without reduced motion. |
+| `src/layouts/Base.astro` | The page shell: `<head>`, fonts, skip link, the Phase 1 preview strip. `themed` adds the light / dark theme script (runs before the first paint) and the per-theme browser colours. |
+| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 2 (Phase 1c, calm: no grid, no glow). Plain CSS, also copied by the lab site. Guide and change list: `docs/design-tokens.md`. |
+| `src/styles/ui.css` | The shared building blocks of the calm design: `ui-wrap`, `ui-section`, `ui-h2`, `ui-intro`, `ui-btn` (the one button style), `ui-action` (secondary text link with an arrow), `ui-link`, `ui-meta`, `ui-card`. |
+| `src/styles/notebook.css` | **Parked.** The notebook building blocks (`nb-*`). Not loaded globally; only the parked explainers import it. |
+| `src/components/site/` | `Header.astro` (name + links only; phones show Work and Contact), `Footer.astro` (For hiring managers, theme switch, copyright), `ThemeSwitch.astro` ("Theme: Light · Dark · Auto"), `Section.astro` (one home-page section: heading, intro, content). |
+| `src/components/home/` | The home page sections, in page order: `Hero`, `Work`, `Offers`, `Method` (the one static method diagram), `About`, `Contact`. |
+| `src/components/parked/` | **Not on the home page since Phase 1c**, kept for the future "How I work" page and case studies: fig. 1 `GreenTestsFigure`, fig. 2 `RunsOnceFigure`, `HowIShip` (the stepped pipeline), `Lab` (game teaser + "Ask the work"), `OpenSource`, `ProofTable`, `NotebookSection`, and `BlueprintGlow` (the removed WebGL glow; needs its old tokens back before reuse). |
+| `src/lib/stepper.ts` | The engine of the step-through explainers (parked fig. 1, fig. 3; `Pipeline.astro`): one number `--x` drives the picture; Play / Pause / Back / Step. |
+| `src/lib/blueprint-gl.ts` | The parked glow's WebGL code. Nothing loads it today. |
 | `src/components/SeoHead.astro` | Title, description, canonical, hreflang (`en`, `ka`, `x-default`), Open Graph / Twitter tags, JSON-LD. Every page gets it through the layout. |
 | `src/components/Fonts.astro` | Self-hosted Inter and Noto Sans Georgian, weights 400 and 600 only, from the `@fontsource` packages. |
-| `src/components/Pipeline.astro` | Signature moment 2: the "How I ship with AI agents" diagram (fig. 3, Play / Pause / Step, driven by `src/lib/stepper.ts`). |
+| `src/components/Pipeline.astro` | The stepped "How I ship with AI agents" explainer (Play / Pause / Step, driven by `src/lib/stepper.ts`). Used by `/design/a`, `/design/b` and the parked `HowIShip`; not on the home page. |
 | `src/components/LedgerAccent.astro` | Signature moment 1: the "balanced ledger" accent (direction B, desktop only). |
 | `src/components/HeroShader.astro` | The old site's WebGL hero shader in plain WebGL (only `/design/b-rich`, for comparison). |
 | `src/components/CopyEmail.astro` | Signature moment 6: "Copy" next to the email address. |
-| `src/designs/a`, `b`, `c` | **Phase 1 only:** the home-page design directions, kept as `noindex` reference pages until launch. Saba picked C ("Engineering notebook"); the real home page is built from it in `src/components/home/`. |
-| `src/pages/` | One file = one page. `index.astro` = `/` (the real home page), `ka/index.astro` = `/ka`, `book.astro` and `cv.astro` = placeholders (`noindex`), `design/*.astro` = `/design/...` (temporary, `noindex`), `404.astro` = the real 404 page. |
-| `src/styles/global.css` | Tailwind 4 (scanning `src/` only), then `tokens.css` and `notebook.css`, plus the base rules. |
+| `src/designs/a`, `b`, `c` | **Phase 1 only:** the home-page design directions, kept as `noindex` reference pages until launch. Saba first picked C ("Engineering notebook", Phase 1b); after two independent reviews he reset to **A's calm skeleton** (Phase 1c, 2026-10-15). The real home page lives in `src/components/home/`. |
+| `src/pages/` | One file = one page. `index.astro` = `/` (the real home page), `ka/index.astro` = `/ka` (placeholder; the KA link is hidden until Phase 3), `book.astro` = `/book`, an honest "Get in touch" page (email + LinkedIn) that reads and keeps `?from=` for the lab's links, `cv.astro` = `/cv`, "For hiring managers" (LinkedIn + CV on request), both `noindex`; `design/*.astro` = `/design/...` (temporary, `noindex`), `404.astro` = the real 404 page. |
+| `src/styles/global.css` | Tailwind 4 (scanning `src/` only), then `tokens.css` and `ui.css`, plus the base rules. |
 | `public/` | Files served as they are: images (`projects/*.webp`, `portrait.webp`, `og-image.png`), favicon, `robots.txt`, `sitemap.xml` (still hand-written), and the Google Search Console check file. **Never put anything from `private/` here.** |
 | `legacy/api-contact.ts` | The old Vercel contact-form function, kept only to port it to a Cloudflare Worker later. Not used by the build. |
 | `docs/overview.md`, `docs/roadmap.md` | Describe the **old** site. They get rewritten at the switch-over. |
@@ -85,18 +87,19 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 11. **Georgian:** never split into letters, no `text-transform: uppercase`, no `letter-spacing` (a global rule in `global.css` enforces it). Animate whole lines or blocks.
 12. **Budgets:** at most 100 KB of JavaScript (gzip) on the first load of any page, and at most 5 KB of it for animation; each lazy island at most 30 KB. Saba watches a 10 to 20 second screen recording of any new signature moment before it ships.
 
-## Themes: Paper and Blueprint
+## Themes: light and dark
 
-- One design, two themes: **Paper** (light, default) and **Blueprint** (dark). All colours come from `src/styles/tokens.css`; never write a raw colour in a component's CSS. (Only the tiny theme scripts name the two page colours, because they run before the CSS.)
-- Which one shows: `<html data-theme="paper|blueprint">` (the visitor's choice, saved in `localStorage` key `theme`), else the system setting. It works without JavaScript.
-- The header switch reveals the new theme in a circle (View Transitions, 400 ms) for mouse and touch; keyboard and reduced motion switch instantly.
-- **One accent per theme.** `--danger` is only for failures, not a second accent.
-- The WebGL glow exists only in Blueprint, on desktop, without reduced motion; it settles to a still frame when the visitor is quiet and has a "Pause background" button.
+- One calm design, two themes: **light** (the default: navy text on warm off-white, one calm blue) and **dark** (a calm, low-saturation slate). **No grid, no glow, no gradients, no offset shadows** (Saba, 2026-10-15). All colours come from `src/styles/tokens.css`; never write a raw colour in a component's CSS. (Only the tiny theme scripts name the two page colours, because they run before the CSS.)
+- Which one shows: `<html data-theme="light|dark">` (the visitor's choice, saved in `localStorage` key `theme`), else the system setting. It works without JavaScript. The old values `paper` / `blueprint` still work.
+- The switch is in the **footer**, clearly labelled "Theme: Light · Dark · Auto" (`ThemeSwitch.astro`). It switches instantly, with no animation. It is never in the header (the phone header must not overflow).
+- **One accent per theme.** `--danger` is only for failures in case-study diagrams, not a second accent.
+- **Contrast is checked against the real pixels**, not only CSS colours: `private/design/phase1c/contrast-audit.md` (scripts in `private/design/phase1c/audit/`). Re-run it after any colour or layout change. Text never sits on a line, shape, tint or image; meaningful lines and control borders use `--line-strong` (3:1 or more); decorative hairlines use `--line`.
+- Monospace (`--font-code`) only for real commands and code. No notebook labels ("fig.", "table", "§", "rev.").
 
 ## Astro 7: things that break
 
 - **Close every HTML tag.** Astro 7's compiler fails on unclosed tags (`<p>` without `</p>`, `<li>` without `</li>`). Self-closing (`<span />`) is fine.
-- **Spaces between elements follow JSX rules.** A line break between two inline elements is removed, so `<strong>#1</strong>` on one line and `contributor` on the next run together. Write `{" "}` where a space matters, or keep both on one line.
+- **Spaces between elements follow JSX rules.** A line break between two inline elements is removed, so `<strong>#1</strong>` on one line and `contributor` on the next run together. Write `{" "}` where a space matters, or keep both on one line. Inside a `display: flex` or `inline-flex` box, a plain space between children disappears anyway; use `gap` or a non-flex display (that is why `.ui-action` is `inline-block`).
 - **Scoped styles do not reach child components.** A class you pass to a child component is not styled by the parent's `<style>`. Use `<style is:global>` under a unique wrapper class (the design directions do this: `.da`, `.db`, `.dc`).
 - **Scripts:** a `<script>` in a component is bundled once per page as a module (it runs after the HTML is parsed). Keep each one small and check its size in `dist/_astro/`.
 - **Markdown:** Astro 7 has a new Markdown engine; old remark/rehype plugins need an opt-in. Use no plugins unless needed.

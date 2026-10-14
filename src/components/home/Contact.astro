@@ -1,22 +1,21 @@
 ---
-// §7 Contact: Book a call, the email (with Copy), LinkedIn and GitHub.
+// Contact: "Email me" (a plain mailto link), the address with Copy, LinkedIn and GitHub.
 import Section from "../site/Section.astro";
 import CopyEmail from "../CopyEmail.astro";
 import { contact } from "../../content/home";
 ---
-<Section id="contact" num="§7" label="contact" heading={contact.heading} intro={contact.text} class="ct">
+<Section id="contact" heading={contact.heading} intro={contact.text}>
   <div class="ct-actions">
-    <a class="nb-btn" href={contact.book.href}>{contact.book.label}</a>
+    <a class="ui-btn" href={contact.cta.href}>{contact.cta.label}</a>
     <span class="ct-email">
-      <a class="nb-mono nb-link" href={`mailto:${contact.email}`}>{contact.email}</a>
+      <a class="ui-link" href={`mailto:${contact.email}`}>{contact.email}</a>
       <CopyEmail class="ct-copy" />
     </span>
   </div>
-  <p class="nb-note">{contact.bookNote}</p>
   <p class="ct-links">
     {
       contact.links.map((l) => (
-        <a class="nb-link" href={l.href} rel="noopener me">
+        <a class="ui-link" href={l.href} rel="noopener me">
           {l.label}
         </a>
       ))
@@ -25,42 +24,36 @@ import { contact } from "../../content/home";
 </Section>
 
 <style>
-  /* The section element is rendered by Section.astro, so this selector must be fully global. */
-  :global(.ct .nb-h2) {
-    font-size: clamp(2.5rem, 4vw + 1.25rem, 4.25rem);
-  }
   .ct-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-4) var(--space-6);
-    margin-bottom: var(--space-4);
   }
   .ct-email {
     display: inline-flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--space-3);
-    font-size: var(--fs-lg);
+    font-size: var(--fs-md);
   }
   .ct-email :global(.ct-copy) {
-    padding: 0.25rem 0.6rem;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-tag);
-    background: var(--surface);
-    font-family: var(--font-code);
-    font-size: var(--fs-xs);
-    color: var(--muted);
+    min-height: 36px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--fg);
+    font: inherit;
+    font-size: var(--fs-sm);
     cursor: pointer;
   }
   .ct-email :global(.ct-copy:hover) {
-    border-color: var(--fg);
-  }
-  .ct-email :global(.ct-copy [data-done]) {
-    color: var(--accent);
+    background: var(--surface-2);
   }
   .ct-links {
     display: flex;
     gap: var(--space-5);
-    margin-top: var(--space-5);
+    margin: var(--space-5) 0 0;
   }
 </style>

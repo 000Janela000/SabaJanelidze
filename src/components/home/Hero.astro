@@ -1,116 +1,114 @@
 ---
-// The hero: complete without JavaScript (motion rule 1). Name, title, pitch, proof line, the two paths
-// (Book a call / For hiring managers), and fig. 1. In Blueprint, a calm glow sits behind it.
-import BlueprintGlow from "./BlueprintGlow.astro";
-import GreenTestsFigure from "./GreenTestsFigure.astro";
-import { hero } from "../../content/home";
+// The hero (first screen), complete without JavaScript (motion rule 1):
+// one small line (name · role), the pitch as the h1, one proof sentence, two actions, then one row of four numbers.
+// The right side on desktop stays empty on purpose: the pitch is the message, and a second element would
+// compete with it and push the numbers below the first screen at 1440 x 900.
+import { hero, heroNumbers } from "../../content/home";
 ---
 <section class="hero" aria-labelledby="hero-title">
-  <BlueprintGlow />
-  <div class="nb-wrap hero-in">
-    <div class="hero-text">
-      <p class="nb-mono hero-kicker">{hero.kicker}</p>
-      <h1 id="hero-title" class="hero-name">{hero.name}</h1>
-      <p class="hero-title">{hero.title}</p>
-      <p class="hero-pitch">{hero.pitch}</p>
-      {/* DRAFT proof line for Saba's approval. */}
-      <ul class="hero-proof" aria-label="In short">
-        {hero.proof.map((p) => <li>{p}</li>)}
-      </ul>
-      <div class="hero-actions">
-        <a class="nb-btn" href={hero.cta.href}>{hero.cta.label}</a>
-        <a class="nb-link hero-hiring" href={hero.hiring.href}>{hero.hiring.label}{" "}<span aria-hidden="true">→</span></a>
-      </div>
+  <div class="ui-wrap">
+    <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
+    <h1 id="hero-title" class="hero-pitch">{hero.pitch}</h1>
+    {/* DRAFT for Saba's approval: the proof sentence. */}
+    <p class="hero-proof">{hero.proofLine}</p>
+    <div class="hero-actions">
+      <a class="ui-btn" href={hero.email.href}>{hero.email.label}</a>
+      <a class="ui-action" href={hero.hiring.href}>{hero.hiring.label}{" "}<span aria-hidden="true">→</span></a>
     </div>
-    <GreenTestsFigure />
+    {/* DRAFT for Saba's approval: the four numbers. */}
+    <ul class="hero-nums" aria-label="In numbers">
+      {
+        heroNumbers.map((n) => (
+          <li class="hero-num">
+            <span class="hero-num-value tabular">{n.value}</span>
+            <span class="hero-num-label">{n.label}</span>
+            <span class="hero-num-src">{n.source}</span>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </section>
 
 <style>
   .hero {
-    position: relative;
-    isolation: isolate;
+    padding-top: clamp(2.5rem, 6vw, 6rem);
   }
-  .hero-in {
-    display: grid;
-    gap: var(--space-7);
-    padding-top: var(--space-7);
-    padding-bottom: var(--space-7);
-  }
-  @media (min-width: 1024px) {
-    .hero-in {
-      grid-template-columns: minmax(0, 11fr) minmax(0, 9fr);
-      align-items: center;
-      gap: var(--space-8);
-      padding-top: 2.5rem;
-      padding-bottom: 3rem;
-    }
-  }
-  .hero-kicker {
+  .hero-who {
     margin: 0 0 var(--space-4);
-    font-size: var(--fs-xs);
+    font-size: var(--fs-sm);
     color: var(--muted);
   }
-  .hero-name {
-    margin: 0;
-    font-size: var(--fs-4xl);
-    font-weight: var(--weight-strong);
-    line-height: var(--lh-tight);
-    letter-spacing: var(--tracking-display);
-  }
-  .hero-title {
-    margin: var(--space-3) 0 var(--space-5);
-    padding-bottom: var(--space-5);
-    border-bottom: 1px solid var(--line-strong);
-    font-size: var(--fs-lg);
-    font-weight: var(--weight-strong);
-    color: var(--accent);
-  }
-  .hero-pitch {
-    max-width: 27em;
-    margin: 0 0 var(--space-5);
-    font-size: var(--fs-xl);
-    line-height: 1.42;
-    text-wrap: pretty;
-  }
-  .hero-proof {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.2rem 0;
-    margin: 0 0 var(--space-6);
-    padding: 0.65rem 0.95rem;
-    list-style: none;
-    border-left: 3px solid var(--accent);
-    background: var(--surface);
-    font-size: 0.9375rem;
-    line-height: 1.5;
-    color: var(--muted);
-  }
-  .hero-proof li:first-child {
-    flex-basis: 100%;
+  .hero-who strong {
     color: var(--fg);
     font-weight: var(--weight-strong);
   }
-  .hero-proof li:nth-child(3)::before {
-    content: "·";
-    margin: 0 0.5rem;
-    color: var(--faint);
+  .hero-pitch {
+    max-width: 20em;
+    margin: 0;
+    font-size: var(--fs-hero);
+    font-weight: var(--weight-strong);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--tracking-display);
+    text-wrap: balance;
   }
-  @media (max-width: 639px) {
-    .hero-proof {
-      display: grid;
-    }
-    .hero-proof li:nth-child(3)::before {
-      content: none;
-    }
+  .hero-proof {
+    max-width: 38em;
+    margin: var(--space-5) 0 0;
+    font-size: var(--fs-md);
+    color: var(--muted);
+    text-wrap: pretty;
   }
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-4) var(--space-6);
+    gap: var(--space-3) var(--space-6);
+    margin-top: var(--space-6);
   }
-  .hero-hiring {
+
+  /* The numbers: 2 x 2 on phones, one row of four from 900 px. Body font, not mono. */
+  .hero-nums {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--space-5);
+    margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+    padding: var(--space-5) 0 0;
+    list-style: none;
+    border-top: 1px solid var(--line);
+  }
+  @media (min-width: 900px) {
+    .hero-nums {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: var(--space-6);
+      padding-top: var(--space-6);
+    }
+  }
+  .hero-num {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+  .hero-num-value {
+    font-size: var(--fs-xl);
     font-weight: var(--weight-strong);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+  }
+  .hero-num-label {
+    margin-top: var(--space-1);
+    font-size: var(--fs-sm);
+    line-height: 1.4;
+  }
+  @media (min-width: 900px) {
+    .hero-num-label {
+      font-size: var(--fs-base);
+    }
+  }
+  .hero-num-src {
+    margin-top: var(--space-2);
+    font-size: var(--fs-sm);
+    line-height: 1.4;
+    color: var(--muted);
   }
 </style>

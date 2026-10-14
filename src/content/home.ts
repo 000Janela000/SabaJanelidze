@@ -1,6 +1,7 @@
 // Home page text, English. DRAFT: Saba approves every sentence before launch (publish gate).
-// The real home page (/) renders this file. The Phase 1 directions (/design/a|b|c) still read it too,
-// so they stay comparable; they only use the older fields.
+// The real home page (/) renders this file (Phase 1c "Calm" design). The Phase 1 directions (/design/a|b|c)
+// and the parked notebook explainers (src/components/parked/) still read some older fields; those are
+// marked "not on the home page". Visitors of / never see them.
 //
 // Honesty rules (plan section 7): only true, dated numbers. Bitnet only in public-safe words
 // (no internal names, vendors, partners, colleagues, customer data, security details,
@@ -17,23 +18,36 @@ export const seo = {
     "I help software teams that handle money work with AI agents safely, and I build the AI features their product needs. Principal Engineer at a licensed crypto exchange.",
 };
 
+// The header links. On phones only the ones with phone: true show (no sideways scroll at 320 px).
 export const nav = [
-  { label: "Work", href: "#work" },
-  { label: "How I work", href: "#how" },
-  { label: "Lab", href: "#lab" },
-  { label: "About", href: "#about" },
+  { label: "Work", href: "#work", phone: true },
+  { label: "What I do", href: "#services", phone: false },
+  { label: "About", href: "#about", phone: false },
+  { label: "Contact", href: "#contact", phone: true },
 ];
 
-/** Booking path. Placeholder until /book exists (it will forward to Cal.com and must keep ?from=). */
+/** The main action everywhere on the home page: a plain email link (no booking page yet). */
+export const emailCta = { label: "Email me", href: `mailto:${PERSON.email}` };
+
+/** The lab's contact path. /book is an honest "Get in touch" page today; it reads ?from= and keeps it,
+ *  so lab links (?from=lab-payments) still work. Later it can forward to a booking calendar. */
 const book = (from: string) => `/book?from=${from}`;
 
 export const hero = {
   name: PERSON.name,
-  kicker: "portfolio · rev. 2026-10",
-  title: "Principal Engineer · Fintech & AI",
+  /** The one small line above the pitch. The only place the title appears on the first screen. */
+  role: "Principal Engineer, Bitnet",
   pitch:
     "I help software teams that handle money work with AI agents safely — and I build the AI features their product needs.",
-  // DRAFT (Saba approves): the proof line.
+  // DRAFT (Saba approves): the one proof sentence under the pitch. Sources: bitnet.ge (licence),
+  // Saba's confirmed facts of 2026-10-14/15 (title; what is live), the role history in about.bio.
+  proofLine:
+    "Since 2023 I've helped build Bitnet, a crypto exchange licensed by the National Bank of Georgia — today I lead the architecture of its new core platform.",
+  email: emailCta,
+  hiring: { label: "For hiring managers", href: "/cv" },
+  // Not on the home page (Phase 1 design pages only):
+  kicker: "portfolio · rev. 2026-10",
+  title: "Principal Engineer · Fintech & AI",
   proof: [
     "Principal Engineer at Bitnet, a licensed crypto exchange",
     "core engineer since 2023",
@@ -41,10 +55,24 @@ export const hero = {
   ],
   cta: { label: "Book a call", href: book("home") },
   headerCta: { label: "Book a call", href: book("home-header") },
-  hiring: { label: "For hiring managers", href: "/cv" },
 };
 
-// fig. 1 in the hero: "What green tests miss" (Bitnet story S1, told without internal names).
+export type HeroNumber = { value: string; label: string; source: string };
+
+// DRAFT (Saba approves): the four numbers on the first screen. All true and dated.
+// bitnet.ge public counters, checked 2026-10-14 (re-check on the publish day).
+// "27": PlayTime's CI, 27 jobs in 12 workflows that block a failing change (research 2026-10-13, Oct 2026).
+// Left out on purpose (both reviews): "#1 of 28 contributors" (reads as vanity), "4 hours" and
+// "109 of 109 commits by an AI agent" (reads as weak oversight to a fintech buyer).
+export const heroNumbers: HeroNumber[] = [
+  { value: "219,755", label: "registered users on Bitnet", source: "bitnet.ge, Oct 2026" },
+  { value: "2,537,505", label: "transactions on Bitnet", source: "bitnet.ge, Oct 2026" },
+  { value: "Since 2023", label: "building a licensed crypto exchange", source: "Bitnet, Jan 2023 – now" },
+  { value: "27", label: "automatic checks that block a failing change", source: "PlayTime, Oct 2026" },
+];
+
+// Not on the home page since Phase 1c (parked: src/components/parked/GreenTestsFigure.astro).
+// fig. 1 "What green tests miss" (Bitnet story S1, told without internal names), for a case study later.
 // DRAFT (Saba approves): every line of this figure and its caption.
 export type GreenStep = {
   title: string;
@@ -92,7 +120,7 @@ export type ProofFact = {
   href: string;
 };
 
-// table 1. bitnet.ge's public counters, checked 2026-10-14 (re-check on the publish day).
+// Not on the home page since Phase 1c (the home uses heroNumbers). Phase 1 design pages and the parked ProofTable.
 export const proof: ProofFact[] = [
   {
     org: "Bitnet",
@@ -132,24 +160,44 @@ export const proof: ProofFact[] = [
 export const offers = {
   heading: "What I do",
   intro: "Three ways I help teams that build products around money.",
+  // Not on the home page (Phase 1 design pages only):
   more: { label: "Book a call to talk it through", href: book("home-offers") },
   items: [
     {
       title: "AI-native engineering for teams that handle money",
-      text: "I set up coding agents in your repo — rules, safety hooks and CI gates — and train your team, so AI-written code has to pass the same checks as anyone's.",
+      text: "I set up coding agents in your repo with rules, safety hooks and automatic checks, and train your team to use them.",
     },
     {
       title: "AI features in your product",
-      text: "An assistant, document search or back-office automation inside your product, with automatic tests of its answers, logs, cost limits and a human confirm before it changes data.",
+      text: "An assistant, document search or back-office automation, with tested answers, logs, cost limits and a human confirm before it changes data.",
     },
     {
       title: "Fintech & payment systems",
-      text: "Payments, ledgers and webhooks that stay correct when a request arrives twice, plus identity checks and staff admin tools — the work I've done on a licensed exchange since 2023.",
+      text: "Payments, ledgers, identity checks and staff tools that stay correct even when a request arrives twice.",
     },
   ],
 };
 
-// fig. 2, under "Fintech & payment systems": "runs once" told as a system rule (Bitnet Go story 2).
+export type MethodStep = { title: string; text: string };
+
+// The one static method diagram on the home page (the stepped pipeline moved off the home page).
+// DRAFT (Saba approves). General words on purpose: a method, not a claim about any one company's code.
+export const method = {
+  heading: "How I work with AI agents",
+  intro: "Agents write much of the code. The rules, the checks and the final yes stay with people.",
+  steps: [
+    { title: "Plan and rules", text: "Every task starts from a written plan and the team's rules, which the agents read first." },
+    { title: "Agents write the code", text: "Each agent works on one task, on its own branch." },
+    { title: "Automatic checks", text: "Lint, types, tests and schema checks block anything that fails." },
+    { title: "Independent review", text: "Separate reviewers look at the risky parts: money, permissions, data." },
+    { title: "A person approves", text: "Money, accounts and anything public need a human yes before release." },
+  ] satisfies MethodStep[],
+  loop: "When a new kind of bug gets through, it becomes a new automatic check, so it cannot come back.",
+};
+
+
+// Not on the home page since Phase 1c (parked: src/components/parked/RunsOnceFigure.astro).
+// fig. 2 "runs once" told as a system rule (Bitnet Go story 2).
 // DRAFT (Saba approves): the text, the figure and the caption.
 export const runsOnce = {
   kicker: "§1.3 in practice",
@@ -162,6 +210,7 @@ export const runsOnce = {
     "The build refuses any customer action that has not declared how a repeat is handled, so the rule cannot quietly slip.",
 };
 
+// Not on the home page since Phase 1c (parked: HowIShip.astro; Pipeline.astro is also used by /design/a and /design/b).
 export type PipelineStep = { title: string; text: string; fact: string; factText: string };
 
 export const pipeline = {
@@ -218,10 +267,11 @@ export type WorkItem = {
   outcome: string;
   text: string;
   note?: string;
-  /** 2 or 3 short tags on the card. */
+  /** 2 or 3 short tags (Phase 1 design pages only; the calm cards show no tags). */
   tags: string[];
   tech: string[];
-  /** taken: when the screenshot was made (public pages change; the date keeps it honest). */
+  /** taken: when the screenshot was made (public pages change; the date keeps it honest).
+   *  Small cards (Chama, UniHub) show no image on the home page. */
   image: { src: string; width: number; height: number; alt: string; taken?: string };
   url?: string;
 };
@@ -229,16 +279,18 @@ export type WorkItem = {
 // Chama is past work without a live link (chama.ge is down); UniHub is "a student portal", never a "pilot".
 export const work: { heading: string; intro: string; big: WorkItem[]; small: WorkItem[] } = {
   heading: "Selected work",
-  intro: "A licensed exchange I help build, and two products of my own that agents build under my rules.",
+  intro: "A licensed crypto exchange I help build, and products of my own.", // not shown on the home page (shorter on phones)
   big: [
     {
       slug: "bitnet",
       title: "Bitnet.ge",
       role: "Crypto exchange · Principal Engineer",
       years: "2023 – now",
-      // DRAFT (Saba approves): the role history.
-      outcome: "From its customer web app (2023) to its backend (2024–25) to leading the architecture of its new core platform (2026).",
-      text: "A crypto exchange licensed by the National Bank of Georgia, with 219,755 registered users (bitnet.ge, Oct 2026).",
+      // DRAFT (Saba approves): outcome first. What is live: confirmed by Saba on 2026-10-15.
+      outcome:
+        "Live today: the new identity checks, card and bank-app payments, and a rule that every customer action runs only once, even after a double tap.",
+      // The role history is in the hero proof line and in About, so the card does not repeat it.
+      text: "A crypto exchange licensed by the National Bank of Georgia.",
       note: "Full case study on request",
       tags: ["Fintech", "Identity checks", "Go"],
       tech: ["Go", "NestJS", "GraphQL", "PostgreSQL", "React"],
@@ -249,8 +301,8 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       slug: "playtime",
       title: "Playtime.ge",
       role: "Sports & entertainment booking · Founder",
-      outcome: "Built by AI agents under 27 automatic quality gates that block any failing change.",
-      text: "A booking marketplace for sports venues in Tbilisi, starting with padel: 19 clubs listed, online booking with payment in final testing.",
+      outcome: "19 padel clubs in Tbilisi listed; online booking with payment is in final testing.",
+      text: "A booking marketplace for sports venues. AI agents write most of the code; 27 automatic checks block any failing change.",
       tags: ["Marketplace", "AI agents", "Web + mobile"],
       tech: ["NestJS", "GraphQL", "Next.js", "Expo", "PostgreSQL"],
       // New screenshot of the live site, 2026-10-15 (the old one showed numbers that were not true).
@@ -262,7 +314,8 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       title: "WasteAway",
       role: "Waste pickup startup · Founder",
       years: "2026",
-      outcome: "From plan to live site in 4 hours; 109 of 109 commits written by an AI agent.",
+      // DRAFT (Saba approves). Source: WasteAway's own status notes (Oct 2026).
+      outcome: "A live website and a worked-out cost model, ready for the first pilot building.",
       text: "Door-to-door garbage pickup for apartment buildings in Tbilisi. I'm building it from zero — brand, website and operations.",
       tags: ["Startup", "AI agents", "Cloudflare"],
       tech: ["Astro", "TypeScript", "Cloudflare Workers", "Cloudflare D1"],
@@ -295,6 +348,7 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
   ],
 };
 
+// Not on the home page since Phase 1c (hidden until the game is deployed). Parked: Lab.astro.
 // Game teaser: the lab session's game (design v2 of 2026-10-14; working title), its payments incident.
 // DRAFT (Saba approves): the headline and the support line. Numbers from the lab session (2026-10-15):
 // the naive code pays out 160 while the balance still shows 20; 36 of the 54 possible orders lose money.
@@ -309,6 +363,7 @@ export const game = {
   note: "Test network and fake data only. No real money.",
 };
 
+// Not on the home page since Phase 1c (hidden until it works). Parked: Lab.astro.
 export const ask = {
   title: "Ask the work",
   status: "Coming soon",
@@ -317,6 +372,7 @@ export const ask = {
   button: "Ask",
 };
 
+// Not on the home page since Phase 1c (about.openSource has the short version). Parked: OpenSource.astro.
 export const openSource = {
   heading: "Open source",
   downloads: "4,400+ npm downloads",
@@ -350,14 +406,25 @@ export const about = {
   heading: "About",
   bio: [
     // DRAFT (Saba approves): the Bitnet role history.
-    "I'm a Principal Engineer based in Georgia. Since January 2023 I've worked on a licensed crypto exchange: first its customer web app, then its backend, and now its new core platform, whose architecture I lead.",
-    "On the side I build my own products, PlayTime and WasteAway, with AI agents doing most of the coding. I design the system and set the rules; automatic gates hold the agents to them.",
+    "I'm a Principal Engineer based in Georgia. Since January 2023 I've worked on Bitnet, a licensed crypto exchange: first its customer web app, then its backend, and now its new core platform, whose architecture I lead.",
+    "On the side I build my own products, PlayTime and WasteAway, with AI agents doing most of the coding.",
   ],
+  /** Short rows under the bio (the home page). */
+  facts: [{ label: "Stack", text: "Go, TypeScript, NestJS, GraphQL, PostgreSQL, Redis, React, Next.js, Astro, Cloudflare" }],
+  openSource: {
+    label: "Open source",
+    items: [
+      { name: "Arcana", text: "skills for Claude Code and Codex", href: "https://github.com/cj-ways/arcana" },
+      { name: "acctswap", text: "a formally verified Rust tool", href: "https://github.com/000Janela000/acctswap" },
+      { name: "OrgClone", text: "clone a whole GitHub org", href: "https://github.com/cj-ways/orgclone" },
+    ],
+  },
+  portraitAlt: "Portrait of Saba Janelidze",
+  // Not on the home page (Phase 1 design pages only):
   now: {
     label: "Now (October 2026)",
     text: "Building the exchange's new core platform, rebuilding this site with agents, and taking on a few AI-engineering projects.",
   },
-  portraitAlt: "Portrait of Saba Janelidze",
   stack: [
     { group: "Languages", items: ["TypeScript", "Go", "SQL", "Rust (tools)"] },
     { group: "Backend", items: ["NestJS", "GraphQL", "PostgreSQL", "Redis", "Job queues", "OpenTelemetry"] },
@@ -367,23 +434,32 @@ export const about = {
   ],
 };
 
+
 export const contact = {
   heading: "Let's talk",
-  text: "Tell me what your team is building and where AI or payments slow you down. A 20-minute intro call is the easiest start.",
-  book: { label: "Book a call", href: book("home-contact") },
-  bookNote: "The booking page is coming soon. Email works today.",
+  text: "Tell me what your team is building and where AI or payments slow you down. A short intro call is the easiest start: email me and we'll find a time.",
   email: PERSON.email,
+  cta: emailCta,
   copy: { idle: "Copy", done: "Copied" },
   links: [
     { label: "LinkedIn", href: PERSON.profiles.linkedin },
     { label: "GitHub", href: PERSON.profiles.github },
   ],
+  // Not on the home page (Phase 1 design pages only):
+  book: { label: "Book a call", href: book("home-contact") },
+  bookNote: "The booking page is coming soon. Email works today.",
 };
 
+
 export const footer = {
-  receipt:
-    "Build receipt (placeholder): which checks passed, page weight and how much was AI-written, linked to the real CI run — coming with the CI gates.",
   hiring: { label: "For hiring managers", href: "/cv" },
   copyright: "© 2026 Saba Janelidze",
+  theme: { label: "Theme", options: { light: "Light", dark: "Dark", auto: "Auto" } },
+  /** The KA link stays hidden until /ka has the real Georgian page (Phase 3); today /ka is a placeholder. */
+  showLang: false,
   lang: { en: { label: "EN", href: "/" }, ka: { label: "KA", href: "/ka" } },
+  // Not on the site (Phase 1 design pages only): a placeholder, hidden until the CI gates exist.
+  receipt:
+    "Build receipt (placeholder): which checks passed, page weight and how much was AI-written, linked to the real CI run — coming with the CI gates.",
 };
+

@@ -10,7 +10,7 @@
 - **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
 - **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
 - **Deploy:** a push to `main` publishes it automatically on Vercel.
-- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions) is done. Saba picked C, "Engineering notebook". **Phase 1b is done:** the real home page `/` in that design, with two themes (Paper, light; Blueprint, dark). Its text is a draft until Saba approves it. The live site on `main` is untouched.
+- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions) and Phase 1b (the notebook home page) are done. **Phase 1c is done:** after two independent design reviews, Saba reset the home page to direction A's calm layout. Light and dark themes, no grid, no glow. Its text is a draft until Saba approves it. The live site on `main` is untouched.
 
 ## Open problems (most important first)
 
@@ -29,12 +29,23 @@
 
 ## Next steps
 
-- Saba opens http://localhost:4321/ (run `npm run dev` on the `rebuild` branch), tries both themes, and approves or edits the draft texts (the lines marked "DRAFT" in `src/content/home.ts`).
+- Saba opens http://localhost:4321/ (run `npm run dev` on the `rebuild` branch), tries both themes (footer: "Theme: Light · Dark · Auto"), and approves or edits the draft texts (the lines marked "DRAFT" in `src/content/home.ts`).
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
-- Saba watches the two short clips (fig. 1 playing, the theme switch) before they ship.
-- The lab site gets the design tokens (`src/styles/tokens.css`, guide in `docs/design-tokens.md`).
+- The lab site gets design tokens **version 2** (`src/styles/tokens.css`; what changed is at the top of `docs/design-tokens.md`): theme names `light` / `dark`, no grid or glow tokens.
+- Before launch: re-check the bitnet.ge counters (219,755 users, 2,537,505 transactions on 2026-10-14). The Bitnet card's screenshot (13 Oct) shows older counters.
 
 ## Log
+
+- **2026-10-15 (rebuild, Phase 1c "Calm"):** The home page `/` was redesigned after two independent design reviews. Both ranked direction A first.
+  - Kept: direction A's skeleton with the Phase 1b build quality and real content. Removed everywhere on the home page: the graph-paper / blueprint grid, the WebGL glow, the notebook labels ("rev.", "fig.", "table", "§"), the offset button shadow, and every unfinished part (build receipt, lab "coming soon" cards, the inert "Ask" box, the game teaser).
+  - Hero: one small line "Saba Janelidze · Principal Engineer, Bitnet", the pitch as the h1, one proof sentence, **Email me** (a plain email link) and "For hiring managers →", then one row of four dated numbers. No figure on the right.
+  - Order: Selected work (outcome first, Bitnet first; Chama and UniHub as short text cards, so no empty UniHub thumbnail), What I do, one static method diagram ("How I work with AI agents"), About, Contact. The stepped explainers moved to `src/components/parked/` for a later "How I work" page.
+  - Phone: the header shows only the name, Work and Contact, so nothing scrolls sideways at 320, 360, 375 or 390 px (it overflowed to 382 px on a 375 px screen before). The page is 6.7 phone screens long at 390 px (about 18 before).
+  - Themes: light (navy on warm off-white, one calm blue) and dark (a calm slate). The switch moved to the footer: "Theme: Light · Dark · Auto". Instant, no animation. Design tokens version 2.
+  - `/book` is now an honest "Get in touch" page (email + LinkedIn). It still reads `?from=` for the lab's links. `/cv` says LinkedIn has the full history and the CV comes on request. No "coming soon" anywhere a visitor can see. The KA link is hidden until the Georgian page exists.
+  - Contrast audit (both themes, desktop and phone, text against the real pixels behind it, hover, focus, visited, non-text, axe-core): 0 failures. The old design had 109 (grid lines and the glow behind text, faint control borders); axe-core had found none of them.
+  - Lighthouse mobile, median of 3, both themes: performance 100, accessibility 100, best practices 100, SEO 100; LCP 1.43 s; layout shift 0; 0.9 KB of JavaScript (gzip) on the home page (3.8 KB before).
+  - Nothing was pushed or deployed.
 
 - **2026-10-15 (rebuild, Phase 1b):** The real home page `/`, built from direction C and polished.
   - Two themes from one design: **Paper** (light) and **Blueprint** (dark, blue grid). The system setting decides until the visitor uses the header switch; the choice is remembered. No flash of the wrong theme. The switch reveals the new theme in a circle (View Transitions) unless the visitor prefers less motion.

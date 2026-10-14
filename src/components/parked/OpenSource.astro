@@ -1,6 +1,9 @@
 ---
+// PARKED (Phase 1c, 2026-10-15): not on the home page any more. Kept for the future "How I work" page and case studies.
+// It uses the notebook building blocks, so it loads notebook.css itself.
+import "../../styles/notebook.css";
 // §5 Open source: three tools with their install command.
-import Section from "../site/Section.astro";
+import Section from "./NotebookSection.astro";
 import { openSource } from "../../content/home";
 ---
 <Section id="open-source" num="§5" label="open source" heading={openSource.heading}>

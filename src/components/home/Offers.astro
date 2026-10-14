@@ -1,69 +1,41 @@
 ---
-// §1 What I do: the three offers, then "§1.3 in practice" with fig. 2 (runs once).
+// What I do: the three offers, short. Three columns on desktop, a plain list with hairlines on phones.
 import Section from "../site/Section.astro";
-import RunsOnceFigure from "./RunsOnceFigure.astro";
-import { offers, runsOnce } from "../../content/home";
+import { offers } from "../../content/home";
 ---
-<Section id="services" num="§1" label="services" heading={offers.heading} intro={offers.intro}>
-  <ol class="of-cards">
+<Section id="services" heading={offers.heading} intro={offers.intro}>
+  <ul class="of">
     {
-      offers.items.map((o, i) => (
-        <li class="nb-card of-card">
-          <p class="nb-mono of-tag">§1.{i + 1}</p>
-          <h3>{o.title}</h3>
+      offers.items.map((o) => (
+        <li class="of-item">
+          <h3 class="of-title">{o.title}</h3>
           <p class="of-text">{o.text}</p>
-          {i === 2 && (
-            <a class="nb-link of-see" href="#fig-2">
-              In practice: fig. 2{" "}<span aria-hidden="true">↓</span>
-            </a>
-          )}
         </li>
       ))
     }
-  </ol>
-  <a class="nb-link of-more" href={offers.more.href}>{offers.more.label}{" "}<span aria-hidden="true">→</span></a>
-
-  {/* DRAFT for Saba's approval: Bitnet Go story 2 in public-safe words. */}
-  <div class="of-practice">
-    <div class="of-practice-head">
-      <p class="nb-mono of-kicker">{runsOnce.kicker}</p>
-      <h3 class="of-h3">{runsOnce.title}</h3>
-    </div>
-    <div class="of-practice-text">
-      {runsOnce.text.map((t) => <p>{t}</p>)}
-    </div>
-    <div class="of-practice-fig">
-      <RunsOnceFigure />
-    </div>
-  </div>
+  </ul>
 </Section>
 
 <style>
-  .of-cards {
+  .of {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-5);
     margin: 0;
     padding: 0;
     list-style: none;
   }
   @media (min-width: 900px) {
-    .of-cards {
+    .of {
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--space-5);
+      gap: var(--space-6);
     }
   }
-  .of-card {
-    display: flex;
-    flex-direction: column;
-    padding: var(--space-5);
+  .of-item {
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
   }
-  .of-tag {
-    margin: 0 0 var(--space-6);
-    font-size: var(--fs-xs);
-    color: var(--accent);
-  }
-  .of-card h3 {
-    margin: 0 0 var(--space-3);
+  .of-title {
+    margin: 0 0 var(--space-2);
     font-size: var(--fs-lg);
     font-weight: var(--weight-strong);
     line-height: 1.3;
@@ -71,53 +43,6 @@ import { offers, runsOnce } from "../../content/home";
   }
   .of-text {
     margin: 0;
-    color: var(--muted);
-  }
-  .of-see {
-    margin-top: auto;
-    padding-top: var(--space-4);
-    font-size: var(--fs-sm);
-  }
-  .of-more {
-    display: inline-block;
-    margin-top: var(--space-5);
-    font-weight: var(--weight-strong);
-  }
-
-  .of-practice {
-    display: grid;
-    gap: var(--space-2) var(--space-7);
-    margin-top: var(--space-9);
-    padding-top: var(--space-6);
-    border-top: 1px dashed var(--line);
-  }
-  @media (min-width: 900px) {
-    .of-practice {
-      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
-      align-items: start;
-    }
-    .of-practice-fig {
-      grid-column: 1 / -1;
-    }
-  }
-  .of-practice-fig {
-    margin-top: var(--space-5);
-  }
-  .of-kicker {
-    margin: 0 0 var(--space-3);
-    font-size: var(--fs-xs);
-    color: var(--accent);
-  }
-  .of-h3 {
-    margin: 0 0 var(--space-4);
-    font-size: var(--fs-2xl);
-    font-weight: var(--weight-strong);
-    line-height: var(--lh-heading);
-    letter-spacing: var(--tracking-heading);
-  }
-  .of-practice-text p {
-    max-width: 40em;
-    margin: 0 0 var(--space-4);
     color: var(--muted);
   }
 </style>

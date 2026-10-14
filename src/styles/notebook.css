@@ -1,5 +1,6 @@
-/* Notebook building blocks: the small set of classes every page of the new site shares.
-   All values come from tokens.css, so both themes (Paper and Blueprint) work without extra rules.
+/* Notebook building blocks (Phase 1b). PARKED since Phase 1c (2026-10-15): the site now uses ui.css.
+   Only the parked explainers in src/components/parked/ import this file, for the future "How I work" page.
+   Values come from tokens.css; tokens removed in version 2 have fallbacks here.
    Prefix "nb-" (notebook) so nothing clashes with Tailwind or the Phase 1 design directions. */
 
 /* ---------- Layout ---------- */
@@ -24,7 +25,7 @@
 }
 @media (min-width: 1024px) {
   .nb-sec-in {
-    grid-template-columns: var(--margin-col) minmax(0, 1fr);
+    grid-template-columns: var(--margin-col, 136px) minmax(0, 1fr);
     padding-top: var(--space-6);
   }
 }
@@ -53,7 +54,7 @@
 .nb-h2 {
   margin: 0;
   max-width: 20em;
-  font-size: var(--fs-3xl);
+  font-size: var(--fs-3xl, clamp(2rem, 2.6vw + 1.25rem, 3.25rem));
   font-weight: var(--weight-strong);
   line-height: var(--lh-heading);
   letter-spacing: var(--tracking-heading);
@@ -83,22 +84,11 @@
   font-size: var(--fs-base);
   white-space: nowrap;
   text-decoration: none;
-  box-shadow: 4px 4px 0 var(--btn-shadow);
-}
-@media (prefers-reduced-motion: no-preference) {
-  .nb-btn {
-    transition: transform var(--dur-instant) ease, box-shadow var(--dur-instant) ease;
-  }
-  .nb-btn:active {
-    transform: translate(3px, 3px);
-    box-shadow: 1px 1px 0 var(--btn-shadow);
-  }
 }
 .nb-btn--sm {
   min-height: 36px;
   padding: 0 0.9rem;
   font-size: var(--fs-sm);
-  box-shadow: none;
 }
 .nb-link {
   color: var(--accent);

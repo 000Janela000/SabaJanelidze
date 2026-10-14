@@ -1,51 +1,44 @@
 ---
-// The site footer: build receipt (placeholder), "For hiring managers", language switch, copyright.
+// The site footer: "For hiring managers", the theme switch (Light / Dark / Auto) and the copyright.
+// The KA link shows only when footer.showLang is on (after Phase 3 builds the real Georgian page).
+import ThemeSwitch from "./ThemeSwitch.astro";
 import { footer } from "../../content/home";
 ---
 <footer class="ft">
-  <div class="nb-wrap ft-row">
-    <p class="ft-receipt nb-mono">{footer.receipt}</p>
+  <div class="ui-wrap ft-row">
     <p class="ft-links">
-      <a href={footer.hiring.href}>{footer.hiring.label}</a>
-      <span class="ft-lang nb-mono">
-        <a href={footer.lang.en.href} aria-current="page">EN</a>
-        <span aria-hidden="true">/</span>
-        <a href={footer.lang.ka.href} lang="ka">KA</a>
-      </span>
+      <a class="ui-link" href={footer.hiring.href}>{footer.hiring.label}</a>
+      {
+        footer.showLang && (
+          <a class="ui-link" href={footer.lang.ka.href} lang="ka">
+            {footer.lang.ka.label}
+            <span class="sr-only" lang="en">
+              {" "}(Georgian)
+            </span>
+          </a>
+        )
+      }
       <span>{footer.copyright}</span>
     </p>
+    <ThemeSwitch />
   </div>
 </footer>
 
 <style>
   .ft {
     margin-top: var(--section-space);
-    border-top: 1px solid var(--line-strong);
-    background: var(--bg);
+    border-top: 1px solid var(--line);
   }
   .ft-row {
-    display: grid;
-    gap: var(--space-4);
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-7);
-    font-size: 0.8125rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4) var(--space-6);
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-6);
+    font-size: var(--fs-sm);
     color: var(--muted);
-  }
-  @media (min-width: 900px) {
-    .ft-row {
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: var(--space-7);
-    }
-  }
-  .ft a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .ft-receipt {
-    margin: 0;
-    max-width: 60em;
-    font-size: var(--fs-xs);
   }
   .ft-links {
     display: flex;
@@ -53,25 +46,5 @@ import { footer } from "../../content/home";
     align-items: center;
     gap: var(--space-2) var(--space-5);
     margin: 0;
-  }
-  .ft-links > a {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-  .ft-links > a:hover,
-  .ft-lang a:hover {
-    color: var(--fg);
-  }
-  .ft-lang {
-    display: inline-flex;
-    gap: 0.35rem;
-  }
-  .ft-lang a {
-    display: inline-block;
-    padding: 0.4rem 0.2rem;
-  }
-  .ft-lang a[aria-current="page"] {
-    color: var(--fg);
-    font-weight: var(--weight-strong);
   }
 </style>

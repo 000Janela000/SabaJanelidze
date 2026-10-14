@@ -1,118 +1,108 @@
 ---
-// §6 About: portrait (fig. 5), short bio, a dated "Now" line and the stack as a plain grouped list.
+// About, short: portrait, two paragraphs, the stack and the open-source tools in one line each.
 import Section from "../site/Section.astro";
 import { about } from "../../content/home";
 ---
-<Section id="about" num="§6" label="about" heading={about.heading}>
+<Section id="about" heading={about.heading}>
   <div class="ab">
-    <figure class="ab-portrait">
-      <img src="/portrait.webp" width="844" height="1088" alt={about.portraitAlt} loading="lazy" decoding="async" />
-      <figcaption class="nb-mono ab-cap">fig. 5 — Saba Janelidze</figcaption>
-    </figure>
-    <div>
+    <img class="ab-portrait" src="/portrait.webp" width="844" height="1088" alt={about.portraitAlt} loading="lazy" decoding="async" />
+    <div class="ab-text">
       {about.bio.map((b) => <p class="ab-p">{b}</p>)}
-      <p class="ab-now">
-        <span class="nb-mono ab-now-date">2026-10</span>
-        <span>
-          <strong>{about.now.label}:</strong>{" "}{about.now.text}
-        </span>
-      </p>
-      <dl class="ab-stack">
+      <dl class="ab-facts">
         {
-          about.stack.map((s) => (
+          about.facts.map((f) => (
             <div>
-              <dt>{s.group.toLowerCase()}</dt>
-              <dd>{s.items.join(", ")}</dd>
+              <dt>{f.label}</dt>
+              <dd>{f.text}</dd>
             </div>
           ))
         }
+        <div>
+          <dt>{about.openSource.label}</dt>
+          <dd>
+            {about.openSource.items.map((o, i) => (
+              <span>
+                <a class="ui-link" href={o.href} rel="noopener">{o.name}</a>{" "}({o.text}){i < about.openSource.items.length - 1 ? ", " : ""}
+              </span>
+            ))}
+          </dd>
+        </div>
       </dl>
     </div>
   </div>
 </Section>
 
 <style>
-  .ab {
-    display: grid;
-    gap: var(--space-6);
+  /* Phones: a small portrait beside the first paragraph (the text flows around it). Desktop: two columns. */
+  .ab::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .ab-portrait {
+    float: left;
+    width: 96px;
+    height: auto;
+    margin: 0.35rem var(--space-4) var(--space-2) 0;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-card);
+    background: var(--surface-2);
   }
   @media (min-width: 900px) {
     .ab {
-      grid-template-columns: 240px minmax(0, 1fr);
-      gap: var(--space-7);
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: var(--space-8);
       align-items: start;
     }
-  }
-  .ab-portrait {
-    margin: 0;
-    max-width: 240px;
-  }
-  .ab-portrait img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-tag);
-    background: var(--surface);
-  }
-  .ab-cap {
-    margin-top: var(--space-2);
-    font-size: var(--fs-xs);
-    color: var(--muted);
-  }
-  .ab-p {
-    max-width: 40em;
-    margin: 0 0 var(--space-4);
-    font-size: var(--fs-md);
-    color: var(--muted);
-  }
-  .ab-p:first-child {
-    font-size: var(--fs-lg);
-    color: var(--fg);
-  }
-  .ab-now {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: var(--space-4);
-    margin: var(--space-6) 0 var(--space-6);
-    padding: var(--space-4) var(--space-4);
-    border: 1px solid var(--line);
-    border-left: 3px solid var(--accent);
-    border-radius: var(--radius-tag);
-    background: var(--surface);
-    font-size: 0.9375rem;
-  }
-  .ab-now-date {
-    padding-top: 0.1rem;
-    font-size: 0.8125rem;
-    color: var(--accent);
-  }
-  .ab-stack {
-    margin: 0;
-    border-top: 1px solid var(--line-strong);
-  }
-  .ab-stack > div {
-    display: grid;
-    grid-template-columns: 150px minmax(0, 1fr);
-    gap: var(--space-3);
-    padding: 0.55rem 0;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.9375rem;
-  }
-  @media (max-width: 479px) {
-    .ab-stack > div {
-      grid-template-columns: 1fr;
-      gap: 0.1rem;
+    .ab::after {
+      content: none;
+    }
+    .ab-portrait {
+      float: none;
+      width: 100%;
+      margin: 0;
     }
   }
-  .ab-stack dt {
-    font-family: var(--font-code);
-    font-size: 0.8125rem;
+  .ab-p {
+    max-width: 38em;
+    margin: 0 0 var(--space-4);
+    font-size: var(--fs-md);
+  }
+  .ab-p + .ab-p {
     color: var(--muted);
   }
-  .ab-stack dd {
+  .ab-facts {
+    clear: both;
+    display: grid;
+    gap: var(--space-3);
+    max-width: 44em;
+    margin: var(--space-5) 0 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+  .ab-facts > div {
+    display: grid;
+    gap: 0.1rem;
+  }
+  @media (min-width: 640px) {
+    .ab-facts > div {
+      grid-template-columns: 8.5rem minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+  }
+  .ab-facts dt {
+    font-size: var(--fs-sm);
+    font-weight: var(--weight-strong);
+    color: var(--fg);
+    line-height: 1.6;
+  }
+  .ab-facts dd {
     margin: 0;
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    color: var(--muted);
   }
 </style>

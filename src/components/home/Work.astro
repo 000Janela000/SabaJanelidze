@@ -1,15 +1,21 @@
 ---
-// §3 Selected work: three big project cards (image, one-line outcome, 2-3 tags), then two small ones.
+// Selected work, right after the hero. Outcome first on every card.
+// Bitnet: a wide card (image left, text right on desktop). PlayTime and WasteAway: two cards side by side.
+// Chama and UniHub: short text-only cards (UniHub's only public page is a sign-in screen, which looks empty
+// as a thumbnail; Chama has no image either, so the two small cards match).
 // Images are screenshots of public pages only.
 import Section from "../site/Section.astro";
 import { work } from "../../content/home";
+
+const [lead, ...rest] = work.big;
+const host = (url: string) => url.replace("https://", "");
 ---
-<Section id="work" num="§3" label="work" heading={work.heading} intro={work.intro}>
-  <div class="wk-big">
+<Section id="work" heading={work.heading}>
+  <div class="wk">
     {
-      work.big.map((w, i) => (
-        <article class="nb-card wk-card" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
-          <figure class="wk-fig">
+      [lead, ...rest].map((w, i) => (
+        <article class:list={["ui-card wk-card", { "wk-card--lead": i === 0 }]} id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
+          <div class="wk-media">
             <img
               src={w.image.src}
               width={w.image.width}
@@ -18,13 +24,9 @@ import { work } from "../../content/home";
               loading="lazy"
               decoding="async"
             />
-            <figcaption class="nb-mono wk-figcap">
-              fig. 4{String.fromCharCode(97 + i)} — {w.image.alt.replace(/^The /, "the ")}
-              {w.image.taken && <span>{`, ${w.image.taken}`}</span>}
-            </figcaption>
-          </figure>
+          </div>
           <div class="wk-body">
-            <p class="nb-mono wk-meta">
+            <p class="ui-meta">
               {w.role}
               {w.years && <span class="tabular">{" · "}{w.years}</span>}
             </p>
@@ -33,19 +35,14 @@ import { work } from "../../content/home";
             </h3>
             <p class="wk-outcome">{w.outcome}</p>
             <p class="wk-text">{w.text}</p>
-            <ul class="nb-tags" aria-label="Tags">
-              {w.tags.map((t) => (
-                <li>{t}</li>
-              ))}
-            </ul>
             <p class="wk-links">
               {w.url && (
-                <a class="nb-link" href={w.url} rel="noopener">
-                  {w.url.replace("https://", "")}
+                <a class="ui-link" href={w.url} rel="noopener">
+                  {host(w.url)}
                   <span aria-hidden="true">{" ↗"}</span>
                 </a>
               )}
-              {w.note && <span class="nb-note">{w.note}</span>}
+              {w.note && <span class="ui-meta">{w.note}</span>}
             </p>
           </div>
         </article>
@@ -56,30 +53,15 @@ import { work } from "../../content/home";
   <div class="wk-small">
     {
       work.small.map((w) => (
-        <article class="nb-card wk-mini" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
-          <img
-            src={w.image.src}
-            width={w.image.width}
-            height={w.image.height}
-            alt={w.image.alt}
-            loading="lazy"
-            decoding="async"
-          />
-          <div>
-            <p class="nb-mono wk-meta">
-              {w.role}
-              {w.years && <span>{" · "}{w.years}</span>}
-            </p>
-            <h3 id={`work-${w.slug}-title`} class="wk-mini-title">
-              {w.title}
-            </h3>
-            <p class="wk-mini-outcome">{w.outcome}</p>
-            <ul class="nb-tags" aria-label="Tags">
-              {w.tags.map((t) => (
-                <li>{t}</li>
-              ))}
-            </ul>
-          </div>
+        <article class="wk-mini" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
+          <p class="ui-meta">
+            {w.role}
+            {w.years && <span>{" · "}{w.years}</span>}
+          </p>
+          <h3 id={`work-${w.slug}-title`} class="wk-mini-title">
+            {w.title}
+          </h3>
+          <p class="wk-mini-text">{w.outcome}</p>
         </article>
       ))
     }
@@ -87,79 +69,84 @@ import { work } from "../../content/home";
 </Section>
 
 <style>
-  .wk-big {
+  .wk {
     display: grid;
-    gap: var(--space-6);
+    gap: var(--space-5);
+  }
+  @media (min-width: 900px) {
+    .wk {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-6);
+    }
   }
   .wk-card {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
   }
   @media (min-width: 900px) {
-    .wk-card {
+    .wk-card--lead {
+      grid-column: 1 / -1;
+      display: grid;
       grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
     }
   }
-  .wk-fig {
-    margin: 0;
-    padding: var(--space-4);
-    border-bottom: 1px solid var(--line);
-    background: var(--surface-2);
+  .wk-media {
+    padding: var(--space-3) var(--space-3) 0;
   }
   @media (min-width: 900px) {
-    .wk-fig {
-      border-bottom: 0;
-      border-right: 1px solid var(--line);
+    .wk-media {
+      padding: var(--space-4) var(--space-4) 0;
+    }
+    .wk-card--lead .wk-media {
+      padding: var(--space-4);
     }
   }
-  .wk-fig img {
+  .wk-media img {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 16 / 10;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
     object-position: top;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius-tag);
-    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius-card) - 4px);
+    background: var(--surface-2);
   }
-  .wk-figcap {
-    margin-top: var(--space-2);
-    font-size: var(--fs-xs);
-    color: var(--muted);
+  @media (min-width: 900px) {
+    .wk-card--lead .wk-media img {
+      aspect-ratio: 16 / 10;
+    }
   }
   .wk-body {
     display: flex;
+    flex: 1;
     flex-direction: column;
-    padding: var(--space-5);
+    padding: var(--space-4) var(--space-5) var(--space-5);
   }
   @media (min-width: 900px) {
     .wk-body {
-      padding: var(--space-6);
+      padding: var(--space-5) var(--space-6) var(--space-6);
+    }
+    .wk-card--lead .wk-body {
+      justify-content: center;
+      padding-left: var(--space-4);
     }
   }
-  .wk-meta {
-    margin: 0 0 var(--space-2);
-    font-size: var(--fs-xs);
-    color: var(--muted);
-  }
   .wk-title {
-    margin: 0 0 var(--space-4);
-    font-size: var(--fs-2xl);
+    margin: var(--space-1) 0 var(--space-3);
+    font-size: var(--fs-xl);
     font-weight: var(--weight-strong);
     line-height: var(--lh-heading);
     letter-spacing: var(--tracking-heading);
   }
   .wk-outcome {
-    margin: 0 0 var(--space-4);
-    padding-left: var(--space-3);
-    border-left: 2px solid var(--accent);
+    margin: 0 0 var(--space-3);
     font-size: var(--fs-lg);
-    font-weight: var(--weight-strong);
-    line-height: 1.4;
+    line-height: 1.45;
   }
   .wk-text {
-    margin: 0 0 var(--space-5);
+    margin: 0;
     color: var(--muted);
   }
   .wk-links {
@@ -167,60 +154,38 @@ import { work } from "../../content/home";
     flex-wrap: wrap;
     align-items: baseline;
     gap: var(--space-2) var(--space-5);
-    margin: var(--space-5) 0 0;
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--line);
+    margin: var(--space-4) 0 0;
   }
   @media (min-width: 900px) {
-    .wk-links {
+    .wk-card:not(.wk-card--lead) .wk-links {
       margin-top: auto;
-    }
-    .wk-body .nb-tags {
-      margin-bottom: var(--space-5);
+      padding-top: var(--space-4);
     }
   }
 
   .wk-small {
     display: grid;
-    gap: var(--space-4);
-    margin-top: var(--space-6);
+    gap: var(--space-5);
+    margin-top: var(--space-7);
   }
   @media (min-width: 768px) {
     .wk-small {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: var(--space-5);
+      gap: var(--space-6);
     }
   }
   .wk-mini {
-    display: grid;
-    grid-template-columns: 120px minmax(0, 1fr);
-    gap: var(--space-5);
-    align-items: start;
-    padding: var(--space-5);
-  }
-  @media (max-width: 479px) {
-    .wk-mini {
-      grid-template-columns: 1fr;
-    }
-  }
-  .wk-mini img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-tag);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
   }
   .wk-mini-title {
-    margin: 0 0 var(--space-2);
+    margin: var(--space-1) 0 var(--space-1);
     font-size: var(--fs-lg);
     font-weight: var(--weight-strong);
+    line-height: var(--lh-heading);
   }
-  .wk-mini-outcome {
-    margin: 0 0 var(--space-3);
-    font-size: var(--fs-sm);
+  .wk-mini-text {
+    margin: 0;
     color: var(--muted);
   }
 </style>
