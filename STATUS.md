@@ -2,7 +2,7 @@
 
 > Read this at the start of every session. Update it at the end.
 > This file is in a **public** repo. Keep private things in `private/`.
-> Last updated: **2026-10-14**
+> Last updated: **2026-10-15**
 
 ## Where we are
 
@@ -10,7 +10,7 @@
 - **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
 - **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
 - **Deploy:** a push to `main` publishes it automatically on Vercel.
-- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 is done: the skeleton (i18n, SEO head, JSON-LD, real 404, self-hosted fonts) and four home-page design directions at `/design` (A, B, B-rich, C) plus a Georgian typography check at `/ka/design/b`. Saba picks a direction next. The live site on `main` is untouched.
+- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions) is done. Saba picked C, "Engineering notebook". **Phase 1b is done:** the real home page `/` in that design, with two themes (Paper, light; Blueprint, dark). Its text is a draft until Saba approves it. The live site on `main` is untouched.
 
 ## Open problems (most important first)
 
@@ -29,11 +29,22 @@
 
 ## Next steps
 
-- Saba opens http://localhost:4321/design (run `npm run dev` on the `rebuild` branch) and picks or mixes a design direction.
-- Saba decides the new title and description text (problem 1).
+- Saba opens http://localhost:4321/ (run `npm run dev` on the `rebuild` branch), tries both themes, and approves or edits the draft texts (the lines marked "DRAFT" in `src/content/home.ts`).
+- A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
+- Saba watches the two short clips (fig. 1 playing, the theme switch) before they ship.
+- The lab site gets the design tokens (`src/styles/tokens.css`, guide in `docs/design-tokens.md`).
 
 ## Log
 
+- **2026-10-15 (rebuild, Phase 1b):** The real home page `/`, built from direction C and polished.
+  - Two themes from one design: **Paper** (light) and **Blueprint** (dark, blue grid). The system setting decides until the visitor uses the header switch; the choice is remembered. No flash of the wrong theme. The switch reveals the new theme in a circle (View Transitions) unless the visitor prefers less motion.
+  - In Blueprint, on desktop only, a slow WebGL glow sits behind the hero. It settles when the visitor is quiet, pauses when not visible and has a "Pause background" button. Phones, Paper and reduced motion never load it.
+  - Hero: "Principal Engineer · Fintech & AI", the pitch, a proof line, Book a call, For hiring managers, and **fig. 1 "What green tests miss"**, a step-through release log (Play / Pause / Back / Step; every word is in the HTML).
+  - The "runs once" figure moved under "Fintech & payment systems" as fig. 2, told as a system rule. Richer project cards (image, one-line outcome, tags). The game teaser now links to the lab's payments incident.
+  - Design tokens in one file, `src/styles/tokens.css`, with a guide in `docs/design-tokens.md`. Shared building blocks in `src/styles/notebook.css`.
+  - New PlayTime card image (a fresh screenshot of the live site; the old one showed numbers that were not true). Placeholder pages `/book` and `/cv` (not indexed).
+  - Lighthouse mobile, both themes: performance, accessibility, best practices and SEO 100; LCP 1.5 s; layout shift 0; 3.8 KB of JavaScript (gzip) on first load.
+  - Nothing was pushed or deployed.
 - **2026-10-14 (rebuild, Phase 1):** On the new branch `rebuild`, the old Vite + React app was replaced by an Astro 7 project (static HTML, TypeScript strict, Tailwind 4).
   - Skeleton: English at `/`, Georgian at `/ka`, URLs without a trailing slash, an SEO head with canonical, hreflang and ProfilePage JSON-LD, a real 404 page, self-hosted Inter and Noto Sans Georgian (weights 400 and 600).
   - Four home-page directions for Saba to compare, all with the same English draft text: A "Calm precision", B "today's dark look, made light and fast", B-rich (B plus today's WebGL shader, desktop only), C "Engineering notebook". They are temporary, `noindex` pages.
