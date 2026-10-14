@@ -1,5 +1,5 @@
 ---
-// Page shell for every page: <head> (SEO, fonts), skip link, and an optional design-preview strip.
+// Page shell for every page: <head> (SEO, fonts, theme), skip link, and an optional design-preview strip.
 import "../styles/global.css";
 import SeoHead from "../components/SeoHead.astro";
 import Fonts from "../components/Fonts.astro";
@@ -18,6 +18,8 @@ interface Props {
   bodyClass?: string;
   themeColor?: string;
   colorScheme?: string;
+  /** Paper / Blueprint themes (src/styles/tokens.css). Adds the no-flash theme script and per-theme browser colours. */
+  themed?: boolean;
   /** On /design pages: which direction is shown (draws the thin preview strip on top). */
   preview?: "a" | "b" | "b-rich" | "c" | "index" | "ka-b";
 }
@@ -34,8 +36,15 @@ const {
   bodyClass,
   themeColor = "#ffffff",
   colorScheme = "light",
+  themed = false,
   preview,
 } = Astro.props;
+
+// Runs before the first paint, so the page never flashes the wrong theme:
+// marks that JavaScript works (class "js") and applies a theme the visitor picked earlier.
+// localStorage can throw (private mode, blocked storage); then the system setting decides, as without JavaScript.
+// Keep it tiny; a later Content-Security-Policy allows it by its hash.
+const themeBoot = `(function(){var d=document.documentElement;d.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="paper"||t==="blueprint"){d.setAttribute("data-theme",t);var c=t==="paper"?"#f5f3ec":"#0a0b0e";document.querySelectorAll('meta[name="theme-color"]').forEach(function(m){m.setAttribute("content",c)})}}catch(e){}})();`;
 
 // No approved Georgian exists for "Skip to content" yet, so it stays English (lang="en") on Georgian pages too.
 const skip = "Skip to content";
@@ -64,8 +73,21 @@ const strip = [
       ogType={ogType}
     />
     <Fonts georgian={lang === "ka"} />
-    <meta name="theme-color" content={themeColor} />
-    <meta name="color-scheme" content={colorScheme} />
+    {
+      themed ? (
+        <>
+          <meta name="color-scheme" content="light dark" />
+          <meta name="theme-color" content="#f5f3ec" media="(prefers-color-scheme: light)" />
+          <meta name="theme-color" content="#0a0b0e" media="(prefers-color-scheme: dark)" />
+          <script is:inline set:html={themeBoot} />
+        </>
+      ) : (
+        <>
+          <meta name="theme-color" content={themeColor} />
+          <meta name="color-scheme" content={colorScheme} />
+        </>
+      )
+    }
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <slot name="head" />
   </head>

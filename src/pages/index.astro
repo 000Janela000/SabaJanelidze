@@ -1,8 +1,20 @@
 ---
-// The real home page lives here after Saba picks a design (Phase 3). Until then: a plain skeleton page
-// that already has the final SEO head (canonical, hreflang en/ka/x-default, ProfilePage JSON-LD).
+// The real home page: the "Engineering notebook" design (Phase 1 direction C, polished in Phase 1b),
+// in two themes from one design: Paper (light) and Blueprint (dark). Tokens: src/styles/tokens.css.
+// All text: src/content/home.ts (a DRAFT until Saba approves it).
 import Base from "../layouts/Base.astro";
-import { seo, hero } from "../content/home";
+import Header from "../components/site/Header.astro";
+import Footer from "../components/site/Footer.astro";
+import Hero from "../components/home/Hero.astro";
+import ProofTable from "../components/home/ProofTable.astro";
+import Offers from "../components/home/Offers.astro";
+import HowIShip from "../components/home/HowIShip.astro";
+import Work from "../components/home/Work.astro";
+import Lab from "../components/home/Lab.astro";
+import OpenSource from "../components/home/OpenSource.astro";
+import About from "../components/home/About.astro";
+import Contact from "../components/home/Contact.astro";
+import { seo } from "../content/home";
 import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
 ---
 <Base
@@ -12,15 +24,21 @@ import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
   path="/"
   alternates={["en", "ka"]}
   ogType="profile"
+  themed
+  bodyClass="grid-paper"
   jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/`, lang: "en", description: seo.description })}
 >
-  <main id="main" class="mx-auto max-w-3xl px-5 py-20 md:px-10 md:py-28">
-    <h1 class="text-4xl font-semibold tracking-tight md:text-5xl">{hero.name}</h1>
-    <p class="mt-3 text-lg text-muted">{hero.title}</p>
-    <p class="mt-8 text-xl leading-relaxed">{hero.pitch}</p>
-    <p class="mt-10 border-t border-line pt-6 text-sm text-muted">
-      The new site is being built. Phase 1:{" "}
-      <a class="text-fg underline underline-offset-4" href="/design">three design directions</a>.
-    </p>
+  <Header />
+  <main id="main" tabindex="-1">
+    <Hero />
+    <ProofTable />
+    <Offers />
+    <HowIShip />
+    <Work />
+    <Lab />
+    <OpenSource />
+    <About />
+    <Contact />
   </main>
+  <Footer />
 </Base>

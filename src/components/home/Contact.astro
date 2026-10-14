@@ -1,0 +1,66 @@
+---
+// §7 Contact: Book a call, the email (with Copy), LinkedIn and GitHub.
+import Section from "../site/Section.astro";
+import CopyEmail from "../CopyEmail.astro";
+import { contact } from "../../content/home";
+---
+<Section id="contact" num="§7" label="contact" heading={contact.heading} intro={contact.text} class="ct">
+  <div class="ct-actions">
+    <a class="nb-btn" href={contact.book.href}>{contact.book.label}</a>
+    <span class="ct-email">
+      <a class="nb-mono nb-link" href={`mailto:${contact.email}`}>{contact.email}</a>
+      <CopyEmail class="ct-copy" />
+    </span>
+  </div>
+  <p class="nb-note">{contact.bookNote}</p>
+  <p class="ct-links">
+    {
+      contact.links.map((l) => (
+        <a class="nb-link" href={l.href} rel="noopener me">
+          {l.label}
+        </a>
+      ))
+    }
+  </p>
+</Section>
+
+<style>
+  /* The section element is rendered by Section.astro, so this selector must be fully global. */
+  :global(.ct .nb-h2) {
+    font-size: clamp(2.5rem, 4vw + 1.25rem, 4.25rem);
+  }
+  .ct-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+    margin-bottom: var(--space-4);
+  }
+  .ct-email {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-lg);
+  }
+  .ct-email :global(.ct-copy) {
+    padding: 0.25rem 0.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-tag);
+    background: var(--surface);
+    font-family: var(--font-code);
+    font-size: var(--fs-xs);
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .ct-email :global(.ct-copy:hover) {
+    border-color: var(--fg);
+  }
+  .ct-email :global(.ct-copy [data-done]) {
+    color: var(--accent);
+  }
+  .ct-links {
+    display: flex;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+</style>

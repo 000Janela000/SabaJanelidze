@@ -1,0 +1,39 @@
+---
+// One home-page section with the notebook rhythm: a full-width ink rule, the section number in the
+// margin (sticky on desktop), a big heading, an intro line, then the content (the slot).
+interface Props {
+  id: string;
+  /** "§1" */
+  num: string;
+  /** A short mono label under the number, e.g. "services". */
+  label: string;
+  heading: string;
+  intro?: string;
+  class?: string;
+}
+const { id, num, label, heading, intro, class: className } = Astro.props;
+---
+<section class:list={["nb-sec", className]} id={id} aria-labelledby={`${id}-title`}>
+  <div class="nb-wrap">
+    <div class="nb-sec-in">
+      <div>
+        <p class="nb-secnum">{num}{" "}<span>{label}</span></p>
+      </div>
+      <div class="sec-main">
+        <h2 id={`${id}-title`} class="nb-h2">{heading}</h2>
+        {intro && <p class="nb-intro">{intro}</p>}
+        {!intro && <div class="sec-gap" />}
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sec-main {
+    min-width: 0;
+  }
+  .sec-gap {
+    height: var(--space-6);
+  }
+</style>

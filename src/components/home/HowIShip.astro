@@ -1,0 +1,24 @@
+---
+// §2 How I ship with AI agents: the stepped pipeline (signature moment 2) as fig. 3.
+import Section from "../site/Section.astro";
+import Pipeline from "../Pipeline.astro";
+import { pipeline } from "../../content/home";
+---
+<Section id="how" num="§2" label="method" heading={pipeline.heading} intro={pipeline.intro}>
+  <figure class="nb-figure how-fig" aria-labelledby="fig3-cap">
+    <Pipeline variant="c" />
+    <figcaption id="fig3-cap" class="nb-cap how-cap">
+      <span class="nb-cap-num">fig. 3</span> — <strong>{pipeline.heading}.</strong>{" "}{pipeline.caption}
+    </figcaption>
+  </figure>
+</Section>
+
+<style>
+  /* The pipeline's dots sit on the figure surface. */
+  .how-fig :global(.pipe) {
+    --bg: var(--surface);
+  }
+  .how-cap {
+    margin-top: var(--space-6);
+  }
+</style>

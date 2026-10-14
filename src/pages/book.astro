@@ -1,0 +1,66 @@
+---
+// /book: placeholder until the booking calendar exists. Later this path forwards to Cal.com and must keep
+// the query string (?from=home, ?from=lab-payments ...), so calls can be counted by where they came from.
+// It is a plain page today, so nothing drops the query string. Not for search engines.
+import Base from "../layouts/Base.astro";
+import Header from "../components/site/Header.astro";
+import Footer from "../components/site/Footer.astro";
+import { PERSON } from "../lib/site";
+
+const mail = `mailto:${PERSON.email}?subject=${encodeURIComponent("Intro call")}`;
+---
+<Base
+  title="Book a call — Saba Janelidze"
+  description="Book a 20-minute intro call with Saba Janelidze."
+  lang="en"
+  path="/book"
+  noindex
+  themed
+  bodyClass="grid-paper"
+>
+  <Header bookHref="/book?from=book" />
+  <main id="main" class="nb-wrap ph">
+    <p class="nb-mono ph-kicker">booking · coming soon</p>
+    <h1 class="ph-h1">Book a call</h1>
+    <p class="ph-lead">
+      The booking calendar opens soon. Until then, email me a line about your team and two times that suit you.
+    </p>
+    <p class="ph-actions">
+      <a class="nb-btn" href={mail}>Email to book</a>
+      <a class="nb-link nb-mono" href={`mailto:${PERSON.email}`}>{PERSON.email}</a>
+    </p>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .ph {
+    padding-top: var(--space-9);
+    padding-bottom: var(--space-8);
+  }
+  .ph-kicker {
+    margin: 0 0 var(--space-4);
+    font-size: var(--fs-xs);
+    color: var(--accent);
+  }
+  .ph-h1 {
+    margin: 0;
+    font-size: var(--fs-3xl);
+    font-weight: var(--weight-strong);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+  .ph-lead {
+    max-width: 34em;
+    margin: var(--space-4) 0 var(--space-6);
+    font-size: var(--fs-lg);
+    color: var(--muted);
+  }
+  .ph-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+    margin: 0;
+  }
+</style>

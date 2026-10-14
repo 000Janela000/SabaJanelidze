@@ -1,0 +1,283 @@
+---
+// Hero fig. 1, "What green tests miss": a release log that steps through Bitnet story S1 in generic words.
+// DRAFT (Saba approves): every line comes from greenTests in src/content/home.ts.
+//
+// - Real HTML: the whole story is in the page as text (curl / bots / screen readers get all of it).
+// - Progress-driven by src/lib/stepper.ts: one number --x (0..5). CSS turns it into each row's state.
+// - Without JavaScript and with reduced motion: the final state (every row done). Reduced motion gets
+//   Back / Step only. With motion, it starts at row 1 and plays once (about 9 s), then stays still.
+//   Play / Pause / Back / Step at any time.
+// - Only transform and opacity move. Row text never fades; only the result marks appear.
+import { greenTests } from "../../content/home";
+
+const steps = greenTests.steps;
+const n = steps.length;
+const split = (r: string) => (r.startsWith("✓ ") || r.startsWith("✗ ") ? [r.slice(0, 1), r.slice(2)] : ["", r]);
+---
+<figure class="nb-figure gt" id="fig-1" data-stepper data-autoplay style={`--n:${n}`} aria-labelledby="fig1-cap">
+  <div class="gt-head">
+    <p class="gt-label nb-mono">
+      <span class="gt-dot-live" aria-hidden="true"></span>
+      <span aria-live="polite" data-status>release log</span>
+    </p>
+    <div class="nb-stepbar" data-controls>
+      <button type="button" class="nb-stepbtn nb-stepbtn--main" data-act="toggle" aria-pressed="false">
+        <span data-label>Play</span>
+      </button>
+      <button type="button" class="nb-stepbtn" data-act="prev"><span aria-hidden="true">←</span>{" "}Back</button>
+      <button type="button" class="nb-stepbtn" data-act="next">Step{" "}<span aria-hidden="true">→</span></button>
+    </div>
+  </div>
+
+  <ol class="gt-steps">
+    {
+      steps.map((s, i) => {
+        const [mark, word] = split(s.result);
+        return (
+          <li class="gt-step" data-step={s.title} data-kind={s.kind} style={`--i:${i}`}>
+            <span class="gt-hl" aria-hidden="true" />
+            <span class="gt-node" aria-hidden="true">
+              <span class="gt-dot">
+                <span class="gt-dot-fill" />
+              </span>
+              {i < n - 1 && (
+                <span class="gt-seg">
+                  <span class="gt-seg-fill" />
+                </span>
+              )}
+            </span>
+            <div class="gt-body">
+              <p class="gt-top">
+                <span class="gt-title">{s.title}</span>
+                <span class="gt-result nb-mono">
+                  {mark && <span aria-hidden="true">{mark}{" "}</span>}
+                  {word}
+                </span>
+              </p>
+              <p class="gt-text">{s.text}</p>
+              {s.findings && (
+                <ul class="gt-findings">
+                  {s.findings.map((f) => (
+                    <li class="gt-finding">
+                      <span class="gt-x" aria-hidden="true">✗</span>
+                      <span class="gt-f-text">
+                        <strong>{f.what}</strong>
+                        <span class="gt-f-why">{f.why}</span>{" "}
+                        <span class="gt-fixed nb-mono">{greenTests.fixedTag}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        );
+      })
+    }
+  </ol>
+
+  <figcaption id="fig1-cap" class="nb-cap">
+    {/* DRAFT caption for Saba's approval (Bitnet story S1, public-safe wording). */}
+    <span class="nb-cap-num">fig. 1</span> — <strong>{greenTests.title}.</strong>{" "}{greenTests.caption}
+  </figcaption>
+</figure>
+
+<style>
+  .gt {
+    --x: calc(var(--n) - 1); /* final state: no JavaScript, reduced motion */
+    padding: var(--space-4);
+  }
+  @media (min-width: 480px) {
+    .gt {
+      padding: var(--space-5);
+    }
+  }
+  /* With JavaScript and motion, the very first paint already shows row 1, so nothing jumps when the script starts. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .gt[data-autoplay] {
+      --x: 0;
+    }
+  }
+
+  .gt-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+    margin-bottom: var(--space-2);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .gt-label {
+    flex-basis: 100%; /* its own row: the status text changes length while playing */
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+  .gt-dot-live {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .gt-steps {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* --on: how far this row is reached (0..1); --seg: how full the line to the next row is;
+     --cur: how "current" the row is. All follow from --x and the row index --i. */
+  .gt-step {
+    --on: clamp(0, calc(var(--x) - var(--i) + 1), 1);
+    --seg: clamp(0, calc(var(--x) - var(--i)), 1);
+    --cur: min(var(--on), calc(1 - var(--seg)));
+    --kind: var(--accent);
+    --kind-soft: var(--accent-soft);
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: 12px minmax(0, 1fr);
+    column-gap: var(--space-3);
+    padding: 0.4rem 0;
+  }
+  .gt-step[data-kind="fail"] {
+    --kind: var(--danger);
+    --kind-soft: var(--danger-soft);
+  }
+  .gt-step[data-kind="neutral"] {
+    --kind: var(--fg);
+  }
+  /* The current row lights up with a soft panel behind it. */
+  .gt-hl {
+    position: absolute;
+    inset: 0.15rem -0.6rem;
+    z-index: -1;
+    border-radius: var(--radius-tag);
+    background: var(--kind-soft);
+    opacity: var(--cur);
+  }
+  .gt-node {
+    position: relative;
+  }
+  .gt-dot {
+    position: absolute;
+    left: 0;
+    top: 0.32rem;
+    width: 12px;
+    height: 12px;
+    border: 1.5px solid var(--ring);
+    border-radius: 2px;
+    background: var(--surface);
+  }
+  .gt-dot-fill {
+    position: absolute;
+    inset: 1.5px;
+    border-radius: 1px;
+    background: var(--kind);
+    opacity: var(--on);
+    transform: scale(calc(0.2 + 0.8 * var(--on)));
+  }
+  .gt-seg {
+    position: absolute;
+    left: 5px;
+    top: calc(0.32rem + 15px);
+    bottom: calc(-0.8rem - 0.32rem + 3px);
+    width: 2px;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--line) 55%, transparent 0) 0 0 / 2px 6px;
+  }
+  .gt-seg-fill {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform-origin: top;
+    transform: scaleY(var(--seg));
+  }
+  .gt-step[data-kind="fail"] .gt-seg-fill {
+    background: var(--danger);
+  }
+
+  .gt-body {
+    min-width: 0;
+  }
+  .gt-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 var(--space-3);
+    margin: 0;
+  }
+  .gt-title {
+    font-size: 0.9375rem;
+    font-weight: var(--weight-strong);
+    line-height: var(--lh-snug);
+  }
+  .gt-result {
+    font-size: var(--fs-xs);
+    white-space: nowrap;
+    color: var(--kind);
+    opacity: var(--on);
+  }
+  .gt-step[data-kind="neutral"] .gt-result {
+    color: var(--muted);
+  }
+  .gt-text {
+    margin: 0.1rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  .gt-findings {
+    display: grid;
+    gap: 0.35rem;
+    margin: 0.5rem 0 0.15rem;
+    padding: 0;
+    list-style: none;
+  }
+  .gt-finding {
+    display: grid;
+    grid-template-columns: 1rem minmax(0, 1fr);
+    gap: 0.1rem 0.4rem;
+    padding: 0.4rem 0.6rem;
+    border-left: 2px solid var(--danger);
+    background: var(--bg);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+  .gt-x {
+    color: var(--danger);
+    font-weight: var(--weight-strong);
+    opacity: var(--on);
+    transform: scale(calc(0.6 + 0.4 * var(--on)));
+  }
+  .gt-f-text strong {
+    display: block;
+    font-weight: var(--weight-strong);
+  }
+  .gt-f-why {
+    color: var(--muted);
+  }
+  /* "fixed next day" appears while the line to row 4 ("Fixed the next day") fills. */
+  .gt-fixed {
+    display: inline-block;
+    padding: 0 0.35rem;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-tag);
+    font-size: 0.6875rem;
+    line-height: 1.5;
+    white-space: nowrap;
+    color: var(--accent);
+    opacity: var(--seg);
+  }
+</style>
+
+<script>
+  import "../../lib/stepper";
+</script>

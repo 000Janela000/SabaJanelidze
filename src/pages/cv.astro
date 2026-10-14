@@ -1,0 +1,64 @@
+---
+// /cv: placeholder for the "For hiring managers" page (plain experience list + PDF, plan section 2).
+// Not for search engines until the real page exists.
+import Base from "../layouts/Base.astro";
+import Header from "../components/site/Header.astro";
+import Footer from "../components/site/Footer.astro";
+import { PERSON } from "../lib/site";
+---
+<Base
+  title="For hiring managers — Saba Janelidze"
+  description="Saba Janelidze's experience and CV."
+  lang="en"
+  path="/cv"
+  noindex
+  themed
+  bodyClass="grid-paper"
+>
+  <Header bookHref="/book?from=cv" />
+  <main id="main" class="nb-wrap ph">
+    <p class="nb-mono ph-kicker">cv · coming soon</p>
+    <h1 class="ph-h1">For hiring managers</h1>
+    <p class="ph-lead">
+      A one-page experience list and a PDF CV are coming soon. Until then, my LinkedIn has the full history, and I
+      can email a CV.
+    </p>
+    <p class="ph-actions">
+      <a class="nb-btn" href={PERSON.profiles.linkedin} rel="noopener me">LinkedIn</a>
+      <a class="nb-link nb-mono" href={`mailto:${PERSON.email}?subject=${encodeURIComponent("CV request")}`}>{PERSON.email}</a>
+    </p>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .ph {
+    padding-top: var(--space-9);
+    padding-bottom: var(--space-8);
+  }
+  .ph-kicker {
+    margin: 0 0 var(--space-4);
+    font-size: var(--fs-xs);
+    color: var(--accent);
+  }
+  .ph-h1 {
+    margin: 0;
+    font-size: var(--fs-3xl);
+    font-weight: var(--weight-strong);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+  .ph-lead {
+    max-width: 34em;
+    margin: var(--space-4) 0 var(--space-6);
+    font-size: var(--fs-lg);
+    color: var(--muted);
+  }
+  .ph-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+    margin: 0;
+  }
+</style>

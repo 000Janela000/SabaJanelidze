@@ -1,0 +1,123 @@
+---
+// The sticky site header: name, main links, Book a call, language switch, theme switch.
+// Nav links and the language switch change instantly (motion rule 5).
+import ThemeToggle from "./ThemeToggle.astro";
+import { hero, nav, footer } from "../../content/home";
+
+interface Props {
+  /** Where "Book a call" goes, with a ?from= tag for counting. */
+  bookHref?: string;
+}
+const { bookHref = hero.headerCta.href } = Astro.props;
+// Section links are "#work" on the home page and "/#work" everywhere else.
+const onHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
+const link = (href: string) => (onHome || !href.startsWith("#") ? href : `/${href}`);
+---
+<header class="hd">
+  <div class="nb-wrap hd-row">
+    <a class="hd-logo" href="/">
+      {hero.name}
+      <span class="nb-mono hd-tag" aria-hidden="true">/ notebook</span>
+    </a>
+    <nav class="hd-nav" aria-label="Main">
+      {nav.map((n) => <a href={link(n.href)}>{n.label}</a>)}
+    </nav>
+    <div class="hd-end">
+      <a class="nb-btn nb-btn--sm" href={bookHref}>{hero.headerCta.label}</a>
+      <span class="hd-lang nb-mono">
+        <a href={footer.lang.en.href} aria-current={onHome ? "page" : "true"}>EN<span class="sr-only"> (English)</span></a>
+        <span aria-hidden="true">/</span>
+        <a href={footer.lang.ka.href} lang="ka">KA<span class="sr-only" lang="en"> (Georgian)</span></a>
+      </span>
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .hd {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line-strong);
+  }
+  .hd-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    height: var(--header-h);
+  }
+  .hd-logo,
+  .hd-nav a,
+  .hd-lang a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .hd-logo {
+    font-weight: var(--weight-strong);
+    white-space: nowrap;
+  }
+  .hd-tag {
+    display: none;
+    margin-left: 0.4rem;
+    font-weight: var(--weight-regular);
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  @media (min-width: 640px) {
+    .hd-tag {
+      display: inline;
+    }
+  }
+  .hd-nav {
+    display: none;
+    gap: var(--space-5);
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+  .hd-nav a:hover {
+    color: var(--fg);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  @media (min-width: 900px) {
+    .hd-nav {
+      display: flex;
+    }
+  }
+  .hd-end {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+  @media (min-width: 640px) {
+    .hd-end {
+      gap: var(--space-4);
+    }
+  }
+  .hd-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+  .hd-lang a {
+    display: inline-block;
+    padding: 0.4rem 0.2rem;
+  }
+  .hd-lang a[aria-current="page"] {
+    color: var(--fg);
+    font-weight: var(--weight-strong);
+  }
+  @media (max-width: 380px) {
+    .hd-row {
+      gap: var(--space-3);
+    }
+    .hd-end :global(.nb-btn--sm) {
+      padding: 0 0.65rem;
+    }
+  }
+</style>

@@ -6,7 +6,7 @@ export const SITE_ORIGIN = "https://www.sabajanelidze.com";
 export const PERSON = {
   name: "Saba Janelidze",
   nameKa: "საბა ჯანელიძე", // approved string from the old site (main:src/lib/i18n.ts, hero.name.ka)
-  jobTitle: "Senior Full-Stack Engineer",
+  jobTitle: "Principal Engineer", // official title at Bitnet (Saba, 2026-10-14); hero title decided 2026-10-15
   email: "hello@sabajanelidze.com",
   portrait: "/portrait.webp",
   profiles: {

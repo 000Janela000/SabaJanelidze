@@ -1,8 +1,12 @@
-/* Site-wide styles. Tailwind 4 plus a few base rules.
-   Colors are semantic tokens (--bg, --fg, ...). Each design direction sets its own values on its wrapper,
-   so the same Tailwind classes (bg-bg, text-muted, border-line ...) work in all three looks.
+/* Site-wide styles. Tailwind 4, the design tokens, the notebook building blocks and a few base rules.
+   Colours, fonts, sizes and motion timings live in tokens.css (the shared contract, see docs/design-tokens.md).
+   The Phase 1 design directions (/design/a|b|c) set their own colour values on their wrapper class,
+   so the same Tailwind classes (bg-bg, text-muted, border-line ...) work in every look.
    Motion rules: see AGENTS.md, "Motion rules". */
-@import "tailwindcss";
+/* Scan only src/ for class names (not docs, notes or old page dumps), so no unused utilities ship. */
+@import "tailwindcss" source("..");
+@import "./tokens.css";
+@import "./notebook.css";
 
 @theme inline {
   --color-bg: var(--bg);
@@ -14,29 +18,6 @@
   --color-accent-fg: var(--accent-fg);
   --font-sans: var(--font-body);
   --font-mono: var(--font-code);
-}
-
-:root {
-  --font-body: "Inter", "Inter Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  --font-ka: "Noto Sans Georgian", "Inter", "Inter Fallback", ui-sans-serif, system-ui, sans-serif;
-  --font-code: ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
-
-  /* Motion timing tokens (motion report 7.2, rule 4). Reuse these in Remotion later. */
-  --dur-instant: 100ms;
-  --dur-fast: 150ms;
-  --dur-base: 250ms;
-  --dur-page: 300ms;
-  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
-
-  /* Neutral tokens for pages outside the design directions (index, 404). */
-  --bg: #ffffff;
-  --surface: #f5f6f7;
-  --fg: #121418;
-  --muted: #5b616e;
-  --line: #e4e6ea;
-  --accent: #2457d6;
-  --accent-fg: #ffffff;
-  color-scheme: light;
 }
 
 /* Metric-matched fallback, so the swap from Arial to Inter barely moves the text (less layout shift). */
@@ -58,7 +39,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: var(--lh-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-synthesis: none;
@@ -77,7 +58,12 @@ html:lang(ka) body {
 }
 
 [id] {
-  scroll-margin-top: 5rem;
+  scroll-margin-top: calc(var(--header-h) + 1.25rem);
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
 }
 
 :focus-visible {
@@ -116,6 +102,14 @@ html:lang(ka) body {
   ::view-transition-group(root) {
     animation-duration: var(--dur-page);
   }
+}
+
+/* The theme switch (ThemeToggle.astro): the new theme is revealed in a growing circle from the button.
+   The script runs the clip-path animation; these rules switch off the default cross-fade while it runs. */
+html.theme-vt::view-transition-old(root),
+html.theme-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 /* The thin "design preview" strip on /design pages. Neutral on purpose, so it does not belong to any look. */

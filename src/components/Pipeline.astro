@@ -1,8 +1,9 @@
 ---
 // Signature moment 2: "How I ship with AI agents", a stepped diagram (motion report 7.4).
 //
-// Progress-driven: what you see is a pure function of one number t from 0 to 1 (render(t) below).
-// The Play / Pause / Step buttons move t. Remotion can later move the same t frame by frame (video V1).
+// Progress-driven: what you see is a pure function of one number, --x (0 = first step, n-1 = last step).
+// The shared engine in src/lib/stepper.ts moves it (Play / Pause / Back / Next); CSS below turns it into
+// each step's state. Remotion can later move the same number frame by frame (video V1).
 //
 // Without JavaScript, and with reduced motion, the diagram shows its final state (every step lit).
 // The steps are a plain numbered list in the HTML, so bots and screen readers get all the text.
@@ -15,7 +16,7 @@ const { variant } = Astro.props;
 const steps = pipeline.steps;
 const n = steps.length;
 ---
-<div class="pipe" data-pipeline data-variant={variant}>
+<div class="pipe" data-pipeline data-stepper data-autoplay data-hold="1600" data-variant={variant} style={`--n:${n}`}>
   <div class="pipe-bar" data-controls hidden>
     <button type="button" class="pipe-btn pipe-btn--main" data-act="toggle" aria-pressed="false">
       <span data-label>Play</span>
@@ -28,10 +29,10 @@ const n = steps.length;
     </button>
     <p class="pipe-status tabular" aria-live="polite" data-status></p>
   </div>
-  <ol class="pipe-steps" style={`--n:${n}`}>
+  <ol class="pipe-steps">
     {
       steps.map((s, i) => (
-        <li class="pipe-step" data-step={i}>
+        <li class="pipe-step" data-step={s.title} style={`--i:${i}`}>
           <span class="pipe-hl" aria-hidden="true" />
           <div class="pipe-node" aria-hidden="true">
             <span class="pipe-dot">
@@ -60,6 +61,7 @@ const n = steps.length;
 
 <style>
   .pipe {
+    --x: calc(var(--n) - 1); /* final state by default (no JavaScript, reduced motion) */
     --pipe-dot: 14px;
     --pipe-gap: 1.5rem;
     --pipe-track: var(--line);
@@ -114,11 +116,11 @@ const n = steps.length;
     padding: 0;
   }
   /* --on: 0..1 how far this step is reached; --seg: 0..1 how full the line to the next step is;
-     --cur: 0..1 how "current" the step is. Defaults = final state (also the no-JavaScript state). */
+     --cur: 0..1 how "current" the step is. All three follow from --x and the step's index --i. */
   .pipe-step {
-    --on: 1;
-    --seg: 1;
-    --cur: 0;
+    --on: clamp(0, calc(var(--x) - var(--i) + 1), 1);
+    --seg: clamp(0, calc(var(--x) - var(--i)), 1);
+    --cur: min(var(--on), calc(1 - var(--seg)));
     position: relative;
     display: grid;
     grid-template-columns: var(--pipe-dot) minmax(0, 1fr);
@@ -303,135 +305,5 @@ const n = steps.length;
 </style>
 
 <script>
-  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const HOLD_MS = 1600; // how long one step stays lit while playing
-  const MOVE_MS = 300; // the move to the next step (motion rule: 100-300 ms)
-
-  for (const root of document.querySelectorAll<HTMLElement>("[data-pipeline]")) setup(root);
-
-  function setup(root: HTMLElement) {
-    const steps = Array.from(root.querySelectorAll<HTMLElement>(".pipe-step"));
-    const bar = root.querySelector<HTMLElement>("[data-controls]");
-    const toggle = root.querySelector<HTMLButtonElement>('[data-act="toggle"]');
-    const label = root.querySelector<HTMLElement>("[data-label]");
-    const status = root.querySelector<HTMLElement>("[data-status]");
-    if (!bar || !toggle || !label || !status || steps.length < 2) return;
-    const last = steps.length - 1;
-    const titles = steps.map((s) => s.querySelector(".pipe-title")?.textContent ?? "");
-    let t = 1;
-    let raf = 0;
-    let timer = 0;
-    let playing = false;
-    let touched = false;
-
-    const clamp = (v: number) => Math.min(1, Math.max(0, v));
-    const index = () => Math.round(t * last);
-
-    // The whole picture is a function of t.
-    function render(v: number) {
-      t = v;
-      const x = v * last;
-      steps.forEach((el, i) => {
-        el.style.setProperty("--on", clamp(x - i + 1).toFixed(3));
-        el.style.setProperty("--seg", clamp(x - i).toFixed(3));
-        el.style.setProperty("--cur", clamp(1 - Math.abs(x - i)).toFixed(3));
-        if (Math.round(x) === i) el.setAttribute("aria-current", "step");
-        else el.removeAttribute("aria-current");
-      });
-      const i = Math.round(x);
-      status!.textContent = `Step ${i + 1} of ${last + 1}: ${titles[i]}`;
-    }
-
-    function moveTo(target: number, ms = MOVE_MS): Promise<void> {
-      cancelAnimationFrame(raf);
-      if (reduce.matches || ms <= 0) {
-        render(target);
-        return Promise.resolve();
-      }
-      const from = t;
-      const start = performance.now();
-      return new Promise((done) => {
-        const tick = (now: number) => {
-          const p = Math.min(1, (now - start) / ms);
-          const eased = 1 - Math.pow(1 - p, 3); // ease-out
-          render(from + (target - from) * eased);
-          if (p < 1) raf = requestAnimationFrame(tick);
-          else done();
-        };
-        raf = requestAnimationFrame(tick);
-      });
-    }
-
-    function setPlaying(on: boolean) {
-      playing = on;
-      toggle!.setAttribute("aria-pressed", String(on));
-      label!.textContent = on ? "Pause" : index() === last ? "Replay" : "Play";
-    }
-
-    function stop() {
-      window.clearTimeout(timer);
-      setPlaying(false);
-    }
-
-    function scheduleNext() {
-      window.clearTimeout(timer);
-      timer = window.setTimeout(async () => {
-        if (!playing) return;
-        const next = Math.min(last, index() + 1);
-        await moveTo(next / last);
-        if (next >= last) stop();
-        else scheduleNext();
-      }, HOLD_MS);
-    }
-
-    function play() {
-      if (index() === last) render(0);
-      setPlaying(true);
-      scheduleNext();
-    }
-
-    toggle.addEventListener("click", () => {
-      touched = true;
-      if (playing) stop();
-      else play();
-    });
-    root.querySelector('[data-act="prev"]')?.addEventListener("click", () => {
-      touched = true;
-      stop();
-      void moveTo(Math.max(0, index() - 1) / last, 250);
-    });
-    root.querySelector('[data-act="next"]')?.addEventListener("click", () => {
-      touched = true;
-      stop();
-      void moveTo(Math.min(last, index() + 1) / last, 250).then(() => setPlaying(false));
-    });
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden && playing) stop();
-    });
-
-    bar.hidden = false;
-
-    // Reduced motion: final state, Step buttons only, nothing moves by itself.
-    if (reduce.matches) {
-      toggle.hidden = true;
-      render(1);
-      return;
-    }
-
-    // Otherwise: start at step 1 and play once when the diagram is half on screen.
-    render(0);
-    setPlaying(false);
-    const list = root.querySelector(".pipe-steps");
-    if (!list || !("IntersectionObserver" in window)) return;
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          io.disconnect();
-          if (!touched) play();
-        }
-      },
-      { threshold: 0.5 },
-    );
-    io.observe(list);
-  }
+  import "../lib/stepper";
 </script>

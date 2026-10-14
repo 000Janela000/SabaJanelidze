@@ -1,0 +1,140 @@
+---
+// §4 Lab: the game teaser (the lab session's game, coming soon) and "Ask the work" (coming soon).
+import Section from "../site/Section.astro";
+import { game, ask } from "../../content/home";
+---
+<Section
+  id={game.id}
+  num="§4"
+  label="lab"
+  heading="From the lab"
+  intro="Small working demos that prove the work instead of describing it. Both are being built now."
+>
+  <div class="lb">
+    {/* DRAFT for Saba's approval: headline and support line (numbers from the lab session). */}
+    <article class="nb-card lb-game" aria-labelledby="game-title">
+      <p class="nb-stamp">{game.kicker}</p>
+      <h3 id="game-title" class="lb-q">{game.question}</h3>
+      <p class="lb-support">{game.text}</p>
+      <p class="nb-mono lb-sub">{game.title}</p>
+      <p class="lb-text">{game.context}</p>
+      <p class="lb-foot">
+        <a class="nb-link nb-mono lb-link" href={game.link.href} rel="noopener">
+          {game.link.label}
+          <span aria-hidden="true">{" ↗"}</span>
+        </a>
+        <span class="nb-note">{game.note}</span>
+      </p>
+    </article>
+    <article class="nb-card lb-ask" aria-labelledby="ask-title">
+      <p class="nb-stamp">{ask.status}</p>
+      <h3 id="ask-title" class="lb-h">{ask.title}</h3>
+      <p class="lb-text">{ask.text}</p>
+      <div class="lb-form" role="group" aria-label="Ask a question (not available yet)">
+        <span class="nb-mono lb-prompt" aria-hidden="true">&gt;</span>
+        <label class="sr-only" for="ask-input">Your question</label>
+        <input id="ask-input" type="text" placeholder={ask.placeholder} disabled />
+        <button type="button" disabled>{ask.button}</button>
+      </div>
+    </article>
+  </div>
+</Section>
+
+<style>
+  .lb {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+  @media (min-width: 900px) {
+    .lb {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-5);
+    }
+  }
+  .lb-game,
+  .lb-ask {
+    padding: var(--space-6);
+  }
+  .lb-game {
+    border: 1.5px dashed var(--line-strong);
+  }
+  .lb-q {
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-2xl);
+    font-weight: var(--weight-strong);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
+  }
+  .lb-support {
+    margin: 0 0 var(--space-5);
+    font-size: var(--fs-lg);
+    line-height: 1.45;
+  }
+  .lb-sub {
+    margin: 0 0 var(--space-2);
+    font-size: var(--fs-xs);
+    color: var(--accent);
+  }
+  .lb-h {
+    margin: 0 0 var(--space-3);
+    font-size: var(--fs-lg);
+    font-weight: var(--weight-strong);
+  }
+  .lb-text {
+    margin: 0 0 var(--space-4);
+    color: var(--muted);
+  }
+  .lb-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-5);
+    margin: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+  .lb-link {
+    font-size: var(--fs-sm);
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 479px) {
+    .lb-game,
+    .lb-ask {
+      padding: var(--space-5);
+    }
+  }
+  .lb-form {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-5);
+    padding: 0.35rem 0.35rem 0.35rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+  }
+  .lb-prompt {
+    color: var(--muted);
+  }
+  .lb-form input {
+    flex: 1;
+    min-width: 0;
+    min-height: 40px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font-size: 16px;
+  }
+  .lb-form input::placeholder {
+    color: var(--muted);
+  }
+  .lb-form button {
+    min-height: 36px;
+    padding: 0 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--muted);
+    font-weight: var(--weight-strong);
+  }
+</style>

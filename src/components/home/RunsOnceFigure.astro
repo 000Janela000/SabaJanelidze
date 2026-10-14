@@ -1,0 +1,144 @@
+---
+// fig. 2, under "Fintech & payment systems": "Every customer action runs once", told as a system rule
+// (Bitnet Go story 2, generic words). Two small drawings that reflow on phones:
+//   (a) when the code is built: an action that has not declared how a repeat is handled fails the build;
+//   (b) when a request arrives twice: the repeat gets the first answer back.
+// Static on purpose (nothing here needs motion). The SVG text is real text in the HTML.
+// DRAFT (Saba approves): the text, the drawings and the caption (runsOnce in src/content/home.ts).
+import { runsOnce } from "../../content/home";
+---
+<figure class="nb-figure ro" id="fig-2" aria-labelledby="fig2-cap">
+  <div class="ro-panels">
+    <svg class="ro-svg" viewBox="0 0 320 250" role="img" aria-labelledby="fig2a-t fig2a-d">
+      <title id="fig2a-t">(a) When the code is built</title>
+      <desc id="fig2a-d">
+        A new customer action, for example a withdrawal, must declare two answers: what stops a second run, and
+        what a repeat gets back. The build checks both. If either is missing, the build fails. If both are
+        declared, the action is allowed to ship.
+      </desc>
+      <defs>
+        <marker id="ro-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M0 0 L8 4 L0 8 z" class="ro-fill"></path>
+        </marker>
+      </defs>
+      <text x="0" y="11" class="ro-t ro-m ro-s">(a) when the code is built</text>
+
+      <rect x="1" y="24" width="318" height="68" rx="3" class="ro-box"></rect>
+      <text x="14" y="46" class="ro-t">customer action: withdraw</text>
+      <text x="14" y="65" class="ro-t ro-m ro-s">1 · what stops a second run?</text>
+      <text x="14" y="82" class="ro-t ro-m ro-s">2 · what does a repeat get back?</text>
+
+      <line x1="100" y1="93" x2="100" y2="124" class="ro-line" marker-end="url(#ro-arrow)"></line>
+      <text x="110" y="113" class="ro-t ro-m ro-s">build check</text>
+
+      <rect x="1" y="126" width="198" height="40" rx="3" class="ro-box"></rect>
+      <text x="14" y="151" class="ro-t">both answers declared?</text>
+
+      <line x1="200" y1="146" x2="228" y2="146" class="ro-line" marker-end="url(#ro-arrow)"></line>
+      <text x="205" y="139" class="ro-t ro-m ro-s">no</text>
+      <rect x="230" y="126" width="89" height="40" rx="3" class="ro-box ro-box--fail"></rect>
+      <text x="241" y="143" class="ro-t ro-s ro-fail">✗ build</text>
+      <text x="241" y="158" class="ro-t ro-s ro-fail">  fails</text>
+
+      <line x1="100" y1="167" x2="100" y2="198" class="ro-line" marker-end="url(#ro-arrow)"></line>
+      <text x="110" y="187" class="ro-t ro-m ro-s">yes</text>
+      <rect x="1" y="200" width="198" height="40" rx="3" class="ro-box"></rect>
+      <text x="14" y="225" class="ro-t ro-accent">✓ allowed to ship</text>
+    </svg>
+
+    <svg class="ro-svg" viewBox="0 0 320 250" role="img" aria-labelledby="fig2b-t fig2b-d">
+      <title id="fig2b-t">(b) When a request arrives twice</title>
+      <desc id="fig2b-d">
+        A withdrawal of 80.00 carries a ticket, an idempotency key. It arrives twice, for example after a double
+        tap. The system asks whether it has seen this ticket. If yes, it returns the first answer. If no, it runs
+        the action once and keeps the answer. The customer is charged once.
+      </desc>
+      <text x="0" y="11" class="ro-t ro-m ro-s">(b) when a request arrives twice</text>
+
+      <rect x="1" y="24" width="208" height="52" rx="3" class="ro-box"></rect>
+      <text x="14" y="46" class="ro-t">withdraw 80.00</text>
+      <text x="14" y="65" class="ro-t ro-m ro-s">ticket: 7f3a…</text>
+      <text x="222" y="46" class="ro-t">×2</text>
+      <text x="222" y="65" class="ro-t ro-m ro-s">double tap</text>
+
+      <line x1="100" y1="77" x2="100" y2="106" class="ro-line" marker-end="url(#ro-arrow)"></line>
+
+      <rect x="1" y="108" width="198" height="40" rx="3" class="ro-box"></rect>
+      <text x="14" y="133" class="ro-t">seen this ticket?</text>
+
+      <line x1="200" y1="128" x2="220" y2="128" class="ro-line" marker-end="url(#ro-arrow)"></line>
+      <text x="201" y="121" class="ro-t ro-m ro-s">yes</text>
+      <rect x="222" y="108" width="97" height="40" rx="3" class="ro-box ro-box--soft"></rect>
+      <text x="230" y="125" class="ro-t ro-s">return the</text>
+      <text x="230" y="140" class="ro-t ro-s">first answer</text>
+
+      <line x1="100" y1="149" x2="100" y2="180" class="ro-line" marker-end="url(#ro-arrow)"></line>
+      <text x="110" y="169" class="ro-t ro-m ro-s">no</text>
+      <rect x="1" y="182" width="198" height="44" rx="3" class="ro-box"></rect>
+      <text x="14" y="201" class="ro-t">run it once</text>
+      <text x="14" y="218" class="ro-t ro-m ro-s">and keep the answer</text>
+
+      <text x="0" y="246" class="ro-t ro-accent">✓ charged once</text>
+    </svg>
+  </div>
+  <figcaption id="fig2-cap" class="nb-cap">
+    <span class="nb-cap-num">fig. 2</span> — <strong>{runsOnce.title}.</strong>{" "}{runsOnce.caption}
+  </figcaption>
+</figure>
+
+<style>
+  .ro-panels {
+    display: grid;
+    gap: var(--space-6);
+  }
+  @media (min-width: 720px) {
+    .ro-panels {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-7);
+    }
+  }
+  .ro-svg {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    overflow: visible;
+  }
+  .ro-box {
+    fill: var(--surface);
+    stroke: var(--fg);
+    stroke-width: 1.25;
+  }
+  .ro-box--soft {
+    stroke-dasharray: 4 3;
+  }
+  .ro-box--fail {
+    stroke: var(--danger);
+    stroke-dasharray: 4 3;
+  }
+  .ro-line {
+    stroke: var(--fg);
+    stroke-width: 1.25;
+  }
+  .ro-fill {
+    fill: var(--fg);
+  }
+  .ro-t {
+    white-space: pre;
+    font-family: var(--font-code);
+    font-size: 12.5px;
+    fill: var(--fg);
+  }
+  .ro-m {
+    fill: var(--muted);
+  }
+  .ro-s {
+    font-size: 11px;
+  }
+  .ro-fail {
+    fill: var(--danger);
+  }
+  .ro-accent {
+    fill: var(--accent);
+  }
+</style>
