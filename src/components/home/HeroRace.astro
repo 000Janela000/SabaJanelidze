@@ -7,12 +7,12 @@
 //     without JavaScript and with reduced motion. Only the lab address gets "?from=portfolio-home".
 //   - CSS: imported, so Astro inlines it with the page's styles. It styles only through --rf-* variables, which
 //     default to our tokens (tokens v3): --accent = movement (withdrawal A's ring, dots and name) and links,
-//     --danger = the loss only ("paid 80" of a losing run, "Short 80"), --surface, --line, --line-strong, --fg,
+//     --danger = the loss only ("paid 80" of a losing run, "Exchange short 80"), --surface, --line, --line-strong, --fg,
 //     --muted, --focus, --radius-card; money figures use --rf-mono, set here to --font-source (the small mono).
 //   - JS: loaded on idle (README of the package), as its own file (the vendored bytes, hashed name in dist/_astro/).
 //     The element then plays once, about 4 s, when at least half of it
 //     is on screen, with Pause / Play while it moves, then "Run another order" (one of the 54 recorded runs) and
-//     "Find the bug →" (the lab). Reduced motion: nothing moves. Hidden tab: it pauses.
+//     "Reproduce it yourself →" (the lab). Reduced motion: nothing moves. Hidden tab: it pauses.
 //   - Never describe it as "running live" or "computed in the browser": each run is a recorded trace of the game's
 //     real code, checked by a test on every build of the lab.
 //
@@ -24,7 +24,7 @@ import fallback from "../../vendor/race-figure/race-figure.html?raw";
 
 const LAB = "https://lab.sabajanelidze.com/day/payments";
 const TAGGED = `${LAB}?from=portfolio-home`;
-// The address appears twice in 1.0.0 (lab-url and the "Find the bug →" link). Fail the build if a new version
+// The address appears twice since 1.0.0 (lab-url and the link, "Reproduce it yourself →" since 1.1.0). Fail the build if a new version
 // changes that, so the tag can never be dropped silently.
 const hits = fallback.split(`"${LAB}"`).length - 1;
 if (hits !== 2) throw new Error(`race-figure.html: expected the lab address twice, found ${hits}. Check the new version.`);

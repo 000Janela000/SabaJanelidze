@@ -97,8 +97,8 @@ export const heroNumbers: HeroNumber[] = [
 // The hero's right side: the payment-race figure (components/home/HeroRace.astro) is the lab session's shared
 // element <race-figure> 1.0.0, vendored in src/vendor/race-figure/. Its texts live in that package, not here.
 // DRAFT (Saba approves, publish gate): every text inside the figure (title for screen readers, the four step names,
-// "paid 80" / "refused", "Balance", "Paid out", "Short", the caption "Order 11 of 54. Both passed the check.
-// Balance 20, paid out 160.", "Run another order", "Pause" / "Play", "Find the bug →" and the note "Each run is a
+// "paid 80" / "refused", "Balance", "Paid out", "Exchange short", the caption "Order 11 of 54. Both passed the check.
+// Balance 20, paid out 160.", "Run another order", "Pause" / "Play", "Reproduce it yourself →" and the note "Each run is a
 // recorded trace of the game's real code, checked by a test on every build."). Changes go to the lab session.
 
 // Not on the home page since Phase 1c (parked: src/components/parked/GreenTestsFigure.astro).
