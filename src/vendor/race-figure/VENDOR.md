@@ -1,4 +1,4 @@
-# Vendored: `<race-figure>` 1.1.1
+# Vendored: `<race-figure>` 1.1.2
 
 **Do not edit these files here. Changes come from the lab session** (the lab repo builds them; this folder only copies them).
 
@@ -6,17 +6,17 @@
 |---|---|
 | What | The payments race as one element: two withdrawals of 80 from a balance of 100, replaying recorded traces of the lab game's real code (54 runs; 36 lose money, 18 don't). |
 | Source repo | `sabajanelidze-lab` (private, GitHub `000Janela000/sabajanelidze-lab`), folder `packages/race-figure/dist/` |
-| Commit | `eafc2a9` (on `main`). 1.1.1: on phones the figure keeps one height from the first step to the result (the link sits on its own line; "Exchange short" keeps its place while a run plays), and below 336 px wide step 2 reads "read and check the balance" (both labels are in the HTML; CSS shows one). 1.1.0 (`57cb088`, `b1e7e04`): "Short" became "Exchange short", the link "Find the bug →" became "Reproduce it yourself →", 13 px step labels on narrow phones. 1.0.0 was `837f081`. |
-| Version | 1.1.1 |
-| Copied | 2026-10-15, byte for byte from GitHub at `eafc2a9` (not from the lab's working folder) |
+| Commit | `48dfde4` (on `main`). 1.1.2: the "Exchange short" slot keeps its space with `data-rf-reserved` (visibility hidden), not the `hidden` attribute, so a page's own `[hidden]` rule (our Tailwind base: `display: none !important`) cannot collapse it. 1.1.1 (`eafc2a9`): on phones the figure keeps one height from the first step to the result (the link sits on its own line; "Exchange short" keeps its place while a run plays), and below 336 px wide step 2 reads "read and check the balance" (both labels are in the HTML; CSS shows one). 1.1.0 (`57cb088`, `b1e7e04`): "Short" became "Exchange short", the link "Find the bug →" became "Reproduce it yourself →", 13 px step labels on narrow phones. 1.0.0 was `837f081`. |
+| Version | 1.1.2 |
+| Copied | 2026-10-15, byte for byte from GitHub at `48dfde4` (not from the lab's working folder) |
 | Docs | `packages/race-figure/README.md` in the lab repo (embed snippet, `--rf-*` variables, sizes) |
 
 ## Files
 
 | File | Bytes | Gzip (`gzip -9` here; the lab's tool can differ by a few bytes) | SHA-256 |
 |---|---|---|---|
-| `race-figure.js` | 8,732 | 2,888 | `75c0c87931e24181329a529987476cd10f590a8f78f17f1bb101812097e8b929` |
-| `race-figure.css` | 6,551 | 2,098 | `1c8990d59672aabb3cd132c5e3a23f467e75cd5814143992c66f24e1dce4767b` |
+| `race-figure.js` | 8,759 | 2,893 | `f38c8bcc6d9e1c4339b4f7d46a85659e12e18fcebf57f755fa732bda1f5a4669` |
+| `race-figure.css` | 6,652 | 2,163 | `34fa36a8b0445c6651208ecfc3478e7d2b87e5a686ac678deeaba79cebbf72af` |
 | `race-figure.html` | 2,648 | 775 | `f8155933ba4ff30dab0e4a7cad877450bf0b45a8b232d2e75a1b9b3b8b8be097` |
 
 ## How the portfolio uses them
