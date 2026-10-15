@@ -10,7 +10,7 @@
 - **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
 - **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
 - **Deploy:** a push to `main` publishes it automatically on Vercel.
-- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions), Phase 1b (the notebook home page) and Phase 1c (the calm reset) are done. **Phase 1e is done:** "Calm, with one live proof": Newsreader headings, the lab's payment-race figure in the hero, a rebuilt numbers row, and the 15 Phase 1d fixes. Its text is a draft until Saba approves it. The live site on `main` is untouched.
+- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions), Phase 1b (the notebook home page) and Phase 1c (the calm reset) are done. **Phase 1e is done:** "Calm, with one live proof": Newsreader headings, the lab's payment-race figure in the hero, a rebuilt numbers row, and the 15 Phase 1d fixes. **Phase 1f is done:** a short headline, the company named less, CV in the phone menu, English screenshots and a new portrait. Its text is a draft until Saba approves it. The live site on `main` is untouched.
 
 ## Open problems (most important first)
 
@@ -34,12 +34,21 @@
   - `src/content/cv.ts`: the whole `/cv` role list.
   - **The texts inside the hero figure** (they live in the lab's package; changes go to the lab session): the screen-reader title "Two withdrawals of 80 from a balance of 100, running at the same time"; the steps "load the customer", "read the balance, check 80 ≤ balance", "save the new balance", "pay out"; "paid 80" / "refused"; "Balance", "Paid out", "Short"; the caption "Order 11 of 54. Both passed the check. Balance 20, paid out 160." (and the other orders' captions, for example "B read 20 and was refused. Balance 20, paid out 80."); "Run another order", "Pause" / "Play", "Find the bug →"; the note "Each run is a recorded trace of the game's real code, checked by a test on every build."
 - **Before launch, the lab must be live:** the figure's "Find the bug →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
-- A better portrait from Saba (the current one has a white studio background; it shows as a bright square in the dark theme).
+- A better portrait: photo #31 of the 15 Oct shoot is in for now (Phase 1f). A reshoot with side light and a slight smile would beat it.
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
 - The lab site gets design tokens **version 3** (`src/styles/tokens.css`; what changed is at the top of `docs/design-tokens.md`).
 - Before launch: re-check the bitnet.ge counters (219,764 users, 2,538,923 transactions on 2026-10-15).
 
 ## Log
+
+- **2026-10-15 (rebuild, Phase 1f, Saba's 7 questions):**
+  - **Headline:** the 21-word pitch was too big (5 lines on desktop, the whole phone screen). Now a short headline, "AI agents for teams that move money, without losing a payment.", with the rest in a subline under it: "I help fintech teams work with AI agents safely, and I build the AI features their product needs." Saba chose it.
+  - **The company named less:** the first screen, the number labels, the offer proof and About now say "a licensed crypto exchange" or "the exchange I help build". Bitnet is named in the work card. The small source lines keep "bitnet.ge, Oct 2026", so a reader can check the numbers.
+  - **CV:** the "CV" link now shows in the phone menu too (it fits at 320 px).
+  - **Screenshots in English:** bitnet.ge (switched with the site's own language menu, app banner closed, cropped above the counters) and wasteaway.ge/en, both 15 Oct. The PlayTime and WasteAway cards now show a small picture of their live page. Note: `bitnet.ge/en` answers "200 OK" but shows a "page not found" page, so a status code alone doesn't prove a page exists.
+  - **Portrait:** photo #31 of a new shoot, square, edited with PhotoCraft (an open-source photo editor): the yellow wall made neutral, shadows lifted a little, mild contrast. The face itself isn't changed.
+  - **Motion:** the home page keeps one moving thing (the race figure). The parked step-by-step animation goes on the How I work page later. A short video and a Lab page come later too.
+  - **Checks:** `npm run verify` 0 errors; Lighthouse mobile 100 x 4 in both themes, LCP 1.73 s, 5.5 KB JS; contrast audit 0 failures (4 pages, both themes, desktop and phone); live check on the restarted dev server at 1440, 390 and 320 px: no console errors, no sideways scroll, every image loads. Phone length 8.8 screens (was 8.3; the two new pictures).
 
 - **2026-10-15 (rebuild, Phase 1e "Calm, with one live proof"):** The calm home page got a voice and one working object. Saba chose the direction after a third round of reviews.
   - **Type:** headings, the big numbers and the Bitnet card title in **Newsreader** (a serif), one self-hosted 25 KB file (weight 500, optical size 24 to 72, Latin), preloaded, with a metric-matched Georgia fallback. Body stays Inter. Sources, dates and money figures in a small monospace (0 KB). Georgian headings will use Noto Sans Georgian.

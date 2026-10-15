@@ -7,7 +7,7 @@ import { about } from "../../content/home";
 ---
 <Section id="about" heading={about.heading}>
   <div class="ab">
-    <img class="ab-portrait" src="/portrait.webp" width="844" height="1088" alt={about.portraitAlt} loading="lazy" decoding="async" />
+    <img class="ab-portrait" src="/portrait.webp" width="800" height="800" alt={about.portraitAlt} loading="lazy" decoding="async" />
     <div class="ab-text">
       {about.bio.map((b) => <p class="ab-p">{b}</p>)}
 
@@ -52,7 +52,7 @@ import { about } from "../../content/home";
     margin: 0.35rem var(--space-4) var(--space-2) 0;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    object-position: 50% 30%;
+    object-position: 50% 50%;
     border-radius: var(--radius);
   }
   @media (min-width: 900px) {

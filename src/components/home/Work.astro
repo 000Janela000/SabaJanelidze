@@ -1,9 +1,10 @@
 ---
 // Selected work, right after the hero. Outcome first on every card. Phase 1e (Phase 1d fixes 1, 4, 9):
-// - Bitnet is the ONLY big card: a screenshot of the public bitnet.ge page (retaken 15 Oct 2026, cropped above its
+// - Bitnet is the ONLY big card: a screenshot of the public bitnet.ge page in English (retaken 15 Oct 2026, cropped above its
 //   counter strip, with a dated caption in the small mono), the outcome, and two links: bitnet.ge and
 //   "Ask me for the full case study" (a mailto until /work/bitnet exists).
 // - PlayTime, WasteAway, Chama and UniHub are small text cards that show their real stage as a tag.
+//   Phase 1f: PlayTime and WasteAway also show a small picture of their live English page (image.thumb).
 // work.big / work.small keep their Phase 1 shape because the design pages (/design/a|b|c) read them.
 // Hover (pointer devices, motion allowed): the Bitnet image lifts 2 px and its border turns accent (150 ms).
 import Section from "../site/Section.astro";
@@ -52,6 +53,17 @@ const host = (url: string) => url.replace("https://", "");
     {
       cards.map((w) => (
         <article class="wk-mini" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
+          {w.image.thumb && (
+            <img
+              class="wk-thumb"
+              src={w.image.src}
+              width={w.image.width}
+              height={w.image.height}
+              alt={w.image.alt}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
           <p class="ui-meta">
             {w.role}
             {w.years && <span class="ui-source wk-years">{" · "}{w.years}</span>}
@@ -177,6 +189,19 @@ const host = (url: string) => url.replace("https://", "");
     flex-direction: column;
     padding-top: var(--space-4);
     border-top: 1px solid var(--line);
+  }
+  /* Phase 1f: a small picture of the live English page on the founder cards (PlayTime, WasteAway). */
+  .wk-thumb {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    margin-bottom: var(--space-4);
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius-card) - 4px);
+    background: var(--surface-2);
   }
   .wk-mini-title {
     margin: var(--space-1) 0 var(--space-2);

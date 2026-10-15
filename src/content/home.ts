@@ -19,13 +19,13 @@ export const seo = {
 };
 
 // The header links. On phones only the ones with phone: true show (no sideways scroll at 320 px).
-// "CV" is the quiet recruiter route (Phase 1d fix 11); phones reach /cv through the hero link and the footer.
+// "CV" is the quiet recruiter route (Phase 1d fix 11). Phase 1f: it shows on phones too (Saba, 2026-10-15).
 export const nav = [
   { label: "Work", href: "#work", phone: true },
   { label: "What I do", href: "#services", phone: false },
   { label: "About", href: "#about", phone: false },
   { label: "Contact", href: "#contact", phone: true },
-  { label: "CV", href: "/cv", phone: false },
+  { label: "CV", href: "/cv", phone: true },
 ];
 
 /** The main action everywhere on the home page: a plain email link (no booking page yet).
@@ -38,14 +38,19 @@ const book = (from: string) => `/book?from=${from}`;
 
 export const hero = {
   name: PERSON.name,
-  /** The one small line above the pitch. The only place the title appears on the first screen. */
-  role: "Principal Engineer, Bitnet",
+  /** The one small line above the headline. The only place the title appears on the first screen.
+   *  Phase 1f: no company name on the first screen (Saba, 2026-10-15: "don't highlight Bitnet that much"). */
+  role: "Principal Engineer · Fintech & AI",
+  // Phase 1f (Saba chose this on 2026-10-15): a short headline as the h1, the rest of the pitch in the subline.
+  headline: "AI agents for teams that move money, without losing a payment.",
+  subline: "I help fintech teams work with AI agents safely, and I build the AI features their product needs.",
+  /** The full one-sentence pitch (the design pages /design/a|b|c and the page description still use it). */
   pitch:
     "I help software teams that handle money work with AI agents safely — and I build the AI features their product needs.",
   // DRAFT (Saba approves): the one proof sentence under the pitch. Sources: bitnet.ge (licence),
   // Saba's confirmed facts of 2026-10-14/15 (title; what is live), the role history in about.bio.
   proofLine:
-    "Since 2023 I've helped build Bitnet, a crypto exchange licensed by the National Bank of Georgia — today I lead the architecture of its new core platform.",
+    "Since 2023 I've helped build a crypto exchange licensed by the National Bank of Georgia. Today I lead the architecture of its new core platform.",
   email: emailCta,
   // DRAFT (Saba approves): the quiet recruiter route next to the main button.
   hiring: { label: "Hiring? See my CV", href: "/cv" },
@@ -65,26 +70,27 @@ export const hero = {
 export type HeroNumber = { value: string; label: string; short: string; source: string };
 
 // DRAFT (Saba approves): the four numbers under the hero (Phase 1e: two for the company's scale, two for Saba's
-// own part). All true and dated. Sources: bitnet.ge's public counters (read 2026-10-15; re-check on the publish day)
+// own part). All true and dated. Phase 1f: the labels don't name the company; the source lines keep "bitnet.ge"
+// so a reader can check the numbers (Saba, 2026-10-15). Sources: bitnet.ge's public counters (read 2026-10-15; re-check on the publish day)
 // and the private research notes of 2026-10-14 (private/research/, not in git). "38 of 38": every customer action
 // must declare how a repeat is handled, or the build fails; Saba's rule, live since the September 2026 release.
 // The label says "checks for repeat safety", not "runs once", on purpose.
 // Left out on purpose: "Since 2023" (repeats the proof sentence), PlayTime's "27" (a side project),
 // "#1 of 28 contributors" (vanity), "4 hours" and "109 of 109 commits by an AI agent" (weak oversight to a buyer).
 export const heroNumbers: HeroNumber[] = [
-  { value: "219,764", label: "registered users on Bitnet", short: "users on Bitnet", source: "bitnet.ge, Oct 2026" },
-  { value: "2,538,923", label: "transactions on Bitnet", short: "transactions on Bitnet", source: "bitnet.ge, Oct 2026" },
+  { value: "219,764", label: "registered users on the exchange I help build", short: "registered users", source: "bitnet.ge, Oct 2026" },
+  { value: "2,538,923", label: "transactions on the same exchange", short: "transactions", source: "bitnet.ge, Oct 2026" },
   {
     value: "237 of 278",
-    label: "architecture decisions for Bitnet's new core platform, written up by me",
+    label: "architecture decisions for its new core platform, written up by me",
     short: "architecture decisions by me",
-    source: "Bitnet code, Oct 2026",
+    source: "platform code, Oct 2026",
   },
   {
     value: "38 of 38",
     label: "customer actions the build checks for repeat safety, under a rule I wrote",
     short: "actions checked for repeats",
-    source: "Bitnet, live Sep 2026",
+    source: "live since Sep 2026",
   },
 ];
 
@@ -206,8 +212,8 @@ export const offers = {
     {
       title: "Fintech & payment systems",
       text: "Payments, ledgers, identity checks and staff tools that stay correct even when a request arrives twice.",
-      proof: "Live at Bitnet: the payment-provider integration I built, with bank-app deposits, card payments and recurring card charges.",
-      link: { label: "Bitnet", href: "#work-bitnet", dir: "down" },
+      proof: "Live on the exchange I help build: the payment-provider integration I built, with bank-app deposits, card payments and recurring card charges.",
+      link: { label: "The work", href: "#work-bitnet", dir: "down" },
     },
   ],
 };
@@ -343,8 +349,9 @@ export type WorkItem = {
   tags: string[];
   tech: string[];
   /** taken: when the screenshot was made (public pages change; the date keeps it honest).
-   *  caption: the dated line under the image on the home page (only the big Bitnet card shows an image). */
-  image: { src: string; width: number; height: number; alt: string; taken?: string; caption?: string };
+   *  caption: the dated line under the image on the home page (the big Bitnet card).
+   *  thumb: the small card shows the image as a small picture (Phase 1f: PlayTime and WasteAway, English pages). */
+  image: { src: string; width: number; height: number; alt: string; taken?: string; caption?: string; thumb?: boolean };
   url?: string;
 };
 
@@ -374,9 +381,9 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
         src: "/projects/bitnet.webp",
         width: 1440,
         height: 756,
-        alt: "The bitnet.ge home page in Georgian, with the Bitnet app on a phone",
+        alt: "The bitnet.ge home page in English, with the Bitnet app on a phone",
         taken: "15 Oct 2026",
-        caption: "bitnet.ge home page, Georgian, Oct 2026",
+        caption: "bitnet.ge home page, English, Oct 2026",
       },
       url: "https://bitnet.ge",
     },
@@ -392,7 +399,7 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       tags: ["Marketplace", "AI agents", "Web + mobile"],
       tech: ["NestJS", "GraphQL", "Next.js", "Expo", "PostgreSQL"],
       // New screenshot of the live site, 2026-10-15 (the old one showed numbers that were not true).
-      image: { src: "/projects/playtime.webp", width: 1440, height: 900, alt: "The playtime.ge home page", taken: "15 Oct 2026" },
+      image: { src: "/projects/playtime.webp", width: 1440, height: 900, alt: "The playtime.ge home page", taken: "15 Oct 2026", thumb: true },
       url: "https://playtime.ge",
     },
     {
@@ -406,7 +413,8 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       text: "Door-to-door garbage pickup for apartment buildings in Tbilisi. I'm building it from zero — brand, website and operations.",
       tags: ["Startup", "AI agents", "Cloudflare"],
       tech: ["Astro", "TypeScript", "Cloudflare Workers", "Cloudflare D1"],
-      image: { src: "/projects/wasteaway.webp", width: 1440, height: 900, alt: "The wasteaway.ge home page", taken: "13 Oct 2026" },
+      // Retaken in English on 2026-10-15 (Phase 1f).
+      image: { src: "/projects/wasteaway.webp", width: 1440, height: 900, alt: "The wasteaway.ge home page in English", taken: "15 Oct 2026", thumb: true },
       url: "https://wasteaway.ge",
     },
   ],
@@ -496,8 +504,8 @@ export const openSource = {
 export const about = {
   heading: "About",
   bio: [
-    // DRAFT (Saba approves): the Bitnet role history.
-    "I'm a Principal Engineer based in Georgia. Since January 2023 I've worked on Bitnet, a licensed crypto exchange: first its customer web app, then its backend, and now its new core platform, whose architecture I lead.",
+    // DRAFT (Saba approves): the role history. Phase 1f: no company name here; the work card names it.
+    "I'm a Principal Engineer based in Georgia. Since January 2023 I've worked on a licensed crypto exchange: first its customer web app, then its backend, and now its new core platform, whose architecture I lead.",
     "On the side I build my own products, PlayTime and WasteAway, with AI agents doing most of the coding.",
   ],
   /** Short rows under the bio (Phase 1 design pages; the home page shows the grouped stack below instead). */
