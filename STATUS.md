@@ -41,6 +41,8 @@
 
 ## Log
 
+- **2026-10-17 (rebuild, small pictures):** Saba chose smaller pictures on the PlayTime and WasteAway cards, so the Bitnet card stays the one big picture. They now sit beside the role line and the title: 96 px wide on phones, 120 px from 480 px. The stage tag moved under them at full width (PlayTime's tag didn't fit beside the picture at 320 px). The cards load small 288 x 180 copies (9 KB and 12 KB instead of 79 KB and 95 KB). Phone length is back to 8.3 screens (was 8.8). Checks: `npm run verify` 0 errors; contrast audit 0 failures in 16 runs; no sideways scroll at 1440, 768, 390 and 320 px in both themes.
+
 - **2026-10-15 (rebuild, Phase 1f, Saba's 7 questions):**
   - **Headline:** the 21-word pitch was too big (5 lines on desktop, the whole phone screen). Now a short headline, "AI agents for teams that move money, without losing a payment.", with the rest in a subline under it: "I help fintech teams work with AI agents safely, and I build the AI features their product needs." Saba chose it.
   - **The company named less:** the first screen, the number labels, the offer proof and About now say "a licensed crypto exchange" or "the exchange I help build". Bitnet is named in the work card. The small source lines keep "bitnet.ge, Oct 2026", so a reader can check the numbers.

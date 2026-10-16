@@ -4,7 +4,7 @@
 //   counter strip, with a dated caption in the small mono), the outcome, and two links: bitnet.ge and
 //   "Ask me for the full case study" (a mailto until /work/bitnet exists).
 // - PlayTime, WasteAway, Chama and UniHub are small text cards that show their real stage as a tag.
-//   Phase 1f: PlayTime and WasteAway also show a small picture of their live English page (image.thumb).
+//   PlayTime and WasteAway also show a small picture of their live English page beside the title (image.thumb, 288 x 180).
 // work.big / work.small keep their Phase 1 shape because the design pages (/design/a|b|c) read them.
 // Hover (pointer devices, motion allowed): the Bitnet image lifts 2 px and its border turns accent (150 ms).
 import Section from "../site/Section.astro";
@@ -53,24 +53,28 @@ const host = (url: string) => url.replace("https://", "");
     {
       cards.map((w) => (
         <article class="wk-mini" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
-          {w.image.thumb && (
-            <img
-              class="wk-thumb"
-              src={w.image.src}
-              width={w.image.width}
-              height={w.image.height}
-              alt={w.image.alt}
-              loading="lazy"
-              decoding="async"
-            />
-          )}
-          <p class="ui-meta">
-            {w.role}
-            {w.years && <span class="ui-source wk-years">{" · "}{w.years}</span>}
-          </p>
-          <h3 id={`work-${w.slug}-title`} class="wk-mini-title">
-            {w.title}
-          </h3>
+          <div class:list={["wk-mini-head", { "has-thumb": w.image.thumb }]}>
+            {w.image.thumb && (
+              <img
+                class="wk-thumb"
+                src={w.image.thumb}
+                width="288"
+                height="180"
+                alt={w.image.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            )}
+            <div>
+              <p class="ui-meta">
+                {w.role}
+                {w.years && <span class="ui-source wk-years">{" · "}{w.years}</span>}
+              </p>
+              <h3 id={`work-${w.slug}-title`} class="wk-mini-title">
+                {w.title}
+              </h3>
+            </div>
+          </div>
           {w.stage && <p class="wk-stage"><span class="ui-tag">{w.stage}</span></p>}
           <p class="wk-mini-text">{w.outcome}</p>
           {w.url && (
@@ -190,17 +194,28 @@ const host = (url: string) => url.replace("https://", "");
     padding-top: var(--space-4);
     border-top: 1px solid var(--line);
   }
-  /* Phase 1f: a small picture of the live English page on the founder cards (PlayTime, WasteAway). */
+  /* A small picture of the live English page beside the role line and title of the founder cards (PlayTime, WasteAway).
+     Small on purpose, so the Bitnet card stays the one big picture: 96 px wide on phones, 120 px from 480 px.
+     The stage tag stays under it at full width (PlayTime's tag is too long for the narrow column at 320 px). */
+  .wk-mini-head.has-thumb {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr);
+    gap: var(--space-4);
+    align-items: center;
+    margin-bottom: var(--space-3);
+  }
+  @media (min-width: 480px) {
+    .wk-mini-head.has-thumb {
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+    }
+  }
   .wk-thumb {
     display: block;
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 10;
-    object-fit: cover;
-    object-position: top;
-    margin-bottom: var(--space-4);
     border: 1px solid var(--line);
-    border-radius: calc(var(--radius-card) - 4px);
+    border-radius: var(--radius-tag);
     background: var(--surface-2);
   }
   .wk-mini-title {
@@ -208,6 +223,9 @@ const host = (url: string) => url.replace("https://", "");
     font-size: var(--fs-lg);
     font-weight: var(--weight-strong);
     line-height: var(--lh-heading);
+  }
+  .has-thumb .wk-mini-title {
+    margin-bottom: 0;
   }
   .wk-stage {
     margin: 0 0 var(--space-2);

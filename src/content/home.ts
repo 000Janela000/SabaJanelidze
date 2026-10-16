@@ -350,8 +350,8 @@ export type WorkItem = {
   tech: string[];
   /** taken: when the screenshot was made (public pages change; the date keeps it honest).
    *  caption: the dated line under the image on the home page (the big Bitnet card).
-   *  thumb: the small card shows the image as a small picture (Phase 1f: PlayTime and WasteAway, English pages). */
-  image: { src: string; width: number; height: number; alt: string; taken?: string; caption?: string; thumb?: boolean };
+   *  thumb: a small copy (288 x 180) that the small card shows beside its title (PlayTime and WasteAway, English pages). */
+  image: { src: string; width: number; height: number; alt: string; taken?: string; caption?: string; thumb?: string };
   url?: string;
 };
 
@@ -399,7 +399,7 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       tags: ["Marketplace", "AI agents", "Web + mobile"],
       tech: ["NestJS", "GraphQL", "Next.js", "Expo", "PostgreSQL"],
       // New screenshot of the live site, 2026-10-15 (the old one showed numbers that were not true).
-      image: { src: "/projects/playtime.webp", width: 1440, height: 900, alt: "The playtime.ge home page", taken: "15 Oct 2026", thumb: true },
+      image: { src: "/projects/playtime.webp", width: 1440, height: 900, alt: "The playtime.ge home page", taken: "15 Oct 2026", thumb: "/projects/playtime-thumb.webp" },
       url: "https://playtime.ge",
     },
     {
@@ -414,7 +414,7 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       tags: ["Startup", "AI agents", "Cloudflare"],
       tech: ["Astro", "TypeScript", "Cloudflare Workers", "Cloudflare D1"],
       // Retaken in English on 2026-10-15 (Phase 1f).
-      image: { src: "/projects/wasteaway.webp", width: 1440, height: 900, alt: "The wasteaway.ge home page in English", taken: "15 Oct 2026", thumb: true },
+      image: { src: "/projects/wasteaway.webp", width: 1440, height: 900, alt: "The wasteaway.ge home page in English", taken: "15 Oct 2026", thumb: "/projects/wasteaway-thumb.webp" },
       url: "https://wasteaway.ge",
     },
   ],
