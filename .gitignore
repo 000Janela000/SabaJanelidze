@@ -34,3 +34,6 @@ private/
 
 # Astro generated types and cache
 .astro/
+
+# Cloudflare wrangler's local state (wrangler dev)
+.wrangler/

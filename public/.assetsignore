@@ -1,0 +1,5 @@
+# Files in dist/ that Cloudflare never uploads (same format as .gitignore; read by wrangler).
+# The Phase 1 design reference pages: noindex, older texts, kept on this computer only until they are deleted.
+design.html
+design/
+ka/design/

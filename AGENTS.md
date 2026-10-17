@@ -56,7 +56,7 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 | `src/designs/a`, `b`, `c` | **Phase 1 only:** the home-page design directions, kept as `noindex` reference pages until launch. Saba first picked C ("Engineering notebook", Phase 1b); after two independent reviews he reset to **A's calm skeleton** (Phase 1c, 2026-10-15). The real home page lives in `src/components/home/`. |
 | `src/pages/` | One file = one page. `index.astro` = `/` (the real home page), `ka/index.astro` = `/ka` (placeholder; the KA link is hidden until Phase 3), `book.astro` = `/book`, an honest "Get in touch" page (email + LinkedIn) that reads and keeps `?from=` for the lab's links, `cv.astro` = `/cv`, a dated role list and "CV as a PDF on request" (text in `src/content/cv.ts`), both `noindex`; `design/*.astro` = `/design/...` (temporary, `noindex`), `404.astro` = the real 404 page. |
 | `src/styles/global.css` | Tailwind 4 (scanning `src/` only), then `tokens.css` and `ui.css`, plus the base rules. |
-| `public/` | Files served as they are: images (`projects/*.webp`, `portrait.webp`, `og-image.png`), favicon, `robots.txt`, `sitemap.xml` (still hand-written), and the Google Search Console check file. **Never put anything from `private/` here.** |
+| `public/` | Files served as they are: images (`projects/*.webp`, `portrait.webp`, `og-image.png`), favicon, `robots.txt`, `sitemap.xml` (hand-written: only `/`; `/cv` and `/book` are noindex), the Google Search Console check file, and Cloudflare's `_headers`, `_redirects` and `.assetsignore`. **Never put anything from `private/` here.** |
 | `legacy/api-contact.ts` | The old Vercel contact-form function, kept only to port it to a Cloudflare Worker later. Not used by the build. |
 | `docs/overview.md`, `docs/roadmap.md` | Describe the **old** site. They get rewritten at the switch-over. |
 | `docs/content.md`, `docs/fix-plan.md` | **Historical** (March 2026). Don't use them as the source. |
@@ -73,7 +73,12 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 - `npm run preview`: serves the built `dist/` without compression. Use it to click through, not to measure speed.
 - URLs never end with a slash: `/work/bitnet` is built as `dist/work/bitnet.html` (`trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`). Keep it that way; today's live URLs have no slash.
 - English is at `/`, Georgian at `/ka/...` (`i18n` in `astro.config.mjs`). There is no automatic language redirect, on purpose.
-- **Deploy: not set up on this branch yet.** The plan is Cloudflare Workers (static assets). Follow `../_shared/decisions/0004-deploy-safety.md`: explicit config, a dry run first, only `dist/` uploads. **Never push `rebuild` without Saba's OK**: on Vercel a push still makes a preview build.
+- **Deploy: Cloudflare Workers (static assets only). Set up, never deployed yet.**
+  - `wrangler.jsonc`: the Worker `sabajanelidze-web`. It has no routes on purpose: the live domain stays on the old site until the switch-over.
+  - `npm run cf:dry` builds, then does a dry run (it uploads nothing). `npm run cf:dev` serves `dist/` on http://127.0.0.1:8787 the way Cloudflare will: headers, redirects, the 404 page.
+  - `public/_headers`: security and cache headers (at least as strict as the old Vercel site). `public/_redirects`: the old site's `/work/...` links go home (302) until the case studies exist. `public/.assetsignore`: keeps the `/design` pages out of the upload.
+  - Follow `../_shared/decisions/0004-deploy-safety.md`: always `--config wrangler.jsonc`, a dry run first. A real deploy and the domain switch need Saba's OK.
+  - **Never push `rebuild` without Saba's OK**: on Vercel a push still makes a preview build.
 
 ## Motion rules
 

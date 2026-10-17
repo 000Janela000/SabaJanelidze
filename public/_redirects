@@ -1,0 +1,9 @@
+# Cloudflare redirects (read at deploy, never served as a file).
+# The old site had a page per project at /work/<slug>. Until a real case study exists, send each one home.
+# 302 (temporary) on purpose: browsers don't keep it, so a later /work/bitnet page takes over cleanly.
+# Delete a line when its page exists.
+/work/bitnet / 302
+/work/playtime / 302
+/work/wasteaway / 302
+/work/chama / 302
+/work/unihub / 302

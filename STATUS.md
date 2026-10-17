@@ -38,8 +38,18 @@
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
 - The lab site gets design tokens **version 3** (`src/styles/tokens.css`; what changed is at the top of `docs/design-tokens.md`).
 - Before launch: re-check the bitnet.ge counters (219,764 users, 2,538,923 transactions on 2026-10-15).
+- Before launch: decide `/ka`. Today it is a placeholder with the old title ("Senior Full-Stack Engineer"), and the home page tells Google it is the Georgian version. The old live site has approved Georgian. Until it is decided, Cloudflare sends `noindex` for `/ka`.
+- Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
 
 ## Log
+
+- **2026-10-17 (rebuild, Cloudflare set-up, nothing deployed):** Saba chose "get the home page ready to launch". Cloudflare Workers is set up, but nothing has been uploaded:
+  - `wrangler.jsonc` (Worker `sabajanelidze-web`, no domain yet), `npm run cf:dry` (dry run) and `npm run cf:dev` (Cloudflare's server on this computer).
+  - `public/_headers`: the old site's security headers, plus a few more, and a one-year cache for the hashed files in `/_astro/`. `/ka` and the workers.dev test addresses send `noindex`.
+  - `public/_redirects`: the old `/work/bitnet`, `/work/playtime`, `/work/wasteaway`, `/work/chama` and `/work/unihub` go home with a 302, until real case studies exist.
+  - `public/.assetsignore`: the `/design` pages are never uploaded.
+  - The sitemap now lists only `/`. It listed the old `/work/...` pages, which don't exist on the new site.
+  - Checked on the local Cloudflare server: every page answers as expected, and `/design/...` answers 404. In Chrome, in both themes, at 1440 and 390 px: the security policy blocks nothing, there are no console errors, and the race figure, the theme switch and the Copy button work. The dry run passed with no login.
 
 - **2026-10-17 (rebuild, small pictures):** Saba chose smaller pictures on the PlayTime and WasteAway cards, so the Bitnet card stays the one big picture. They now sit beside the role line and the title: 96 px wide on phones, 120 px from 480 px. The stage tag moved under them at full width (PlayTime's tag didn't fit beside the picture at 320 px). The cards load small 288 x 180 copies (9 KB and 12 KB instead of 79 KB and 95 KB). Phone length is back to 8.3 screens (was 8.8). Checks: `npm run verify` 0 errors; contrast audit 0 failures in 16 runs; no sideways scroll at 1440, 768, 390 and 320 px in both themes.
 

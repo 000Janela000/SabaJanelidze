@@ -8,7 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "verify": "astro check && astro build"
+    "verify": "astro check && astro build",
+    "cf:dry": "astro build && wrangler deploy --config wrangler.jsonc --dry-run",
+    "cf:dev": "astro build && wrangler dev --config wrangler.jsonc"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.151.1"
   }
 }
