@@ -7,3 +7,7 @@
 /work/wasteaway / 302
 /work/chama / 302
 /work/unihub / 302
+
+# English only at launch (Saba, 2026-10-17): /ka goes home until the Georgian page exists. Delete this line then.
+/ka / 302
+/ka/* / 302

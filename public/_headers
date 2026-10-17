@@ -14,10 +14,6 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
-# The Georgian page is a placeholder until the real Georgian text exists.
-/ka
-  X-Robots-Tag: noindex
-
 # The workers.dev test addresses must never show up in search results.
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
