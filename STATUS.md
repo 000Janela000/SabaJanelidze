@@ -36,6 +36,7 @@
   row layout. Measured with no JavaScript vs after the upgrade: 414 vs 438 px high at 1440.
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race
   figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
+- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The message to the lab session (the plan, plus the one-line figure fix below) is written and waits until the lab session runs; it was not running on 2026-10-17.
 - **Before launch, the lab must be live:** the figure's "Reproduce it yourself →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
 - A better portrait: photo #31 of the 15 Oct shoot is in for now (Phase 1f). A reshoot with side light and a slight smile would beat it.
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
@@ -45,6 +46,8 @@
 - Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
 
 ## Log
+
+- **2026-10-17 (launch order):** Saba decided that the portfolio and the lab launch together, the lab with incident 1 (Payments) only. The lab session was not running, so the request (launch plan + the `.rf-actions` fix) is saved and sent when it runs.
 
 - **2026-10-17 (rebuild, English only at launch):** Saba decided the new site launches in English. The old site's Georgian matches the old texts, so it can't be reused. `/ka` and `/ka/...` now redirect home (302), the placeholder page is not uploaded, and the home page no longer tells Google there is a Georgian version. Checked on the local Cloudflare server: `/ka`, `/ka/` and `/ka/design/b` go to `/`; `/`, `/cv` and `/book` answer 200; no hreflang tags.
 
