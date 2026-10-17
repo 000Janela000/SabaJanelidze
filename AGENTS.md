@@ -32,8 +32,8 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 | Path | What it is |
 |---|---|
-| `src/content/home.ts` | **The home page text (English), in one file.** The home page and the Phase 1 directions render this same text. Every number here is true and dated; the sources are named at the top of the file. Lines marked "DRAFT (Saba approves)" wait for Saba's OK. Fields marked "Not on the home page" feed only the Phase 1 design pages and the parked explainers. |
-| `src/content/cv.ts` | The `/cv` text: a dated role list (DRAFT, Saba approves). Sources named at the top. |
+| `src/content/home.ts` | **The home page text (English), in one file.** The home page and the Phase 1 directions render this same text. Every number here is true and dated; the sources are named at the top of the file. The home page texts were approved by Saba on 2026-10-17 (after a review by Codex and three Claude reviewers); only the parked blocks are still marked "DRAFT (Saba approves)". Fields marked "Not on the home page" feed only the Phase 1 design pages and the parked explainers. |
+| `src/content/cv.ts` | The `/cv` text: a dated role list (approved by Saba on 2026-10-17). Sources named at the top. |
 | `src/content/ka-approved.ts` | Georgian strings that were **already approved** on the old site, copied word for word. Do not add new Georgian here (see "Rules"). |
 | `src/lib/site.ts` | Site address, name, email, active profiles (`sameAs`) and the JSON-LD (structured data for Google and AI tools) builder. |
 | `src/layouts/Base.astro` | The page shell: `<head>`, fonts, skip link, the Phase 1 preview strip. `themed` adds the light / dark theme script (runs before the first paint) and the per-theme browser colours. |

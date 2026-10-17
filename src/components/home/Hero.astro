@@ -16,7 +16,6 @@ import { hero, heroNumbers } from "../../content/home";
       <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
       <h1 id="hero-title" class="hero-pitch">{hero.headline}</h1>
       <p class="hero-sub">{hero.subline}</p>
-      {/* DRAFT for Saba's approval: the proof sentence. */}
       <p class="hero-proof">{hero.proofLine}</p>
       <div class="hero-actions">
         <a class="ui-btn" href={hero.email.href}>{hero.email.label}</a>
@@ -26,7 +25,6 @@ import { hero, heroNumbers } from "../../content/home";
     <div class="hero-figure">
       <HeroRace />
     </div>
-    {/* DRAFT for Saba's approval: the four numbers. */}
     <ul class="hero-nums" aria-label="In numbers">
       {
         heroNumbers.map((n) => (

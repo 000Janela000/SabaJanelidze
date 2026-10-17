@@ -29,10 +29,13 @@
 
 ## Next steps
 
-- Saba opens http://localhost:4321/ (run `npm run dev` on the `rebuild` branch), tries both themes (footer: "Theme: Light · Dark · Auto"), and approves or edits the draft texts:
-  - `src/content/home.ts`, every line marked "DRAFT": the button "Email me about your team", "Hiring? See my CV", the four numbers and their labels, the proof line under each offer, the fact under each method step and the loop sentence, the stage tags of the small work cards, "Ask me for the full case study", the open-source lines in About.
-  - `src/content/cv.ts`: the whole `/cv` role list.
-  - **The texts inside the hero figure** (they live in the lab's package; changes go to the lab session): the screen-reader title "Two withdrawals of 80 from a balance of 100, running at the same time"; the steps "load the customer", "read the balance, check 80 ≤ balance" (on phones under 336 px: "read and check the balance"), "save the new balance", "pay out"; "paid 80" / "refused"; "Balance", "Paid out", "Exchange short"; the caption "Order 11 of 54. Both passed the check. Balance 20, paid out 160." (and the other orders' captions, for example "B read 20 and was refused. Balance 20, paid out 80."); "Run another order", "Pause" / "Play", "Reproduce it yourself →"; the note "Each run is a recorded trace of the game's real code, checked by a test on every build."
+- **Before launch, a one-line fix in the lab's figure (send to the lab session when it runs again):** on desktop the button row
+  (`.rf-actions`) grows from the link's height to the 44 px button when the script loads, so the figure grows 24 px. Since the
+  line above the figure (2026-10-17) made its column the taller one, the four numbers under the hero jump 24 px (layout shift
+  0.028 at 1024 to 1920 px; phones are not affected). Fix in the lab: `race-figure .rf-actions { min-height: 44px; }` for the
+  row layout. Measured with no JavaScript vs after the upgrade: 414 vs 438 px high at 1440.
+- After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race
+  figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
 - **Before launch, the lab must be live:** the figure's "Reproduce it yourself →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
 - A better portrait: photo #31 of the 15 Oct shoot is in for now (Phase 1f). A reshoot with side light and a slight smile would beat it.
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
@@ -42,6 +45,12 @@
 - Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
 
 ## Log
+
+- **2026-10-17 (rebuild, texts approved):** Saba asked Codex and Claude models to attack every text, then for a verdict. Four reviewers (Codex; Claude Fable as the buyer; Claude Opus as the skeptic; Claude Sonnet as the plain-English editor) read the same brief. The judge checked each idea against the sources. Saba approved the result and made 5 decisions:
+  - **Approved and changed:** the proof line now also says "wrote most of the team's AI coding set-up" (the first screen proved only fintech). The number labels are exact: "first-authored" records, and "customer actions that must declare how a repeat is handled, or the build fails". On phones, the two company numbers say "exchange's". The Bitnet card says "Built by me, live today" and "bank-app deposits" (not payments). "Ask me how it was built" (no written case study exists). PlayTime: "Booking with payment is built; payments are still in test mode". WasteAway: "Next: the first pilot building". Chama: "Designed and wrote". Offer 1: "AI coding agents in your repo, set up safely", with "First an audit, then a 2-week rollout". No "ledgers" (not Saba's work). How I work: no hint that a person reviews each PlayTime change. Exact npm numbers (the rounded ones didn't add up). No "Evals". Contact: the buyer's pain is risk, not speed. The Google description is 143 characters (was 166). CV: "Now Principal Engineer", "the new identity checks", no "formally verified".
+  - **Saba's decisions:** keep the headline; the PlayTime card as written; show the offer steps; "Georgia" without a city; and a new line above the race figure, "AI agents can write this, and it can pass tests. My review agents check money code.", chosen after Codex and a skeptic reviewer checked it. Saba asked why a bug fix is on the first screen; the answer: the figure shows the buyer's fear (AI code that passes tests and loses money), and the new line shows his part.
+  - **Corrections found on the way:** one fact in the brief about WasteAway was wrong (it was a goal, not a fact), so no line uses it. "237 of 278" is right (the detailed count adds up; a newer note said 238).
+  - **Checks:** `npm run verify` 0 errors; contrast audit 0 failures in 16 runs; the race figure check passes (behaviour, reduced motion, no JavaScript, sizes 320 to 1440 px, no overlap, no sideways scroll). One new issue: a 24 px jump of the numbers on desktop when the figure loads (see Next steps; the lab owns the fix).
 
 - **2026-10-17 (rebuild, Cloudflare set-up, nothing deployed):** Saba chose "get the home page ready to launch". Cloudflare Workers is set up, but nothing has been uploaded:
   - `wrangler.jsonc` (Worker `sabajanelidze-web`, no domain yet), `npm run cf:dry` (dry run) and `npm run cf:dev` (Cloudflare's server on this computer).

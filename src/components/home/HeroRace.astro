@@ -18,9 +18,12 @@
 //
 // THE BOUNDARY: this site owns the slot (<div data-race-slot>): where it sits in the hero and how wide it may get
 // (at most 28 rem = 448 px on desktop, full width on phones). Everything inside <race-figure> belongs to the lab.
-// The texts inside the figure are DRAFTS for Saba's publish gate (listed in STATUS.md, "Next steps").
+// The texts inside the figure were approved by Saba on 2026-10-17 (as they are).
+// ABOVE THE SLOT (this site's text, not the lab's): one short line that ties the figure to AI agents, so a visitor
+// sees why this bug is on the first screen (Saba, 2026-10-17: "why we highlight some bug fix as main hero section?").
 import "../../vendor/race-figure/race-figure.css";
 import fallback from "../../vendor/race-figure/race-figure.html?raw";
+import { hero } from "../../content/home";
 
 const LAB = "https://lab.sabajanelidze.com/day/payments";
 const TAGGED = `${LAB}?from=portfolio-home`;
@@ -30,6 +33,7 @@ const hits = fallback.split(`"${LAB}"`).length - 1;
 if (hits !== 2) throw new Error(`race-figure.html: expected the lab address twice, found ${hits}. Check the new version.`);
 const html = fallback.replaceAll(`"${LAB}"`, `"${TAGGED}"`).trim();
 ---
+<p class="hrc-lede">{hero.raceLede}</p>
 <div class="hrc" data-race-slot set:html={html} />
 
 <script>
@@ -48,6 +52,14 @@ const html = fallback.replaceAll(`"${LAB}"`, `"${TAGGED}"`).trim();
 </script>
 
 <style>
+  /* The line above the figure: small, calm, never on a tint or a line (contrast rule). */
+  .hrc-lede {
+    margin: 0 0 var(--space-3);
+    font-size: var(--fs-sm);
+    line-height: 1.45;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
   /* Only --rf-* variables (the element's contract). Money figures in the small mono (tokens v3). */
   .hrc :global(race-figure) {
     --rf-mono: var(--font-source);

@@ -1,4 +1,5 @@
-// Home page text, English. DRAFT: Saba approves every sentence before launch (publish gate).
+// Home page text, English. Approved by Saba on 2026-10-17 (text review: Codex + three Claude reviewers, judged against the facts).
+// The parked blocks below (not on the home page) are still DRAFT.
 // The real home page (/) renders this file (Phase 1c "Calm" design). The Phase 1 directions (/design/a|b|c)
 // and the parked notebook explainers (src/components/parked/) still read some older fields; those are
 // marked "not on the home page". Visitors of / never see them.
@@ -8,14 +9,14 @@
 // and no business numbers beyond bitnet.ge's public counters).
 // Never claim "I review every change" for PlayTime.
 // Sources for every number: the research notes in private/research/ (not in git), checked 2026-10-13/15.
-// Lines marked "DRAFT (Saba approves)" wait for Saba's OK before launch.
+// Lines still marked "DRAFT (Saba approves)" are parked (not on the home page) and wait for Saba's OK.
 
 import { PERSON } from "../lib/site";
 
 export const seo = {
   title: "Saba Janelidze — Principal Engineer · Fintech & AI",
   description:
-    "I help software teams that handle money work with AI agents safely, and I build the AI features their product needs. Principal Engineer at a licensed crypto exchange.",
+    "Principal Engineer at a licensed crypto exchange. I help fintech teams use AI coding agents safely, and I build AI features for their products.", // 143 characters; Google cuts at about 155
 };
 
 // The header links. On phones only the ones with phone: true show (no sideways scroll at 320 px).
@@ -29,7 +30,7 @@ export const nav = [
 ];
 
 /** The main action everywhere on the home page: a plain email link (no booking page yet).
- *  DRAFT (Saba approves): the label says what the email is for (Phase 1d fix 11). */
+ *  The label says what the email is for (Phase 1d fix 11). Approved 2026-10-17. */
 export const emailCta = { label: "Email me about your team", href: `mailto:${PERSON.email}` };
 
 /** The lab's contact path. /book is an honest "Get in touch" page today; it reads ?from= and keeps it,
@@ -47,12 +48,17 @@ export const hero = {
   /** The full one-sentence pitch (the design pages /design/a|b|c and the page description still use it). */
   pitch:
     "I help software teams that handle money work with AI agents safely — and I build the AI features their product needs.",
-  // DRAFT (Saba approves): the one proof sentence under the pitch. Sources: bitnet.ge (licence),
-  // Saba's confirmed facts of 2026-10-14/15 (title; what is live), the role history in about.bio.
+  // The one proof sentence under the pitch (approved 2026-10-17). Sources: bitnet.ge (licence),
+  // Saba's confirmed facts of 2026-10-14/15 (title; what is live), the role history in about.bio, and the AI set-up
+  // (research 2026-10-14). The AI half was added in the text review: the headline is about AI agents, the old line proved only fintech.
   proofLine:
-    "Since 2023 I've helped build a crypto exchange licensed by the National Bank of Georgia. Today I lead the architecture of its new core platform.",
+    "Since 2023 I've helped build a crypto exchange licensed by the National Bank of Georgia. I lead its new core platform's architecture and wrote most of the team's AI coding set-up.",
   email: emailCta,
-  // DRAFT (Saba approves): the quiet recruiter route next to the main button.
+  // The line above the race figure (HeroRace): ties the bug to AI agents and to Saba's method. Chosen by Saba on 2026-10-17
+  // after Codex and a skeptic reviewer. Every part is backed on the page ("can", not "do"; review agents: How I work, 6d).
+  // Never claim his review agents catch this exact bug: not confirmed. Never call it "load", a "retry" or "paying twice".
+  raceLede: "AI agents can write this, and it can pass tests. My review agents check money code.",
+  // The quiet recruiter route next to the main button (approved 2026-10-17).
   hiring: { label: "Hiring? See my CV", href: "/cv" },
   // Not on the home page (Phase 1 design pages only):
   kicker: "portfolio · rev. 2026-10",
@@ -69,34 +75,36 @@ export const hero = {
 /** label: the full label (from 640 px); short: the phone label, so the four source lines line up in the 2 x 2 grid. */
 export type HeroNumber = { value: string; label: string; short: string; source: string };
 
-// DRAFT (Saba approves): the four numbers under the hero (Phase 1e: two for the company's scale, two for Saba's
+// The four numbers under the hero, approved 2026-10-17 (Phase 1e: two for the company's scale, two for Saba's
 // own part). All true and dated. Phase 1f: the labels don't name the company; the source lines keep "bitnet.ge"
 // so a reader can check the numbers (Saba, 2026-10-15). Sources: bitnet.ge's public counters (read 2026-10-15; re-check on the publish day)
 // and the private research notes of 2026-10-14 (private/research/, not in git). "38 of 38": every customer action
 // must declare how a repeat is handled, or the build fails; Saba's rule, live since the September 2026 release.
-// The label says "checks for repeat safety", not "runs once", on purpose.
+// The label says what the build checks (that each action declares its repeat rule), not "safe" or "runs once", on purpose.
+// "237 of 278": Saba is first author of 237 of the 278 ADRs; some were drafted by an agent under his direction (details: private notes).
+// The phone labels of the two company numbers say "exchange's", so under Saba's name they don't read as his own numbers.
 // Left out on purpose: "Since 2023" (repeats the proof sentence), PlayTime's "27" (a side project),
 // "#1 of 28 contributors" (vanity), "4 hours" and "109 of 109 commits by an AI agent" (weak oversight to a buyer).
 export const heroNumbers: HeroNumber[] = [
-  { value: "219,764", label: "registered users on the exchange I help build", short: "registered users", source: "bitnet.ge, Oct 2026" },
-  { value: "2,538,923", label: "transactions on the same exchange", short: "transactions", source: "bitnet.ge, Oct 2026" },
+  { value: "219,764", label: "registered users on the exchange I help build", short: "exchange's registered users", source: "bitnet.ge, Oct 2026" },
+  { value: "2,538,923", label: "transactions on the same exchange", short: "exchange's transactions", source: "bitnet.ge, Oct 2026" },
   {
     value: "237 of 278",
-    label: "architecture decisions for its new core platform, written up by me",
-    short: "architecture decisions by me",
+    label: "architecture decision records for its new core platform, first-authored by me",
+    short: "records I first-authored",
     source: "platform code, Oct 2026",
   },
   {
     value: "38 of 38",
-    label: "customer actions the build checks for repeat safety, under a rule I wrote",
-    short: "actions checked for repeats",
-    source: "live since Sep 2026",
+    label: "customer actions that must declare how a repeat is handled, or the build fails",
+    short: "actions with a repeat rule",
+    source: "my rule, since Sep 2026", // short enough for one line in half a phone screen
   },
 ];
 
 // The hero's right side: the payment-race figure (components/home/HeroRace.astro) is the lab session's shared
 // element <race-figure> 1.0.0, vendored in src/vendor/race-figure/. Its texts live in that package, not here.
-// DRAFT (Saba approves, publish gate): every text inside the figure (title for screen readers, the four step names,
+// Approved by Saba on 2026-10-17 (kept as they are): every text inside the figure (title for screen readers, the four step names,
 // "paid 80" / "refused", "Balance", "Paid out", "Exchange short", the caption "Order 11 of 54. Both passed the check.
 // Balance 20, paid out 160.", "Run another order", "Pause" / "Play", "Reproduce it yourself →" and the note "Each run is a
 // recorded trace of the game's real code, checked by a test on every build."). Changes go to the lab session.
@@ -189,30 +197,33 @@ export const proof: ProofFact[] = [
 
 export const offers = {
   heading: "What I do",
-  intro: "Three ways I help teams that build products around money.",
+  intro: "Three ways I can help teams that move money.",
   // Not on the home page (Phase 1 design pages only):
   more: { label: "Book a call to talk it through", href: book("home-offers") },
-  // proof: one line per offer that points at the evidence (Phase 1d fix 7). DRAFT (Saba approves).
+  // proof: one line per offer that points at the evidence (Phase 1d fix 7). Approved 2026-10-17.
   // Sources: the private research notes (private/research/, not in git) and Saba's confirmed facts of 2026-10-15.
-  // Offer 1: tooling counts only (no module names, no claim that any Bitnet area was built by agents).
+  // Offer 1: tooling counts only (no module names, no claim that any Bitnet area was built by agents). "My team", never the
+  // exchange's name next to these counts (Saba decides what is said about the exchange).
+  // The audit-then-rollout steps are on the page by Saba's choice (2026-10-17).
   // Offer 2: the thinnest proof; DevNews's live site is down, so the link goes to its public code.
   items: [
     {
-      title: "AI-native engineering for teams that handle money",
-      text: "I set up coding agents in your repo with rules, safety hooks and automatic checks, and train your team to use them.",
-      proof: "I wrote most of a fintech team's agent set-up: 21 skills, 6 specialist agents, 13 safety hooks.",
+      title: "AI coding agents in your repo, set up safely",
+      text: "First an audit, then a 2-week rollout: coding agents in your repo with rules, safety hooks and automatic checks, and training for your team.",
+      proof: "I wrote most of my team's agent set-up: 21 skills, 6 review agents, 13 safety hooks, and a CI check on the set-up itself.",
       link: { label: "How I work", href: "#how", dir: "down" },
     },
     {
       title: "AI features in your product",
-      text: "An assistant, document search or back-office automation, with tested answers, logs, cost limits and a human confirm before it changes data.",
+      text: "An assistant, document search or back-office automation, with tests for its answers, logs, cost limits, and a person's OK before it changes data.",
       proof: "DevNews, my open-source AI news reader: summaries from three AI providers, with a fallback when one fails.",
       link: { label: "Code on GitHub", href: "https://github.com/000Janela000/DevNews", dir: "out" },
     },
     {
       title: "Fintech & payment systems",
-      text: "Payments, ledgers, identity checks and staff tools that stay correct even when a request arrives twice.",
-      proof: "Live on the exchange I help build: the payment-provider integration I built, with bank-app deposits, card payments and recurring card charges.",
+      // No "ledgers": not Saba's area at the exchange (text review 2026-10-17).
+      text: "Payments, identity checks, audit history and staff tools, built so a request that arrives twice runs only once.",
+      proof: "Live on the exchange I help build: my payment-provider integration, with bank-app deposits, card payments and recurring card charges.",
       link: { label: "The work", href: "#work-bitnet", dir: "down" },
     },
   ],
@@ -222,7 +233,8 @@ export const offers = {
 export type MethodStep = { title: string; text: string; fact: string; source: string };
 
 // The one static method diagram on the home page (the stepped pipeline moved off the home page).
-// DRAFT (Saba approves). General words on purpose: a method, not a claim about any one company's code.
+// Approved 2026-10-17. General words on purpose: a method, not a claim about any one company's code.
+// The intro must never hint that a person reviews each PlayTime change (no one does; the automatic checks do).
 // Facts: AI proof inventory (research 2026-10-13), public-safe counts only. Never "109 of 109 commits by an agent".
 // - 147: PlayTime's behaviour contract, CL-001 to CL-147; CI fails a tracked change without a contract entry.
 // - 7 in 4 days: PlayTime CL-140 to CL-147, shipped live 2026-10-05 to 10-08.
@@ -232,11 +244,11 @@ export type MethodStep = { title: string; text: string; fact: string; source: st
 // - 11 of 11: WasteAway's decision table, every decision "decided_by: founder".
 export const method = {
   heading: "How I work with AI agents",
-  intro: "Agents write much of the code. The rules, the checks and the final yes stay with people.",
+  intro: "Agents write much of the code. Automatic checks block what fails. A person decides on money and anything public.",
   steps: [
     {
       title: "Plan and rules",
-      text: "Every task starts from a written plan and the team's rules, which the agents read first.",
+      text: "Every task starts from a written plan and the project's rules, which the agents read first.",
       fact: "147 entries in a behaviour contract that the build checks",
       source: "PlayTime, Oct 2026",
     },
@@ -249,24 +261,24 @@ export const method = {
     {
       title: "Automatic checks",
       text: "Lint, types, tests and schema checks block anything that fails.",
-      fact: "27 automatic checks in 12 pipelines",
+      fact: "27 automatic checks in 12 pipeline files",
       source: "PlayTime, Oct 2026",
     },
     {
-      title: "Independent review",
-      text: "Separate reviewers look at the risky parts: money, permissions, data.",
+      title: "Separate review",
+      text: "Separate review agents check the risky parts: money, permissions, data.",
       fact: "111 agent claims re-checked in one audit; 12 corrected",
-      source: "fintech team, 2026",
+      source: "my fintech team, 2026",
     },
     {
       title: "A person approves",
-      text: "Money, accounts and anything public need a human yes before release.",
-      fact: "11 of 11 launch decisions signed off by me, not an agent",
+      text: "Money, accounts and anything public need a person's yes first.",
+      fact: "All 11 launch decisions made by me, not an agent",
       source: "WasteAway, Oct 2026",
     },
   ] satisfies MethodStep[],
   // A bounded claim (Phase 1d fix 3): a regulated buyer distrusts "so it cannot come back".
-  loop: "When a new kind of bug gets through, I turn it into a new automatic check. The new check blocks that failure path.",
+  loop: "When a new kind of bug gets through, I add an automatic check so it is caught next time.",
 };
 
 
@@ -365,14 +377,14 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       title: "Bitnet.ge",
       role: "Crypto exchange · Principal Engineer",
       years: "2023 – now",
-      // DRAFT (Saba approves): outcome first. What is live: confirmed by Saba on 2026-10-15.
+      // Outcome first, approved 2026-10-17. What is live: confirmed by Saba on 2026-10-15. Bank-app items are deposits.
       outcome:
-        "Live today: the new identity checks, card and bank-app payments, and a rule that every customer action runs only once, even after a double tap.",
+        "Built by me, live today: the new identity checks, card payments, bank-app deposits, and a rule that each customer action runs only once, even after a double tap.",
       // The role history is in the hero proof line and in About, so the card does not repeat it.
       text: "A crypto exchange licensed by the National Bank of Georgia.",
       note: "Full case study on request",
-      // DRAFT (Saba approves). A mailto until the /work/bitnet case study exists (Phase 1d fix 9).
-      more: { label: "Ask me for the full case study", href: `mailto:${PERSON.email}?subject=${encodeURIComponent("Bitnet case study")}` },
+      // A mailto until the /work/bitnet case study exists (Phase 1d fix 9). No written case study exists yet, so it doesn't promise one.
+      more: { label: "Ask me how it was built", href: `mailto:${PERSON.email}?subject=${encodeURIComponent("How the Bitnet work was built")}` },
       tags: ["Fintech", "Identity checks", "Go"],
       tech: ["Go", "NestJS", "GraphQL", "PostgreSQL", "React"],
       // Retaken on 2026-10-15 and cropped above the counter strip, so it can never disagree with the numbers row
@@ -389,12 +401,13 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
     },
     {
       slug: "playtime",
-      // DRAFT (Saba approves). Source: playtime/STATUS.md (listings public since 2026-10-07; payment in test mode).
-      stage: "Live listings · booking in testing",
+      // Approved 2026-10-17. Source: playtime/STATUS.md (listings public since 2026-10-07; payments in test mode; booking
+      // open only to the founder).
+      stage: "Live listings · booking built",
       years: "2025 – now",
       title: "Playtime.ge",
       role: "Sports & entertainment booking · Founder",
-      outcome: "19 padel clubs in Tbilisi listed; online booking with payment is in final testing.",
+      outcome: "19 padel clubs in Tbilisi listed publicly. Booking with payment is built; payments are still in test mode.",
       text: "A booking marketplace for sports venues. AI agents write most of the code; 27 automatic checks block any failing change.",
       tags: ["Marketplace", "AI agents", "Web + mobile"],
       tech: ["NestJS", "GraphQL", "Next.js", "Expo", "PostgreSQL"],
@@ -408,8 +421,8 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       title: "WasteAway",
       role: "Waste pickup startup · Founder",
       years: "2026",
-      // DRAFT (Saba approves). Source: WasteAway's own status notes (Oct 2026).
-      outcome: "A live website and a worked-out cost model, ready for the first pilot building.",
+      // Approved 2026-10-17. Source: WasteAway's own status notes (Oct 2026). No claim about a pilot building beyond "next".
+      outcome: "A live website and a worked-out cost model. Next: the first pilot building.",
       text: "Door-to-door garbage pickup for apartment buildings in Tbilisi. I'm building it from zero — brand, website and operations.",
       tags: ["Startup", "AI agents", "Cloudflare"],
       tech: ["Astro", "TypeScript", "Cloudflare Workers", "Cloudflare D1"],
@@ -425,7 +438,7 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       title: "Chama",
       role: "Restaurant platform · Backend Lead",
       years: "2024 – 2025",
-      outcome: "Designed the backend for live dynamic pricing.",
+      outcome: "Designed and wrote the backend for live dynamic pricing.",
       text: "Backend lead on a restaurant platform with live dynamic pricing. I designed the architecture — GraphQL, NestJS, Postgres, Redis.",
       tags: ["Backend lead", "NestJS", "Redis"],
       tech: ["NestJS", "GraphQL", "PostgreSQL", "Redis"],
@@ -474,7 +487,7 @@ export const ask = {
 // Not on the home page since Phase 1c (about.openSource has the short version). Parked: OpenSource.astro.
 export const openSource = {
   heading: "Open source",
-  downloads: "4,400+ npm downloads",
+  downloads: "4,402 npm downloads",
   downloadsNote: "across 3 packages; npm also counts bots and CI servers",
   items: [
     {
@@ -487,7 +500,7 @@ export const openSource = {
     {
       name: "acctswap",
       kind: "Rust command-line tool",
-      text: "A formally verified CLI for Claude Code power users who run many sessions across machines. 435 of 435 mutants caught, a TLA+ model and Kani proofs.",
+      text: "A CLI for Claude Code power users who run many sessions across machines. A TLA+ model, Kani proofs, and 435 of 435 planted bugs caught by its tests.",
       install: "cargo install acctswap",
       href: "https://github.com/000Janela000/acctswap",
     },
@@ -504,13 +517,13 @@ export const openSource = {
 export const about = {
   heading: "About",
   bio: [
-    // DRAFT (Saba approves): the role history. Phase 1f: no company name here; the work card names it.
-    "I'm a Principal Engineer based in Georgia. Since January 2023 I've worked on a licensed crypto exchange: first its customer web app, then its backend, and now its new core platform, whose architecture I lead.",
+    // The role history, approved 2026-10-17. Phase 1f: no company name here; the work card names it.
+    "I'm a Principal Engineer based in Georgia. Since January 2023 I've worked on a licensed crypto exchange. I started on its customer web app, moved to its backend, and now lead the architecture of its new core platform.",
     "On the side I build my own products, PlayTime and WasteAway, with AI agents doing most of the coding.",
   ],
   /** Short rows under the bio (Phase 1 design pages; the home page shows the grouped stack below instead). */
   facts: [{ label: "Stack", text: "Go, TypeScript, NestJS, GraphQL, PostgreSQL, Redis, React, Next.js, Astro, Cloudflare" }],
-  // One line per tool with its proof number (Phase 1d fix 8). DRAFT (Saba approves).
+  // One line per tool with its proof number (Phase 1d fix 8). Approved 2026-10-17: exact numbers (the rounded ones didn't add up).
   // Numbers: material inventory (research 2026-10-13, section 16): npm downloads in the last year, Arcana 2,420,
   // OrgClone 1,596, UserClone 386 (4,402 across the three); acctswap: 435 mutants caught, 0 missed, a TLA+ model of
   // the switching protocol, Kani proofs. npm also counts bots and CI servers, so the note says so.
@@ -520,23 +533,23 @@ export const about = {
       {
         name: "Arcana",
         text: "18 skills and 5 agents for Claude Code and Codex",
-        proof: "2,400+ npm downloads in a year",
+        proof: "2,420 npm downloads in the last year",
         href: "https://github.com/cj-ways/arcana",
       },
       {
         name: "acctswap",
         text: "a Rust tool that switches Claude accounts across sessions",
-        proof: "TLA+ model, Kani proofs, 435 of 435 mutants caught",
+        proof: "A TLA+ model, Kani proofs, and 435 of 435 planted bugs caught by its tests",
         href: "https://github.com/000Janela000/acctswap",
       },
       {
         name: "OrgClone and UserClone",
         text: "clone a whole GitHub org, or all your repos onto a new computer",
-        proof: "1,900+ npm downloads in a year",
+        proof: "1,982 npm downloads in the last year",
         href: "https://github.com/cj-ways/orgclone",
       },
     ],
-    note: "npm counts, Oct 2026: 4,400+ across my three packages, bots and CI servers included.",
+    note: "npm counts, Oct 2026: 4,402 across my three packages, bots and CI servers included.",
   },
   portraitAlt: "Portrait of Saba Janelidze",
   // Not on the home page (Phase 1 design pages only):
@@ -550,14 +563,15 @@ export const about = {
     { group: "Backend", items: ["NestJS", "GraphQL", "PostgreSQL", "Redis", "Job queues", "OpenTelemetry"] },
     { group: "Frontend & mobile", items: ["React", "Next.js", "Astro", "Tailwind", "Expo"] },
     { group: "Cloud", items: ["Cloudflare Workers & D1", "Vercel", "Railway", "GitHub Actions"] },
-    { group: "AI", items: ["Claude Code", "Codex", "LLM APIs with provider fallback", "Evals"] },
+    { group: "AI", items: ["Claude Code", "Codex", "LLM APIs with provider fallback"] }, // no "Evals" until there is eval work to show
   ],
 };
 
 
 export const contact = {
   heading: "Let's talk",
-  text: "Tell me what your team is building and where AI or payments slow you down. A short intro call is the easiest start: email me and we'll find a time.",
+  // The buyer's pain is risk, not speed (text review 2026-10-17).
+  text: "Tell me what your team is building, how you use AI agents today, and where you don't trust them yet. A short intro call is the easiest start: email me and we'll find a time.",
   email: PERSON.email,
   cta: emailCta,
   copy: { idle: "Copy", done: "Copied" },
