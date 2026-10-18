@@ -109,5 +109,7 @@ const strip = [
       )
     }
     <slot />
+    {/* Cloudflare Web Analytics (no cookies), the same site token as the old site; allowed by the CSP in public/_headers. */}
+    <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "8fd5348ab0444874be665a51419145b6"}'></script>
   </body>
 </html>
