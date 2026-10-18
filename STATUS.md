@@ -45,6 +45,8 @@
 
 ## Log
 
+- **2026-10-18 (test deploy):** with Saba's OK, the new site is on its test address https://sabajanelidze-web.ssjanelidze.workers.dev (Worker `sabajanelidze-web`, version `f32a2ff1`, 30 files; the domain still serves the old site). Checked there: `/`, `/cv`, `/book` answer 200; `/work/...` and `/ka` go home; `/design/...` is 404 (not uploaded); `x-robots-tag: noindex`; the security headers and the 1-year cache for `/_astro/`; in Chrome, no console errors, the race figure upgrades, no sideways scroll at 390 px.
+
 - **2026-10-18 (launch day picked, old site kept):** Saba picked today as the launch day for both sites (the lab was told: NOTICE launch-1#2). He also chose to keep the old site online at `v1.sabajanelidze.com` (steps in Next steps). bitnet.ge counters re-read today: 220,012 users, 2,574,508 transactions (in `src/content/home.ts`). The build and the dry run pass (45 files, nothing uploaded).
 
 - **2026-10-18 (lab ready):** the lab is ready except Saba's launch OKs (STATUS launch-1#5): every public text approved, `cc9de33` on its `main`, CI green (checked on GitHub). Checked the switch-over here: the Cloudflare token can deploy Workers; `www` and the bare domain point to Vercel through DNS-only CNAMEs.
