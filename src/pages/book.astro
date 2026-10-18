@@ -21,17 +21,17 @@ const mail = introEmailHref();
   noindex
 >
   <Header />
-  <main id="main" class="ui-wrap ph" data-get-in-touch>
-    <h1 class="ph-h1">Get in touch</h1>
-    <p class="ph-lead">
+  <main id="main" class="ui-wrap ui-page" data-get-in-touch>
+    <h1 class="ui-display ui-page-title">Get in touch</h1>
+    <p class="ui-page-lead">
       Email is the easiest way to reach me. Send a line about your team and what you'd like to talk about, and I'll
       suggest a time for a short call.
     </p>
-    <p class="ph-actions">
+    <p class="ui-page-actions">
       <a class="ui-btn" href={mail} data-mail data-subject={introEmail.subject} data-body={introEmail.body}>Email me</a>
       <a class="ui-action" href={PERSON.profiles.linkedin} rel="noopener me">LinkedIn<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
     </p>
-    <p class="ph-note">
+    <p class="ui-page-note">
       Or write to{" "}<a class="ui-link" href={`mailto:${PERSON.email}`}>{PERSON.email}</a>{" "}directly.
     </p>
   </main>
@@ -53,35 +53,3 @@ const mail = introEmailHref();
   }
 </script>
 
-<style>
-  .ph {
-    padding-top: clamp(3rem, 8vw, 6rem);
-    padding-bottom: var(--space-6);
-  }
-  .ph-h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: var(--weight-display);
-    font-optical-sizing: auto;
-    font-size: var(--fs-2xl);
-    line-height: var(--lh-heading);
-    letter-spacing: var(--tracking-heading);
-  }
-  .ph-lead {
-    max-width: 34em;
-    margin: var(--space-4) 0 var(--space-6);
-    font-size: var(--fs-md);
-    color: var(--muted);
-  }
-  .ph-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3) var(--space-6);
-    margin: 0;
-  }
-  .ph-note {
-    margin: var(--space-5) 0 0;
-    color: var(--muted);
-  }
-</style>

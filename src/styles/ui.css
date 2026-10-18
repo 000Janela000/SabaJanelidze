@@ -1,6 +1,5 @@
-/* Shared building blocks of the calm design (Phase 1c, updated for tokens v3 in Phase 1e). Every value comes
-   from tokens.css, so the light and dark themes work without extra rules. Prefix "ui-" so nothing clashes with
-   Tailwind, the Phase 1 design directions or the parked notebook explainers ("nb-", notebook.css). */
+/* Shared building blocks of the calm design, used by two or more pages or sections. Every value comes from
+   tokens.css, so the light and dark themes work without extra rules. The prefix "ui-" marks a shared class. */
 
 /* ---------- Layout ---------- */
 .ui-wrap {
@@ -15,33 +14,45 @@
   padding-top: var(--section-space);
 }
 
-/* ---------- Type ---------- */
-/* The heading face (Newsreader 500, optical size on). For text 24 px and up only. */
-/* Text only screen readers read (for example the Copy button's result). */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  padding: 0;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border-width: 0;
+/* A plain page (/cv, /book): the padding, the title, the lead line, the actions row and a note. */
+.ui-page {
+  padding-top: clamp(3rem, 8vw, 6rem);
+  padding-bottom: var(--space-6);
+}
+.ui-page-title {
+  margin: 0;
+  font-size: var(--fs-2xl);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tracking-heading);
+}
+.ui-page-lead {
+  max-width: 34em;
+  margin: var(--space-4) 0 var(--space-6);
+  font-size: var(--fs-md);
+  color: var(--muted);
+}
+.ui-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-6);
+  margin: 0;
+}
+.ui-page-note {
+  margin: var(--space-5) 0 0;
+  color: var(--muted);
 }
 
+/* ---------- Type ---------- */
+/* The heading face (Newsreader 500), for headings and big numbers (24 px and up). */
 .ui-display {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
-  font-optical-sizing: auto;
   font-kerning: normal;
 }
 .ui-h2 {
   margin: 0;
   max-width: 22em;
-  font-family: var(--font-display);
-  font-weight: var(--weight-display);
-  font-optical-sizing: auto;
   font-size: var(--fs-2xl);
   line-height: var(--lh-heading);
   letter-spacing: var(--tracking-heading);
@@ -181,4 +192,18 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
   background: var(--surface);
+}
+
+/* ---------- Helpers ---------- */
+/* Text only screen readers read (for example the Copy button's result). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
 }

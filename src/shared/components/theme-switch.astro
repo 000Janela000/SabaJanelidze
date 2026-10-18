@@ -62,10 +62,11 @@ const o = themeSwitch.options;
 </style>
 
 <script>
+  import { THEME_COLOR as COLOR } from "../lib/theme-colors";
+
   type Choice = "light" | "dark" | "auto";
   const root = document.documentElement;
   const dark = window.matchMedia("(prefers-color-scheme: dark)");
-  const COLOR = { light: "#f7f5f0", dark: "#15181d" };
   const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-theme-switch] [data-set]"));
 
   const choice = (): Choice => {

@@ -9,7 +9,7 @@ import { contact } from "./content/contact";
     <a class="ui-btn" href={contact.emailButton.href}>{contact.emailButton.label}</a>
     <span class="ct-email">
       <a class="ui-link" href={`mailto:${contact.email}`}>{contact.email}</a>
-      <CopyEmail class="ct-copy" />
+      <CopyEmail />
     </span>
   </div>
   <p class="ct-links">
@@ -36,20 +36,6 @@ import { contact } from "./content/contact";
     align-items: center;
     gap: var(--space-3);
     font-size: var(--fs-md);
-  }
-  .ct-email :global(.ct-copy) {
-    min-height: 36px;
-    padding: 0 0.75rem;
-    border: 1px solid var(--line-strong);
-    border-radius: var(--radius);
-    background: transparent;
-    color: var(--fg);
-    font: inherit;
-    font-size: var(--fs-sm);
-    cursor: pointer;
-  }
-  .ct-email :global(.ct-copy:hover) {
-    background: var(--surface-2);
   }
   .ct-links {
     display: flex;

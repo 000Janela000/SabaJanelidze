@@ -11,7 +11,7 @@ const { id, heading, intro, class: className } = Astro.props;
 ---
 <section class:list={["ui-section", className]} id={id} aria-labelledby={`${id}-title`}>
   <div class="ui-wrap">
-    <h2 id={`${id}-title`} class="ui-h2">{heading}</h2>
+    <h2 id={`${id}-title`} class="ui-display ui-h2">{heading}</h2>
     {intro && <p class="ui-intro">{intro}</p>}
     <div class="ui-section-body">
       <slot />

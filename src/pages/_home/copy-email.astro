@@ -4,12 +4,8 @@
 // Hidden without JavaScript (the mailto link still works).
 import { contact } from "./content/contact";
 
-interface Props {
-  class?: string;
-}
-const { class: className } = Astro.props;
 ---
-<button type="button" class:list={["copy-email", className]} data-copy={contact.email} data-copied={contact.copyButton.copied} data-failed={contact.copyButton.failed} aria-label={contact.copyButton.label} hidden>
+<button type="button" class="copy-email" data-copy={contact.email} data-copied={contact.copyButton.copied} data-failed={contact.copyButton.failed} aria-label={contact.copyButton.label} hidden>
   <span data-idle>{contact.copyButton.idle}</span>
   <span data-done hidden>{contact.copyButton.done}{" "}<span aria-hidden="true">✓</span></span>
 </button>
@@ -45,3 +41,20 @@ const { class: className } = Astro.props;
     });
   }
 </script>
+
+<style>
+  .copy-email {
+    min-height: 36px;
+    padding: 0 0.75rem;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--fg);
+    font: inherit;
+    font-size: var(--fs-sm);
+    cursor: pointer;
+  }
+  .copy-email:hover {
+    background: var(--surface-2);
+  }
+</style>

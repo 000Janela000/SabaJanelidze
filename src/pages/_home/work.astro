@@ -29,7 +29,7 @@ const host = (url: string) => url.replace("https://", "");
       <p class="ui-meta">
         {lead.role}{"\u00a0· "}<span class="ui-source wk-years">{lead.years}</span>
       </p>
-      <h3 id={`work-${lead.slug}-title`} class="wk-title">
+      <h3 id={`work-${lead.slug}-title`} class="ui-display wk-title">
         {lead.title}
       </h3>
       <p class="wk-outcome">{lead.outcome}</p>
@@ -144,9 +144,6 @@ const host = (url: string) => url.replace("https://", "");
   }
   .wk-title {
     margin: var(--space-1) 0 var(--space-3);
-    font-family: var(--font-display);
-    font-weight: var(--weight-display);
-    font-optical-sizing: auto;
     font-size: var(--fs-xl);
     line-height: var(--lh-heading);
     letter-spacing: var(--tracking-heading);

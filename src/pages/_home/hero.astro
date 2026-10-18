@@ -14,7 +14,7 @@ import { hero } from "./content/hero";
   <div class="ui-wrap hero-grid">
     <div class="hero-main">
       <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
-      <h1 id="hero-title" class="hero-pitch">
+      <h1 id="hero-title" class="ui-display hero-pitch">
         {hero.headline.map((sentence, i) => <span class="hero-pitch-s">{sentence}{i < hero.headline.length - 1 ? " " : ""}</span>)}
       </h1>
       <p class="hero-sub">{hero.subline}</p>
@@ -31,7 +31,7 @@ import { hero } from "./content/hero";
       {
         hero.numbers.map((n) => (
           <li class="hero-num">
-            <span class="hero-num-value">{n.value}</span>
+            <span class="ui-display hero-num-value">{n.value}</span>
             <span class="hero-num-label">
               <span class="hero-num-long">{n.label}</span>
               <span class="hero-num-short">{n.labelShort}</span>
@@ -92,9 +92,6 @@ import { hero } from "./content/hero";
   .hero-pitch {
     max-width: 19em;
     margin: 0;
-    font-family: var(--font-display);
-    font-weight: var(--weight-display);
-    font-optical-sizing: auto;
     font-size: var(--fs-hero);
     line-height: var(--lh-tight);
     letter-spacing: var(--tracking-display);
@@ -165,9 +162,6 @@ import { hero } from "./content/hero";
     }
   }
   .hero-num-value {
-    font-family: var(--font-display);
-    font-weight: var(--weight-display);
-    font-optical-sizing: auto;
     font-size: var(--fs-xl);
     font-variant-numeric: tabular-nums;
     line-height: 1.1;

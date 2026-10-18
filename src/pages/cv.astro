@@ -15,16 +15,16 @@ import { PERSON } from "../shared/lib/site";
   noindex
 >
   <Header />
-  <main id="main" class="ui-wrap ph">
-    <h1 class="ph-h1">{cv.title}</h1>
-    <p class="ph-lead">{cv.lead}</p>
-    <p class="ph-actions">
+  <main id="main" class="ui-wrap ui-page">
+    <h1 class="ui-display ui-page-title">{cv.title}</h1>
+    <p class="ui-page-lead">{cv.lead}</p>
+    <p class="ui-page-actions">
       <a class="ui-btn" href={cv.pdf.href}>{cv.pdf.label}</a>
       <a class="ui-action" href={cv.linkedin.href} rel="noopener me">{cv.linkedin.label}<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
     </p>
 
     <section class="cv-sec" aria-labelledby="cv-work">
-      <h2 id="cv-work" class="cv-h2">{cv.jobsHeading}</h2>
+      <h2 id="cv-work" class="ui-display cv-h2">{cv.jobsHeading}</h2>
       <ol class="cv-list">
         {
           cv.jobs.map((j) => (
@@ -67,7 +67,7 @@ import { PERSON } from "../shared/lib/site";
     </section>
 
     <section class="cv-sec" aria-labelledby="cv-own">
-      <h2 id="cv-own" class="cv-h2">{cv.ownHeading}</h2>
+      <h2 id="cv-own" class="ui-display cv-h2">{cv.ownHeading}</h2>
       <ol class="cv-list">
         {
           cv.own.map((j) => (
@@ -86,13 +86,13 @@ import { PERSON } from "../shared/lib/site";
     </section>
 
     <section class="cv-sec cv-short" aria-labelledby="cv-open">
-      <h2 id="cv-open" class="cv-h2">{cv.openHeading}</h2>
+      <h2 id="cv-open" class="ui-display cv-h2">{cv.openHeading}</h2>
       <p>{cv.open}</p>
-      <h2 class="cv-h2 cv-h2--next">{cv.stackHeading}</h2>
+      <h2 class="ui-display cv-h2 cv-h2--next">{cv.stackHeading}</h2>
       <p>{cv.stack}</p>
     </section>
 
-    <p class="ph-note">
+    <p class="ui-page-note cv-note">
       Email:{" "}<a class="ui-link" href={`mailto:${PERSON.email}`}>{PERSON.email}</a>
     </p>
   </main>
@@ -100,35 +100,8 @@ import { PERSON } from "../shared/lib/site";
 </Base>
 
 <style>
-  .ph {
-    padding-top: clamp(3rem, 8vw, 6rem);
-    padding-bottom: var(--space-6);
-  }
-  .ph-h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: var(--weight-display);
-    font-optical-sizing: auto;
-    font-size: var(--fs-2xl);
-    line-height: var(--lh-heading);
-    letter-spacing: var(--tracking-heading);
-  }
-  .ph-lead {
-    max-width: 34em;
-    margin: var(--space-4) 0 var(--space-6);
-    font-size: var(--fs-md);
-    color: var(--muted);
-  }
-  .ph-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-3) var(--space-6);
-    margin: 0;
-  }
-  .ph-note {
-    margin: var(--space-7) 0 0;
-    color: var(--muted);
+  .cv-note {
+    margin-top: var(--space-7);
   }
   .cv-sec {
     max-width: 52rem;
@@ -136,9 +109,6 @@ import { PERSON } from "../shared/lib/site";
   }
   .cv-h2 {
     margin: 0 0 var(--space-4);
-    font-family: var(--font-display);
-    font-weight: var(--weight-display);
-    font-optical-sizing: auto;
     font-size: var(--fs-xl);
     line-height: var(--lh-heading);
     letter-spacing: var(--tracking-heading);
