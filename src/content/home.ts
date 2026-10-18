@@ -16,14 +16,14 @@ import { PERSON } from "../lib/site";
 export const seo = {
   title: "Saba Janelidze — Principal Engineer · Fintech & AI",
   description:
-    "Principal Engineer at a licensed crypto exchange. I help fintech teams use AI coding agents safely, and I build AI features for their products.", // 143 characters; Google cuts at about 155
+    "From a crypto exchange's customer app to leading the architecture of its new Go core. Identity checks, payments, audit history, AI agents behind checks.", // 152 characters; Google cuts at about 155
 };
 
 // The header links. On phones only the ones with phone: true show (no sideways scroll at 320 px).
 // "CV" is the quiet recruiter route (Phase 1d fix 11). Phase 1f: it shows on phones too (Saba, 2026-10-15).
 export const nav = [
   { label: "Work", href: "#work", phone: true },
-  { label: "What I do", href: "#services", phone: false },
+  { label: "Work with me", href: "#services", phone: false },
   { label: "About", href: "#about", phone: false },
   { label: "Contact", href: "#contact", phone: true },
   { label: "CV", href: "/cv", phone: true },
@@ -31,15 +31,15 @@ export const nav = [
 
 /** The intro email: a subject and four short prompts, so the first email is easy to write (attack review, Saba 2026-10-18). */
 export const introMail = {
-  subject: "Intro call: AI agents in our repo",
-  body: "Team and what you're building:\n\nHow you use AI agents today:\n\nWhere you don't trust them yet:\n\nGood times for a short call (with time zone):\n",
+  subject: "Intro: [your company]",
+  body: "What you're building:\n\nWhere you need help, and when:\n\nGood times for a short call (with time zone):\n",
 };
 export const introMailHref = () =>
   `mailto:${PERSON.email}?subject=${encodeURIComponent(introMail.subject)}&body=${encodeURIComponent(introMail.body)}`;
 
 /** The main action everywhere on the home page: the intro email (no booking page yet).
  *  The label says what the email is for (Phase 1d fix 11). Approved 2026-10-17. */
-export const emailCta = { label: "Email me about your team", href: introMailHref() };
+export const emailCta = { label: "Email me", href: introMailHref() };
 
 /** The lab's contact path. /book is an honest "Get in touch" page today; it reads ?from= and keeps it,
  *  so lab links (?from=lab-payments) still work. Later it can forward to a booking calendar. */
@@ -50,17 +50,16 @@ export const hero = {
   /** The one small line above the headline. The only place the title appears on the first screen.
    *  Phase 1f: no company name on the first screen (Saba, 2026-10-15: "don't highlight Bitnet that much"). */
   role: "Principal Engineer · Fintech & AI",
-  // Phase 1f (Saba chose this on 2026-10-15): a short headline as the h1, the rest of the pitch in the subline.
-  headline: "AI agents for teams that move money, without losing a payment.",
-  subline: "I help fintech teams use AI coding agents safely, and I build the AI features their product needs.",
+  // Positioning review (Saba, 2026-10-19): lead with Saba, AI as how he works. The headline is his path at the exchange
+  // (Saba's pick "V1" of four written alternatives); the dates under it make the jump believable.
+  headline: "I started on a crypto exchange's customer app. Today I lead the architecture of its new core.",
+  subline:
+    "Since January 2023 at an exchange licensed by the National Bank of Georgia: the React customer app (2023), the backend (2024–2025), the new Go core platform (2026).",
   /** The full one-sentence pitch (the design pages /design/a|b|c and the page description still use it). */
   pitch:
     "I help software teams that handle money work with AI agents safely — and I build the AI features their product needs.",
-  // The one proof sentence under the pitch (approved 2026-10-17). Sources: bitnet.ge (licence),
-  // Saba's confirmed facts of 2026-10-14/15 (title; what is live), the role history in about.bio, and the AI set-up
-  // (research 2026-10-14). The AI half was added in the text review: the headline is about AI agents, the old line proved only fintech.
-  proofLine:
-    "Since 2023 I've helped build a crypto exchange licensed by the National Bank of Georgia. I lead its new core platform's architecture and wrote most of the team's AI coding set-up.",
+  // What is live and his (Saba's confirmed facts of 2026-10-15). The first screen's AI line is the race figure's line (raceLede).
+  proofLine: "Built by me and live: identity checks, audit history, card and bank payments.",
   email: emailCta,
   // The line above the race figure (HeroRace): ties the bug to AI agents and to Saba's method. Chosen by Saba on 2026-10-17
   // after Codex and a skeptic reviewer. Every part is backed on the page ("can", not "do"; review agents: How I work, 6d).
@@ -204,35 +203,26 @@ export const proof: ProofFact[] = [
 ];
 
 export const offers = {
-  heading: "What I do",
-  intro: "Three ways I can help teams that move money.",
+  heading: "Work with me",
+  intro: "Two kinds of work, both where money or identity must be right.",
   // Not on the home page (Phase 1 design pages only):
   more: { label: "Book a call to talk it through", href: book("home-offers") },
-  // proof: one line per offer that points at the evidence (Phase 1d fix 7). Approved 2026-10-17.
-  // Sources: the private research notes (private/research/, not in git) and Saba's confirmed facts of 2026-10-15.
-  // Offer 1: tooling counts only (no module names, no claim that any Bitnet area was built by agents). "My team", never the
-  // exchange's name next to these counts (Saba decides what is said about the exchange).
-  // The audit-then-rollout steps are on the page by Saba's choice (2026-10-17).
-  // Offer 2: the thinnest proof; DevNews's live site is down, so the link goes to its public code.
+  // Positioning review (Saba, 2026-10-19): two kinds of work instead of three packaged offers. Dropped: "AI features in your
+  // product" (thin proof) and the fixed "audit, then a 2-week rollout" (no client proof yet). proof: one line that points at the
+  // evidence. Next to the AI counts: "my team", never the exchange's name.
   items: [
     {
-      title: "AI coding agents in your repo, set up safely",
-      text: "First an audit, then a 2-week rollout: coding agents in your repo with rules, safety hooks and automatic checks, and training for your team.",
-      proof: "In one audit on my team, a verifier agent re-checked 111 claims made by other agents and corrected 12. I wrote most of that set-up: 6 review agents, 13 safety hooks, and a build check on the set-up itself.",
-      link: { label: "How I work", href: "#how", dir: "down" },
-    },
-    {
-      title: "AI features in your product",
-      text: "An assistant, document search or back-office automation, with tests for its answers, logs, cost limits, and a person's OK before it changes data.",
-      proof: "The same rules as my own work: separate review agents, and a person's OK before anything touches money or data. Smallest proof today: DevNews, my open-source AI reader (three providers, with a fallback when one fails).",
-      link: { label: "Code on GitHub", href: "https://github.com/000Janela000/DevNews", dir: "out" },
-    },
-    {
-      title: "Fintech & payment systems",
+      title: "Payments, identity and core systems",
       // No "ledgers": not Saba's area at the exchange (text review 2026-10-17).
-      text: "Payments, identity checks, audit history and staff tools, built so a request that arrives twice runs only once.",
-      proof: "Live on the exchange I help build: my payment-provider integration, with bank-app deposits, card payments and recurring card charges.",
+      text: "A payment-provider integration, an identity-check flow, an audit history, or the architecture around them.",
+      proof: "The same kinds of systems I built and run at the exchange.",
       link: { label: "The work", href: "#work-bitnet", dir: "down" },
+    },
+    {
+      title: "AI coding agents with guardrails",
+      text: "If your team is bringing in coding agents, I set up what I run myself: rules the agents read first, review agents for the risky parts, safety hooks, and a check on the set-up itself. Scope after a first look at your repo.",
+      proof: "In one audit on my team, a verifier agent re-checked 111 claims made by other agents and corrected 12.",
+      link: { label: "How I work", href: "#how", dir: "down" },
     },
   ],
 };
@@ -251,8 +241,8 @@ export type MethodStep = { title: string; text: string; fact: string; source: st
 //   (a fintech team's method; told without the company's name).
 // - 11 of 11: WasteAway's decision table, every decision "decided_by: founder".
 export const method = {
-  heading: "How I work with AI agents",
-  intro: "Agents write most of the code. Automatic checks block what fails. A person decides on money and anything public.",
+  heading: "How I work",
+  intro: "AI coding agents write much of my code. That works only when the checks around them are stricter than the agents. I write those checks and measure them.",
   steps: [
     {
       title: "Plan and rules",
@@ -385,11 +375,11 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
       title: "Bitnet.ge",
       role: "Crypto exchange · Principal Engineer",
       years: "2023 – now",
-      // Outcome first, approved 2026-10-17. What is live: confirmed by Saba on 2026-10-15. Bank-app items are deposits.
-      outcome:
-        "Built by me, live today: the new identity checks, card payments, bank-app deposits, and a rule that each customer action runs only once, even after a double tap.",
-      // The role history is in the hero proof line and in About, so the card does not repeat it.
-      text: "A crypto exchange licensed by the National Bank of Georgia.",
+      // Positioning review (Saba, 2026-10-19): scope first, then the systems that prove it. What is live: confirmed by Saba on
+      // 2026-10-15. The rule is told as what the build checks (a declaration), never as "runs only once".
+      outcome: "I lead the architecture of the new core platform (Go) and first-authored 237 of its 278 architecture decision records.",
+      // The role history is in the hero subline and in About, so the card does not repeat it. The details go in the smaller text.
+      text: "A crypto exchange licensed by the National Bank of Georgia. Built by me and live: the new identity checks, the audit history, and the payment-provider integration (bank-app deposits, card payments, recurring card charges). One rule I set: every customer action declares how a repeat request is handled, and the build checks it.",
       note: "Full case study on request",
       // A mailto until the /work/bitnet case study exists (Phase 1d fix 9). No written case study exists yet, so it doesn't promise one.
       more: { label: "Ask me how it was built", href: `mailto:${PERSON.email}?subject=${encodeURIComponent("How the Bitnet work was built")}` },
@@ -578,8 +568,8 @@ export const about = {
 
 export const contact = {
   heading: "Let's talk",
-  // The buyer's pain is risk, not speed (text review 2026-10-17).
-  text: "Tell me what your team is building, how you use AI agents today, and where you don't trust them yet. A short intro call is the easiest start: email me and we'll find a time.",
+  // Positioning review (Saba, 2026-10-19): one door for a role or a project, no AI-adoption questions.
+  text: "Tell me what you're building and where you need a senior engineer. Email me and we'll find a time for a short call.",
   email: PERSON.email,
   cta: emailCta,
   copy: { idle: "Copy", done: "Copied", label: "Copy email address", copied: "Email address copied.", failed: "Could not copy. Use the email link." },
