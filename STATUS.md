@@ -31,7 +31,7 @@
 
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race
   figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
-- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; Saba confirmed it there (2026-10-17). The lab now does, without approvals: tokens v3, robots/sitemap/og image, a Worker config (dry run), a public-safety check of its repo; then Saba reviews its texts and approves the Worker, the subdomain, making its repo public and its analytics.
+- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; Saba confirmed it there (2026-10-17). **The lab's build work is done (2026-10-18, `0139bd4`, CI green):** tokens v3, robots/sitemap/og image, a Worker config `sabajanelidze-lab` (dry run, nothing uploaded), a public-safety check of its 51 commits. **Left, all Saba's, in the lab session:** the review of its remaining texts (incident page, proof card, text version, lab home page, docs/reviews), then his OKs for the Worker, the `lab.sabajanelidze.com` route, the repo going public, Web Analytics and the sitemap. The lab can be ready the same day; it sends a ready date after his review.
   - **Launch-day order (lab's proposal):** (1) the lab repo goes public, (2) the lab is deployed and checked live, (3) this site's switch-over, (4) the lab's sitemap goes to Search Console.
   - **Promises to the lab:** keep `/book` live on launch day (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit if `src/styles/tokens.css` changes before launch (it reads v3 from the committed `rebuild` branch; unchanged since `ca74e54`).
 - **Before launch, the lab must be live:** the figure's "Reproduce it yourself →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
@@ -43,6 +43,8 @@
 - Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
 
 ## Log
+
+- **2026-10-18 (lab build done):** the lab finished its launch build work (STATUS launch-1#4); only Saba's text review and launch OKs are left there. Checked here after its remark about `.html` addresses: this site's canonical and og:url are clean (`/`, `/cv`, `/book`), and the 404 page is `noindex`.
 
 - **2026-10-18 (lab launch plan):** the lab's plan arrived (STATUS launch-1#3): Saba confirmed there the same launch day, incident 1 only; the lab's to-do list and the launch-day order are in Next steps. `/book` checked: it keeps the lab's `?from=` tag, nothing redirects or hides it.
 
