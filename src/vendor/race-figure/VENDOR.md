@@ -21,7 +21,7 @@
 
 ## How the portfolio uses them
 
-`src/components/home/HeroRace.astro`:
+`src/pages/_home/hero-race.astro`:
 
 - **HTML:** imported as text (`?raw`) and written into the page on the server, so the end state shows without JavaScript. The only change at build time: the lab address `https://lab.sabajanelidze.com/day/payments` (it appears twice: `lab-url` and the "Reproduce it yourself →" link) gets `?from=portfolio-home`. The build fails if the address does not appear exactly twice, so a new version cannot silently drop the tag.
 - **CSS:** imported normally; Astro puts it inside the page's `<style>` (no extra request). The `--rf-*` variables default to our design tokens, so light and dark work. The component sets `--rf-mono: var(--font-source)` (money figures in the small monospace).

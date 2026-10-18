@@ -1,10 +1,7 @@
 ---
-// The theme switch in the footer: "Theme: Light · Dark · Auto", three real buttons with aria-pressed,
-// shown as plain text; the active one is underlined (Phase 1e).
-// - Auto (the default) follows the visitor's system setting; Light and Dark are remembered in
-//   localStorage (key "theme", values "light" / "dark"). If storage is blocked, the choice lasts for this page.
-// - Hidden without JavaScript (it could not work); the page then follows the system setting.
-// - Switches instantly: no animation (motion rule 5, and Saba's "calm" brief).
+// The theme switch in the footer: "Theme: Light · Dark · Auto", three buttons with aria-pressed, shown as text.
+// Auto follows the system setting; Light and Dark are remembered in localStorage ("theme"). Hidden without
+// JavaScript (the page then follows the system setting). Switches instantly (motion rule 5).
 import { themeSwitch } from "../content/site-chrome";
 const o = themeSwitch.options;
 ---
@@ -18,7 +15,7 @@ const o = themeSwitch.options;
 </div>
 
 <style>
-  /* Plain text buttons (Phase 1d fix 14): no box, no fill. The active one is underlined in the accent and
+  /* Plain text buttons: no box, no fill. The active one is underlined in the accent and
      marked with aria-pressed; the others are muted and underline on hover. Instant, no animation. */
   .theme {
     display: none;

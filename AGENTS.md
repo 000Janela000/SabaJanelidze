@@ -1,6 +1,6 @@
 # Saba Janelidze Portfolio — Agent Instructions
 
-This repo is Saba Janelidze's **personal portfolio site**, live at **https://www.sabajanelidze.com**. It presents Saba as a Principal Engineer in fintech who helps teams use AI coding agents safely. Since the launch (2026-10-18) the site is in English only; the Georgian (`ka`) home page comes in Phase 3.
+This repo is Saba Janelidze's **personal portfolio site**, live at **https://www.sabajanelidze.com**. It presents Saba himself first (his path and scope at a licensed crypto exchange, the systems he built), with AI coding agents as how he works (the positioning review of 2026-10-19). English only; a Georgian page comes in Phase 3.
 
 **This file is shared by every AI agent.** Claude Code reads it through `CLAUDE.md`. Codex reads it directly. Keep tool-specific notes out of here.
 
@@ -30,38 +30,51 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 > **Branch `main` is the new site (Astro 7) since the launch on 2026-10-18** (the old `rebuild` branch was fast-forwarded into it). The old Vite + React site lives on branch `v1`; Vercel builds it and serves it at https://v1.sabajanelidze.com (noindex). Read old files with `git show v1:<path>` (for example `git show v1:src/lib/i18n.ts`). Never copy the old app back into `main`.
 
+### The structure (cleanup of 2026-10-19)
+
+The rule: **a file lives next to the page that uses it, and moves to `src/shared/` only when a second page uses it.** Never move a file up "just in case". Astro ignores folders that start with `_` for routing, so `src/pages/_home/` holds the home page's own code without creating URLs.
+
+```
+src/
+  pages/
+    index.astro          /        the composition of the home page
+    _home/               the home page's own sections (hero, hero-race, work, services, method, about, contact,
+                         section, copy-email) and their text in _home/content/ (one file per section)
+    cv.astro             /cv      (noindex)
+    _cv/content.ts       the /cv text
+    book.astro           /book    "Get in touch" (noindex); keeps ?from= for the lab's links
+    404.astro            the 404 page
+  shared/
+    components/          base-layout (the page shell), seo-head, fonts, header, footer, theme-switch
+    content/             site-chrome.ts (header links, footer, theme-switch words), intro-email.ts (the "Email me" email)
+    lib/                 site.ts (name, email, profiles, JSON-LD), theme-colors.ts (the two page colours)
+  styles/                reset.css, tokens.css, ui.css, global.css
+  assets/fonts/          the Newsreader heading font and its licence
+  vendor/race-figure/    the lab's <race-figure>, vendored byte for byte (never edit; see VENDOR.md)
+```
+
 | Path | What it is |
 |---|---|
-| `src/content/home.ts` | **The home page text (English), in one file.** The home page and the Phase 1 directions render this same text. Every number here is true and dated; the sources are named at the top of the file. The home page texts were approved by Saba on 2026-10-17 (after a review by Codex and three Claude reviewers); only the parked blocks are still marked "DRAFT (Saba approves)". Fields marked "Not on the home page" feed only the Phase 1 design pages and the parked explainers. |
-| `src/content/cv.ts` | The `/cv` text: a dated role list (approved by Saba on 2026-10-17). Sources named at the top. |
-| `src/content/ka-approved.ts` | Georgian strings that were **already approved** on the old site, copied word for word. Do not add new Georgian here (see "Rules"). |
-| `src/lib/site.ts` | Site address, name, email, active profiles (`sameAs`) and the JSON-LD (structured data for Google and AI tools) builder. |
-| `src/layouts/Base.astro` | The page shell: `<head>`, fonts, skip link, the Phase 1 preview strip. `themed` adds the light / dark theme script (runs before the first paint) and the per-theme browser colours. |
-| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 3 (Phase 1e: Newsreader headings, monospace for sources, the accent's three jobs, red only for the money loss). Plain CSS, also copied by the lab site. Guide and change list: `docs/design-tokens.md`. |
-| `src/styles/ui.css` | The shared building blocks of the calm design: `ui-wrap`, `ui-section`, `ui-display` and `ui-h2` (Newsreader), `ui-intro`, `ui-source` (sources, dates, money: small mono), `ui-btn` (the one button style), `ui-action` (secondary text link), `ui-link`, `ui-arrow` (the arrow after a link; nudges 2 px on hover), `ui-meta`, `ui-tag` (a small neutral stage tag), `ui-card`. |
-| `src/styles/notebook.css` | **Parked.** The notebook building blocks (`nb-*`). Not loaded globally; only the parked explainers import it. |
-| `src/components/site/` | `Header.astro` (name + links only; phones show Work, Contact and CV), `Footer.astro` (For hiring managers, theme switch, copyright), `ThemeSwitch.astro` ("Theme: Light · Dark · Auto"), `Section.astro` (one home-page section: heading, intro, content). |
-| `src/components/home/` | The home page sections, in page order: `Hero` (with `HeroRace`, the payment-race figure on the right), `Work`, `Offers`, `Method` (the one static method diagram), `About`, `Contact`. |
-| `src/vendor/race-figure/` | **Vendored, never edit here:** the lab session's `<race-figure>` 1.1.5 (JS, CSS, the no-JavaScript HTML). `VENDOR.md` there: source commit, sizes, hashes, how to update. `HeroRace.astro` writes the HTML into the page, inlines the CSS and loads the JS on idle. Changes go to the lab session. |
-| `src/assets/fonts/` | The Newsreader heading font: one 25 KB file (weight 500, optical size 24 to 72, Latin) and its licence (SIL Open Font License). How it was made: the comment at the top of `src/components/Fonts.astro`. |
-| `src/components/parked/` | **Not on the home page since Phase 1c**, kept for the future "How I work" page and case studies: fig. 1 `GreenTestsFigure`, fig. 2 `RunsOnceFigure`, `HowIShip` (the stepped pipeline), `Lab` (game teaser + "Ask the work"), `OpenSource`, `ProofTable`, `NotebookSection`, and `BlueprintGlow` (the removed WebGL glow; needs its old tokens back before reuse). |
-| `src/lib/stepper.ts` | The engine of the step-through explainers (parked fig. 1, fig. 3; `Pipeline.astro`): one number `--x` drives the picture; Play / Pause / Back / Step. |
-| `src/lib/blueprint-gl.ts` | The parked glow's WebGL code. Nothing loads it today. |
-| `src/components/SeoHead.astro` | Title, description, canonical, hreflang (`en`, `ka`, `x-default`), Open Graph / Twitter tags, JSON-LD. Every page gets it through the layout. |
-| `src/components/Fonts.astro` | Self-hosted fonts: Inter 400 and 600 and Noto Sans Georgian 400 and 600 (the `@fontsource` packages), and Newsreader 500 for headings (`src/assets/fonts/`, preloaded on the calm pages). |
-| `src/components/Pipeline.astro` | The stepped "How I ship with AI agents" explainer (Play / Pause / Step, driven by `src/lib/stepper.ts`). Used by `/design/a`, `/design/b` and the parked `HowIShip`; not on the home page. |
-| `src/components/LedgerAccent.astro` | Signature moment 1: the "balanced ledger" accent (direction B, desktop only). |
-| `src/components/HeroShader.astro` | The old site's WebGL hero shader in plain WebGL (only `/design/b-rich`, for comparison). |
-| `src/components/CopyEmail.astro` | Signature moment 6: "Copy" next to the email address. |
-| `src/designs/a`, `b`, `c` | **Phase 1 only:** the home-page design directions, kept as `noindex` reference pages until launch. Saba first picked C ("Engineering notebook", Phase 1b); after two independent reviews he reset to **A's calm skeleton** (Phase 1c, 2026-10-15). The real home page lives in `src/components/home/`. |
-| `src/pages/` | One file = one page. `index.astro` = `/` (the real home page), `ka/index.astro` = `/ka` (placeholder, never uploaded: English only at launch, `/ka` redirects home until the Georgian page exists), `book.astro` = `/book`, an honest "Get in touch" page (email + LinkedIn) that reads and keeps `?from=` for the lab's links, `cv.astro` = `/cv`, a dated role list and "CV as a PDF on request" (text in `src/content/cv.ts`), both `noindex`; `design/*.astro` = `/design/...` (temporary, `noindex`), `404.astro` = the real 404 page. |
-| `src/styles/global.css` | Tailwind 4 (scanning `src/` only), then `tokens.css` and `ui.css`, plus the base rules. |
-| `public/` | Files served as they are: images (`projects/*.webp`, `portrait.webp`, `og.png`: the link-preview picture, source in `private/design/og-2026-10-18/`), favicon, `robots.txt`, `sitemap.xml` (hand-written: only `/`; `/cv` and `/book` are noindex), the Google Search Console check file, and Cloudflare's `_headers`, `_redirects` and `.assetsignore`. **Never put anything from `private/` here.** |
-| `legacy/api-contact.ts` | The old Vercel contact-form function, kept only to port it to a Cloudflare Worker later. Not used by the build. |
-| `docs/overview.md`, `docs/roadmap.md` | Describe the **old** site. They get rewritten at the switch-over. |
-| `docs/content.md`, `docs/fix-plan.md` | **Historical** (March 2026). Don't use them as the source. |
-| `private/` | Gitignored notes: marketing, strategy, research, design screenshots. Start with `private/README.md`. |
-| `*.png` in the root | Old screenshots from building the old site. They're gitignored and stay on this computer only. |
+| `src/pages/_home/content/*.ts` | **The home page text (English), one file per section.** Every number is true and dated; the sources and the honesty rules sit at the top of each file. Approved by Saba (2026-10-17; the positioning review of 2026-10-19). |
+| `src/pages/_cv/content.ts` | The `/cv` text: a dated role list (approved by Saba on 2026-10-17). |
+| `src/shared/lib/site.ts` | Site address, name, email, active profiles (`sameAs`) and the JSON-LD (structured data for Google and AI tools) builder. |
+| `src/shared/components/base-layout.astro` | The page shell: `<head>` (SEO, fonts, theme colours, the no-flash theme script that runs before the first paint), the skip link, the analytics beacon (built site only). |
+| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 3. Plain CSS, **also copied by the lab site by this exact path**: keep the path, and send the lab session a NOTICE when it changes. Guide and change list: `docs/design-tokens.md`. |
+| `src/styles/reset.css` | The browser reset (the parts of Tailwind 4's preflight the site relies on, MIT; kept when Tailwind was removed), in a cascade layer so every site rule wins over it. |
+| `src/styles/ui.css` | The shared building blocks (prefix `ui-`): `ui-wrap`, `ui-section`, `ui-page*` (the /cv and /book intro), `ui-display` (the heading face), `ui-h2`, `ui-intro`, `ui-source` (sources, dates, money: small mono), `ui-btn` (the one button style), `ui-action`, `ui-link`, `ui-arrow`, `ui-meta`, `ui-tag`, `ui-card`, and `sr-only`. |
+| `src/styles/global.css` | Imports reset, tokens and ui, plus the base rules (body, fallback fonts, focus, motion). |
+| `src/vendor/race-figure/` | **Vendored, never edit here:** the lab session's `<race-figure>` 1.1.5. `VENDOR.md` there: source commit, sizes, hashes, how to update. `src/pages/_home/hero-race.astro` writes its HTML into the page, inlines its CSS and loads its JS on idle. Changes go to the lab session. |
+| `public/` | Files served as they are: `projects/` (the Bitnet screenshot and two thumbnails), `portrait.webp`, `og.png` (the link-preview picture; source in `private/design/og-2026-10-18/`), the favicons, `robots.txt`, `sitemap.xml` (hand-written: only `/`), and Cloudflare's `_headers` and `_redirects`. **Never put anything from `private/` here.** |
+| `docs/design-tokens.md` | The human guide to the tokens. |
+| `private/` | Gitignored notes: marketing, strategy, research, design screenshots, the old root screenshots (`old-screenshots/`). Start with `private/README.md`. |
+
+### Code conventions
+
+- **File names:** kebab-case (`hero-race.astro`, `site-chrome.ts`). Class names: the section's name as the prefix (`work-`, `services-`, `method-`, `about-`, `contact-`, `header-`, `footer-`, `theme-`, `race-`, `hero-`, `cv-`, `not-found-`); shared classes start with `ui-`.
+- **Text fields are named after what the visitor sees** (`services` is "Work with me", `hero.cvLink` is "My CV"); `{ label, href }` pairs end in `Link` or `Button`.
+- **TypeScript:** named exports, no barrel (`index.ts`) files; a type sits above its data in the same file and is exported only when a second file needs it; check data shapes with `satisfies`.
+- **Comments:** one line at the top of each file saying what it is; next to every number its source and date; the honesty rules once per content file; in code a comment only where the code is surprising, saying why. Decision history goes to `STATUS.md` and git, not into the code.
+- **Removed on 2026-10-19 and recoverable from git (commit `c84b45d`):** the Phase 1 design pages (`/design`), the parked explainers, the Georgian set-up (`/ka` placeholder, i18n, the Georgian font), Tailwind, the old contact-form code (`legacy/`) and the outdated docs. The old site itself is on branch `v1`.
 
 ## Run, check, deploy
 
@@ -71,8 +84,8 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
   - **Before you say a page looks right, check the live page in a browser at desktop and phone width**, not only your own screenshots of a build.
 - `npm run check` (`astro check`, the TypeScript check) and `npm run build` (static HTML into `dist/`): run both before you say a code task is done. `npm run verify` runs both.
 - `npm run preview`: serves the built `dist/` without compression. Use it to click through, not to measure speed.
-- URLs never end with a slash: `/work/bitnet` is built as `dist/work/bitnet.html` (`trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`). Keep it that way; today's live URLs have no slash.
-- English is at `/`, Georgian at `/ka/...` (`i18n` in `astro.config.mjs`). There is no automatic language redirect, on purpose.
+- URLs never end with a slash: `/cv` is built as `dist/cv.html` (`trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`). Keep it that way.
+- English only for now. `/ka` redirects home (`public/_redirects`) until the Georgian page exists; then restore the Georgian set-up from git (see "Code conventions").
 - **Deploy: Cloudflare Workers (static assets only). Live since 2026-10-18.**
   - `wrangler.jsonc`: the Worker `sabajanelidze-web`, with the custom domains `www.sabajanelidze.com` and `sabajanelidze.com`. The test copy at https://sabajanelidze-web.ssjanelidze.workers.dev stays on (noindex).
   - Deploy: `npm run cf:dry`, check the file list, then `npx wrangler deploy --config wrangler.jsonc` (the token in the Windows user env var `CLOUDFLARE_API_TOKEN` is enough). Every deploy to the live domain needs Saba's OK.
@@ -97,7 +110,7 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 8. **Reduced motion is designed, not just switched off.** Write motion inside `@media (prefers-reduced-motion: no-preference)`. With reduced motion: short opacity fades at most, no WebGL, no autoplay video, explainers open at their final state with Step buttons.
 9. **Nothing moves by itself for more than 5 seconds** without a pause button. Ambient motion settles to a still frame. WebGL pauses off-screen and in hidden tabs.
 10. **Phones get the same content with less motion:** no WebGL, no pinned sections, fewer reveals.
-11. **Georgian:** never split into letters, no `text-transform: uppercase`, no `letter-spacing` (a global rule in `global.css` enforces it). Animate whole lines or blocks.
+11. **Georgian (when the Georgian page is built):** never split into letters, no `text-transform: uppercase`, no `letter-spacing` (restore the global `:lang(ka)` rule in `global.css` from git with the Georgian set-up). Animate whole lines or blocks.
 12. **Budgets:** at most 100 KB of JavaScript (gzip) on the first load of any page, and at most 5 KB of it for animation; each lazy island at most 30 KB. Saba watches a 10 to 20 second screen recording of any new signature moment before it ships.
 
 ## Themes: light and dark
@@ -118,8 +131,7 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 - **Scoped styles do not reach child components.** A class you pass to a child component is not styled by the parent's `<style>`. Use `<style is:global>` under a unique wrapper class (the design directions do this: `.da`, `.db`, `.dc`).
 - **Scripts:** a `<script>` in a component is bundled once per page as a module (it runs after the HTML is parsed). Keep each one small and check its size in `dist/_astro/`.
 - **Markdown:** Astro 7 has a new Markdown engine; old remark/rehype plugins need an opt-in. Use no plugins unless needed.
-- **Tailwind owns some variable names.** Tailwind 4 defines `--text-*`, `--leading-*`, `--radius-sm`, `--spacing` and more. A token with the same name silently changes Tailwind classes. Our tokens use `--fs-*`, `--lh-*`, `--radius-tag` for that reason.
-- **The `hidden` attribute cannot be overridden.** Tailwind's base layer hides `[hidden]` with `!important`, and a layered `!important` beats any unlayered rule. To reserve space for something that appears later (no layout shift), use `visibility` and a data attribute instead (see `.nb-stepbar` in `notebook.css`).
+- **The `hidden` attribute cannot be overridden.** `reset.css` hides `[hidden]` with `!important` in a cascade layer, and a layered `!important` beats any unlayered rule. To reserve space for something that appears later (no layout shift), use `visibility` and a data attribute instead.
 
 ## Domain
 
@@ -132,6 +144,6 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 
 - **Commit messages: one line only.** No body, no extra lines, no trailers (no `Co-Authored-By:`). The style used here is `type(scope): summary`, for example `chore(seo): point og and twitter urls to www.sabajanelidze.com`, `refactor(content): …`, `bugfix(portrait): …`, `feature(lighthouse): …`.
 - **Both languages, always** (from Phase 3 of the rebuild): every page that exists in Georgian needs both texts. **Never write Georgian yourself.** New Georgian goes through `../_shared/playbooks/georgian.md` (Fable 5.1 or Gemini + back-translation, then Saba).
-- **Keep the pitch in sync.** If the positioning changes, update together: `src/content/home.ts` (text and `seo`), `src/lib/site.ts` if the job title changes, and later `docs/overview.md`.
+- **Keep the pitch in sync.** If the positioning changes, update together: `src/pages/_home/content/` (the text and `seo.ts`), the link-preview picture (`private/design/og-2026-10-18/`), and `src/shared/lib/site.ts` if the job title changes.
 - **Honest numbers only.** Every number on the site is true and dated. Bitnet appears only in public-safe words (no internal names, vendors or security details). Never say "I review every change" for PlayTime.
 - **Plain, simple words** in all docs and notes. Short sentences. Explain technical words.

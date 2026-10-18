@@ -1,26 +1,14 @@
 ---
-// HeroRace: the payment-race figure on the right of the hero (Phase 1e, "Calm, with one live proof").
-//
-// It hosts the lab session's shared element <race-figure> (version in src/vendor/race-figure/VENDOR.md), vendored byte for byte there
-// (see VENDOR.md there: source commit, sizes, how to update; never edit those files here).
-//   - HTML: the element's end state (the losing order 11 of 54) is written into the page on the server, so it shows
-//     without JavaScript and with reduced motion. Only the lab address gets "?from=portfolio-home".
+// The payment-race figure in the hero: hosts the lab's shared element <race-figure>, vendored byte for byte in
+// src/vendor/race-figure/ (VENDOR.md there: version, source commit, how to update; never edit those files).
+//   - HTML: the element's end state (the losing order 11 of 54) is written into the page, so it shows without
+//     JavaScript and with reduced motion. Only the lab address gets "?from=portfolio-home".
 //   - CSS: imported, so Astro inlines it with the page's styles. It styles only through --rf-* variables, which
-//     default to our tokens (tokens v3): --accent = movement (withdrawal A's ring, dots and name) and links,
-//     --danger = the loss only ("paid 80" of a losing run, "Exchange short 80"), --surface, --line, --line-strong, --fg,
-//     --muted, --focus, --radius-card; money figures use --rf-mono, set here to --font-source (the small mono).
-//   - JS: loaded on idle (README of the package), as its own file (the vendored bytes, hashed name in dist/_astro/).
-//     The element then plays once, about 4 s, when at least half of it
-//     is on screen, with Pause / Play while it moves, then "Run another order" (one of the 54 recorded runs) and
-//     "Reproduce it yourself →" (the lab). Reduced motion: nothing moves. Hidden tab: it pauses.
-//   - Never describe it as "running live" or "computed in the browser": each run is a recorded trace of the game's
-//     real code, checked by a test on every build of the lab.
-//
-// THE BOUNDARY: this site owns the slot (<div data-race-slot>): where it sits in the hero and how wide it may get
-// (at most 28 rem = 448 px on desktop, full width on phones). Everything inside <race-figure> belongs to the lab.
-// The texts inside the figure were approved by Saba on 2026-10-17 (as they are).
-// ABOVE THE SLOT (this site's text, not the lab's): one short line that ties the figure to AI agents, so a visitor
-// sees why this bug is on the first screen (Saba, 2026-10-17: "why we highlight some bug fix as main hero section?").
+//     default to our tokens (--accent for movement and links, --danger for the loss only).
+//   - JS: loaded on idle, as its own file. It plays once when half of the figure is on screen; reduced motion: nothing moves.
+//   - Never describe it as "running live": each run is a recorded trace of the game's real code, tested on every build.
+// The boundary: this site owns the slot (where it sits, at most 448 px wide on desktop) and the one line above it;
+// everything inside <race-figure>, including its texts, belongs to the lab.
 import "../../vendor/race-figure/race-figure.css";
 import fallback from "../../vendor/race-figure/race-figure.html?raw";
 import { hero } from "./content/hero";

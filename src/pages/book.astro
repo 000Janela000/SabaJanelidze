@@ -1,9 +1,8 @@
 ---
-// /book: an honest "Get in touch" page (no booking calendar yet). The lab's links point here with
-// ?from=<place> (for example ?from=lab-payments), so this path must keep working and keep the query string.
-// A tiny script reads "from" (letters, digits and dashes only, at most 40 characters), keeps it on <main>
-// as data-from (ready to be shown or logged later), and adds it to the email as a short reference line.
-// Later this page can forward to a booking calendar; it must keep ?from= when it does. Not for search engines.
+// /book: "Get in touch" (email and LinkedIn; no booking calendar yet). Not for search engines.
+// The lab's "Book a call" links point here with ?from=<place> (for example ?from=lab-payments), so this path must keep
+// working and keep the query string. The script below accepts letters, digits and dashes (at most 40 characters),
+// keeps the value on <main> as data-from and adds it to the email as a short reference line.
 import Base from "../shared/components/base-layout.astro";
 import Header from "../shared/components/header.astro";
 import Footer from "../shared/components/footer.astro";

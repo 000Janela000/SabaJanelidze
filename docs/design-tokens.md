@@ -18,7 +18,7 @@ The calm layout stays. Version 3 gives it a voice and gives the colours clear jo
 - **Dark main button:** the accent itself (`#93ade6`) with dark text (`#121722`, 8.0:1), no border. `--btn-border` is now `transparent` in both themes (kept so old copies do not break). The light button stays navy.
 - **Changed sizes:** `--fs-hero` is 32 to 46 px (was 32 to 52; the pitch now sits in the left of two columns), `--lh-tight` 1.1, `--lh-heading` 1.16, `--tracking-display` -0.015em, `--tracking-heading` -0.01em (a serif needs less negative letter-spacing than Inter).
 - **New tokens:** `--font-display`, `--weight-display`, `--font-source`, `--fs-source`, `--nudge` (2 px: how far a card image lifts or a link arrow moves on hover).
-- **For the lab:** copy the new `tokens.css` as it is. For the heading face, also copy `src/assets/fonts/newsreader-latin-500-opsz.woff2` with its licence (`Newsreader-OFL.txt`, SIL Open Font License), the `@font-face` line from `src/components/Fonts.astro`, and the "Newsreader Fallback" block from `src/styles/global.css`. The `<race-figure>` element already reads `--accent`, `--danger`, `--font-code` and the rest, so it follows version 3 without changes.
+- **For the lab:** copy the new `tokens.css` as it is. For the heading face, also copy `src/assets/fonts/newsreader-latin-500-opsz.woff2` with its licence (`Newsreader-OFL.txt`, SIL Open Font License), the `@font-face` line from `src/shared/components/fonts.astro`, and the "Newsreader Fallback" block from `src/styles/global.css`. The `<race-figure>` element already reads `--accent`, `--danger`, `--font-code` and the rest, so it follows version 3 without changes.
 
 Every colour pair is checked against the real pixels in `private/design/phase1e/contrast-audit.md` (not in git): 0 failures in both themes.
 
@@ -54,7 +54,7 @@ How the choice works:
 
 1. `<html data-theme="light">` or `<html data-theme="dark">`: the visitor picked one in the footer switch ("Theme: Light · Dark · Auto"). The choice is saved in `localStorage` under the key `theme`. "Auto" removes the attribute and the saved value.
 2. No `data-theme`: the system setting decides (`prefers-color-scheme`). This also works without JavaScript; the switch is then hidden.
-3. A tiny script in `<head>` applies a saved choice **before the first paint**, so the page never flashes the wrong theme (`themeBoot` in `src/layouts/Base.astro`). It reads the old values `paper` and `blueprint` as `light` and `dark`. If storage is blocked, it does nothing and the system setting decides.
+3. A tiny script in `<head>` applies a saved choice **before the first paint**, so the page never flashes the wrong theme (`themeBoot` in `src/shared/components/base-layout.astro`). It reads the old values `paper` and `blueprint` as `light` and `dark`. If storage is blocked, it does nothing and the system setting decides.
 
 ## What each token is for
 
@@ -85,7 +85,7 @@ The lab is a separate repo. To look like the same family:
 
 1. **Copy `src/styles/tokens.css` into the lab repo as it is.** Keep the version line at the top. When this file changes, the portfolio session sends the lab a NOTICE with the new version, and the lab copies it again. (Linking the file across sites is possible, but then a change here could break the lab without warning.)
 2. **Load it before your own styles,** and use only the token names, never raw colours. For a canvas drawing, read the values with `getComputedStyle(document.documentElement).getPropertyValue("--accent")`.
-3. **Use the same theme switch:** the `data-theme` attribute on `<html>` with the values `light` and `dark` (the old `paper` and `blueprint` still work), the `localStorage` key `theme`, and the same head script (copy `themeBoot` from `src/layouts/Base.astro`). Put the switch in the footer as "Theme: Light · Dark · Auto" (copy `src/components/site/ThemeSwitch.astro`). Note: `localStorage` is per site, so a choice made on www does not carry over to lab yet. If that matters later, both sites can switch to a cookie on `.sabajanelidze.com`.
+3. **Use the same theme switch:** the `data-theme` attribute on `<html>` with the values `light` and `dark` (the old `paper` and `blueprint` still work), the `localStorage` key `theme`, and the same head script (copy `themeBoot` from `src/shared/components/base-layout.astro`). Put the switch in the footer as "Theme: Light · Dark · Auto" (copy `src/shared/components/theme-switch.astro` and `src/shared/lib/theme-colors.ts`). Note: `localStorage` is per site, so a choice made on www does not carry over to lab yet. If that matters later, both sites can switch to a cookie on `.sabajanelidze.com`.
 4. **If your pages still use removed tokens** (`--grid-*`, `--hero-glow*`, `--btn-shadow`, `--margin-col`, `--fs-4xl`, `--dur-reveal`, `--step-hold`), replace them: no grid, no glow, no shadow. A `var()` with a missing token silently falls back to nothing.
 5. **Fonts:** self-host Inter 400 and 600 (the `@fontsource/inter` package) and add the "Inter Fallback" `@font-face` from `src/styles/global.css` (it stops text from jumping when the font loads). For headings, Newsreader 500 (see "What changed in version 3").
 6. **Follow the same motion rules** (`AGENTS.md`, "Motion rules"): only `transform` and `opacity` move, 100 to 300 ms, reduced motion is designed.
@@ -93,7 +93,6 @@ The lab is a separate repo. To look like the same family:
 ## Where the tokens are used here
 
 - `src/styles/ui.css`: the shared building blocks of the calm design (`ui-wrap`, `ui-section`, `ui-display`, `ui-h2`, `ui-intro`, `ui-source`, `ui-btn`, `ui-action`, `ui-link`, `ui-arrow`, `ui-meta`, `ui-tag`, `ui-card`).
-- `src/components/home/HeroRace.astro`: the hero's `<race-figure>` (vendored from the lab in `src/vendor/race-figure/`); it reads the tokens through its `--rf-*` variables.
-- `src/components/site/`: header, footer, the theme switch (`ThemeSwitch.astro`), the section wrapper.
-- `src/components/home/`: the home page sections.
-- `src/styles/notebook.css` and `src/components/parked/`: the parked notebook explainers (fig. 1, fig. 2, the stepped pipeline, the lab teaser) for the future "How I work" page. They load `notebook.css` themselves; it has fallbacks for the removed tokens.
+- `src/pages/_home/hero-race.astro`: the hero's `<race-figure>` (vendored from the lab in `src/vendor/race-figure/`); it reads the tokens through its `--rf-*` variables.
+- `src/shared/components/`: the page shell, header, footer and the theme switch (`theme-switch.astro`).
+- `src/pages/_home/`: the home page sections; `src/styles/ui.css`: the shared classes.

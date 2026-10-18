@@ -1,11 +1,7 @@
 ---
-// "How I work with AI agents": the ONE static method diagram on the home page (no controls, no autoplay).
-// Five numbered steps joined by a line: a row on desktop, a column on phones. Under each step one static,
-// sourced fact (Phase 1e, Phase 1d fix 6), its source in the small mono. Below it, the loop that makes
-// the checks grow (a bounded claim: "the new check blocks that failure path"). All text is real HTML text.
-// The lines carry meaning (the order), so they use --line-strong (3:1 or more); they never pass behind text
-// (the line sits beside the numbers, the text sits below or right).
-// The stepped explainer version lives in src/components/Pipeline.astro for the future "How I work" page.
+// "How I work": five numbered steps joined by a line (a row on desktop, a column on phones), each with one dated
+// fact, then the loop line. Static: no controls, no autoplay. The lines carry meaning (the order), so they use
+// --line-strong (3:1 or more), and they never pass behind text.
 import Section from "./section.astro";
 import { method } from "./content/method";
 ---

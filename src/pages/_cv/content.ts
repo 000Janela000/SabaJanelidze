@@ -1,8 +1,6 @@
-// /cv text, English. Approved by Saba on 2026-10-17 (text review).
-// A real, dated role list (Phase 1d fix 12); the PDF comes on request. Public-safe words only:
-// Bitnet's public facts, high-level areas of work, no internal names, vendors, colleagues or engineering-scale counts.
-// Sources: the private research notes of 2026-10-13/14 (private/research/, not in git), Saba's confirmed facts of
-// 2026-10-15 (title "Principal Engineer"; what is live), and the projects' own STATUS.md files.
+// The /cv text. Approved by Saba (2026-10-17).
+// Rules: public-safe words only (Bitnet's public facts, high-level areas of work; no internal names, vendors,
+// colleagues or engineering-scale counts). Sources: the private research notes and Saba's confirmed facts.
 
 import { PERSON } from "../../shared/lib/site";
 

@@ -1,12 +1,7 @@
 ---
-// The hero (first screen), complete without JavaScript (motion rule 1). Phase 1e:
-// - Desktop (1024 px and up): two columns, about 7 / 5. Left: the who-line, the short headline as the h1
-//   (Newsreader; Phase 1f), the subline, one proof sentence, "Email me about your team" and the quiet "Hiring? See my CV". Right: the payment-race
-//   figure (HeroRace: the lab's shared <race-figure>, at most 448 px wide).
-//   The four numbers run under both columns.
-// - Phones and tablets: pitch, proof, actions, then the figure full width, then the numbers 2 x 2.
-// The numbers use a subgrid, so value, label and source line up across a row whatever the label length;
-// phones get shorter labels (Phase 1d fix 15).
+// The first screen, complete without JavaScript (motion rule 1). Desktop (1024 px and up): two columns, the text left
+// and the race figure right; the four numbers run under both. Phones and tablets: the text, the figure, the numbers 2 x 2.
+// The numbers use a subgrid, so value, label and source line up across a row whatever the label length.
 import HeroRace from "./hero-race.astro";
 import { hero } from "./content/hero";
 ---
@@ -102,7 +97,7 @@ import { hero } from "./content/hero";
     display: block;
     text-wrap: balance;
   }
-  /* Phase 1f: the rest of the pitch, in body text under the short headline. */
+  /* The path under the headline, in body text. */
   .hero-sub {
     max-width: 32em;
     margin: var(--space-5) 0 0;

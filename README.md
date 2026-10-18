@@ -1,17 +1,11 @@
 # Saba Janelidze — Portfolio
 
-Personal portfolio of Saba Janelidze, Senior Full-Stack Engineer (fintech and AI).
+The personal site of Saba Janelidze, Principal Engineer in fintech: https://www.sabajanelidze.com
 
-**Live:** https://www.sabajanelidze.com (built from the `main` branch).
-
-## This branch: `rebuild`
-
-The new site, being rebuilt from scratch. It replaces the old Vite + React app only at the switch-over.
-
-- **Stack:** Astro 7 (static HTML), TypeScript (strict), Tailwind CSS 4, self-hosted Inter and Noto Sans Georgian.
-- **Languages:** English at `/`, Georgian at `/ka/`, with hreflang tags. No automatic language redirect.
-- **JavaScript:** only small scripts where something moves or reacts; most pages ship none.
-- **Hosting (planned):** Cloudflare Workers, static assets.
+- **Stack:** Astro 7 (static HTML), TypeScript (strict), plain CSS with design tokens, self-hosted Inter and Newsreader.
+- **Hosting:** a Cloudflare Worker serving the built files (`wrangler.jsonc`, `public/_headers`, `public/_redirects`).
+- **JavaScript:** only small scripts where something moves or reacts.
+- **Language:** English (a Georgian page comes later; `/ka` redirects home until then).
 
 ## Development
 
@@ -19,6 +13,7 @@ The new site, being rebuilt from scratch. It replaces the old Vite + React app o
 npm install
 npm run dev      # http://localhost:4321
 npm run verify   # astro check + astro build
+npm run cf:dry   # build, then a Cloudflare dry run (uploads nothing)
 ```
 
-Rules for agents and contributors: `AGENTS.md`.
+The structure, the rules for agents and contributors, and how to deploy: `AGENTS.md`.
