@@ -1,27 +1,9 @@
-/* Site-wide styles. Tailwind 4, the design tokens, the shared building blocks (ui.css) and a few base rules.
+/* Site-wide styles: the browser reset, the design tokens, the shared building blocks (ui.css) and a few base rules.
    Colours, fonts, sizes and motion timings live in tokens.css (the shared contract, see docs/design-tokens.md).
-   The Phase 1 design directions (/design/a|b|c) set their own colour values on their wrapper class,
-   so the same Tailwind classes (bg-bg, text-muted, border-line ...) work in every look.
-   notebook.css is NOT loaded here any more: only the parked explainers (src/components/parked/) import it.
    Motion rules: see AGENTS.md, "Motion rules". */
-/* Scan only src/ for class names (not docs, notes or old page dumps), so no unused utilities ship. */
-@import "tailwindcss" source("..");
-/* The vendored lab element (src/vendor/) has its own CSS; don't make Tailwind utilities from its words. */
-@source not "../vendor";
+@import "./reset.css";
 @import "./tokens.css";
 @import "./ui.css";
-
-@theme inline {
-  --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-fg: var(--fg);
-  --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-fg: var(--accent-fg);
-  --font-sans: var(--font-body);
-  --font-mono: var(--font-code);
-}
 
 /* Metric-matched fallback, so the swap from Arial to Inter barely moves the text (less layout shift). */
 @font-face {

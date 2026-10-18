@@ -9,14 +9,50 @@ import Base from "../layouts/Base.astro";
   path="/404"
   noindex
 >
-  <main id="main" class="mx-auto max-w-3xl px-5 py-24 md:px-10 md:py-32">
+  <main id="main" class="nf">
     <p class="ui-source">404</p>
-    <h1 class="ui-display mt-3 text-3xl tracking-tight md:text-4xl">This page does not exist</h1>
-    <p class="mt-4 text-muted">
+    <h1 class="ui-display nf-title">This page does not exist</h1>
+    <p class="nf-text">
       The address may be mistyped, or the page has not been built yet.
     </p>
-    <p class="mt-8 flex flex-wrap gap-6">
-      <a class="ui-link font-medium" href="/">Home</a>
+    <p class="nf-links">
+      <a class="ui-link nf-link" href="/">Home</a>
     </p>
   </main>
 </Base>
+
+<style>
+  .nf {
+    max-width: 48rem;
+    margin-inline: auto;
+    padding: 6rem 1.25rem;
+  }
+  .nf-title {
+    margin-top: 0.75rem;
+    font-size: 1.875rem;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+  }
+  .nf-text {
+    margin-top: 1rem;
+    color: var(--muted);
+  }
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .nf-link {
+    font-weight: 500;
+  }
+  @media (min-width: 48rem) {
+    .nf {
+      padding: 8rem 2.5rem;
+    }
+    .nf-title {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+  }
+</style>

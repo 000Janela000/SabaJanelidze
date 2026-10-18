@@ -2,7 +2,6 @@
 // English only for now (a Georgian page comes later; /ka redirects home until then). URLs never end with a slash:
 // /cv is built as dist/cv.html.
 import { defineConfig } from "astro/config";
-import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://www.sabajanelidze.com",
@@ -17,7 +16,6 @@ export default defineConfig({
   server: { port: 4321 },
   devToolbar: { enabled: false },
   vite: {
-    plugins: [tailwindcss()],
     // Never inline scripts or fonts as data: URLs. A later Content-Security-Policy can then block inline scripts,
     // and the JavaScript budget check can measure real files.
     build: { assetsInlineLimit: 0 },

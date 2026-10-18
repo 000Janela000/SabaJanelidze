@@ -17,6 +17,19 @@
 
 /* ---------- Type ---------- */
 /* The heading face (Newsreader 500, optical size on). For text 24 px and up only. */
+/* Text only screen readers read (for example the Copy button's result). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
 .ui-display {
   font-family: var(--font-display);
   font-weight: var(--weight-display);
