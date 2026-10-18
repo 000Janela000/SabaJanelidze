@@ -31,7 +31,9 @@
 
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race
   figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
-- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; its launch plan for incident 1 follows.
+- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; Saba confirmed it there (2026-10-17). The lab now does, without approvals: tokens v3, robots/sitemap/og image, a Worker config (dry run), a public-safety check of its repo; then Saba reviews its texts and approves the Worker, the subdomain, making its repo public and its analytics.
+  - **Launch-day order (lab's proposal):** (1) the lab repo goes public, (2) the lab is deployed and checked live, (3) this site's switch-over, (4) the lab's sitemap goes to Search Console.
+  - **Promises to the lab:** keep `/book` live on launch day (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit if `src/styles/tokens.css` changes before launch (it reads v3 from the committed `rebuild` branch; unchanged since `ca74e54`).
 - **Before launch, the lab must be live:** the figure's "Reproduce it yourself →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
 - A better portrait: photo #31 of the 15 Oct shoot is in for now (Phase 1f). A reshoot with side light and a slight smile would beat it.
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
@@ -41,6 +43,8 @@
 - Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
 
 ## Log
+
+- **2026-10-18 (lab launch plan):** the lab's plan arrived (STATUS launch-1#3): Saba confirmed there the same launch day, incident 1 only; the lab's to-do list and the launch-day order are in Next steps. `/book` checked: it keeps the lab's `?from=` tag, nothing redirects or hides it.
 
 - **2026-10-17 (race figure 1.1.5):** the lab fixed the jump: the row of controls is as tall as its tallest state from the start, so the figure is as tall before its script runs as after (CSS only; JS and HTML unchanged). The lab corrected my report: phones jumped too (52 px), not only desktop. Copied from GitHub at `1bb69f4` (the head of `main`, CI green, nothing later touches the package). Checked: figure height and the numbers' position identical with JavaScript off and after the upgrade at 320, 390, 430, 1024, 1280, 1440 and 1920 px; desktop layout shift 0.028 → about 0.001 (only the link inside the figure moves a few px); the figure check passes (play, pause, another order, reduced motion, no JavaScript, sizes 320 to 1440 px); contrast audit 0 failures in 16 runs; `npm run verify` 0 errors.
 
