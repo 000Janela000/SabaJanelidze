@@ -2,7 +2,7 @@
 
 > Read this at the start of every session. Update it at the end.
 > This file is in a **public** repo. Keep private things in `private/`.
-> Last updated: **2026-10-15**
+> Last updated: **2026-10-18**
 
 ## Where we are
 
@@ -31,8 +31,9 @@
 
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race
   figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
-- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; Saba confirmed it there (2026-10-17). **The lab's build work is done (2026-10-18, `0139bd4`, CI green):** tokens v3, robots/sitemap/og image, a Worker config `sabajanelidze-lab` (dry run, nothing uploaded), a public-safety check of its 51 commits. **Left, all Saba's, in the lab session:** the review of its remaining texts (incident page, proof card, text version, lab home page, docs/reviews), then his OKs for the Worker, the `lab.sabajanelidze.com` route, the repo going public, Web Analytics and the sitemap. The lab can be ready the same day; it sends a ready date after his review.
+- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; Saba confirmed it there (2026-10-17). **The lab is ready except Saba's launch OKs (2026-10-18, `cc9de33` on its `main`, all 4 CI checks green, checked on GitHub):** Saba approved every public text of the lab in its session; `<race-figure>` stays 1.1.5 (nothing under `packages/race-figure` changed since `1bb69f4`). **Left, all Saba's, in the lab session:** his OKs for the Worker, the `lab.sabajanelidze.com` route, the repo going public (it is still private), Web Analytics and the sitemap. The lab can be ready within the hour of those OKs. **Owed to the lab:** a NOTICE with the launch day once Saba picks it.
   - **Launch-day order (lab's proposal):** (1) the lab repo goes public, (2) the lab is deployed and checked live, (3) this site's switch-over, (4) the lab's sitemap goes to Search Console.
+  - **This site's switch-over (checked 2026-10-18):** the Cloudflare token in `CLOUDFLARE_API_TOKEN` can deploy Workers (WasteAway's Worker and its custom domains were set up with it), so no extra login is needed. `www` and the bare domain are DNS-only CNAMEs to Vercel today. Steps, each with Saba's OK: deploy to the `workers.dev` test address and check it; remove the two Vercel CNAMEs; give the Worker the custom domains `www.sabajanelidze.com` and `sabajanelidze.com`; one Single Redirect rule sends the bare domain to `www` (keeping path and query); check live. The email records (`send`, `rsend`, MX) stay untouched. Pushing `rebuild` and merging it into `main` also needs Saba's OK (a push to `main` still builds on Vercel).
   - **Promises to the lab:** keep `/book` live on launch day (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit if `src/styles/tokens.css` changes before launch (it reads v3 from the committed `rebuild` branch; unchanged since `ca74e54`).
 - **Before launch, the lab must be live:** the figure's "Reproduce it yourself →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
 - A better portrait: photo #31 of the 15 Oct shoot is in for now (Phase 1f). A reshoot with side light and a slight smile would beat it.
@@ -43,6 +44,8 @@
 - Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
 
 ## Log
+
+- **2026-10-18 (lab ready):** the lab is ready except Saba's launch OKs (STATUS launch-1#5): every public text approved, `cc9de33` on its `main`, CI green (checked on GitHub). Checked the switch-over here: the Cloudflare token can deploy Workers; `www` and the bare domain point to Vercel through DNS-only CNAMEs.
 
 - **2026-10-18 (lab build done):** the lab finished its launch build work (STATUS launch-1#4); only Saba's text review and launch OKs are left there. Checked here after its remark about `.html` addresses: this site's canonical and og:url are clean (`/`, `/cv`, `/book`), and the 404 page is `noindex`.
 
