@@ -24,11 +24,11 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 1. Update `STATUS.md`: add to the log, and change open problems and next steps. Keep it public-safe. Private notes go in `private/`.
 2. Commit with a one-line message (see "Rules").
-3. **Ask Saba before pushing.** A push to `main` publishes the live site (see "Run, check, deploy").
+3. **Ask Saba before pushing** (the repo is public). A push does not publish the site; a deploy does (see "Run, check, deploy").
 
 ## Where things live
 
-> **Branch `rebuild` (the new site, Astro 7).** The old Vite + React site lives on `main` and stays live until the switch-over. Read old files with `git show main:<path>` (for example `git show main:src/lib/i18n.ts`). Never copy the old app back into this branch.
+> **Branch `main` is the new site (Astro 7) since the launch on 2026-10-18** (the old `rebuild` branch was fast-forwarded into it). The old Vite + React site lives on branch `v1`; Vercel builds it and serves it at https://v1.sabajanelidze.com (noindex). Read old files with `git show v1:<path>` (for example `git show v1:src/lib/i18n.ts`). Never copy the old app back into `main`.
 
 | Path | What it is |
 |---|---|
@@ -81,7 +81,7 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
   - `public/_headers`: security and cache headers (at least as strict as the old Vercel site). `public/_redirects`: the old site's `/work/...` links go home (302) until the case studies exist. `public/.assetsignore`: keeps the `/design` pages out of the upload.
   - Follow `../_shared/decisions/0004-deploy-safety.md`: always `--config wrangler.jsonc`, a dry run first. A real deploy and the domain switch need Saba's OK.
   - **Stopping `cf:dev` from an agent tool can leave its server running.** Stopping the outer shell (Claude Code's task stop, for example) does not stop wrangler's `node` process or its `workerd.exe` helpers. The next run then says "Ready" but answers an empty 404 for every address. Stop them by command line (`node ... wrangler ... dev`, then `workerd.exe`, both under this repo's `node_modules`) before you start again.
-  - **Never push `rebuild` without Saba's OK**: on Vercel a push still makes a preview build.
+  - **Never push without Saba's OK.** Vercel's production branch is `v1`, so a push to `main` makes only a Vercel preview build (protected); a push to `v1` changes the old site at v1.sabajanelidze.com.
 
 ## Motion rules
 

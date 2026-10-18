@@ -6,29 +6,29 @@
 
 ## Where we are
 
-- **Live since 2026-10-18:** the new Astro 7 site (branch `rebuild`) at https://www.sabajanelidze.com, served by the Cloudflare Worker `sabajanelidze-web` (see "Run, check, deploy" in `AGENTS.md`). The bare domain redirects to `www` (301). A push to GitHub does not deploy it.
+- **Live since 2026-10-18:** the new Astro 7 site (branch `main` on GitHub) at https://www.sabajanelidze.com, served by the Cloudflare Worker `sabajanelidze-web` (see "Run, check, deploy" in `AGENTS.md`). The bare domain redirects to `www` (301). A push to GitHub does not deploy it.
 - **Pitch:** Principal Engineer at a licensed crypto exchange. I help fintech teams use AI coding agents safely, and I build AI features for their products. All home-page texts approved by Saba (2026-10-17).
 - **The lab** (the "One day on call" game, its own repo and session) is live at https://lab.sabajanelidze.com with incident 1 (Payments); its repo is public. The hero figure links to it.
-- **The old site** (Vite + React, branch `main`) still runs on Vercel at saba-janelidze.vercel.app; it moves to `v1.sabajanelidze.com` (Next steps).
-- **GitHub is behind:** `rebuild` is local only, and `main` on GitHub still holds the old site.
+- **The old site** (Vite + React) lives on branch `v1`; Vercel serves it at https://v1.sabajanelidze.com with `noindex`. `saba-janelidze.vercel.app` redirects to `www` (the new site).
+- **Speed (PageSpeed mobile, 3 runs, 2026-10-18):** performance, SEO, accessibility and best practices all 100; LCP 1.2 s. The new sitemap is submitted to Search Console.
 
 ## Open problems (most important first)
 
-1. **The live code is not on GitHub yet.** Pushing `rebuild` and making it `main` needs Saba's OK, and the `v1` steps come first: Vercel builds `main`, so the old site must build from `v1` before `main` changes.
-2. **Vercel still lists `www.sabajanelidze.com` and `sabajanelidze.com`** on the project `saba-janelidze` (they now point to Cloudflare, so Vercel shows them as misconfigured). Remove them in the Vercel dashboard during the `v1` steps.
-3. **Search Console and speed:** the new sitemap (`/sitemap.xml`, only `/`) is not submitted yet, and the live site's mobile speed is not measured yet (`node ../_shared/tools/google.mjs psi https://www.sabajanelidze.com/`).
+1. **Vercel still lists `www.sabajanelidze.com` and `sabajanelidze.com`** on the project `saba-janelidze` (shown as "Invalid Configuration", because the DNS points to Cloudflare). Kept on purpose: `saba-janelidze.vercel.app` redirects to `www`, and Vercel's redirect needs `www` in the project. Harmless; remove them only if Vercel starts sending warnings.
 
 ## Next steps
 
-- **The old site at `v1.sabajanelidze.com` (Saba, 2026-10-18).** It stays on Vercel (free), hidden from Google. Local branch `v1` (not pushed) = the old live site (`origin/main`, `bcc0c77`) plus one commit (`41e18f1`) that sends `X-Robots-Tag: noindex`. Steps, each with Saba's OK: push `v1`; in Vercel, set the production branch to `v1`, add `v1.sabajanelidze.com` and remove the two old domains; add the `v1` CNAME in Cloudflare (DNS only, the target Vercel shows); check it; only then push the new code to `main`.
 - **Promises to the lab:** keep `/book` working (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit when `src/styles/tokens.css` changes (it copied v3; unchanged since `ca74e54`).
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
 - Portrait: version A (photo #11 of the 15 Oct shoot, edited in PhotoCraft) is in since 2026-10-18. A reshoot with side light and a slight smile would still beat it (`private/photos/reshoot-guide.md`).
 - Phase 3: the Georgian home page (the new texts, through `../_shared/playbooks/georgian.md`, then Saba). Then: add "ka" back to `alternates` in `src/pages/index.astro`, delete the `/ka` lines in `public/_redirects` and `ka.html` in `public/.assetsignore`.
+- Later pages: How I work (the stepper), case studies, the CV as a PDF, a booking tool, the Lab page.
 - `/google57aa1f004dba4711.html` now redirects to the same address without `.html`. The domain is verified in Search Console through DNS (the TXT record is untouched), so the file is probably not needed.
 
 ## Log
+
+- **2026-10-18 (old site at v1, code on GitHub, Google):** with Saba's OK: branch `v1` pushed (the old site + `X-Robots-Tag: noindex`); in Vercel the production branch is now `v1`, the `v1` deployment was promoted, and `v1.sabajanelidze.com` added (Cloudflare CNAME to Vercel, DNS only). Checked: v1 answers 200 from Vercel with `noindex` and the old title. Then `rebuild` was fast-forwarded into `main` on GitHub (29 commits, no force push; scanned first for secrets and private details: none). Local `main` now tracks `origin/main`; the two old unpushed `main` commits stay on `wip/step1-truth-fix`. Sitemap `https://www.sabajanelidze.com/sitemap.xml` submitted; PageSpeed mobile 100/100/100/100, LCP 1.2 s.
 
 - **2026-10-18 (launch: the switch-over):** with Saba's OK, `www.sabajanelidze.com` and `sabajanelidze.com` moved from Vercel to the Worker `sabajanelidze-web` (version `8d94b3ca`). Steps: the two DNS-only CNAMEs to Vercel deleted (saved first in `private/launch-2026-10-18/dns-before.json`); both names added as Worker custom domains (proxied); one Single Redirect rule sends the bare domain to `www` (301, path and query kept). Checked live: `/`, `/cv`, `/book`, `/book?from=lab-payments` 200; `/work/...` and `/ka` 302 home; `/design/...` 404; http 301 to https; bare domain 301 to `www` with the query; no `noindex`; security headers on; in Chrome no console errors, the race figure works. The lab was told (NOTICE launch-1#3) so it can submit its sitemap.
 - **2026-10-18 (portrait and link preview):** Saba picked version A of four portrait edits made in PhotoCraft (photo #11, the yellow wall made neutral grey, small wall marks removed; the face untouched), after seeing A and D in the built page. The old link-preview picture still said "Web Developer"; a new one in the new design (`public/og.png`, source in `private/design/og-2026-10-18/`) replaces `og-image.png`.
