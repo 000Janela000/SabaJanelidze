@@ -1,6 +1,6 @@
 # Saba Janelidze Portfolio — Agent Instructions
 
-This repo is Saba Janelidze's **personal portfolio site**, live at **https://www.sabajanelidze.com**. It presents Saba as a Senior Full-Stack Engineer with 3 years in production fintech. The site is in two languages: Georgian (`ka`) and English (`en`).
+This repo is Saba Janelidze's **personal portfolio site**, live at **https://www.sabajanelidze.com**. It presents Saba as a Principal Engineer in fintech who helps teams use AI coding agents safely. Since the launch (2026-10-18) the site is in English only; the Georgian (`ka`) home page comes in Phase 3.
 
 **This file is shared by every AI agent.** Claude Code reads it through `CLAUDE.md`. Codex reads it directly. Keep tool-specific notes out of here.
 
@@ -73,8 +73,10 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 - `npm run preview`: serves the built `dist/` without compression. Use it to click through, not to measure speed.
 - URLs never end with a slash: `/work/bitnet` is built as `dist/work/bitnet.html` (`trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`). Keep it that way; today's live URLs have no slash.
 - English is at `/`, Georgian at `/ka/...` (`i18n` in `astro.config.mjs`). There is no automatic language redirect, on purpose.
-- **Deploy: Cloudflare Workers (static assets only). Set up, never deployed yet.**
-  - `wrangler.jsonc`: the Worker `sabajanelidze-web`. It has no routes on purpose: the live domain stays on the old site until the switch-over.
+- **Deploy: Cloudflare Workers (static assets only). Live since 2026-10-18.**
+  - `wrangler.jsonc`: the Worker `sabajanelidze-web`, with the custom domains `www.sabajanelidze.com` and `sabajanelidze.com`. The test copy at https://sabajanelidze-web.ssjanelidze.workers.dev stays on (noindex).
+  - Deploy: `npm run cf:dry`, check the file list, then `npx wrangler deploy --config wrangler.jsonc` (the token in the Windows user env var `CLOUDFLARE_API_TOKEN` is enough). Every deploy to the live domain needs Saba's OK.
+  - A push to GitHub does not deploy. Vercel still builds pushes, but no longer serves the domain.
   - `npm run cf:dry` builds, then does a dry run (it uploads nothing). `npm run cf:dev` serves `dist/` on http://127.0.0.1:8787 the way Cloudflare will: headers, redirects, the 404 page.
   - `public/_headers`: security and cache headers (at least as strict as the old Vercel site). `public/_redirects`: the old site's `/work/...` links go home (302) until the case studies exist. `public/.assetsignore`: keeps the `/design` pages out of the upload.
   - Follow `../_shared/decisions/0004-deploy-safety.md`: always `--config wrangler.jsonc`, a dry run first. A real deploy and the domain switch need Saba's OK.
@@ -121,7 +123,9 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 
 ## Domain
 
-- `www.sabajanelidze.com` is the main address. `sabajanelidze.com` redirects to it with a 308 (permanent) redirect. The old `saba-janelidze.vercel.app` still works too.
+- `www.sabajanelidze.com` is the main address, served by the Cloudflare Worker. `sabajanelidze.com` redirects to it with a 301 (a zone Single Redirect rule, keeping the path and query). "Always Use HTTPS" is on for the whole zone (set by the lab session, 2026-10-18).
+- `lab.sabajanelidze.com` is the lab site (its own repo and Worker, `sabajanelidze-lab`).
+- The old site stays on Vercel (`saba-janelidze.vercel.app`); it is planned to move to `v1.sabajanelidze.com` (see `STATUS.md`).
 - The domain is registered at Cloudflare, and its DNS is also on Cloudflare. For records, renewal date and access, see "Domains" in `../CLAUDE.md` (the Projects folder rules, outside this repo).
 
 ## Rules

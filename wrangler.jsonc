@@ -2,17 +2,22 @@
 // SAFETY (../_shared/decisions/0004-deploy-safety.md): run wrangler ONLY with --config wrangler.jsonc,
 // and run `npm run cf:dry` (a dry run: builds and lists, uploads nothing) before every deploy.
 // Never deploy without Saba's OK.
-// No routes on purpose: www.sabajanelidze.com stays on the old site until the switch-over. At launch, after
-// Saba's OK, add { "pattern": "www.sabajanelidze.com", "custom_domain": true } and the apex redirect.
+// Live since the switch-over (2026-10-18, Saba's OK): www.sabajanelidze.com and sabajanelidze.com are custom
+// domains of this Worker. A zone Single Redirect rule (dashboard: Rules > Redirect Rules) sends the bare domain
+// to https://www.sabajanelidze.com, keeping the path and query; it runs before the Worker.
 // public/.assetsignore keeps the Phase 1 design pages out of the upload; public/_headers sets the security
 // and cache headers; public/_redirects sends the old site's /work/... links home until the case studies exist.
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "sabajanelidze-web",
   "compatibility_date": "2026-10-15",
-  // A first real deploy goes only to the workers.dev address (noindex, see public/_headers), never the live domain.
+  // The workers.dev address stays on as a test copy (noindex, see public/_headers).
   "workers_dev": true,
   "preview_urls": true,
+  "routes": [
+    { "pattern": "www.sabajanelidze.com", "custom_domain": true },
+    { "pattern": "sabajanelidze.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": "./dist",
     // /cv is served from dist/cv.html, and /cv/ redirects to /cv (the site's URLs never end with a slash).

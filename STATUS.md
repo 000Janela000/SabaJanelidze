@@ -6,44 +6,32 @@
 
 ## Where we are
 
-- **Live:** https://www.sabajanelidze.com. The own domain was added on 2026-10-07. Before that the site was at saba-janelidze.vercel.app, which still works.
-- **Pitch (since 2026-04-20):** Senior Full-Stack Engineer, 3 years in production fintech (Bitnet), Backend Lead at Chama, founder of Playtime.ge, WasteAway and UniHub.
-- **Projects shown, in this order:** Bitnet.ge, Playtime.ge, WasteAway, Chama.ge, UniHub. (Bitnet and WasteAway added 2026-10-13; see the log.)
-- **Deploy:** a push to `main` publishes it automatically on Vercel.
-- **Rebuild (branch `rebuild`, local only, not pushed):** a new Astro 7 site. Phase 1 (skeleton + four design directions), Phase 1b (the notebook home page) and Phase 1c (the calm reset) are done. **Phase 1e is done:** "Calm, with one live proof": Newsreader headings, the lab's payment-race figure in the hero, a rebuilt numbers row, and the 15 Phase 1d fixes. **Phase 1f is done:** a short headline, the company named less, CV in the phone menu, English screenshots and a new portrait. Its text is a draft until Saba approves it. The live site on `main` is untouched.
+- **Live since 2026-10-18:** the new Astro 7 site (branch `rebuild`) at https://www.sabajanelidze.com, served by the Cloudflare Worker `sabajanelidze-web` (see "Run, check, deploy" in `AGENTS.md`). The bare domain redirects to `www` (301). A push to GitHub does not deploy it.
+- **Pitch:** Principal Engineer at a licensed crypto exchange. I help fintech teams use AI coding agents safely, and I build AI features for their products. All home-page texts approved by Saba (2026-10-17).
+- **The lab** (the "One day on call" game, its own repo and session) is live at https://lab.sabajanelidze.com with incident 1 (Payments); its repo is public. The hero figure links to it.
+- **The old site** (Vite + React, branch `main`) still runs on Vercel at saba-janelidze.vercel.app; it moves to `v1.sabajanelidze.com` (Next steps).
+- **GitHub is behind:** `rebuild` is local only, and `main` on GitHub still holds the old site.
 
 ## Open problems (most important first)
 
-1. **The page title and description show the old pitch.**
-   - `index.html` still says "Saba Janelidze — Web Developer" and "I build websites that deliver results…".
-   - Google results and link previews show this. The site itself now says Senior Full-Stack Engineer, fintech.
-2. **The speed score the site shows is a desktop score.**
-   - `src/lib/lighthouse.ts` shows performance **92**, from a **desktop** test on 2026-03-30 (`lh-analysis.json`).
-   - Real **mobile** today (PageSpeed, 2026-10-08, middle of 3 runs): **performance 66**, SEO 100, accessibility 96, best practices 96. LCP (main content load) is 5.3 s.
-   - PageSpeed defaults to mobile, so a visitor who checks will see a lower number than the site claims.
-   - Saba decides: speed up mobile (e.g. lighter hero / three.js loading), or label the shown scores "desktop".
-   - Re-check with `node ../_shared/tools/google.mjs psi https://www.sabajanelidze.com/`.
-3. **Cleanup to decide:**
-   - `about-section.md` in the root is an old page dump (351 lines) from a browser tool. It's committed to git, but nothing uses it.
-   - The old `*.png` screenshots in the root are gitignored and stay local.
+1. **The live code is not on GitHub yet.** Pushing `rebuild` and making it `main` needs Saba's OK, and the `v1` steps come first: Vercel builds `main`, so the old site must build from `v1` before `main` changes.
+2. **Vercel still lists `www.sabajanelidze.com` and `sabajanelidze.com`** on the project `saba-janelidze` (they now point to Cloudflare, so Vercel shows them as misconfigured). Remove them in the Vercel dashboard during the `v1` steps.
+3. **Search Console and speed:** the new sitemap (`/sitemap.xml`, only `/`) is not submitted yet, and the live site's mobile speed is not measured yet (`node ../_shared/tools/google.mjs psi https://www.sabajanelidze.com/`).
 
 ## Next steps
 
-- After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race
-  figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
-- **Launch order (Saba, 2026-10-17): both sites go live on the same day; the lab with incident 1 (Payments) only.** The lab session accepted it (2026-10-17) and confirms the launch order and its launch steps (Worker, subdomain, repo public) with Saba in its own session; Saba confirmed it there (2026-10-17). **The lab is ready except Saba's launch OKs (2026-10-18, `cc9de33` on its `main`, all 4 CI checks green, checked on GitHub):** Saba approved every public text of the lab in its session; `<race-figure>` stays 1.1.5 (nothing under `packages/race-figure` changed since `1bb69f4`). **Left, all Saba's, in the lab session:** his OKs for the Worker, the `lab.sabajanelidze.com` route, the repo going public (it is still private), Web Analytics and the sitemap. The lab can be ready within the hour of those OKs. **Owed to the lab:** a NOTICE with the launch day once Saba picks it.
-  - **Launch-day order (lab's proposal):** (1) the lab repo goes public, (2) the lab is deployed and checked live, (3) this site's switch-over, (4) the lab's sitemap goes to Search Console.
-  - **This site's switch-over (checked 2026-10-18):** the Cloudflare token in `CLOUDFLARE_API_TOKEN` can deploy Workers (WasteAway's Worker and its custom domains were set up with it), so no extra login is needed. `www` and the bare domain are DNS-only CNAMEs to Vercel today. Steps, each with Saba's OK: deploy to the `workers.dev` test address and check it; remove the two Vercel CNAMEs; give the Worker the custom domains `www.sabajanelidze.com` and `sabajanelidze.com`; one Single Redirect rule sends the bare domain to `www` (keeping path and query); check live. The email records (`send`, `rsend`, MX) stay untouched. Pushing `rebuild` and merging it into `main` also needs Saba's OK (a push to `main` still builds on Vercel).
-  - **The old site stays online at `v1.sabajanelidze.com` (Saba, 2026-10-18).** It stays on Vercel (free), hidden from Google. Local branch `v1` (not pushed) = the live site (`origin/main`, `bcc0c77`) plus one commit (`41e18f1`) that sends `X-Robots-Tag: noindex`. Steps, each with Saba's OK, all after the switch-over: push `v1`; in Vercel, set the production branch to `v1` (only after `www` and the bare domain point to Cloudflare, or the live site would get `noindex`), add `v1.sabajanelidze.com` and remove the two old domains; add the `v1` CNAME in Cloudflare (DNS only); only then push the new code to `main`.
-  - **Promises to the lab:** keep `/book` live on launch day (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit if `src/styles/tokens.css` changes before launch (it reads v3 from the committed `rebuild` branch; unchanged since `ca74e54`).
-- **Before launch, the lab must be live:** the figure's "Reproduce it yourself →" link goes to `lab.sabajanelidze.com/day/payments?from=portfolio-home`, and that address does not exist yet (2026-10-15).
-- A better portrait: photo #31 of the 15 Oct shoot is in for now (Phase 1f). A reshoot with side light and a slight smile would beat it.
+- **The old site at `v1.sabajanelidze.com` (Saba, 2026-10-18).** It stays on Vercel (free), hidden from Google. Local branch `v1` (not pushed) = the old live site (`origin/main`, `bcc0c77`) plus one commit (`41e18f1`) that sends `X-Robots-Tag: noindex`. Steps, each with Saba's OK: push `v1`; in Vercel, set the production branch to `v1`, add `v1.sabajanelidze.com` and remove the two old domains; add the `v1` CNAME in Cloudflare (DNS only, the target Vercel shows); check it; only then push the new code to `main`.
+- **Promises to the lab:** keep `/book` working (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit when `src/styles/tokens.css` changes (it copied v3; unchanged since `ca74e54`).
+- After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
-- The lab site gets design tokens **version 3** (`src/styles/tokens.css`; what changed is at the top of `docs/design-tokens.md`).
+- Portrait: version A (photo #11 of the 15 Oct shoot, edited in PhotoCraft) is in since 2026-10-18. A reshoot with side light and a slight smile would still beat it (`private/photos/reshoot-guide.md`).
 - Phase 3: the Georgian home page (the new texts, through `../_shared/playbooks/georgian.md`, then Saba). Then: add "ka" back to `alternates` in `src/pages/index.astro`, delete the `/ka` lines in `public/_redirects` and `ka.html` in `public/.assetsignore`.
-- Before launch: `/google57aa1f004dba4711.html` redirects to the same address without `.html` (a Cloudflare setting that removes `.html`). The domain is verified in Search Console through DNS, so this file is probably no longer needed. Check before the switch.
+- `/google57aa1f004dba4711.html` now redirects to the same address without `.html`. The domain is verified in Search Console through DNS (the TXT record is untouched), so the file is probably not needed.
 
 ## Log
+
+- **2026-10-18 (launch: the switch-over):** with Saba's OK, `www.sabajanelidze.com` and `sabajanelidze.com` moved from Vercel to the Worker `sabajanelidze-web` (version `8d94b3ca`). Steps: the two DNS-only CNAMEs to Vercel deleted (saved first in `private/launch-2026-10-18/dns-before.json`); both names added as Worker custom domains (proxied); one Single Redirect rule sends the bare domain to `www` (301, path and query kept). Checked live: `/`, `/cv`, `/book`, `/book?from=lab-payments` 200; `/work/...` and `/ka` 302 home; `/design/...` 404; http 301 to https; bare domain 301 to `www` with the query; no `noindex`; security headers on; in Chrome no console errors, the race figure works. The lab was told (NOTICE launch-1#3) so it can submit its sitemap.
+- **2026-10-18 (portrait and link preview):** Saba picked version A of four portrait edits made in PhotoCraft (photo #11, the yellow wall made neutral grey, small wall marks removed; the face untouched), after seeing A and D in the built page. The old link-preview picture still said "Web Developer"; a new one in the new design (`public/og.png`, source in `private/design/og-2026-10-18/`) replaces `og-image.png`.
 
 - **2026-10-18 (test deploy):** with Saba's OK, the new site is on its test address https://sabajanelidze-web.ssjanelidze.workers.dev (Worker `sabajanelidze-web`, version `f32a2ff1`, 30 files; the domain still serves the old site). Checked there: `/`, `/cv`, `/book` answer 200; `/work/...` and `/ka` go home; `/design/...` is 404 (not uploaded); `x-robots-tag: noindex`; the security headers and the 1-year cache for `/_astro/`; in Chrome, no console errors, the race figure upgrades, no sideways scroll at 390 px.
 
