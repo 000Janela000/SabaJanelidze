@@ -26,6 +26,7 @@ dist/
 .vercel
 *.png
 !public/og.png
+!public/apple-touch-icon.png
 .playwright-mcp/
 
 # Private notes (marketing, strategy, personal). Synced between Saba's computers by Syncthing, never pushed. See AGENTS.md.
