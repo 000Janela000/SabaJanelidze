@@ -44,13 +44,6 @@
   line-gap-override: 0%;
 }
 
-/* Georgian has no serif here: Georgian headings use Noto Sans Georgian 600 (custom properties inherit,
-   so this works on any element with lang="ka", not only on Georgian pages). */
-:lang(ka) {
-  --font-display: var(--font-ka);
-  --weight-display: var(--weight-strong);
-}
-
 html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -66,17 +59,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-synthesis: none;
   overflow-wrap: break-word;
-}
-
-html:lang(ka) body {
-  font-family: var(--font-ka);
-}
-
-/* Georgian: never uppercase, never letter-spacing (_shared/playbooks/georgian.md).
-   English fallback text inside a Georgian page carries lang="en" and is not affected. */
-*:lang(ka) {
-  text-transform: none !important;
-  letter-spacing: normal !important;
 }
 
 [id] {

@@ -1,6 +1,5 @@
 ---
 // The site footer: "For hiring managers", the theme switch (Light / Dark / Auto) and the copyright.
-// The KA link shows only when footer.showLang is on (after Phase 3 builds the real Georgian page).
 import ThemeSwitch from "./ThemeSwitch.astro";
 import { footer } from "../../content/home";
 
@@ -15,16 +14,6 @@ const first = onCv ? footer.home : footer.hiring;
   <div class="ui-wrap ft-row">
     <p class="ft-links">
       <a class="ui-link" href={first.href}>{first.label}</a>
-      {
-        footer.showLang && (
-          <a class="ui-link" href={footer.lang.ka.href} lang="ka">
-            {footer.lang.ka.label}
-            <span class="sr-only" lang="en">
-              {" "}(Georgian)
-            </span>
-          </a>
-        )
-      }
       <span>{footer.copyright}</span>
     </p>
     <ThemeSwitch />

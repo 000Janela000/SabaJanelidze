@@ -3,7 +3,6 @@
 // light and dark themes, no grid, no glow, no explainers that move. Tokens: src/styles/tokens.css.
 // Order: hero (pitch, proof, two actions, four numbers) → work → what I do → one static method diagram
 // → about → contact. All text: src/content/home.ts (approved by Saba on 2026-10-17).
-// alternates: English only until the Georgian page exists (Saba, 2026-10-17: launch in English; /ka redirects home).
 // Add "ka" back together with the real Georgian page.
 import Base from "../layouts/Base.astro";
 import Header from "../components/site/Header.astro";
@@ -22,7 +21,6 @@ import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
   description={seo.description}
   lang="en"
   path="/"
-  alternates={["en"]}
   ogType="profile"
   jsonLd={profileJsonLd({ url: `${SITE_ORIGIN}/`, lang: "en", description: seo.description })}
 >

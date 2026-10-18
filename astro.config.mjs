@@ -1,6 +1,6 @@
 // Astro builds the whole site as plain static HTML into dist/.
-// English lives at the root (/), Georgian under /ka/. URLs never end with a slash:
-// /work/bitnet is built as dist/work/bitnet.html.
+// English only for now (a Georgian page comes later; /ka redirects home until then). URLs never end with a slash:
+// /cv is built as dist/cv.html.
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 
@@ -12,11 +12,6 @@ export default defineConfig({
     format: "file",
     // Put the CSS inside each HTML page: one request less before the first paint.
     inlineStylesheets: "always",
-  },
-  i18n: {
-    defaultLocale: "en",
-    locales: ["en", "ka"],
-    routing: { prefixDefaultLocale: false },
   },
   compressHTML: true,
   server: { port: 4321 },

@@ -16,10 +16,10 @@ export const PERSON = {
   },
 } as const;
 
-export type Lang = "en" | "ka";
+export type Lang = "en";
 
 /** Open Graph locale codes. */
-export const OG_LOCALE: Record<Lang, string> = { en: "en_US", ka: "ka_GE" };
+export const OG_LOCALE: Record<Lang, string> = { en: "en_US" };
 
 /**
  * JSON-LD (structured data that tells Google and AI tools who this page is about).

@@ -592,8 +592,6 @@ export const footer = {
   copyright: "© 2026 Saba Janelidze",
   theme: { label: "Theme", options: { light: "Light", dark: "Dark", auto: "Auto" } },
   /** The KA link stays hidden until /ka has the real Georgian page (Phase 3); today /ka is a placeholder. */
-  showLang: false,
-  lang: { en: { label: "EN", href: "/" }, ka: { label: "KA", href: "/ka" } },
   // Not on the site (Phase 1 design pages only): a placeholder, hidden until the CI gates exist.
   receipt:
     "Build receipt (placeholder): which checks passed, page weight and how much was AI-written, linked to the real CI run — coming with the CI gates.",
