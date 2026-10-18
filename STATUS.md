@@ -18,6 +18,7 @@
 
 ## Next steps
 
+- **From the 2026-10-18 attack review (`private/design/audit-2026-10-18/judgment.md`):** text changes for Saba to approve (group B: subline "use AI coding agents", the figure's scenario line, "My CV" button, email template, offer proofs, phone labels); facts only Saba can give (group C: how an engagement starts, a booking path, the CV page, `worksFor`); items for the lab (group D: the figure's text alternative and focus handling, "Book a call" wording); request indexing of `/` in Search Console.
 - **Promises to the lab:** keep `/book` working (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit when `src/styles/tokens.css` changes (it copied v3; unchanged since `ca74e54`).
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
@@ -27,6 +28,8 @@
 - `/google57aa1f004dba4711.html` now redirects to the same address without `.html`. The domain is verified in Search Console through DNS (the TXT record is untouched), so the file is probably not needed.
 
 ## Log
+
+- **2026-10-18 (attack review, favicon, quick fixes):** Saba asked for two Codex attacks and one Fable deep dive, plus an SEO, readability and findability audit. Brief, reviews and my judgment (findings sorted into quick fixes, text changes, facts only Saba can give, lab items, later): `private/design/audit-2026-10-18/`. Checked live: AI crawlers (GPTBot, OAI-SearchBot, ClaudeBot, PerplexityBot), Google and Bing all get the page. New favicon (Saba picked "SJ" in the heading serif, light on navy; letters as outlines; plus `favicon.ico` 16/32/48 and a 180 px phone icon). With Saba's OK, deployed (version `5287e548`) with the six quick fixes: the 404 page without the `/ka` link; old `/work/<slug>` links go to their card (`/#work-<slug>`, 302); `.html` and trailing-slash addresses redirect permanently (301); the Copy button announces its result to screen readers; no smooth scrolling and no accent on two decorations (AGENTS.md rules); JSON-LD now a `@graph` with a `WebSite` node and `knowsAbout`. Tested first on the local Cloudflare server (17 addresses), then live; no console errors.
 
 - **2026-10-18 (visitor statistics):** the new site had shipped without the Cloudflare Web Analytics snippet the old site had. Added to `src/layouts/Base.astro` (the same beacon token), tested on a preview version (script loads, the visit is reported, no CSP errors), then with Saba's OK made live (version `29a4f72b`) and pushed (`0d6474e`).
 
