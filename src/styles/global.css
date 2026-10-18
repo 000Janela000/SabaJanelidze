@@ -114,9 +114,6 @@ html:lang(ka) body {
 
 /* Motion is added only when the visitor has not asked for less of it ("no-motion-first"). */
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
   /* Page changes cross-fade in browsers that support it; others just load the page. 0 KB of JavaScript. */
   @view-transition {
     navigation: auto;

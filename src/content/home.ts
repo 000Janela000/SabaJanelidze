@@ -574,7 +574,7 @@ export const contact = {
   text: "Tell me what your team is building, how you use AI agents today, and where you don't trust them yet. A short intro call is the easiest start: email me and we'll find a time.",
   email: PERSON.email,
   cta: emailCta,
-  copy: { idle: "Copy", done: "Copied" },
+  copy: { idle: "Copy", done: "Copied", label: "Copy email address", copied: "Email address copied.", failed: "Could not copy. Use the email link." },
   links: [
     { label: "LinkedIn", href: PERSON.profiles.linkedin },
     { label: "GitHub", href: PERSON.profiles.github },

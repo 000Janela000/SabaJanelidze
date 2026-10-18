@@ -9,10 +9,11 @@ interface Props {
 }
 const { class: className } = Astro.props;
 ---
-<button type="button" class:list={["copy-email", className]} data-copy={contact.email} hidden>
+<button type="button" class:list={["copy-email", className]} data-copy={contact.email} data-copied={contact.copy.copied} data-failed={contact.copy.failed} aria-label={contact.copy.label} hidden>
   <span data-idle>{contact.copy.idle}</span>
   <span data-done hidden>{contact.copy.done}{" "}<span aria-hidden="true">✓</span></span>
 </button>
+<span class="sr-only" role="status" aria-atomic="true" data-copy-status></span>
 
 <script>
   for (const btn of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
@@ -20,13 +21,20 @@ const { class: className } = Astro.props;
     btn.hidden = false;
     const idle = btn.querySelector<HTMLElement>("[data-idle]");
     const done = btn.querySelector<HTMLElement>("[data-done]");
+    // The status line sits right after the button; screen readers announce its text.
+    const status = btn.nextElementSibling as HTMLElement | null;
+    const say = (text: string) => {
+      if (status?.hasAttribute("data-copy-status")) status.textContent = text;
+    };
     let timer = 0;
     btn.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(btn.dataset.copy ?? "");
       } catch {
+        say(btn.dataset.failed ?? "");
         return;
       }
+      say(btn.dataset.copied ?? "");
       if (idle) idle.hidden = true;
       if (done) done.hidden = false;
       window.clearTimeout(timer);

@@ -23,15 +23,25 @@ export const OG_LOCALE: Record<Lang, string> = { en: "en_US", ka: "ka_GE" };
 
 /**
  * JSON-LD (structured data that tells Google and AI tools who this page is about).
- * A ProfilePage whose main entity is the Person, with `sameAs` linking the active profiles.
+ * A WebSite (Google's strongest hint for the site name) and a ProfilePage whose main entity is the Person,
+ * with `sameAs` linking the active profiles and `knowsAbout` naming the topics the page proves.
  */
 export function profileJsonLd(opts: { url: string; lang: Lang; description: string }) {
   const personId = `${SITE_ORIGIN}/#person`;
-  return {
-    "@context": "https://schema.org",
+  const websiteId = `${SITE_ORIGIN}/#website`;
+  const website = {
+    "@type": "WebSite",
+    "@id": websiteId,
+    url: `${SITE_ORIGIN}/`,
+    name: PERSON.name,
+    inLanguage: opts.lang,
+    publisher: { "@id": personId },
+  };
+  const profile = {
     "@type": "ProfilePage",
     url: opts.url,
     inLanguage: opts.lang,
+    isPartOf: { "@id": websiteId },
     mainEntity: {
       "@type": "Person",
       "@id": personId,
@@ -43,6 +53,8 @@ export function profileJsonLd(opts: { url: string; lang: Lang; description: stri
       image: `${SITE_ORIGIN}${PERSON.portrait}`,
       email: `mailto:${PERSON.email}`,
       sameAs: [PERSON.profiles.linkedin, PERSON.profiles.github, PERSON.profiles.npm],
+      knowsAbout: ["AI coding agents", "Fintech", "Payment systems", "Identity verification", "Software architecture"],
     },
   };
+  return { "@context": "https://schema.org", "@graph": [website, profile] };
 }

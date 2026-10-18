@@ -119,10 +119,10 @@ const host = (url: string) => url.replace("https://", "");
     border-radius: calc(var(--radius-card) - 4px);
     background: var(--surface-2);
   }
-  /* Hover: a 1 px accent border on the image; with motion allowed, also a 2 px lift. Only borders and transform. */
+  /* Hover: a stronger 1 px border on the image; with motion allowed, also a 2 px lift. Only borders and transform. */
   @media (hover: hover) {
     .wk-lead:hover .wk-media img {
-      border-color: var(--accent);
+      border-color: var(--line-strong);
     }
   }
   @media (hover: hover) and (prefers-reduced-motion: no-preference) {
