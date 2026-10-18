@@ -4,7 +4,7 @@ import { emailButton } from "../../../shared/content/intro-email";
 
 export const contact = {
   heading: "Let's talk",
-  text: "Tell me what you're building and where you need a senior engineer. Email me and we'll find a time for a short call.",
+  text: "Hiring for a role, or need help on a project? Email me a few lines and we'll find a time for a short call.",
   email: PERSON.email,
   emailButton,
   copyButton: {

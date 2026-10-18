@@ -3,6 +3,7 @@
 export const services = {
   heading: "Work with me",
   intro: "Two kinds of work, both where money or identity must be right.",
+  availability: "I'm open to new work: a full-time role, a contract, part-time work, a one-off project or a review.",
   items: [
     {
       title: "Payments, identity and core systems",

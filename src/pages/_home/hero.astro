@@ -12,8 +12,8 @@ import { hero } from "./content/hero";
       <h1 id="hero-title" class="ui-display hero-pitch">
         {hero.headline.map((sentence, i) => <span class="hero-pitch-s">{sentence}{i < hero.headline.length - 1 ? " " : ""}</span>)}
       </h1>
-      <p class="hero-sub">{hero.subline}</p>
-      <p class="hero-proof">{hero.proof}</p>
+      <p class="hero-built">{hero.built}</p>
+      <p class="hero-path">{hero.path}</p>
       <div class="hero-actions">
         <a class="ui-btn" href={hero.emailButton.href}>{hero.emailButton.label}</a>
         <a class="ui-action hero-hire" href={hero.cvLink.href}>{hero.cvLink.label}<span class="ui-arrow" aria-hidden="true">→</span></a>
@@ -97,14 +97,14 @@ import { hero } from "./content/hero";
     display: block;
     text-wrap: balance;
   }
-  /* The path under the headline, in body text. */
-  .hero-sub {
+  /* What he built, then the dated path (smaller, muted), under the headline. */
+  .hero-built {
     max-width: 32em;
     margin: var(--space-5) 0 0;
     font-size: var(--fs-md);
     text-wrap: pretty;
   }
-  .hero-proof {
+  .hero-path {
     max-width: 36em;
     margin: var(--space-3) 0 0;
     font-size: var(--fs-base);

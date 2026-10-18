@@ -39,7 +39,7 @@ export const method = {
     {
       title: "A person approves",
       text: "Money, accounts and anything public need a person's yes first.",
-      fact: "All 11 launch decisions made by me, not an agent",
+      fact: "11 of 11 launch decisions signed off by me",
       source: "WasteAway, Oct 2026",
     },
   ] satisfies MethodStep[],

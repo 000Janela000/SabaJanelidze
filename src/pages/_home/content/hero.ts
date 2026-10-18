@@ -1,4 +1,4 @@
-// The first screen: the who-line, the headline, the path and proof, two actions, the line above the race figure
+// The first screen: the who-line, the headline, what he built and his dated path, two actions, the line above the race figure
 // and the four numbers. Approved by Saba (2026-10-17; the positioning review of 2026-10-19).
 // Rules: only true, dated numbers. No company name on the first screen (the sources may say "bitnet.ge").
 // Never claim the review agents catch the figure's exact bug, and never call it "load", a "retry" or "paying twice".
@@ -21,12 +21,11 @@ export const hero = {
   role: "Principal Engineer · Fintech & AI",
   // Each sentence starts on its own line.
   headline: ["I started on a crypto exchange's customer app.", "Today I lead the architecture of its new core."],
-  subline:
-    "Since January 2023 at an exchange licensed by the National Bank of Georgia: the React customer app (2023), the backend (2024–2025), the new Go core platform (2026).",
-  proof: "Built by me and live: identity checks, audit history, card and bank payments.",
+  built: "Built by me and live: identity checks, audit history, card and bank payments.",
+  path: "Since January 2023 at an exchange licensed by the National Bank of Georgia: the React customer app (2023), the backend (2024–2025), the new Go core platform (2026).",
   emailButton,
   cvLink: { label: "My CV", href: "/cv" },
-  figureIntro: "AI agents can write this, and it can pass tests. My review agents check money code.",
+  figureIntro: "A demo from my lab. AI agents can write this, and it can pass tests. My review agents check money code.",
   // Sources: bitnet.ge's public counters (read 2026-10-18); "237 of 278": Saba is first author of 237 of the new
   // platform's 278 architecture decision records (some drafted by an agent under his direction); "38 of 38": his rule
   // since the September 2026 release (details in the private research notes).

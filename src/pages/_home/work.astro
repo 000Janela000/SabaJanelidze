@@ -1,6 +1,6 @@
 ---
 // Selected work: the big Bitnet card (screenshot with a dated caption, the outcome, two links), then four small cards
-// that show their real stage as a tag; PlayTime and WasteAway also show a small picture of their live page.
+// that show their real stage as a tag.
 // Hover (pointer devices, motion allowed): the Bitnet image lifts 2 px.
 import Section from "./section.astro";
 import { work } from "./content/work";
@@ -41,27 +41,12 @@ const host = (url: string) => url.replace("https://", "");
     {
       cards.map((w) => (
         <article class="work-mini" id={`work-${w.slug}`} aria-labelledby={`work-${w.slug}-title`}>
-          <div class:list={["work-mini-head", { "has-thumb": w.thumb }]}>
-            {w.thumb && (
-              <img
-                class="work-thumb"
-                src={w.thumb.src}
-                width="288"
-                height="180"
-                alt={w.thumb.alt}
-                loading="lazy"
-                decoding="async"
-              />
-            )}
-            <div>
-              <p class="ui-meta">
-                {w.role}{"\u00a0· "}<span class="ui-source work-years">{w.years}</span>
-              </p>
-              <h3 id={`work-${w.slug}-title`} class="work-mini-title">
-                {w.title}
-              </h3>
-            </div>
-          </div>
+          <p class="ui-meta">
+            {w.role}{"\u00a0· "}<span class="ui-source work-years">{w.years}</span>
+          </p>
+          <h3 id={`work-${w.slug}-title`} class="work-mini-title">
+            {w.title}
+          </h3>
           <p class="work-stage"><span class="ui-tag">{w.stage}</span></p>
           <p class="work-mini-text">{w.outcome}</p>
           {w.url && (
@@ -178,38 +163,11 @@ const host = (url: string) => url.replace("https://", "");
     padding-top: var(--space-4);
     border-top: 1px solid var(--line);
   }
-  /* A small picture of the live English page beside the role line and title of the founder cards (PlayTime, WasteAway).
-     Small on purpose, so the Bitnet card stays the one big picture: 96 px wide on phones, 120 px from 480 px.
-     The stage tag stays under it at full width (PlayTime's tag is too long for the narrow column at 320 px). */
-  .work-mini-head.has-thumb {
-    display: grid;
-    grid-template-columns: 6rem minmax(0, 1fr);
-    gap: var(--space-4);
-    align-items: center;
-    margin-bottom: var(--space-3);
-  }
-  @media (min-width: 480px) {
-    .work-mini-head.has-thumb {
-      grid-template-columns: 7.5rem minmax(0, 1fr);
-    }
-  }
-  .work-thumb {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 10;
-    border: 1px solid var(--line);
-    border-radius: var(--radius-tag);
-    background: var(--surface-2);
-  }
   .work-mini-title {
     margin: var(--space-1) 0 var(--space-2);
     font-size: var(--fs-lg);
     font-weight: var(--weight-strong);
     line-height: var(--lh-heading);
-  }
-  .has-thumb .work-mini-title {
-    margin-bottom: 0;
   }
   .work-stage {
     margin: 0 0 var(--space-2);

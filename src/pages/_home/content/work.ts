@@ -1,4 +1,4 @@
-// Selected work: the big Bitnet card, then four small cards. What is live: confirmed by Saba (2026-10-15).
+// Selected work: the big Bitnet card, then four small text cards. What is live: confirmed by Saba (2026-10-15).
 // Rules: Bitnet only in public-safe words (no internal names, vendors or security details). Never claim
 // "I review every change" for PlayTime. Chama has no live link (chama.ge is down); UniHub is "a student portal".
 import { PERSON } from "../../../shared/lib/site";
@@ -26,8 +26,6 @@ type Card = {
   /** The real stage today, as a small tag. */
   stage: string;
   outcome: string;
-  /** A small screenshot (288 x 180) beside the title. */
-  thumb?: { src: string; alt: string };
   url?: string;
 };
 
@@ -60,7 +58,6 @@ export const work = {
       years: "2025 – now",
       stage: "Live listings · booking built",
       outcome: "19 padel clubs in Tbilisi listed publicly. Booking with payment is built; payments are still in test mode.",
-      thumb: { src: "/projects/playtime-thumb.webp", alt: "The playtime.ge home page" },
       url: "https://playtime.ge",
     },
     {
@@ -70,7 +67,6 @@ export const work = {
       years: "2026",
       stage: "Pre-launch · website live",
       outcome: "A live website and a worked-out cost model. Next: the first pilot building.",
-      thumb: { src: "/projects/wasteaway-thumb.webp", alt: "The wasteaway.ge home page in English" },
       url: "https://wasteaway.ge",
     },
     {
