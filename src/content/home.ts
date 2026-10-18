@@ -77,7 +77,7 @@ export type HeroNumber = { value: string; label: string; short: string; source: 
 
 // The four numbers under the hero, approved 2026-10-17 (Phase 1e: two for the company's scale, two for Saba's
 // own part). All true and dated. Phase 1f: the labels don't name the company; the source lines keep "bitnet.ge"
-// so a reader can check the numbers (Saba, 2026-10-15). Sources: bitnet.ge's public counters (read 2026-10-15; re-check on the publish day)
+// so a reader can check the numbers (Saba, 2026-10-15). Sources: bitnet.ge's public counters (read 2026-10-18, the launch day)
 // and the private research notes of 2026-10-14 (private/research/, not in git). "38 of 38": every customer action
 // must declare how a repeat is handled, or the build fails; Saba's rule, live since the September 2026 release.
 // The label says what the build checks (that each action declares its repeat rule), not "safe" or "runs once", on purpose.
@@ -86,8 +86,8 @@ export type HeroNumber = { value: string; label: string; short: string; source: 
 // Left out on purpose: "Since 2023" (repeats the proof sentence), PlayTime's "27" (a side project),
 // "#1 of 28 contributors" (vanity), "4 hours" and "109 of 109 commits by an AI agent" (weak oversight to a buyer).
 export const heroNumbers: HeroNumber[] = [
-  { value: "219,764", label: "registered users on the exchange I help build", short: "exchange's registered users", source: "bitnet.ge, Oct 2026" },
-  { value: "2,538,923", label: "transactions on the same exchange", short: "exchange's transactions", source: "bitnet.ge, Oct 2026" },
+  { value: "220,012", label: "registered users on the exchange I help build", short: "exchange's registered users", source: "bitnet.ge, Oct 2026" },
+  { value: "2,574,508", label: "transactions on the same exchange", short: "exchange's transactions", source: "bitnet.ge, Oct 2026" },
   {
     value: "237 of 278",
     label: "architecture decision records for its new core platform, first-authored by me",
@@ -162,9 +162,9 @@ export type ProofFact = {
 export const proof: ProofFact[] = [
   {
     org: "Bitnet",
-    value: "219,755",
+    value: "220,012",
     label: "registered users",
-    detail: "2,537,505 transactions",
+    detail: "2,574,508 transactions",
     source: "bitnet.ge, Oct 2026",
     href: "https://bitnet.ge",
   },
