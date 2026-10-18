@@ -1,20 +1,20 @@
 ---
 // Work with me: the kinds of work (two since the positioning review, 2026-10-19). Columns on desktop, a plain list on phones.
 // Phase 1e (Phase 1d fix 7): each offer ends with one proof line that points at the evidence.
-import Section from "../site/Section.astro";
-import { offers } from "../../content/home";
+import Section from "./section.astro";
+import { services } from "./content/services";
 ---
-<Section id="services" heading={offers.heading} intro={offers.intro}>
+<Section id="services" heading={services.heading} intro={services.intro}>
   <ul class="of">
     {
-      offers.items.map((o) => (
+      services.items.map((o) => (
         <li class="of-item">
           <h3 class="of-title">{o.title}</h3>
           <p class="of-text">{o.text}</p>
           <p class="of-proof">
             {o.proof}{" "}
-            <a class="ui-link of-link" href={o.link.href} rel={o.link.dir === "out" ? "noopener" : undefined}>
-              {o.link.label}<span class="ui-arrow" data-dir={o.link.dir} aria-hidden="true">{o.link.dir === "out" ? "↗" : "↓"}</span>
+            <a class="ui-link of-link" href={o.proofLink.href}>
+              {o.proofLink.label}<span class="ui-arrow" data-dir="down" aria-hidden="true">↓</span>
             </a>
           </p>
         </li>

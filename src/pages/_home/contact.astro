@@ -1,12 +1,12 @@
 ---
 // Contact: "Email me" (a plain mailto link), the address with Copy, LinkedIn and GitHub.
-import Section from "../site/Section.astro";
-import CopyEmail from "../CopyEmail.astro";
-import { contact } from "../../content/home";
+import Section from "./section.astro";
+import CopyEmail from "./copy-email.astro";
+import { contact } from "./content/contact";
 ---
 <Section id="contact" heading={contact.heading} intro={contact.text}>
   <div class="ct-actions">
-    <a class="ui-btn" href={contact.cta.href}>{contact.cta.label}</a>
+    <a class="ui-btn" href={contact.emailButton.href}>{contact.emailButton.label}</a>
     <span class="ct-email">
       <a class="ui-link" href={`mailto:${contact.email}`}>{contact.email}</a>
       <CopyEmail class="ct-copy" />
@@ -14,7 +14,7 @@ import { contact } from "../../content/home";
   </div>
   <p class="ct-links">
     {
-      contact.links.map((l) => (
+      contact.profileLinks.map((l) => (
         <a class="ui-link" href={l.href} rel="noopener me">
           {l.label}
         </a>

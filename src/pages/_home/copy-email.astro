@@ -2,16 +2,16 @@
 // Signature moment 6 (micro-feedback): a "Copy" button next to the email address that turns into "Copied"
 // for 1.5 s. A text swap, not an animation, so it stays for visitors who prefer reduced motion.
 // Hidden without JavaScript (the mailto link still works).
-import { contact } from "../content/home";
+import { contact } from "./content/contact";
 
 interface Props {
   class?: string;
 }
 const { class: className } = Astro.props;
 ---
-<button type="button" class:list={["copy-email", className]} data-copy={contact.email} data-copied={contact.copy.copied} data-failed={contact.copy.failed} aria-label={contact.copy.label} hidden>
-  <span data-idle>{contact.copy.idle}</span>
-  <span data-done hidden>{contact.copy.done}{" "}<span aria-hidden="true">✓</span></span>
+<button type="button" class:list={["copy-email", className]} data-copy={contact.email} data-copied={contact.copyButton.copied} data-failed={contact.copyButton.failed} aria-label={contact.copyButton.label} hidden>
+  <span data-idle>{contact.copyButton.idle}</span>
+  <span data-done hidden>{contact.copyButton.done}{" "}<span aria-hidden="true">✓</span></span>
 </button>
 <span class="sr-only" role="status" aria-atomic="true" data-copy-status></span>
 

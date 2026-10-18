@@ -4,14 +4,14 @@
 // A tiny script reads "from" (letters, digits and dashes only, at most 40 characters), keeps it on <main>
 // as data-from (ready to be shown or logged later), and adds it to the email as a short reference line.
 // Later this page can forward to a booking calendar; it must keep ?from= when it does. Not for search engines.
-import Base from "../layouts/Base.astro";
-import Header from "../components/site/Header.astro";
-import Footer from "../components/site/Footer.astro";
-import { PERSON } from "../lib/site";
-import { introMail, introMailHref } from "../content/home";
+import Base from "../shared/components/base-layout.astro";
+import Header from "../shared/components/header.astro";
+import Footer from "../shared/components/footer.astro";
+import { PERSON } from "../shared/lib/site";
+import { introEmail, introEmailHref } from "../shared/content/intro-email";
 
 // The same intro email as the home page: a subject and four short prompts.
-const mail = introMailHref();
+const mail = introEmailHref();
 ---
 <Base
   title="Get in touch — Saba Janelidze"
@@ -28,7 +28,7 @@ const mail = introMailHref();
       suggest a time for a short call.
     </p>
     <p class="ph-actions">
-      <a class="ui-btn" href={mail} data-mail data-subject={introMail.subject} data-body={introMail.body}>Email me</a>
+      <a class="ui-btn" href={mail} data-mail data-subject={introEmail.subject} data-body={introEmail.body}>Email me</a>
       <a class="ui-action" href={PERSON.profiles.linkedin} rel="noopener me">LinkedIn<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
     </p>
     <p class="ph-note">

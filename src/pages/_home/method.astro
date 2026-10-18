@@ -6,8 +6,8 @@
 // The lines carry meaning (the order), so they use --line-strong (3:1 or more); they never pass behind text
 // (the line sits beside the numbers, the text sits below or right).
 // The stepped explainer version lives in src/components/Pipeline.astro for the future "How I work" page.
-import Section from "../site/Section.astro";
-import { method } from "../../content/home";
+import Section from "./section.astro";
+import { method } from "./content/method";
 ---
 <Section id="how" heading={method.heading} intro={method.intro}>
   <figure class="md">

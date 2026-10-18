@@ -4,7 +4,7 @@
 // Sources: the private research notes of 2026-10-13/14 (private/research/, not in git), Saba's confirmed facts of
 // 2026-10-15 (title "Principal Engineer"; what is live), and the projects' own STATUS.md files.
 
-import { PERSON } from "../lib/site";
+import { PERSON } from "../../shared/lib/site";
 
 export type CvRole = { when: string; what: string; points?: string[] };
 export type CvJob = { org: string; kind: string; title: string; when: string; roles?: CvRole[]; points?: string[] };

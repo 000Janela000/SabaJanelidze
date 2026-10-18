@@ -1,14 +1,14 @@
 ---
 // The site footer: "For hiring managers", the theme switch (Light / Dark / Auto) and the copyright.
-import ThemeSwitch from "./ThemeSwitch.astro";
-import { footer } from "../../content/home";
+import ThemeSwitch from "./theme-switch.astro";
+import { footer } from "../content/site-chrome";
 
 interface Props {
   /** On /cv the hiring link would point to the page itself, so it becomes "Home". */
   onCv?: boolean;
 }
 const { onCv = false } = Astro.props;
-const first = onCv ? footer.home : footer.hiring;
+const first = onCv ? footer.homeLink : footer.cvLink;
 ---
 <footer class="ft">
   <div class="ui-wrap ft-row">

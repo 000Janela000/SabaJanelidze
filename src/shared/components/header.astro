@@ -2,8 +2,9 @@
 // The sticky site header: the name and the main links. Nothing else, so it can never overflow:
 // phones (under 640 px) show the name, "Work" and "Contact"; wider screens show all five links (the last is the
 // quiet "CV", Phase 1d fix 11).
-// The theme switch and the language link live in the footer (Phase 1c). Nav links change instantly (motion rule 5).
-import { hero, nav } from "../../content/home";
+// The theme switch lives in the footer. Nav links change instantly (motion rule 5).
+import { nav } from "../content/site-chrome";
+import { PERSON } from "../lib/site";
 
 // Section links are "#work" on the home page and "/#work" everywhere else.
 const onHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
@@ -11,9 +12,9 @@ const link = (href: string) => (onHome || !href.startsWith("#") ? href : `/${hre
 ---
 <header class="hd">
   <div class="ui-wrap hd-row">
-    <a class="hd-logo" href="/">{hero.name}</a>
+    <a class="hd-logo" href="/">{PERSON.name}</a>
     <nav class="hd-nav" aria-label="Main">
-      {nav.map((n) => <a class:list={[{ "hd-wide": !n.phone }]} href={link(n.href)}>{n.label}</a>)}
+      {nav.map((n) => <a class:list={[{ "hd-wide": !n.onPhone }]} href={link(n.href)}>{n.label}</a>)}
     </nav>
   </div>
 </header>

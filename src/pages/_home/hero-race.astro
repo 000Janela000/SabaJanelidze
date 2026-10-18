@@ -23,7 +23,7 @@
 // sees why this bug is on the first screen (Saba, 2026-10-17: "why we highlight some bug fix as main hero section?").
 import "../../vendor/race-figure/race-figure.css";
 import fallback from "../../vendor/race-figure/race-figure.html?raw";
-import { hero } from "../../content/home";
+import { hero } from "./content/hero";
 
 const LAB = "https://lab.sabajanelidze.com/day/payments";
 const TAGGED = `${LAB}?from=portfolio-home`;
@@ -33,7 +33,7 @@ const hits = fallback.split(`"${LAB}"`).length - 1;
 if (hits !== 2) throw new Error(`race-figure.html: expected the lab address twice, found ${hits}. Check the new version.`);
 const html = fallback.replaceAll(`"${LAB}"`, `"${TAGGED}"`).trim();
 ---
-<p class="hrc-lede">{hero.raceLede}</p>
+<p class="hrc-lede">{hero.figureIntro}</p>
 <div class="hrc" data-race-slot set:html={html} />
 
 <script>

@@ -7,21 +7,21 @@
 // - Phones and tablets: pitch, proof, actions, then the figure full width, then the numbers 2 x 2.
 // The numbers use a subgrid, so value, label and source line up across a row whatever the label length;
 // phones get shorter labels (Phase 1d fix 15).
-import HeroRace from "./HeroRace.astro";
-import { hero, heroNumbers } from "../../content/home";
+import HeroRace from "./hero-race.astro";
+import { hero } from "./content/hero";
 ---
 <section class="hero" aria-labelledby="hero-title">
   <div class="ui-wrap hero-grid">
     <div class="hero-main">
       <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
       <h1 id="hero-title" class="hero-pitch">
-        {hero.headline.split(/(?<=\.)\s+/).map((s, i, all) => <span class="hero-pitch-s">{s}{i < all.length - 1 ? " " : ""}</span>)}
+        {hero.headline.map((sentence, i) => <span class="hero-pitch-s">{sentence}{i < hero.headline.length - 1 ? " " : ""}</span>)}
       </h1>
       <p class="hero-sub">{hero.subline}</p>
-      <p class="hero-proof">{hero.proofLine}</p>
+      <p class="hero-proof">{hero.proof}</p>
       <div class="hero-actions">
-        <a class="ui-btn" href={hero.email.href}>{hero.email.label}</a>
-        <a class="ui-action hero-hire" href={hero.hiring.href}>{hero.hiring.label}<span class="ui-arrow" aria-hidden="true">→</span></a>
+        <a class="ui-btn" href={hero.emailButton.href}>{hero.emailButton.label}</a>
+        <a class="ui-action hero-hire" href={hero.cvLink.href}>{hero.cvLink.label}<span class="ui-arrow" aria-hidden="true">→</span></a>
       </div>
     </div>
     <div class="hero-figure">
@@ -29,12 +29,12 @@ import { hero, heroNumbers } from "../../content/home";
     </div>
     <ul class="hero-nums" aria-label="In numbers">
       {
-        heroNumbers.map((n) => (
+        hero.numbers.map((n) => (
           <li class="hero-num">
             <span class="hero-num-value">{n.value}</span>
             <span class="hero-num-label">
               <span class="hero-num-long">{n.label}</span>
-              <span class="hero-num-short">{n.short}</span>
+              <span class="hero-num-short">{n.labelShort}</span>
             </span>
             <span class="hero-num-src ui-source">
               {n.sourceShort ? (

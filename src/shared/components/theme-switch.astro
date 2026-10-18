@@ -5,11 +5,11 @@
 //   localStorage (key "theme", values "light" / "dark"). If storage is blocked, the choice lasts for this page.
 // - Hidden without JavaScript (it could not work); the page then follows the system setting.
 // - Switches instantly: no animation (motion rule 5, and Saba's "calm" brief).
-import { footer } from "../../content/home";
-const o = footer.theme.options;
+import { themeSwitch } from "../content/site-chrome";
+const o = themeSwitch.options;
 ---
 <div class="ts" role="group" aria-labelledby="ts-label" data-theme-switch>
-  <span id="ts-label" class="ts-label">{footer.theme.label}</span>
+  <span id="ts-label" class="ts-label">{themeSwitch.label}</span>
   <span class="ts-opts">
     <button type="button" class="ts-btn" data-set="light" aria-pressed="false">{o.light}</button>
     <button type="button" class="ts-btn" data-set="dark" aria-pressed="false">{o.dark}</button>

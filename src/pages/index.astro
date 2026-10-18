@@ -4,17 +4,17 @@
 // Order: hero (pitch, proof, two actions, four numbers) → work → what I do → one static method diagram
 // → about → contact. All text: src/content/home.ts (approved by Saba on 2026-10-17).
 // Add "ka" back together with the real Georgian page.
-import Base from "../layouts/Base.astro";
-import Header from "../components/site/Header.astro";
-import Footer from "../components/site/Footer.astro";
-import Hero from "../components/home/Hero.astro";
-import Work from "../components/home/Work.astro";
-import Offers from "../components/home/Offers.astro";
-import Method from "../components/home/Method.astro";
-import About from "../components/home/About.astro";
-import Contact from "../components/home/Contact.astro";
-import { seo } from "../content/home";
-import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
+import Base from "../shared/components/base-layout.astro";
+import Header from "../shared/components/header.astro";
+import Footer from "../shared/components/footer.astro";
+import Hero from "./_home/hero.astro";
+import Work from "./_home/work.astro";
+import Services from "./_home/services.astro";
+import Method from "./_home/method.astro";
+import About from "./_home/about.astro";
+import Contact from "./_home/contact.astro";
+import { seo } from "./_home/content/seo";
+import { profileJsonLd, SITE_ORIGIN } from "../shared/lib/site";
 ---
 <Base
   title={seo.title}
@@ -28,7 +28,7 @@ import { profileJsonLd, SITE_ORIGIN } from "../lib/site";
   <main id="main" tabindex="-1">
     <Hero />
     <Work />
-    <Offers />
+    <Services />
     <Method />
     <About />
     <Contact />
