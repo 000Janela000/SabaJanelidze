@@ -10,45 +10,45 @@ import { PERSON } from "../lib/site";
 const onHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 const link = (href: string) => (onHome || !href.startsWith("#") ? href : `/${href}`);
 ---
-<header class="hd">
-  <div class="ui-wrap hd-row">
-    <a class="hd-logo" href="/">{PERSON.name}</a>
-    <nav class="hd-nav" aria-label="Main">
-      {nav.map((n) => <a class:list={[{ "hd-wide": !n.onPhone }]} href={link(n.href)}>{n.label}</a>)}
+<header class="header">
+  <div class="ui-wrap header-row">
+    <a class="header-logo" href="/">{PERSON.name}</a>
+    <nav class="header-nav" aria-label="Main">
+      {nav.map((n) => <a class:list={[{ "header-wide": !n.onPhone }]} href={link(n.href)}>{n.label}</a>)}
     </nav>
   </div>
 </header>
 
 <style>
-  .hd {
+  .header {
     position: sticky;
     top: 0;
     z-index: 30;
     background: var(--bg);
     border-bottom: 1px solid var(--line);
   }
-  .hd-row {
+  .header-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
     height: var(--header-h);
   }
-  .hd-logo {
+  .header-logo {
     flex: none;
     color: var(--fg);
     font-weight: var(--weight-strong);
     text-decoration: none;
     white-space: nowrap;
   }
-  .hd-nav {
+  .header-nav {
     display: flex;
     align-items: center;
     gap: var(--space-1) var(--space-5);
     min-width: 0;
     font-size: var(--fs-sm);
   }
-  .hd-nav a {
+  .header-nav a {
     display: inline-flex;
     align-items: center;
     min-height: 44px;
@@ -57,22 +57,22 @@ const link = (href: string) => (onHome || !href.startsWith("#") ? href : `/${hre
     text-decoration: none;
     white-space: nowrap;
   }
-  .hd-nav a:hover {
+  .header-nav a:hover {
     color: var(--fg);
     text-decoration: underline;
     text-decoration-color: var(--accent);
     text-underline-offset: 5px;
   }
-  .hd-nav .hd-wide {
+  .header-nav .header-wide {
     display: none;
   }
   @media (min-width: 640px) {
-    .hd-nav .hd-wide {
+    .header-nav .header-wide {
       display: inline-flex;
     }
   }
   @media (max-width: 359px) {
-    .hd-nav {
+    .header-nav {
       gap: var(--space-2);
     }
   }

@@ -9,48 +9,48 @@ import Base from "../shared/components/base-layout.astro";
   path="/404"
   noindex
 >
-  <main id="main" class="nf">
+  <main id="main" class="not-found">
     <p class="ui-source">404</p>
-    <h1 class="ui-display nf-title">This page does not exist</h1>
-    <p class="nf-text">
+    <h1 class="ui-display not-found-title">This page does not exist</h1>
+    <p class="not-found-text">
       The address may be mistyped, or the page has not been built yet.
     </p>
-    <p class="nf-links">
-      <a class="ui-link nf-link" href="/">Home</a>
+    <p class="not-found-links">
+      <a class="ui-link not-found-link" href="/">Home</a>
     </p>
   </main>
 </Base>
 
 <style>
-  .nf {
+  .not-found {
     max-width: 48rem;
     margin-inline: auto;
     padding: 6rem 1.25rem;
   }
-  .nf-title {
+  .not-found-title {
     margin-top: 0.75rem;
     font-size: 1.875rem;
     line-height: 1.2;
     letter-spacing: -0.025em;
   }
-  .nf-text {
+  .not-found-text {
     margin-top: 1rem;
     color: var(--muted);
   }
-  .nf-links {
+  .not-found-links {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
     margin-top: 2rem;
   }
-  .nf-link {
+  .not-found-link {
     font-weight: 500;
   }
   @media (min-width: 48rem) {
-    .nf {
+    .not-found {
       padding: 8rem 2.5rem;
     }
-    .nf-title {
+    .not-found-title {
       font-size: 2.25rem;
       line-height: 2.5rem;
     }

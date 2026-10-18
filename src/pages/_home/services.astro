@@ -5,15 +5,15 @@ import Section from "./section.astro";
 import { services } from "./content/services";
 ---
 <Section id="services" heading={services.heading} intro={services.intro}>
-  <ul class="of">
+  <ul class="services">
     {
       services.items.map((o) => (
-        <li class="of-item">
-          <h3 class="of-title">{o.title}</h3>
-          <p class="of-text">{o.text}</p>
-          <p class="of-proof">
+        <li class="services-item">
+          <h3 class="services-title">{o.title}</h3>
+          <p class="services-text">{o.text}</p>
+          <p class="services-proof">
             {o.proof}{" "}
-            <a class="ui-link of-link" href={o.proofLink.href}>
+            <a class="ui-link services-link" href={o.proofLink.href}>
               {o.proofLink.label}<span class="ui-arrow" data-dir="down" aria-hidden="true">↓</span>
             </a>
           </p>
@@ -24,7 +24,7 @@ import { services } from "./content/services";
 </Section>
 
 <style>
-  .of {
+  .services {
     display: grid;
     gap: var(--space-6);
     margin: 0;
@@ -32,30 +32,30 @@ import { services } from "./content/services";
     list-style: none;
   }
   @media (min-width: 900px) {
-    .of {
+    .services {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: var(--space-6);
     }
   }
-  .of-item {
+  .services-item {
     display: flex;
     flex-direction: column;
     padding-top: var(--space-4);
     border-top: 1px solid var(--line);
   }
-  .of-title {
+  .services-title {
     margin: 0 0 var(--space-2);
     font-size: var(--fs-lg);
     font-weight: var(--weight-strong);
     line-height: 1.3;
     letter-spacing: -0.01em;
   }
-  .of-text {
+  .services-text {
     margin: 0;
     color: var(--muted);
   }
   /* The proof line: smaller, in --fg, at the bottom of the column so the three line up on desktop. */
-  .of-proof {
+  .services-proof {
     margin: var(--space-4) 0 0;
     padding-top: var(--space-3);
     border-top: 1px dashed var(--line);
@@ -63,11 +63,11 @@ import { services } from "./content/services";
     line-height: 1.5;
   }
   @media (min-width: 900px) {
-    .of-text {
+    .services-text {
       margin-bottom: var(--space-4);
     }
   }
-  .of-link {
+  .services-link {
     white-space: nowrap;
   }
 </style>

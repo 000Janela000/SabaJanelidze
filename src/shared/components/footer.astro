@@ -10,9 +10,9 @@ interface Props {
 const { onCv = false } = Astro.props;
 const first = onCv ? footer.homeLink : footer.cvLink;
 ---
-<footer class="ft">
-  <div class="ui-wrap ft-row">
-    <p class="ft-links">
+<footer class="footer">
+  <div class="ui-wrap footer-row">
+    <p class="footer-links">
       <a class="ui-link" href={first.href}>{first.label}</a>
       <span>{footer.copyright}</span>
     </p>
@@ -21,11 +21,11 @@ const first = onCv ? footer.homeLink : footer.cvLink;
 </footer>
 
 <style>
-  .ft {
+  .footer {
     margin-top: var(--section-space);
     border-top: 1px solid var(--line);
   }
-  .ft-row {
+  .footer-row {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -36,7 +36,7 @@ const first = onCv ? footer.homeLink : footer.cvLink;
     font-size: var(--fs-sm);
     color: var(--muted);
   }
-  .ft-links {
+  .footer-links {
     display: flex;
     flex-wrap: wrap;
     align-items: center;

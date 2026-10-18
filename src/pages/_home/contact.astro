@@ -5,14 +5,14 @@ import CopyEmail from "./copy-email.astro";
 import { contact } from "./content/contact";
 ---
 <Section id="contact" heading={contact.heading} intro={contact.text}>
-  <div class="ct-actions">
+  <div class="contact-actions">
     <a class="ui-btn" href={contact.emailButton.href}>{contact.emailButton.label}</a>
-    <span class="ct-email">
+    <span class="contact-email">
       <a class="ui-link" href={`mailto:${contact.email}`}>{contact.email}</a>
       <CopyEmail />
     </span>
   </div>
-  <p class="ct-links">
+  <p class="contact-links">
     {
       contact.profileLinks.map((l) => (
         <a class="ui-link" href={l.href} rel="noopener me">
@@ -24,20 +24,20 @@ import { contact } from "./content/contact";
 </Section>
 
 <style>
-  .ct-actions {
+  .contact-actions {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-4) var(--space-6);
   }
-  .ct-email {
+  .contact-email {
     display: inline-flex;
     flex-wrap: wrap;
     align-items: center;
     gap: var(--space-3);
     font-size: var(--fs-md);
   }
-  .ct-links {
+  .contact-links {
     display: flex;
     gap: var(--space-5);
     margin: var(--space-5) 0 0;

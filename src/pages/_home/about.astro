@@ -7,25 +7,25 @@ import { about } from "./content/about";
 import { PERSON } from "../../shared/lib/site";
 ---
 <Section id="about" heading={about.heading}>
-  <div class="ab">
-    <img class="ab-portrait" src={PERSON.portrait} width="800" height="800" alt={about.portraitAlt} loading="lazy" decoding="async" />
-    <div class="ab-text">
-      {about.bio.map((b) => <p class="ab-p">{b}</p>)}
+  <div class="about">
+    <img class="about-portrait" src={PERSON.portrait} width="800" height="800" alt={about.portraitAlt} loading="lazy" decoding="async" />
+    <div class="about-text">
+      {about.bio.map((b) => <p class="about-p">{b}</p>)}
 
-      <h3 class="ab-h3">{about.openSourceHeading}</h3>
-      <ul class="ab-os">
+      <h3 class="about-h3">{about.openSourceHeading}</h3>
+      <ul class="about-os">
         {
           about.openSource.map((o) => (
             <li>
-              <a class="ui-link ab-os-name" href={o.href} rel="noopener">{o.name}</a>{`: ${o.text}. `}<span class="ab-os-proof">{o.proof}.</span>
+              <a class="ui-link about-os-name" href={o.href} rel="noopener">{o.name}</a>{`: ${o.text}. `}<span class="about-os-proof">{o.proof}.</span>
             </li>
           ))
         }
       </ul>
-      <p class="ab-note ui-meta">{about.openSourceNote}</p>
+      <p class="about-note ui-meta">{about.openSourceNote}</p>
 
-      <h3 class="ab-h3">Stack</h3>
-      <dl class="ab-stack">
+      <h3 class="about-h3">Stack</h3>
+      <dl class="about-stack">
         {
           about.stack.map((g) => (
             <div>
@@ -41,7 +41,7 @@ import { PERSON } from "../../shared/lib/site";
 
 <style>
   /* Phones: a square portrait above the text (a float made very short lines). Desktop: two columns. */
-  .ab-portrait {
+  .about-portrait {
     display: block;
     width: 128px;
     height: auto;
@@ -52,26 +52,26 @@ import { PERSON } from "../../shared/lib/site";
     border-radius: var(--radius);
   }
   @media (min-width: 900px) {
-    .ab {
+    .about {
       display: grid;
       grid-template-columns: 280px minmax(0, 1fr);
       gap: var(--space-8);
       align-items: start;
     }
-    .ab-portrait {
+    .about-portrait {
       width: 100%;
       margin: 0;
     }
   }
-  .ab-p {
+  .about-p {
     max-width: 38em;
     margin: 0 0 var(--space-4);
     font-size: var(--fs-md);
   }
-  .ab-p + .ab-p {
+  .about-p + .about-p {
     color: var(--muted);
   }
-  .ab-h3 {
+  .about-h3 {
     clear: both;
     margin: var(--space-6) 0 var(--space-3);
     padding-top: var(--space-4);
@@ -80,7 +80,7 @@ import { PERSON } from "../../shared/lib/site";
     font-weight: var(--weight-strong);
     line-height: 1.4;
   }
-  .ab-os {
+  .about-os {
     display: grid;
     gap: var(--space-3);
     max-width: 44em;
@@ -91,37 +91,37 @@ import { PERSON } from "../../shared/lib/site";
     line-height: 1.55;
     color: var(--muted);
   }
-  .ab-os-name {
+  .about-os-name {
     font-weight: var(--weight-strong);
   }
-  .ab-os-proof {
+  .about-os-proof {
     color: var(--fg);
   }
-  .ab-note {
+  .about-note {
     margin: var(--space-3) 0 0;
   }
-  .ab-stack {
+  .about-stack {
     display: grid;
     gap: var(--space-2);
     max-width: 44em;
     margin: 0;
   }
-  .ab-stack > div {
+  .about-stack > div {
     display: grid;
     gap: 0.1rem;
   }
   @media (min-width: 640px) {
-    .ab-stack > div {
+    .about-stack > div {
       grid-template-columns: 9.5rem minmax(0, 1fr);
       gap: var(--space-4);
     }
   }
-  .ab-stack dt {
+  .about-stack dt {
     font-size: var(--fs-sm);
     color: var(--fg);
     line-height: 1.6;
   }
-  .ab-stack dd {
+  .about-stack dd {
     margin: 0;
     font-size: var(--fs-sm);
     line-height: 1.6;
