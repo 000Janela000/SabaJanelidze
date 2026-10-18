@@ -3,11 +3,18 @@
 // The KA link shows only when footer.showLang is on (after Phase 3 builds the real Georgian page).
 import ThemeSwitch from "./ThemeSwitch.astro";
 import { footer } from "../../content/home";
+
+interface Props {
+  /** On /cv the hiring link would point to the page itself, so it becomes "Home". */
+  onCv?: boolean;
+}
+const { onCv = false } = Astro.props;
+const first = onCv ? footer.home : footer.hiring;
 ---
 <footer class="ft">
   <div class="ui-wrap ft-row">
     <p class="ft-links">
-      <a class="ui-link" href={footer.hiring.href}>{footer.hiring.label}</a>
+      <a class="ui-link" href={first.href}>{first.label}</a>
       {
         footer.showLang && (
           <a class="ui-link" href={footer.lang.ka.href} lang="ka">

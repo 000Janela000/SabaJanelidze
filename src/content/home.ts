@@ -79,8 +79,9 @@ export const hero = {
   headerCta: { label: "Book a call", href: book("home-header") },
 };
 
-/** label: the full label (from 640 px); short: the phone label, so the four source lines line up in the 2 x 2 grid. */
-export type HeroNumber = { value: string; label: string; short: string; source: string };
+/** label: the full label (from 640 px); short: the phone label, so the four source lines line up in the 2 x 2 grid.
+ *  sourceShort: an optional phone source, when the full one would wrap in half a phone screen. */
+export type HeroNumber = { value: string; label: string; short: string; source: string; sourceShort?: string };
 
 // The four numbers under the hero, approved 2026-10-17 (Phase 1e: two for the company's scale, two for Saba's
 // own part). All true and dated. Phase 1f: the labels don't name the company; the source lines keep "bitnet.ge"
@@ -100,12 +101,14 @@ export const heroNumbers: HeroNumber[] = [
     label: "architecture decision records for its new core platform, first-authored by me",
     short: "architecture decisions I first-authored",
     source: "platform code, Oct 2026",
+    sourceShort: "code, Oct 2026",
   },
   {
     value: "38 of 38",
     label: "customer actions that must declare how a repeat is handled, or the build fails",
     short: "customer actions with a build-checked repeat rule",
-    source: "my rule, since Sep 2026", // short enough for one line in half a phone screen
+    source: "my rule, since Sep 2026",
+    sourceShort: "since Sep 2026",
   },
 ];
 
@@ -373,7 +376,7 @@ export const work: { heading: string; intro: string; big: WorkItem[]; small: Wor
     {
       slug: "bitnet",
       title: "Bitnet.ge",
-      role: "Crypto exchange · Principal Engineer",
+      role: "Crypto exchange · Principal Engineer since 2026",
       years: "2023 – now",
       // Positioning review (Saba, 2026-10-19): scope first, then the systems that prove it. What is live: confirmed by Saba on
       // 2026-10-15. The rule is told as what the build checks (a declaration), never as "runs only once".
@@ -536,7 +539,7 @@ export const about = {
       },
       {
         name: "acctswap",
-        text: "a Rust tool that switches Claude accounts across sessions",
+        text: "a Rust command-line tool for Claude Code users who run many sessions across machines",
         proof: "A TLA+ model, Kani proofs, and 435 of 435 planted bugs caught by its tests",
         href: "https://github.com/000Janela000/acctswap",
       },
@@ -585,6 +588,7 @@ export const contact = {
 
 export const footer = {
   hiring: { label: "For hiring managers", href: "/cv" },
+  home: { label: "Home", href: "/" },
   copyright: "© 2026 Saba Janelidze",
   theme: { label: "Theme", options: { light: "Light", dark: "Dark", auto: "Auto" } },
   /** The KA link stays hidden until /ka has the real Georgian page (Phase 3); today /ka is a placeholder. */

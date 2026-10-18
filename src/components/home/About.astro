@@ -21,7 +21,7 @@ import { about } from "../../content/home";
           ))
         }
       </ul>
-      <p class="ab-note ui-source">{about.openSource.note}</p>
+      <p class="ab-note ui-meta">{about.openSource.note}</p>
 
       <h3 class="ab-h3">Stack</h3>
       <dl class="ab-stack">
@@ -39,17 +39,12 @@ import { about } from "../../content/home";
 </Section>
 
 <style>
-  /* Phones: a square portrait beside the first paragraph (the text flows around it). Desktop: two columns. */
-  .ab::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+  /* Phones: a square portrait above the text (a float made very short lines). Desktop: two columns. */
   .ab-portrait {
-    float: left;
+    display: block;
     width: 128px;
     height: auto;
-    margin: 0.35rem var(--space-4) var(--space-2) 0;
+    margin: 0 0 var(--space-4);
     aspect-ratio: 1 / 1;
     object-fit: cover;
     object-position: 50% 50%;
@@ -62,11 +57,7 @@ import { about } from "../../content/home";
       gap: var(--space-8);
       align-items: start;
     }
-    .ab::after {
-      content: none;
-    }
     .ab-portrait {
-      float: none;
       width: 100%;
       margin: 0;
     }

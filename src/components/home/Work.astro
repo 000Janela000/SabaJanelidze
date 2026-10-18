@@ -30,8 +30,7 @@ const host = (url: string) => url.replace("https://", "");
     </figure>
     <div class="wk-body">
       <p class="ui-meta">
-        {lead.role}
-        {lead.years && <span class="ui-source wk-years">{" · "}{lead.years}</span>}
+        {lead.role}{lead.years && <Fragment>{"\u00a0· "}<span class="ui-source wk-years">{lead.years}</span></Fragment>}
       </p>
       <h3 id={`work-${lead.slug}-title`} class="wk-title">
         {lead.title}
@@ -67,8 +66,7 @@ const host = (url: string) => url.replace("https://", "");
             )}
             <div>
               <p class="ui-meta">
-                {w.role}
-                {w.years && <span class="ui-source wk-years">{" · "}{w.years}</span>}
+                {w.role}{w.years && <Fragment>{"\u00a0· "}<span class="ui-source wk-years">{w.years}</span></Fragment>}
               </p>
               <h3 id={`work-${w.slug}-title`} class="wk-mini-title">
                 {w.title}

@@ -128,6 +128,9 @@ import { method } from "../../content/home";
       grid-template-columns: minmax(0, 1fr);
       row-gap: var(--space-4);
       padding-bottom: 0;
+      /* The row stretches every step to the tallest one; without this the spare height
+         pushed the shorter steps' titles down (audit 2026-10-19). */
+      align-content: start;
     }
     .md-step:not(:last-child)::after {
       left: calc(var(--mark) + 8px);

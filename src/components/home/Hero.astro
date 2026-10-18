@@ -14,7 +14,9 @@ import { hero, heroNumbers } from "../../content/home";
   <div class="ui-wrap hero-grid">
     <div class="hero-main">
       <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
-      <h1 id="hero-title" class="hero-pitch">{hero.headline}</h1>
+      <h1 id="hero-title" class="hero-pitch">
+        {hero.headline.split(/(?<=\.)\s+/).map((s, i, all) => <span class="hero-pitch-s">{s}{i < all.length - 1 ? " " : ""}</span>)}
+      </h1>
       <p class="hero-sub">{hero.subline}</p>
       <p class="hero-proof">{hero.proofLine}</p>
       <div class="hero-actions">
@@ -34,7 +36,16 @@ import { hero, heroNumbers } from "../../content/home";
               <span class="hero-num-long">{n.label}</span>
               <span class="hero-num-short">{n.short}</span>
             </span>
-            <span class="hero-num-src ui-source">{n.source}</span>
+            <span class="hero-num-src ui-source">
+              {n.sourceShort ? (
+                <Fragment>
+                  <span class="hero-num-long">{n.source}</span>
+                  <span class="hero-num-short">{n.sourceShort}</span>
+                </Fragment>
+              ) : (
+                n.source
+              )}
+            </span>
           </li>
         ))
       }
@@ -87,6 +98,11 @@ import { hero, heroNumbers } from "../../content/home";
     font-size: var(--fs-hero);
     line-height: var(--lh-tight);
     letter-spacing: var(--tracking-display);
+    text-wrap: balance;
+  }
+  /* Each sentence of the headline starts on its own line (audit 2026-10-19). */
+  .hero-pitch-s {
+    display: block;
     text-wrap: balance;
   }
   /* Phase 1f: the rest of the pitch, in body text under the short headline. */
