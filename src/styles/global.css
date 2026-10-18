@@ -122,24 +122,3 @@ html:lang(ka) body {
     animation-duration: var(--dur-page);
   }
 }
-
-/* The thin "design preview" strip on /design pages. Neutral on purpose, so it does not belong to any look. */
-.preview-strip {
-  font: 500 12px/1.4 var(--font-body);
-  background: #1b1d22;
-  color: #d9dbe0;
-}
-.preview-strip a {
-  display: inline-block;
-  padding: 4px 2px;
-  color: #ffffff;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-.preview-strip a[aria-current="page"] {
-  text-decoration: none;
-  background: #ffffff;
-  color: #1b1d22;
-  border-radius: 3px;
-  padding: 0 0.35rem;
-}

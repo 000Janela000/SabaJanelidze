@@ -1,5 +1,5 @@
 ---
-// Page shell for every page: <head> (SEO, fonts, theme), skip link, and an optional design-preview strip.
+// Page shell for every page: <head> (SEO, fonts, theme colours) and the skip link.
 import "../styles/global.css";
 import SeoHead from "../components/SeoHead.astro";
 import Fonts from "../components/Fonts.astro";
@@ -14,14 +14,6 @@ interface Props {
   noindex?: boolean;
   jsonLd?: object | object[];
   ogType?: "website" | "profile";
-  /** Class on <body>: each design direction sets its color tokens on its own class. */
-  bodyClass?: string;
-  themeColor?: string;
-  colorScheme?: string;
-  /** Light / dark themes (src/styles/tokens.css). Adds the no-flash theme script and per-theme browser colours. */
-  themed?: boolean;
-  /** On /design pages: which direction is shown (draws the thin preview strip on top). */
-  preview?: "a" | "b" | "b-rich" | "c" | "index" | "ka-b";
 }
 
 const {
@@ -33,11 +25,6 @@ const {
   noindex,
   jsonLd,
   ogType,
-  bodyClass,
-  themeColor = "#ffffff",
-  colorScheme = "light",
-  themed = false,
-  preview,
 } = Astro.props;
 
 // Runs before the first paint, so the page never flashes the wrong theme:
@@ -49,14 +36,6 @@ const themeBoot = `(function(){var d=document.documentElement;d.classList.add("j
 
 // No approved Georgian exists for "Skip to content" yet, so it stays English (lang="en") on Georgian pages too.
 const skip = "Skip to content";
-const strip = [
-  { id: "index", label: "All directions", href: "/design" },
-  { id: "a", label: "A · Calm precision", href: "/design/a" },
-  { id: "b", label: "B · Dark, light and fast", href: "/design/b" },
-  { id: "b-rich", label: "B-rich · B + shader", href: "/design/b-rich" },
-  { id: "c", label: "C · Engineering notebook", href: "/design/c" },
-  { id: "ka-b", label: "B in Georgian", href: "/ka/design/b" },
-];
 ---
 <!doctype html>
 <html lang={lang}>
@@ -73,43 +52,18 @@ const strip = [
       jsonLd={jsonLd}
       ogType={ogType}
     />
-    <Fonts georgian={lang === "ka"} display={themed && lang !== "ka"} />
-    {
-      themed ? (
-        <>
-          <meta name="color-scheme" content="light dark" />
-          <meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)" />
-          <meta name="theme-color" content="#15181d" media="(prefers-color-scheme: dark)" />
-          <script is:inline set:html={themeBoot} />
-        </>
-      ) : (
-        <>
-          <meta name="theme-color" content={themeColor} />
-          <meta name="color-scheme" content={colorScheme} />
-        </>
-      )
-    }
+    <Fonts georgian={lang === "ka"} display={lang !== "ka"} />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f7f5f0" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#15181d" media="(prefers-color-scheme: dark)" />
+    <script is:inline set:html={themeBoot} />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <slot name="head" />
   </head>
-  <body class={bodyClass}>
+  <body>
     <a class="skip-link" href="#main" lang="en">{skip}</a>
-    {
-      preview && (
-        <nav class="preview-strip" aria-label="Design preview" lang="en">
-          <div class="mx-auto flex max-w-6xl flex-wrap items-center gap-x-4 gap-y-1 px-4 py-1.5">
-            <span>Phase 1 design preview (not public)</span>
-            {strip.map((s) => (
-              <a href={s.href} aria-current={s.id === preview ? "page" : undefined}>
-                {s.label}
-              </a>
-            ))}
-          </div>
-        </nav>
-      )
-    }
     <slot />
     {/* Cloudflare Web Analytics (no cookies), the same site token as the old site; allowed by the CSP in public/_headers.
         Only in the built site: the local dev server would count nothing and only log errors. */}

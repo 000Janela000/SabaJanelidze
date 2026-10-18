@@ -1,7 +1,3 @@
 # Files in dist/ that Cloudflare never uploads (same format as .gitignore; read by wrangler).
-# The Phase 1 design reference pages: noindex, older texts, kept on this computer only until they are deleted.
-design.html
-design/
-ka/design/
 # The Georgian placeholder: English only at launch (Saba, 2026-10-17); /ka redirects home (public/_redirects).
 ka.html
