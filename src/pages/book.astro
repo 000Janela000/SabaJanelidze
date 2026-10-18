@@ -8,9 +8,10 @@ import Base from "../layouts/Base.astro";
 import Header from "../components/site/Header.astro";
 import Footer from "../components/site/Footer.astro";
 import { PERSON } from "../lib/site";
+import { introMail, introMailHref } from "../content/home";
 
-const subject = "Hello";
-const mail = `mailto:${PERSON.email}?subject=${encodeURIComponent(subject)}`;
+// The same intro email as the home page: a subject and four short prompts.
+const mail = introMailHref();
 ---
 <Base
   title="Get in touch — Saba Janelidze"
@@ -28,7 +29,7 @@ const mail = `mailto:${PERSON.email}?subject=${encodeURIComponent(subject)}`;
       suggest a time for a short call.
     </p>
     <p class="ph-actions">
-      <a class="ui-btn" href={mail} data-mail>Email me</a>
+      <a class="ui-btn" href={mail} data-mail data-subject={introMail.subject} data-body={introMail.body}>Email me</a>
       <a class="ui-action" href={PERSON.profiles.linkedin} rel="noopener me">LinkedIn<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
     </p>
     <p class="ph-note">
@@ -45,7 +46,11 @@ const mail = `mailto:${PERSON.email}?subject=${encodeURIComponent(subject)}`;
   if (main && from) {
     main.dataset.from = from;
     const link = main.querySelector<HTMLAnchorElement>("[data-mail]");
-    if (link) link.href += `&body=${encodeURIComponent(`\n\n—\nvia sabajanelidze.com (${from})`)}`;
+    if (link) {
+      const to = link.href.split("?")[0];
+      const body = `${link.dataset.body ?? ""}\n—\nvia sabajanelidze.com (${from})`;
+      link.href = `${to}?subject=${encodeURIComponent(link.dataset.subject ?? "")}&body=${encodeURIComponent(body)}`;
+    }
   }
 </script>
 

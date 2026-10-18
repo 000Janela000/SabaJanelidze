@@ -29,9 +29,17 @@ export const nav = [
   { label: "CV", href: "/cv", phone: true },
 ];
 
-/** The main action everywhere on the home page: a plain email link (no booking page yet).
+/** The intro email: a subject and four short prompts, so the first email is easy to write (attack review, Saba 2026-10-18). */
+export const introMail = {
+  subject: "Intro call: AI agents in our repo",
+  body: "Team and what you're building:\n\nHow you use AI agents today:\n\nWhere you don't trust them yet:\n\nGood times for a short call (with time zone):\n",
+};
+export const introMailHref = () =>
+  `mailto:${PERSON.email}?subject=${encodeURIComponent(introMail.subject)}&body=${encodeURIComponent(introMail.body)}`;
+
+/** The main action everywhere on the home page: the intro email (no booking page yet).
  *  The label says what the email is for (Phase 1d fix 11). Approved 2026-10-17. */
-export const emailCta = { label: "Email me about your team", href: `mailto:${PERSON.email}` };
+export const emailCta = { label: "Email me about your team", href: introMailHref() };
 
 /** The lab's contact path. /book is an honest "Get in touch" page today; it reads ?from= and keeps it,
  *  so lab links (?from=lab-payments) still work. Later it can forward to a booking calendar. */
@@ -44,7 +52,7 @@ export const hero = {
   role: "Principal Engineer · Fintech & AI",
   // Phase 1f (Saba chose this on 2026-10-15): a short headline as the h1, the rest of the pitch in the subline.
   headline: "AI agents for teams that move money, without losing a payment.",
-  subline: "I help fintech teams work with AI agents safely, and I build the AI features their product needs.",
+  subline: "I help fintech teams use AI coding agents safely, and I build the AI features their product needs.",
   /** The full one-sentence pitch (the design pages /design/a|b|c and the page description still use it). */
   pitch:
     "I help software teams that handle money work with AI agents safely — and I build the AI features their product needs.",
@@ -59,7 +67,7 @@ export const hero = {
   // Never claim his review agents catch this exact bug: not confirmed. Never call it "load", a "retry" or "paying twice".
   raceLede: "AI agents can write this, and it can pass tests. My review agents check money code.",
   // The quiet recruiter route next to the main button (approved 2026-10-17).
-  hiring: { label: "Hiring? See my CV", href: "/cv" },
+  hiring: { label: "My CV", href: "/cv" },
   // Not on the home page (Phase 1 design pages only):
   kicker: "portfolio · rev. 2026-10",
   title: "Principal Engineer · Fintech & AI",
@@ -91,13 +99,13 @@ export const heroNumbers: HeroNumber[] = [
   {
     value: "237 of 278",
     label: "architecture decision records for its new core platform, first-authored by me",
-    short: "records I first-authored",
+    short: "architecture decisions I first-authored",
     source: "platform code, Oct 2026",
   },
   {
     value: "38 of 38",
     label: "customer actions that must declare how a repeat is handled, or the build fails",
-    short: "actions with a repeat rule",
+    short: "customer actions with a build-checked repeat rule",
     source: "my rule, since Sep 2026", // short enough for one line in half a phone screen
   },
 ];
@@ -210,13 +218,13 @@ export const offers = {
     {
       title: "AI coding agents in your repo, set up safely",
       text: "First an audit, then a 2-week rollout: coding agents in your repo with rules, safety hooks and automatic checks, and training for your team.",
-      proof: "I wrote most of my team's agent set-up: 21 skills, 6 review agents, 13 safety hooks, and a CI check on the set-up itself.",
+      proof: "In one audit on my team, a verifier agent re-checked 111 claims made by other agents and corrected 12. I wrote most of that set-up: 6 review agents, 13 safety hooks, and a build check on the set-up itself.",
       link: { label: "How I work", href: "#how", dir: "down" },
     },
     {
       title: "AI features in your product",
       text: "An assistant, document search or back-office automation, with tests for its answers, logs, cost limits, and a person's OK before it changes data.",
-      proof: "DevNews, my open-source AI news reader: summaries from three AI providers, with a fallback when one fails.",
+      proof: "The same rules as my own work: separate review agents, and a person's OK before anything touches money or data. Smallest proof today: DevNews, my open-source AI reader (three providers, with a fallback when one fails).",
       link: { label: "Code on GitHub", href: "https://github.com/000Janela000/DevNews", dir: "out" },
     },
     {
@@ -244,7 +252,7 @@ export type MethodStep = { title: string; text: string; fact: string; source: st
 // - 11 of 11: WasteAway's decision table, every decision "decided_by: founder".
 export const method = {
   heading: "How I work with AI agents",
-  intro: "Agents write much of the code. Automatic checks block what fails. A person decides on money and anything public.",
+  intro: "Agents write most of the code. Automatic checks block what fails. A person decides on money and anything public.",
   steps: [
     {
       title: "Plan and rules",
