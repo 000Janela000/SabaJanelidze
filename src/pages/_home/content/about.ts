@@ -1,6 +1,6 @@
 // About: the short bio, the open-source tools (one line each, with its proof) and the grouped stack.
-// Sources (material inventory, research 2026-10-13): npm downloads in the last year, Arcana 2,420, OrgClone 1,596,
-// UserClone 386 (4,402 across the three; npm also counts bots and CI servers); acctswap: 435 planted bugs caught,
+// Sources: npm downloads in the last year, read 2026-10-19 (api.npmjs.org): Arcana 2,452, OrgClone 1,608,
+// UserClone 389 (4,449 across the three; npm also counts bots and CI servers); acctswap: 435 planted bugs caught,
 // 0 missed, a TLA+ model of the switching protocol, Kani proofs.
 export const about = {
   heading: "About",
@@ -15,23 +15,23 @@ export const about = {
     {
       name: "Arcana",
       text: "18 skills and 5 agents for Claude Code and Codex",
-      proof: "2,420 npm downloads in the last year",
+      proof: "2,452 npm downloads in the last year",
       href: "https://github.com/cj-ways/arcana",
     },
     {
       name: "acctswap",
       text: "a Rust command-line tool for Claude Code users who run many sessions across machines",
       proof: "A TLA+ model, Kani proofs, and 435 of 435 planted bugs caught by its tests",
-      href: "https://github.com/000Janela000/acctswap",
+      href: "https://github.com/cj-ways/acctswap",
     },
     {
       name: "OrgClone and UserClone",
       text: "clone a whole GitHub org, or all your repos onto a new computer",
-      proof: "1,982 npm downloads in the last year",
+      proof: "1,997 npm downloads in the last year",
       href: "https://github.com/cj-ways/orgclone",
     },
   ],
-  openSourceNote: "npm counts, Oct 2026: 4,402 across my three packages, bots and CI servers included.",
+  openSourceNote: "npm counts, Oct 2026: 4,449 across my three packages, bots and CI servers included.",
   stack: [
     { group: "Languages", items: ["TypeScript", "Go", "SQL", "Rust (tools)"] },
     { group: "Backend", items: ["NestJS", "GraphQL", "PostgreSQL", "Redis", "Job queues", "OpenTelemetry"] },

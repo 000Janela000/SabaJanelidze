@@ -8,10 +8,11 @@ import { hero } from "./content/hero";
 <section class="hero" aria-labelledby="hero-title">
   <div class="ui-wrap hero-grid">
     <div class="hero-main">
-      <p class="hero-who"><strong>{hero.name}</strong>{" "}<span aria-hidden="true">·</span>{" "}{hero.role}</p>
-      <h1 id="hero-title" class="ui-display hero-pitch">
-        {hero.headline.map((sentence, i) => <span class="hero-pitch-s">{sentence}{i < hero.headline.length - 1 ? " " : ""}</span>)}
-      </h1>
+      <h1 id="hero-title" class="ui-display hero-name">{hero.name}</h1>
+      <p class="hero-role">{hero.role}</p>
+      <p class="ui-display hero-statement">
+        {hero.statement.map((sentence, i) => <span class="hero-sentence">{sentence}{i < hero.statement.length - 1 ? " " : ""}</span>)}
+      </p>
       <p class="hero-built">{hero.built}</p>
       <p class="hero-path">{hero.path}</p>
       <div class="hero-actions">
@@ -75,29 +76,32 @@ import { hero } from "./content/hero";
     }
   }
 
-  .hero-who {
-    margin: 0 0 var(--space-4);
-    font-size: var(--fs-sm);
-    color: var(--muted);
-  }
-  .hero-who strong {
-    color: var(--fg);
-    font-weight: var(--weight-strong);
-  }
-  .hero-pitch {
-    max-width: 19em;
+  /* His name is the h1, the biggest text on the page; the role sits right under it. */
+  .hero-name {
     margin: 0;
     font-size: var(--fs-hero);
     line-height: var(--lh-tight);
     letter-spacing: var(--tracking-display);
+  }
+  .hero-role {
+    margin: var(--space-2) 0 0;
+    font-size: var(--fs-sm);
+    color: var(--muted);
+  }
+  /* His path in one statement, at a medium size; each sentence starts on its own line. */
+  .hero-statement {
+    max-width: 22em;
+    margin: var(--space-5) 0 0;
+    font-size: var(--fs-xl);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-heading);
     text-wrap: balance;
   }
-  /* Each sentence of the headline starts on its own line (audit 2026-10-19). */
-  .hero-pitch-s {
+  .hero-sentence {
     display: block;
     text-wrap: balance;
   }
-  /* What he built, then the dated path (smaller, muted), under the headline. */
+  /* What he built, then the dated path (smaller, muted), under the statement. */
   .hero-built {
     max-width: 32em;
     margin: var(--space-5) 0 0;
