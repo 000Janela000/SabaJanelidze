@@ -54,6 +54,8 @@ export function profileJsonLd(opts: { url: string; lang: Lang; description: stri
       email: `mailto:${PERSON.email}`,
       sameAs: [PERSON.profiles.linkedin, PERSON.profiles.github, PERSON.profiles.npm],
       knowsAbout: ["AI coding agents", "Fintech", "Payment systems", "Identity verification", "Software architecture"],
+      homeLocation: { "@type": "Place", name: "Tbilisi, Georgia" },
+      knowsLanguage: ["ka", "en"],
     },
   };
   return { "@context": "https://schema.org", "@graph": [website, profile] };
