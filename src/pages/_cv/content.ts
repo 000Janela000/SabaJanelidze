@@ -17,7 +17,7 @@ export const cv = {
     { label: "GitHub", href: PERSON.profiles.github },
   ] satisfies Link[],
   summary:
-    "Since January 2023 I've worked on a crypto exchange licensed by the National Bank of Georgia: first its React customer app, then its backend and, since 2026, the architecture of its new Go core platform. I built its identity checks, audit history and payment-provider integration.",
+    "Since November 2022 I've worked on a crypto exchange licensed by the National Bank of Georgia: first its React customer app, then its backend and, since 2026, the architecture of its new Go core platform. I built its identity checks, audit history and payment-provider integration.",
   availability: "Open to new work: a full-time role, a contract, part-time work, a one-off project or a review.",
   pdfLink: { label: "Download CV (PDF)", href: "/saba-janelidze-cv.pdf" },
   jobsHeading: "Work",
@@ -25,7 +25,7 @@ export const cv = {
     {
       org: "Bitnet",
       kind: "a crypto exchange licensed by the National Bank of Georgia (220,012 registered users; bitnet.ge, Oct 2026)",
-      when: "Jan 2023 – now",
+      when: "Nov 2022 – now",
       roles: [
         {
           when: "2026 – now",
@@ -40,7 +40,7 @@ export const cv = {
           ],
         },
         { when: "2024 – 2025", title: "Backend Developer", what: "the backend (TypeScript, NestJS, GraphQL) and pages of the staff admin panel." },
-        { when: "2023", title: "Frontend Developer", what: "the customer web app (React)." },
+        { when: "2022 – 2023", title: "Frontend Developer", what: "the customer web app (React)." },
       ],
     },
     {
