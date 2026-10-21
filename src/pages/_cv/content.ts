@@ -39,8 +39,8 @@ export const cv = {
             "Wrote most of the team's AI coding set-up.",
           ],
         },
-        { when: "2024 – 2025", title: "Backend Developer", what: "the backend (TypeScript, NestJS, GraphQL) and pages of the staff admin panel." },
-        { when: "2022 – 2023", title: "Frontend Developer", what: "the customer web app (React)." },
+        { when: "2024 – 2026", title: "Backend Developer", what: "the backend (TypeScript, NestJS, GraphQL) and pages of the staff admin panel." },
+        { when: "2022 – 2024", title: "Frontend Developer", what: "the customer web app (React)." },
       ],
     },
     {

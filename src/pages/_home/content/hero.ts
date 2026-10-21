@@ -22,7 +22,7 @@ export const hero = {
   // Each sentence starts on its own line.
   statement: ["I started on a crypto exchange's customer app.", "Today I lead the architecture of its new core."],
   built: "Built by me and live: identity checks, audit history, card and bank payments.",
-  path: "Since November 2022 at an exchange licensed by the National Bank of Georgia: the React customer app (2022–2023), the backend (2024–2025), the new Go core platform (2026).",
+  path: "Since November 2022 at an exchange licensed by the National Bank of Georgia: the React customer app (2022–2024), the backend (2024–2026), the new Go core platform (2026).",
   emailButton,
   cvLink: { label: "My CV", href: "/cv" },
   figureIntro: "A demo from my lab. AI agents can write this and it can pass tests. My review agents check money code.",
