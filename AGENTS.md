@@ -22,7 +22,7 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 ## End of every session
 
-1. Update `STATUS.md`: add to the log, and change open problems and next steps. Keep it public-safe. Private notes go in `private/`.
+1. Update `STATUS.md`: add to the log and change open problems and next steps. Keep it public-safe. Private notes go in `private/`.
 2. Commit with a one-line message (see "Rules").
 3. **Ask Saba before pushing** (the repo is public). A push does not publish the site; a deploy does (see "Run, check, deploy").
 
@@ -32,7 +32,7 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 ### The structure (cleanup of 2026-10-19)
 
-The rule: **a file lives next to the page that uses it, and moves to `src/shared/` only when a second page uses it.** Never move a file up "just in case". Astro ignores folders that start with `_` for routing, so `src/pages/_home/` holds the home page's own code without creating URLs.
+The rule: **a file lives next to the page that uses it and moves to `src/shared/` only when a second page uses it.** Never move a file up "just in case". Astro ignores folders that start with `_` for routing, so `src/pages/_home/` holds the home page's own code without creating URLs.
 
 ```
 src/
@@ -41,12 +41,13 @@ src/
     _home/               the home page's own sections (hero, hero-race, work, services, method, about, contact,
                          section, copy-email) and their text in _home/content/ (one file per section)
     cv.astro             /cv      (noindex)
-    _cv/content.ts       the /cv text
+    _cv/content.ts       the /cv text (the same page prints to public/saba-janelidze-cv.pdf)
     book.astro           /book    "Get in touch" (noindex); keeps ?from= for the lab's links
     404.astro            the 404 page
   shared/
     components/          base-layout (the page shell), seo-head, fonts, header, footer, theme-switch
-    content/             site-chrome.ts (header links, footer, theme-switch words), intro-email.ts (the "Email me" email)
+    content/             site-chrome.ts (header links, footer, theme-switch words), intro-email.ts (the "Email me" email),
+                         open-source.ts and stack.ts (on the home page's About and on /cv)
     lib/                 site.ts (name, email, profiles, JSON-LD), theme-colors.ts (the two page colours)
   styles/                reset.css, tokens.css, ui.css, global.css
   assets/fonts/          the Newsreader heading font and its licence
@@ -56,15 +57,15 @@ src/
 | Path | What it is |
 |---|---|
 | `src/pages/_home/content/*.ts` | **The home page text (English), one file per section.** Every number is true and dated; the sources and the honesty rules sit at the top of each file. Approved by Saba (2026-10-17; the positioning review of 2026-10-19). |
-| `src/pages/_cv/content.ts` | The `/cv` text: a dated role list (approved by Saba on 2026-10-17). |
+| `src/pages/_cv/content.ts` | The `/cv` text: name, place and contact first, then dated roles, own products and languages (facts confirmed by Saba on 2026-10-15 and 2026-10-21). Earlier titles at the exchange stay out until Saba gives them. |
 | `src/shared/lib/site.ts` | Site address, name, email, active profiles (`sameAs`) and the JSON-LD (structured data for Google and AI tools) builder. |
 | `src/shared/components/base-layout.astro` | The page shell: `<head>` (SEO, fonts, theme colours, the no-flash theme script that runs before the first paint), the skip link, the analytics beacon (built site only). |
-| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 3. Plain CSS, **also copied by the lab site by this exact path**: keep the path, and send the lab session a NOTICE when it changes. Guide and change list: `docs/design-tokens.md`. |
+| `src/styles/tokens.css` | **The design tokens: the shared visual contract** (colours of both themes, fonts, type scale, spacing, radii, motion timings). Version 3. Plain CSS, **also copied by the lab site by this exact path**: keep the path and send the lab session a NOTICE when it changes. Guide and change list: `docs/design-tokens.md`. |
 | `src/styles/reset.css` | The browser reset (the parts of Tailwind 4's preflight the site relies on, MIT; kept when Tailwind was removed), in a cascade layer so every site rule wins over it. |
-| `src/styles/ui.css` | The shared building blocks (prefix `ui-`): `ui-wrap`, `ui-section`, `ui-page*` (the /cv and /book intro), `ui-display` (the heading face), `ui-h2`, `ui-intro`, `ui-source` (sources, dates, money: small mono), `ui-btn` (the one button style), `ui-action`, `ui-link`, `ui-arrow`, `ui-meta`, `ui-tag`, `ui-card`, and `sr-only`. |
+| `src/styles/ui.css` | The shared building blocks (prefix `ui-`): `ui-wrap`, `ui-section`, `ui-page*` (the /cv and /book intro), `ui-display` (the heading face), `ui-h2`, `ui-intro`, `ui-source` (sources, dates, money: small mono), `ui-btn` (the one button style), `ui-action`, `ui-link`, `ui-arrow`, `ui-meta`, `ui-tag`, `ui-card` and `sr-only`. |
 | `src/styles/global.css` | Imports reset, tokens and ui, plus the base rules (body, fallback fonts, focus, motion). |
 | `src/vendor/race-figure/` | **Vendored, never edit here:** the lab session's `<race-figure>` 1.1.5. `VENDOR.md` there: source commit, sizes, hashes, how to update. `src/pages/_home/hero-race.astro` writes its HTML into the page, inlines its CSS and loads its JS on idle. Changes go to the lab session. |
-| `public/` | Files served as they are: `projects/` (the Bitnet screenshot and two thumbnails), `portrait.webp`, `og.png` (the link-preview picture; source in `private/design/og-2026-10-18/`), the favicons, `robots.txt`, `sitemap.xml` (hand-written: only `/`), and Cloudflare's `_headers` and `_redirects`. **Never put anything from `private/` here.** |
+| `public/` | Files served as they are: `projects/` (the Bitnet screenshot and two thumbnails), `portrait.webp`, `og.png` (the link-preview picture; source in `private/design/og-2026-10-18/`), the favicons, `robots.txt`, `sitemap.xml` (hand-written: only `/`), `saba-janelidze-cv.pdf` (the CV, made by `npm run cv:pdf`; noindex) and Cloudflare's `_headers` and `_redirects`. **Never put anything from `private/` here.** |
 | `docs/design-tokens.md` | The human guide to the tokens. |
 | `private/` | Gitignored notes: marketing, strategy, research, design screenshots, the old root screenshots (`old-screenshots/`). Start with `private/README.md`. |
 
@@ -84,6 +85,7 @@ src/
   - **Before you say a page looks right, check the live page in a browser at desktop and phone width**, not only your own screenshots of a build.
 - `npm run check` (`astro check`, the TypeScript check) and `npm run build` (static HTML into `dist/`): run both before you say a code task is done. `npm run verify` runs both.
 - `npm run preview`: serves the built `dist/` without compression. Use it to click through, not to measure speed.
+- `npm run cv:pdf`: prints the built `/cv` with headless Chrome to `public/saba-janelidze-cv.pdf` (`scripts/cv-pdf.mjs`; the print rules sit in `cv.astro`). **Run it after every change to the CV text**, read the PDF (it should be 2 A4 pages) and commit it with the change.
 - URLs never end with a slash: `/cv` is built as `dist/cv.html` (`trailingSlash: 'never'` + `build.format: 'file'` in `astro.config.mjs`). Keep it that way.
 - English only for now. `/ka` redirects home (`public/_redirects`) until the Georgian page exists; then restore the Georgian set-up from git (see "Code conventions").
 - **Deploy: Cloudflare Workers (static assets only). Live since 2026-10-18.**
@@ -111,18 +113,18 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 9. **Nothing moves by itself for more than 5 seconds** without a pause button. Ambient motion settles to a still frame. WebGL pauses off-screen and in hidden tabs.
 10. **Phones get the same content with less motion:** no WebGL, no pinned sections, fewer reveals.
 11. **Georgian (when the Georgian page is built):** never split into letters, no `text-transform: uppercase`, no `letter-spacing` (restore the global `:lang(ka)` rule in `global.css` from git with the Georgian set-up). Animate whole lines or blocks.
-12. **Budgets:** at most 100 KB of JavaScript (gzip) on the first load of any page, and at most 5 KB of it for animation; each lazy island at most 30 KB. Saba watches a 10 to 20 second screen recording of any new signature moment before it ships.
+12. **Budgets:** at most 100 KB of JavaScript (gzip) on the first load of any page and at most 5 KB of it for animation; each lazy island at most 30 KB. Saba watches a 10 to 20 second screen recording of any new signature moment before it ships.
 
 ## Themes: light and dark
 
 - One calm design, two themes: **light** (the default: navy text on warm off-white, one calm blue) and **dark** (a calm, low-saturation slate). **No grid, no glow, no gradients, no offset shadows** (Saba, 2026-10-15). All colours come from `src/styles/tokens.css`; never write a raw colour in a component's CSS. (Only the tiny theme scripts name the two page colours, because they run before the CSS.)
 - Which one shows: `<html data-theme="light|dark">` (the visitor's choice, saved in `localStorage` key `theme`), else the system setting. It works without JavaScript. The old values `paper` / `blueprint` still work.
 - The switch is in the **footer**, clearly labelled "Theme: Light · Dark · Auto" (`ThemeSwitch.astro`). It switches instantly, with no animation. It is never in the header (the phone header must not overflow).
-- **One accent per theme, with three jobs:** link underlines (links are `--fg` text with an accent underline), the focus ring, and movement in the hero figure. Nothing else is coloured.
+- **One accent per theme, with three jobs:** link underlines (links are `--fg` text with an accent underline), the focus ring and movement in the hero figure. Nothing else is coloured.
 - **Red (`--danger`) has one job:** the money loss in the hero figure (later also failures in case-study diagrams). Never a second accent.
 - **Contrast is checked against the real pixels**, not only CSS colours: `private/design/phase1c/contrast-audit.md` (scripts in `private/design/phase1c/audit/`). Re-run it after any colour or layout change. Text never sits on a line, shape, tint or image; meaningful lines and control borders use `--line-strong` (3:1 or more); decorative hairlines use `--line`.
 - **Headings** (h1, h2, the big numbers, the one big card title) use Newsreader 500 (`--font-display`); body text stays Inter. Georgian headings use Noto Sans Georgian.
-- **Monospace** only for real commands and code, and (class `ui-source`) for sources, dates and money figures. Never for labels or headings. No notebook labels ("fig.", "table", "§", "rev.").
+- **Monospace** only for real commands and code and (class `ui-source`) for sources, dates and money figures. Never for labels or headings. No notebook labels ("fig.", "table", "§", "rev.").
 
 ## Astro 7: things that break
 
@@ -131,19 +133,20 @@ From the motion research (2026-10-14, section 7.2). Every agent follows them on 
 - **Scoped styles do not reach child components.** A class you pass to a child component is not styled by the parent's `<style>`. Use `<style is:global>` under a unique wrapper class (the design directions do this: `.da`, `.db`, `.dc`).
 - **Scripts:** a `<script>` in a component is bundled once per page as a module (it runs after the HTML is parsed). Keep each one small and check its size in `dist/_astro/`.
 - **Markdown:** Astro 7 has a new Markdown engine; old remark/rehype plugins need an opt-in. Use no plugins unless needed.
-- **The `hidden` attribute cannot be overridden.** `reset.css` hides `[hidden]` with `!important` in a cascade layer, and a layered `!important` beats any unlayered rule. To reserve space for something that appears later (no layout shift), use `visibility` and a data attribute instead.
+- **The `hidden` attribute cannot be overridden.** `reset.css` hides `[hidden]` with `!important` in a cascade layer and a layered `!important` beats any unlayered rule. To reserve space for something that appears later (no layout shift), use `visibility` and a data attribute instead.
 
 ## Domain
 
 - `www.sabajanelidze.com` is the main address, served by the Cloudflare Worker. `sabajanelidze.com` redirects to it with a 301 (a zone Single Redirect rule, keeping the path and query). "Always Use HTTPS" is on for the whole zone (set by the lab session, 2026-10-18).
 - `lab.sabajanelidze.com` is the lab site (its own repo and Worker, `sabajanelidze-lab`).
 - The old site stays on Vercel (`saba-janelidze.vercel.app`); it is planned to move to `v1.sabajanelidze.com` (see `STATUS.md`).
-- The domain is registered at Cloudflare, and its DNS is also on Cloudflare. For records, renewal date and access, see "Domains" in `../CLAUDE.md` (the Projects folder rules, outside this repo).
+- The domain is registered at Cloudflare and its DNS is also on Cloudflare. For records, renewal date and access, see "Domains" in `../CLAUDE.md` (the Projects folder rules, outside this repo).
 
 ## Rules
 
 - **Commit messages: one line only.** No body, no extra lines, no trailers (no `Co-Authored-By:`). The style used here is `type(scope): summary`, for example `chore(seo): point og and twitter urls to www.sabajanelidze.com`, `refactor(content): …`, `bugfix(portrait): …`, `feature(lighthouse): …`.
 - **Both languages, always** (from Phase 3 of the rebuild): every page that exists in Georgian needs both texts. **Never write Georgian yourself.** New Georgian goes through `../_shared/playbooks/georgian.md` (Fable 5.1 or Gemini + back-translation, then Saba).
-- **Keep the pitch in sync.** If the positioning changes, update together: `src/pages/_home/content/` (the text and `seo.ts`), the link-preview picture (`private/design/og-2026-10-18/`), and `src/shared/lib/site.ts` if the job title changes.
+- **Keep the pitch in sync.** If the positioning changes, update together: `src/pages/_home/content/` (the text and `seo.ts`), the link-preview picture (`private/design/og-2026-10-18/`) and `src/shared/lib/site.ts` if the job title changes.
 - **Honest numbers only.** Every number on the site is true and dated. Bitnet appears only in public-safe words (no internal names, vendors or security details). Never say "I review every change" for PlayTime.
 - **Plain, simple words** in all docs and notes. Short sentences. Explain technical words.
+- **No comma before "and"** (Saba, 2026-10-21), in site text, docs and comments: "identity checks, audit history and payments", not "audit history, and payments".

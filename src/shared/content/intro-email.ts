@@ -3,7 +3,7 @@ import { PERSON } from "../lib/site";
 
 export const introEmail = {
   subject: "Intro: [your company]",
-  body: "What you're building:\n\nWhere you need help, and when:\n\nGood times for a short call (with time zone):\n",
+  body: "What you're building:\n\nWhere you need help and when:\n\nGood times for a short call (with time zone):\n",
 };
 
 export const introEmailHref = () =>

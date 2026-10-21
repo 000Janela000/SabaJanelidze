@@ -13,7 +13,7 @@ export const services = {
     },
     {
       title: "AI coding agents with guardrails",
-      text: "If your team is bringing in coding agents, I set up what I run myself: rules the agents read first, review agents for the risky parts, safety hooks, and a check on the set-up itself. Scope after a first look at your repo.",
+      text: "If your team is bringing in coding agents, I set up what I run myself: rules the agents read first, review agents for the risky parts, safety hooks and a check on the set-up itself. Scope after a first look at your repo.",
       proof: "In one audit on my team, a verifier agent re-checked 111 claims made by other agents and corrected 12.",
       proofLink: { label: "How I work", href: "#how" },
     },

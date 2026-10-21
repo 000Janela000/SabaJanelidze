@@ -3,6 +3,8 @@
 // its proof) and the grouped stack.
 import Section from "./section.astro";
 import { about } from "./content/about";
+import { openSource } from "../../shared/content/open-source";
+import { stack } from "../../shared/content/stack";
 import { PERSON } from "../../shared/lib/site";
 ---
 <Section id="about" heading={about.heading}>
@@ -11,22 +13,22 @@ import { PERSON } from "../../shared/lib/site";
     <div class="about-text">
       {about.bio.map((b) => <p class="about-p">{b}</p>)}
 
-      <h3 class="about-h3">{about.openSourceHeading}</h3>
+      <h3 class="about-h3">{openSource.heading}</h3>
       <ul class="about-os">
         {
-          about.openSource.map((o) => (
+          openSource.items.map((o) => (
             <li>
               <a class="ui-link about-os-name" href={o.href} rel="noopener">{o.name}</a>{`: ${o.text}. `}<span class="about-os-proof">{o.proof}.</span>
             </li>
           ))
         }
       </ul>
-      <p class="about-note ui-meta">{about.openSourceNote}</p>
+      <p class="about-note ui-meta">{openSource.note}</p>
 
-      <h3 class="about-h3">Stack</h3>
+      <h3 class="about-h3">{stack.heading}</h3>
       <dl class="about-stack">
         {
-          about.stack.map((g) => (
+          stack.groups.map((g) => (
             <div>
               <dt>{g.group}</dt>
               <dd>{g.items.join(", ")}</dd>

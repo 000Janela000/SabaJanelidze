@@ -1,10 +1,13 @@
 ---
-// /cv, for hiring managers: a dated role list. Text: ./_cv/content.ts. Not for search engines (noindex).
+// /cv, for hiring managers: name, role, place and contact first, then a dated role list. Text: ./_cv/content.ts.
+// The same page prints to the PDF (scripts/cv-pdf.mjs), so the print rules below hide the site chrome and use
+// dark text on white whatever the theme. Not for search engines (noindex).
 import Base from "../shared/components/base-layout.astro";
 import Header from "../shared/components/header.astro";
 import Footer from "../shared/components/footer.astro";
 import { cv } from "./_cv/content";
-import { PERSON } from "../shared/lib/site";
+import { openSource } from "../shared/content/open-source";
+import { stack } from "../shared/content/stack";
 ---
 <Base
   title="CV — Saba Janelidze"
@@ -15,11 +18,17 @@ import { PERSON } from "../shared/lib/site";
 >
   <Header />
   <main id="main" class="ui-wrap ui-page">
-    <h1 class="ui-display ui-page-title">{cv.title}</h1>
-    <p class="ui-page-lead">{cv.lead}</p>
-    <p class="ui-page-actions">
-      <a class="ui-btn" href={cv.pdf.href}>{cv.pdf.label}</a>
-      <a class="ui-action" href={cv.linkedin.href} rel="noopener me">{cv.linkedin.label}<span class="ui-arrow" data-dir="out" aria-hidden="true">↗</span></a>
+    <h1 class="ui-display ui-page-title">{cv.name}</h1>
+    <p class="cv-role">{cv.role}</p>
+    <p class="cv-contact">
+      <span>{cv.place}</span>
+      <a class="ui-link" href={`mailto:${cv.email}`}>{cv.email}</a>
+      {cv.profileLinks.map((l) => <a class="ui-link" href={l.href} rel="noopener me">{l.label}</a>)}
+    </p>
+    <p class="ui-page-lead cv-summary">{cv.summary}</p>
+    <p class="cv-open">{cv.availability}</p>
+    <p class="ui-page-actions cv-actions">
+      <a class="ui-btn" href={cv.pdfLink.href} download>{cv.pdfLink.label}</a>
     </p>
 
     <section class="cv-sec" aria-labelledby="cv-work">
@@ -31,7 +40,8 @@ import { PERSON } from "../shared/lib/site";
               <p class="cv-when ui-source">{j.when}</p>
               <div class="cv-body">
                 <h3 class="cv-org">
-                  {j.title}, {j.org}
+                  {j.org}
+                  {j.title && <span class="cv-title">{` · ${j.title}`}</span>}
                 </h3>
                 <p class="cv-kind">{j.kind}</p>
                 {j.roles && (
@@ -39,7 +49,10 @@ import { PERSON } from "../shared/lib/site";
                     {j.roles.map((r) => (
                       <li>
                         <span class="cv-role-when ui-source">{r.when}</span>
-                        <span class="cv-role-what">{r.what}</span>
+                        <span class="cv-role-what">
+                          {r.title && <strong>{`${r.title}: `}</strong>}
+                          {r.what}
+                        </span>
                         {r.points && (
                           <ul class="cv-points">
                             {r.points.map((p) => (
@@ -74,7 +87,8 @@ import { PERSON } from "../shared/lib/site";
               <p class="cv-when ui-source">{j.when}</p>
               <div class="cv-body">
                 <h3 class="cv-org">
-                  {j.title}, {j.org}
+                  {j.org}
+                  <span class="cv-title">{` · ${j.title}`}</span>
                 </h3>
                 <p class="cv-kind">{j.kind}</p>
               </div>
@@ -84,23 +98,55 @@ import { PERSON } from "../shared/lib/site";
       </ol>
     </section>
 
-    <section class="cv-sec cv-short" aria-labelledby="cv-open">
-      <h2 id="cv-open" class="ui-display cv-h2">{cv.openHeading}</h2>
-      <p>{cv.open}</p>
-      <h2 class="ui-display cv-h2 cv-h2--next">{cv.stackHeading}</h2>
-      <p>{cv.stack}</p>
-    </section>
+    <section class="cv-sec cv-short" aria-labelledby="cv-open-source">
+      <h2 id="cv-open-source" class="ui-display cv-h2">{openSource.heading}</h2>
+      <ul class="cv-lines">
+        {
+          openSource.items.map((o) => (
+            <li>
+              <a class="ui-link" href={o.href} rel="noopener">{o.name}</a>{`: ${o.text}. ${o.proof}.`}
+            </li>
+          ))
+        }
+      </ul>
 
-    <p class="ui-page-note cv-note">
-      Email:{" "}<a class="ui-link" href={`mailto:${PERSON.email}`}>{PERSON.email}</a>
-    </p>
+      <h2 class="ui-display cv-h2 cv-h2--next">{stack.heading}</h2>
+      <ul class="cv-lines">
+        {
+          stack.groups.map((g) => (
+            <li>
+              <strong>{g.group}:</strong>{` ${g.items.join(", ")}`}
+            </li>
+          ))
+        }
+      </ul>
+
+      <h2 class="ui-display cv-h2 cv-h2--next">{cv.languagesHeading}</h2>
+      <p>{cv.languages}</p>
+    </section>
   </main>
   <Footer onCv />
 </Base>
 
 <style>
-  .cv-note {
-    margin-top: var(--space-7);
+  .cv-role {
+    margin: var(--space-2) 0 0;
+    color: var(--muted);
+  }
+  .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin: var(--space-3) 0 0;
+    font-size: var(--fs-sm);
+  }
+  .cv-summary {
+    margin-top: var(--space-5);
+  }
+  .cv-open {
+    max-width: 38em;
+    margin: 0 0 var(--space-5);
+    font-weight: var(--weight-strong);
   }
   .cv-sec {
     max-width: 52rem;
@@ -141,6 +187,10 @@ import { PERSON } from "../shared/lib/site";
     font-weight: var(--weight-strong);
     line-height: 1.35;
   }
+  .cv-title {
+    font-weight: var(--weight-regular);
+    color: var(--muted);
+  }
   .cv-kind {
     margin: var(--space-1) 0 0;
     color: var(--muted);
@@ -168,13 +218,72 @@ import { PERSON } from "../shared/lib/site";
     margin: var(--space-2) 0 0;
     padding-left: 1.1rem;
     color: var(--muted);
+    list-style: disc;
   }
   .cv-points li + li {
     margin-top: var(--space-1);
+  }
+  .cv-lines {
+    display: grid;
+    gap: var(--space-2);
+    max-width: 44em;
+    margin: 0;
+    padding: 0;
+    color: var(--muted);
   }
   .cv-short p {
     margin: 0;
     max-width: 44em;
     color: var(--muted);
+  }
+
+  /* The PDF: no site chrome, no button, dark text on white whatever the theme (links stay clickable).
+     A 13 px root scales every rem size down (body text about 10 pt), so the CV fits on two A4 pages. */
+  @media print {
+    @page {
+      size: A4;
+      margin: 14mm 16mm;
+    }
+    :global(html) {
+      font-size: 13px;
+    }
+    :global(:root) {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --fg: #111111;
+      --muted: #3d3d3d;
+      --line: #cccccc;
+      --accent: #111111;
+    }
+    :global(.header),
+    :global(.footer),
+    :global(.skip-link),
+    .cv-actions {
+      display: none;
+    }
+    .ui-page {
+      padding-top: 0;
+    }
+    .cv-summary {
+      max-width: none;
+    }
+    .cv-sec {
+      max-width: none;
+      margin-top: var(--space-6);
+    }
+    .cv-job {
+      grid-template-columns: 8rem minmax(0, 1fr);
+    }
+    /* A long job may break between its roles; a heading never ends a page. */
+    .cv-roles > li,
+    .cv-points li,
+    .cv-job:not(:has(.cv-roles)) {
+      break-inside: avoid;
+    }
+    .cv-h2,
+    .cv-org,
+    .cv-kind {
+      break-after: avoid;
+    }
   }
 </style>

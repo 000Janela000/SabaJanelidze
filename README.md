@@ -16,4 +16,4 @@ npm run verify   # astro check + astro build
 npm run cf:dry   # build, then a Cloudflare dry run (uploads nothing)
 ```
 
-The structure, the rules for agents and contributors, and how to deploy: `AGENTS.md`.
+The structure, the rules for agents and contributors and how to deploy: `AGENTS.md`.

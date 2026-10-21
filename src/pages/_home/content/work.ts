@@ -37,7 +37,7 @@ export const work = {
     role: "Crypto exchange · Principal Engineer since 2026",
     years: "2023 – now",
     outcome: "I lead the architecture of the new core platform (Go) and first-authored 237 of its 278 architecture decision records.",
-    text: "A crypto exchange licensed by the National Bank of Georgia. Built by me and live: the new identity checks, the audit history, and the payment-provider integration (bank-app deposits, card payments, recurring card charges). One rule I set: every customer action declares how a repeat request is handled, and the build checks it.",
+    text: "A crypto exchange licensed by the National Bank of Georgia. Built by me and live: the new identity checks, the audit history and the payment-provider integration (bank-app deposits, card payments, recurring card charges). One rule I set: every customer action declares how a repeat request is handled and the build checks it.",
     // A mailto until a written case study exists.
     moreLink: { label: "Ask me how it was built", href: `mailto:${PERSON.email}?subject=${encodeURIComponent("How the Bitnet work was built")}` },
     // Taken 2026-10-15, cropped above the counter strip so it can never disagree with the numbers row.

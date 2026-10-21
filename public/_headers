@@ -17,3 +17,7 @@
 # The workers.dev test addresses must never show up in search results.
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
+
+# The CV as a PDF: for people who are sent it, not for search results (like /cv itself).
+/saba-janelidze-cv.pdf
+  X-Robots-Tag: noindex
