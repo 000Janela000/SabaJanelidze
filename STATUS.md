@@ -19,14 +19,13 @@
 ## Next steps
 
 - **Next small updates:** (1) the facts from Saba's Bitnet Go work since 2026-10-14 (needs the company VPN on this PC; read-only temporary clone, public-safe facts only); (2) the /cv page: his name as the heading, location and remote, the open-to-work line, the two dated numbers, links on the open-source tools, a PDF download; it needs Saba's facts (titles in 2023 and 2024-2025, the month he became Principal, scope, Chama part-time or not, languages, education).
-- **From the 2026-10-18 attack review (`private/design/audit-2026-10-18/judgment.md`):** text changes for Saba to approve (group B: subline "use AI coding agents", the figure's scenario line, "My CV" button, email template, offer proofs, phone labels); facts only Saba can give (group C: how an engagement starts, a booking path, the CV page, `worksFor`); items for the lab (group D: the figure's text alternative and focus handling, "Book a call" wording); request indexing of `/` in Search Console.
+- **Still open from the audits (`private/design/audit-2026-10-18/`, `private/design/positioning-2026-10-18/audit2/`):** request indexing of `/` in Search Console (Google may still show the old "Web Developer" title); a real booking path or the lab's "Book a call" links renamed; for the lab session: the race figure's text alternative for screen readers, focus kept when its buttons swap, the empty band while it plays, its link colour.
 - **Promises to the lab:** keep `/book` working (the lab's "Book a call" links go to `/book?from=lab-<station>`; the page keeps `?from=`), and send the lab session a NOTICE with the commit when `src/styles/tokens.css` changes (it copied v3; unchanged since `ca74e54`).
 - After launch: build the diff demo (an agent's change, the check that catches the bug, the fix) and test it against the race figure on the first screen with 2 or 3 real people; the winner stays on top (Saba, 2026-10-17).
 - A 5-second test of the first screen with 2 or 3 real people (one picture per theme).
 - Portrait: version A (photo #11 of the 15 Oct shoot, edited in PhotoCraft) is in since 2026-10-18. A reshoot with side light and a slight smile would still beat it (`private/photos/reshoot-guide.md`).
-- Phase 3: the Georgian home page (the new texts, through `../_shared/playbooks/georgian.md`, then Saba). Then: add "ka" back to `alternates` in `src/pages/index.astro`, delete the `/ka` lines in `public/_redirects` and `ka.html` in `public/.assetsignore`.
-- Later pages: How I work (the stepper), case studies, the CV as a PDF, a booking tool, the Lab page.
-- `/google57aa1f004dba4711.html` now redirects to the same address without `.html`. The domain is verified in Search Console through DNS (the TXT record is untouched), so the file is probably not needed.
+- Phase 3: the Georgian home page (the new texts, through `../_shared/playbooks/georgian.md`, then Saba). Restore the Georgian set-up from git (`c84b45d`: i18n, the Georgian font, the hreflang tags, the `:lang(ka)` rule) and delete the `/ka` lines in `public/_redirects`.
+- Later pages: How I work (the stepper, from git `c84b45d`), case studies, a booking tool, the Lab page.
 
 ## Log
 
