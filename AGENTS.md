@@ -8,7 +8,7 @@ This repo is Saba Janelidze's **personal portfolio site**, live at **https://www
 
 ## ⚠️ This repo is PUBLIC
 
-- `github.com/000Janela000/SabaJanelidze` is public, so **anyone can read everything you commit**.
+- `github.com/sabajanelidze/sabajanelidze.com` is public, so **anyone can read everything you commit**.
 - **Never commit:** secrets, API keys, personal plans, marketing strategy, client names or prices, job-search notes, or private contact data.
 - Those go in **`private/`**. That folder is in `.gitignore`, so git never sees it. Syncthing copies it between Saba's two computers, but it never goes to GitHub.
 - `private/` has **no git history**. If a file there is deleted or overwritten, Syncthing keeps the old copy for 30 days in `.stversions/` at the root of the Projects folder.

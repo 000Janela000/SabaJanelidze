@@ -11,7 +11,7 @@ export const PERSON = {
   portrait: "/portrait.webp",
   profiles: {
     linkedin: "https://www.linkedin.com/in/sabajanelidze",
-    github: "https://github.com/000Janela000",
+    github: "https://github.com/sabajanelidze",
     npm: "https://www.npmjs.com/~janela",
   },
 } as const;
