@@ -73,6 +73,8 @@ export const cv = {
       when: "2026",
     },
   ] satisfies CvJob[],
+  // The honest note about the private GitLab (Saba, 2026-10-21); his GitHub graph has a dates-only copy of it.
+  openSourceIntro: "Most of my work since 2023 is in my employer's private GitLab. These are public:",
   languagesHeading: "Languages",
   languages: "Georgian (native), English (fluent, C1)",
 };

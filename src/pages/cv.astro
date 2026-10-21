@@ -100,6 +100,7 @@ import { stack } from "../shared/content/stack";
 
     <section class="cv-sec cv-short" aria-labelledby="cv-open-source">
       <h2 id="cv-open-source" class="ui-display cv-h2">{openSource.heading}</h2>
+      <p class="cv-intro">{cv.openSourceIntro}</p>
       <ul class="cv-lines">
         {
           openSource.items.map((o) => (
@@ -230,6 +231,9 @@ import { stack } from "../shared/content/stack";
     margin: 0;
     padding: 0;
     color: var(--muted);
+  }
+  .cv-short .cv-intro {
+    margin-bottom: var(--space-3);
   }
   .cv-short p {
     margin: 0;
