@@ -1,7 +1,6 @@
 // The /cv text and the PDF made from it. Facts confirmed by Saba (2026-10-15, 2026-10-21).
 // Rules: public-safe words only (Bitnet's public facts, high-level areas of work; no internal names, vendors,
-// colleagues or engineering-scale counts). No comma before "and". Earlier titles at the exchange are not shown
-// until Saba gives them.
+// colleagues or engineering-scale counts). No comma before "and". Titles at the exchange from Saba (2026-10-21).
 import { PERSON } from "../../shared/lib/site";
 
 type Link = { label: string; href: string };
@@ -40,8 +39,8 @@ export const cv = {
             "Wrote most of the team's AI coding set-up.",
           ],
         },
-        { when: "2024 – 2025", what: "The backend (TypeScript, NestJS, GraphQL) and pages of the staff admin panel." },
-        { when: "2023", what: "The customer web app (React)." },
+        { when: "2024 – 2025", title: "Backend Developer", what: "the backend (TypeScript, NestJS, GraphQL) and pages of the staff admin panel." },
+        { when: "2023", title: "Frontend Developer", what: "the customer web app (React)." },
       ],
     },
     {
